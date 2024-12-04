@@ -1,5 +1,18 @@
-var builder = WebApplication.CreateBuilder(args);
+using Dentistry.Common.Constants;
+using Dentistry.Data.GeneratorDB.EF;
+using Dentisty.Data.Repositories;
+using Dentisty.Data.Services;
+using Microsoft.EntityFrameworkCore;
+using System;
 
+var builder = WebApplication.CreateBuilder(args);
+// Add DbContext
+builder.Services.AddDbContext<DentistryDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+
+// Register Repository and Service
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<LanguagesServices>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

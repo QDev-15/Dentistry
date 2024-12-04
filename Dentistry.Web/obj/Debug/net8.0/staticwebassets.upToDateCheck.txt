@@ -1,5 +1,25 @@
+wwwroot\assets\img\background.png
+wwwroot\assets\img\bg_book.jpg
+wwwroot\assets\img\bg-chuyengia.jpg
+wwwroot\assets\img\book.png
+wwwroot\assets\img\ngo-lan-huong.jpg
+wwwroot\assets\logo\LOGO NHIEN DENTAL CLINIC.png
+wwwroot\assets\logo\LOGO NHIÊN DENTAL CLINIC DONE-01.jpg
+wwwroot\assets\logo\LOGO NHIÊN DENTAL CLINIC DONE-02.jpg
+wwwroot\assets\logo\LOGO NHIÊN DENTAL CLINIC DONE-02.png
+wwwroot\assets\logo\LOGO NHIÊN DENTAL CLINIC DONE-03.jpg
+wwwroot\assets\logo\LOGO NHIÊN DENTAL CLINIC DONE-03.png
+wwwroot\assets\logo\LOGO NHIÊN DENTAL CLINIC DONE-04.jpg
+wwwroot\assets\logo\LOGO NHIÊN DENTAL CLINIC DONE-04.png
+wwwroot\assets\logo\LOGO.png
+wwwroot\assets\logo\mockup1.png
+wwwroot\assets\logo\mockup2.png
+wwwroot\assets\logo\mockup3.png
+wwwroot\css\navbar-mega.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\index.html
+wwwroot\js\navbar-mega.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map
@@ -58,3 +78,15 @@ wwwroot\lib\jquery-validation\LICENSE.md
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\plugins\carousel-01\css\owl.carousel.min.css
+wwwroot\plugins\carousel-01\css\owl.theme.default.min.css
+wwwroot\plugins\carousel-01\css\style.css
+wwwroot\plugins\carousel-01\images\mockup1.png
+wwwroot\plugins\carousel-01\images\mockup2.png
+wwwroot\plugins\carousel-01\images\mockup3.png
+wwwroot\plugins\carousel-01\images\slider-1.jpg
+wwwroot\plugins\carousel-01\images\slider-2.jpg
+wwwroot\plugins\carousel-01\images\slider-3.jpg
+wwwroot\plugins\carousel-01\js\main.js
+wwwroot\plugins\carousel-01\js\owl.carousel.min.js
+wwwroot\plugins\index.html

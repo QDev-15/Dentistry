@@ -1,0 +1,186 @@
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+
+/* adds some margin below the link sets  */
+.navbar-mega .dropdown-menu div[class*="col"] {
+    margin-bottom: 1rem;
+}
+
+
+
+.navbar-mega {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border: none !important;
+    height: 120px !important;
+    background: white !important;
+    box-shadow: 0px 1px 3px 0px rgb(231 231 231 / 13%), 0px 1px 1px 0px rgb(223 223 223 / 14%), 0px 1px 2px 1px rgb(124 124 124 / 12%);
+}
+
+    /* Visible state */
+    .navbar-mega.sticky-top {
+        transform: translateY(-100%);
+        transition: transform 0s ease-in-out;
+    }
+        .navbar-mega.sticky-top.navbar-mega-visible {
+            transform: translateY(0);
+            transition: transform 0.8s ease-in-out;
+            opacity: 97%;
+        }
+    .navbar-mega-container {
+        height: 100%
+    }
+.navbar-mega .collapse ul.navbar-nav {
+    height: 120px;
+    align-items: center;
+}
+
+/* remove the padding from the nav-item and add some margin to give some breathing room on hovers */
+.navbar-mega .nav-item {
+    padding: .5rem .5rem;
+    margin: 0 .25rem;
+}
+    .navbar-mega .navbar-nav .nav-link {
+        color: rgb(238 166 22) !important;
+        text-transform: uppercase;
+    }
+    /* makes the dropdown full width  */
+.navbar-mega .dropdown {
+    position: static;
+}
+.navbar-mega ul li.nav-li-0 {
+    height: 100%;
+    cursor: pointer;
+    margin-top: 70px;
+}
+
+.navbar-mega .dropdown-menu {
+    margin: 0 auto;
+    padding: 15px 30px 30px 30px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    /*  height of nav-item  */
+    top: 120px;
+    display: block;
+    visibility: hidden;
+    opacity: 1;
+    border: 1px solid #eea61647 !important;
+    border-radius: 10px 10px 20px 20px;
+    background-color: #fefefe;
+    transition: visibility 0s, opacity 0.3s linear;
+    text-transform: uppercase;
+    box-shadow: 0px 1px 3px 0px rgb(231 231 231 / 13%), 0px 1px 1px 0px rgb(223 223 223 / 14%), 0px 1px 2px 1px rgb(124 124 124 / 12%);
+}
+    .navbar-mega .dropdown-menu ul {
+        
+    }
+        .navbar-mega .dropdown-menu .nav-item a {
+            color: #494949 !important;
+        }
+            .navbar-mega .dropdown-menu .nav-item a.active {
+                color: #232323 !important;
+                font-weight: bold;
+            }
+    .navbar-mega .dropdown-menu span.text-uppercase {
+        color: #EEA616 !important;
+        font-weight: bold;
+    }
+
+
+
+
+    /* shows the dropdown menu on hover */
+.navbar-mega .dropdown:hover .dropdown-menu, .navbar-mega .dropdown .dropdown-menu:hover {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) !important;
+}
+
+.navbar-mega .dropdown-menu .dropdown-menu-header {
+    height: 40px;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-left: 15px;
+}
+ 
+
+@media (max-width: 991.98px) {
+    .box-top {
+        opacity: 0.7;
+    }
+
+    .logo-brand img {
+        height: 45px !important;
+    }
+
+    .navbar-mega {
+        background-color: #a32600 !important;
+        height: 50px !important;
+    }
+
+        .navbar-mega .dropdown-menu {
+            display: none;
+            visibility: visible;
+            animation-duration: 0.5s;
+            animation-fill-mode: both;
+        }
+
+        .navbar-mega ul li.nav-li-0 {
+            margin: 0;
+            border-bottom: 1px solid #c1c1c1;
+        }
+
+        .navbar-mega #navbarSupportedContent {
+            background: rgb(255 255 255 / 99%);
+            margin-top: -3px;
+            margin-left: -10px;
+            z-index: 9999;
+        }
+
+        .navbar-mega button.navbar-toggler {
+            border-color: rgb(255 255 255 / 35%);
+        }
+
+        .navbar-mega .collapse ul.navbar-nav {
+            height: auto !important;
+            align-items: unset !important;
+        }
+
+        .navbar-mega .navbar-nav .nav-link {
+            color: #454545;
+        }
+
+        /* Slide-in Animation */
+        .navbar-mega .dropdown-menu.show {
+            animation-name: slideIn;
+        }
+
+        /* Slide-out Animation */
+        .navbar-mega .dropdown-menu:not(.show) {
+            animation-name: slideOut;
+        }
+}

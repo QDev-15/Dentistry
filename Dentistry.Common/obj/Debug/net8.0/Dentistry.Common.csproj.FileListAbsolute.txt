@@ -10,3 +10,15 @@ D:\Data\Projects\Dentistry\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry
 D:\Data\Projects\Dentistry\Dentistry\Dentistry.Common\obj\Debug\net8.0\refint\Dentistry.Common.dll
 D:\Data\Projects\Dentistry\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry.Common.pdb
 D:\Data\Projects\Dentistry\Dentistry\Dentistry.Common\obj\Debug\net8.0\ref\Dentistry.Common.dll
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\bin\Debug\net8.0\Dentistry.Common.deps.json
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\bin\Debug\net8.0\Dentistry.Common.dll
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\bin\Debug\net8.0\Dentistry.Common.pdb
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry.Common.AssemblyInfoInputs.cache
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry.Common.AssemblyInfo.cs
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry.Common.csproj.CoreCompileInputs.cache
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry.Common.sourcelink.json
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry.Common.dll
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\refint\Dentistry.Common.dll
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\Dentistry.Common.pdb
+D:\Working\project\WebApps\Dentistry\Dentistry.Common\obj\Debug\net8.0\ref\Dentistry.Common.dll

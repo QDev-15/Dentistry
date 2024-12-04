@@ -1,7 +1,72 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Data\\Projects\\Dentistry\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\Working\\project\\WebApps\\Dentistry\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\generatordb\\enums\\status.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\generatordb\\enums\\status.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\generatordb\\enums\\transactionstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\generatordb\\enums\\transactionstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\repositories\\irepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\common\\systemconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\common\\systemconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\generatordb\\ef\\dentistrydbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\generatordb\\ef\\dentistrydbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\generatordb\\ef\\dentistrydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\generatordb\\ef\\dentistrydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{54520D9C-CF38-4967-B6DE-62A39BB4CCEE}|Dentistry.Admin\\Dentistry.Admin.csproj|d:\\working\\project\\webapps\\dentistry\\dentistry.admin\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{54520D9C-CF38-4967-B6DE-62A39BB4CCEE}|Dentistry.Admin\\Dentistry.Admin.csproj|solutionrelative:dentistry.admin\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\generatordb\\extensions\\modelbuilderextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\generatordb\\extensions\\modelbuilderextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Migrations\\20241204160122_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Dentisty.Data\\Migrations\\20241204160122_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\common\\utilities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\common\\utilities.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\generatordb\\configurations\\appconfigconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\generatordb\\configurations\\appconfigconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C6C5535-C768-4413-99F6-1F4EF7610401}|Dentistry.Web\\Dentistry.Web.csproj|d:\\working\\project\\webapps\\dentistry\\dentistry.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C6C5535-C768-4413-99F6-1F4EF7610401}|Dentistry.Web\\Dentistry.Web.csproj|solutionrelative:dentistry.web\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|d:\\working\\project\\webapps\\dentistry\\dentisty.data\\dentisty.data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{3298184B-CD0B-4B52-BEAA-4153892C295B}|Dentisty.Data\\Dentisty.Data.csproj|solutionrelative:dentisty.data\\dentisty.data.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}|Dentistry.Common\\Dentistry.Common.csproj|d:\\working\\project\\webapps\\dentistry\\dentistry.common\\dentistry.common.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}|Dentistry.Common\\Dentistry.Common.csproj|solutionrelative:dentistry.common\\dentistry.common.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,15 +74,230 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TransactionStatus.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\Enums\\TransactionStatus.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\GeneratorDB\\Enums\\TransactionStatus.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\Enums\\TransactionStatus.cs",
+              "RelativeToolTip": "Dentisty.Data\\GeneratorDB\\Enums\\TransactionStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T16:20:58.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Status.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\Enums\\Status.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\GeneratorDB\\Enums\\Status.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\Enums\\Status.cs",
+              "RelativeToolTip": "Dentisty.Data\\GeneratorDB\\Enums\\Status.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T16:20:26.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SystemConstants.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Common\\SystemConstants.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\Common\\SystemConstants.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Common\\SystemConstants.cs",
+              "RelativeToolTip": "Dentisty.Data\\Common\\SystemConstants.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T16:18:46.792Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\Program.cs",
+              "RelativeDocumentMoniker": "Dentistry.Admin\\Program.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\Program.cs",
+              "RelativeToolTip": "Dentistry.Admin\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T16:15:47.141Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Repository.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Repositories\\Repository.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\Repositories\\Repository.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Repositories\\Repository.cs*",
+              "RelativeToolTip": "Dentisty.Data\\Repositories\\Repository.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T16:14:28.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IRepository.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Repositories\\IRepository.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\Repositories\\IRepository.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Repositories\\IRepository.cs",
+              "RelativeToolTip": "Dentisty.Data\\Repositories\\IRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T16:14:11.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20241204160122_init.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Migrations\\20241204160122_init.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\Migrations\\20241204160122_init.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Migrations\\20241204160122_init.cs",
+              "RelativeToolTip": "Dentisty.Data\\Migrations\\20241204160122_init.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T16:01:22.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ModelBuilderExtensions.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\Extensions\\ModelBuilderExtensions.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\GeneratorDB\\Extensions\\ModelBuilderExtensions.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\Extensions\\ModelBuilderExtensions.cs",
+              "RelativeToolTip": "Dentisty.Data\\GeneratorDB\\Extensions\\ModelBuilderExtensions.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAgwBoAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T15:53:54.565Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Utilities.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Common\\Utilities.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\Common\\Utilities.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Common\\Utilities.cs",
+              "RelativeToolTip": "Dentisty.Data\\Common\\Utilities.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T15:56:04.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\appsettings.json",
+              "RelativeDocumentMoniker": "Dentisty.Data\\appsettings.json",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\appsettings.json",
+              "RelativeToolTip": "Dentisty.Data\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-04T15:49:30.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DentistryDbContextFactory.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\EF\\DentistryDbContextFactory.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\GeneratorDB\\EF\\DentistryDbContextFactory.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\EF\\DentistryDbContextFactory.cs",
+              "RelativeToolTip": "Dentisty.Data\\GeneratorDB\\EF\\DentistryDbContextFactory.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAApwBUAAABpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T15:42:00.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DentistryDbContext.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\EF\\DentistryDbContext.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\GeneratorDB\\EF\\DentistryDbContext.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\EF\\DentistryDbContext.cs",
+              "RelativeToolTip": "Dentisty.Data\\GeneratorDB\\EF\\DentistryDbContext.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAhwAkAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T15:41:38.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Dentistry.Web\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Dentistry.Web\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T15:39:36.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Dentisty.Data",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj",
+              "RelativeDocumentMoniker": "Dentisty.Data\\Dentisty.Data.csproj",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj*",
+              "RelativeToolTip": "Dentisty.Data\\Dentisty.Data.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-04T15:31:56.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AppConfigConfiguration.cs",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\Configurations\\AppConfigConfiguration.cs",
+              "RelativeDocumentMoniker": "Dentisty.Data\\GeneratorDB\\Configurations\\AppConfigConfiguration.cs",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\GeneratorDB\\Configurations\\AppConfigConfiguration.cs",
+              "RelativeToolTip": "Dentisty.Data\\GeneratorDB\\Configurations\\AppConfigConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T15:32:09.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Dentistry.Common",
+              "DocumentMoniker": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.Common.csproj",
+              "RelativeDocumentMoniker": "Dentistry.Common\\Dentistry.Common.csproj",
+              "ToolTip": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.Common.csproj",
+              "RelativeToolTip": "Dentistry.Common\\Dentistry.Common.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-04T13:46:33.205Z",
+              "EditorCaption": ""
             }
           ]
         }

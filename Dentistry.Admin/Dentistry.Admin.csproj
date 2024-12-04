@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dentistry.Common\Dentistry.ViewModels.csproj" />
+    <ProjectReference Include="..\Dentisty.Data\Dentisty.Data.csproj" />
+  </ItemGroup>
+
 </Project>
