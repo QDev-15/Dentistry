@@ -1,0 +1,6 @@
+D:\Data\Projects\Dentistry\Dentistry\Dentistry.Data\bin\Debug\Dentistry.Data.dll
+D:\Data\Projects\Dentistry\Dentistry\Dentistry.Data\bin\Debug\Dentistry.Data.pdb
+D:\Data\Projects\Dentistry\Dentistry\Dentistry.Data\obj\Debug\Dentistry.Data.csproj.AssemblyReference.cache
+D:\Data\Projects\Dentistry\Dentistry\Dentistry.Data\obj\Debug\Dentistry.Data.csproj.CoreCompileInputs.cache
+D:\Data\Projects\Dentistry\Dentistry\Dentistry.Data\obj\Debug\Dentistry.Data.dll
+D:\Data\Projects\Dentistry\Dentistry\Dentistry.Data\obj\Debug\Dentistry.Data.pdb
