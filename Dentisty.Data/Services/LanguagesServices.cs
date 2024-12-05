@@ -1,4 +1,5 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
+using Dentistry.ViewModels.System.Languages;
 using Dentisty.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,15 @@ namespace Dentisty.Data.Services
         {
             _languagesRepository = languageRepository;
         }
-        public async Task<IEnumerable<Language>> GetAllLanguagesAsync()
+        public async Task<IEnumerable<LanguageVm>> GetAllLanguagesAsync()
         {
-            return await _languagesRepository.GetAllAsync();
+            var languges = await _languagesRepository.GetAllAsync();
+
+            return languges.Select(l => new LanguageVm {
+                Id = l.Id,
+                IsDefault = l.IsDefault,
+                Name = l.Name,
+            });
         }
     }
 }
