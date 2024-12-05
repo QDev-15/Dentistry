@@ -52,11 +52,10 @@ namespace Dentistry.Admin.Controllers
             var userPrincipal = this.ValidateToken(result.ResultObj);
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-                IsPersistent = false
+                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(10),
+                IsPersistent = request.RememberMe
             };
             // Lưu token vào cookie hoặc trả về trong response
-            Response.Cookies.Append("AuthToken", result.ResultObj, new CookieOptions { HttpOnly = true });
             HttpContext.Session.SetString(SystemConstants.AppSettings.DefaultLanguageId, _configuration[SystemConstants.AppSettings.DefaultLanguageId]);
             HttpContext.Session.SetString(SystemConstants.AppSettings.Token, result.ResultObj);
             await HttpContext.SignInAsync(
