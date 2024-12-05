@@ -4,21 +4,21 @@ using System.Text;
 
 namespace Dentistry.ViewModels.Common
 {
-    public class ApiErrorResult<T> : ApiResult<T>
+    public class ErrorResult<T> : Result<T>
     {
         public string[] ValidationErrors { get; set; }
 
-        public ApiErrorResult()
+        public ErrorResult()
         {
         }
 
-        public ApiErrorResult(string message)
+        public ErrorResult(string message)
         {
             IsSuccessed = false;
             Message = message;
         }
 
-        public ApiErrorResult(string[] validationErrors)
+        public ErrorResult(string[] validationErrors)
         {
             IsSuccessed = false;
             ValidationErrors = validationErrors;

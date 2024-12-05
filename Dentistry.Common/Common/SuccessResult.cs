@@ -4,15 +4,15 @@ using System.Text;
 
 namespace Dentistry.ViewModels.Common
 {
-    public class ApiSuccessResult<T> : ApiResult<T>
+    public class SuccessResult<T> : Result<T>
     {
-        public ApiSuccessResult(T resultObj)
+        public SuccessResult(T resultObj)
         {
             IsSuccessed = true;
             ResultObj = resultObj;
         }
 
-        public ApiSuccessResult()
+        public SuccessResult()
         {
             IsSuccessed = true;
         }

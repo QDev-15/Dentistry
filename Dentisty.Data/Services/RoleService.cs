@@ -1,5 +1,4 @@
-﻿using Dentistry.Data.;
-using Dentistry.Data.GeneratorDB.Entities;
+﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Interfaces;
 using Dentistry.ViewModels.System.Roles;
 using Dentisty.Data.Repositories;

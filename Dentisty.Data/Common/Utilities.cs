@@ -1,8 +1,13 @@
-﻿using Dentistry.Data.GeneratorDB.Entities;
+﻿using Azure.Core;
+using Dentistry.Data.GeneratorDB.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,5 +26,6 @@ namespace Dentisty.Data.Common
             var result = await userManager.CheckPasswordAsync(user, enteredPassword);
             return result; // Returns true if the password is correct, false otherwise
         }
+       
     }
 }

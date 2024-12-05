@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\Dentistry.Admin.csproj": {}
+    "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\Dentistry.Admin.csproj": {}
   },
   "projects": {
-    "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\Dentistry.Admin.csproj": {
+    "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\Dentistry.Admin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\Dentistry.Admin.csproj",
+        "projectUniqueName": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\Dentistry.Admin.csproj",
         "projectName": "Dentistry.Admin",
-        "projectPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\Dentistry.Admin.csproj",
-        "packagesPath": "C:\\Users\\Huu Quynh\\.nuget\\packages\\",
-        "outputPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\",
+        "projectPath": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\Dentistry.Admin.csproj",
+        "packagesPath": "C:\\Users\\quynh\\.nuget\\packages\\",
+        "outputPath": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Huu Quynh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\quynh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,11 +33,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj": {
-                "projectPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj"
+              "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj": {
+                "projectPath": "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj"
               },
-              "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj": {
-                "projectPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj"
+              "D:\\Data\\Projects\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj": {
+                "projectPath": "D:\\Data\\Projects\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj"
               }
             }
           }
@@ -50,13 +50,19 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -76,24 +82,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj": {
+    "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj",
+        "projectUniqueName": "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj",
         "projectName": "Dentistry.ViewModels",
-        "projectPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj",
-        "packagesPath": "C:\\Users\\Huu Quynh\\.nuget\\packages\\",
-        "outputPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\obj\\",
+        "projectPath": "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj",
+        "packagesPath": "C:\\Users\\quynh\\.nuget\\packages\\",
+        "outputPath": "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Huu Quynh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\quynh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -119,7 +125,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -127,6 +133,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.11.0, )"
+            },
             "Microsoft.AspNetCore.Http.Features": {
               "target": "Package",
               "version": "[5.0.17, )"
@@ -148,24 +158,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj": {
+    "D:\\Data\\Projects\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj",
+        "projectUniqueName": "D:\\Data\\Projects\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj",
         "projectName": "Dentisty.Data",
-        "projectPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj",
-        "packagesPath": "C:\\Users\\Huu Quynh\\.nuget\\packages\\",
-        "outputPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentisty.Data\\obj\\",
+        "projectPath": "D:\\Data\\Projects\\Dentistry\\Dentisty.Data\\Dentisty.Data.csproj",
+        "packagesPath": "C:\\Users\\quynh\\.nuget\\packages\\",
+        "outputPath": "D:\\Data\\Projects\\Dentistry\\Dentisty.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Huu Quynh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\quynh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -181,8 +191,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj": {
-                "projectPath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj"
+              "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj": {
+                "projectPath": "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj"
               }
             }
           }
@@ -195,7 +205,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -263,7 +273,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

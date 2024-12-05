@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "wJJO3nCEqEs=",
+  "dgSpecHash": "K8v0eVNo3RU=",
   "success": true,
-  "projectFilePath": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj",
+  "projectFilePath": "D:\\Data\\Projects\\Dentistry\\Dentistry.Common\\Dentistry.ViewModels.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Huu Quynh\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
-    "C:\\Users\\Huu Quynh\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
-    "C:\\Users\\Huu Quynh\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
+    "C:\\Users\\quynh\\.nuget\\packages\\fluentvalidation\\11.11.0\\fluentvalidation.11.11.0.nupkg.sha512",
+    "C:\\Users\\quynh\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
+    "C:\\Users\\quynh\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\quynh\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,5 +1,12 @@
+wwwroot\assets\demo\chart-area-demo.js
+wwwroot\assets\demo\chart-bar-demo.js
+wwwroot\assets\demo\chart-pie-demo.js
+wwwroot\assets\demo\datatables-demo.js
+wwwroot\assets\img\error-404-monochrome.svg
 wwwroot\css\site.css
+wwwroot\css\styles.css
 wwwroot\favicon.ico
+wwwroot\js\scripts.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

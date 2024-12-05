@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "VMF4/qVFSqozxGYSJNGevX3BNG8ygXJk/3pU3f4PEWQ=",
+  "Hash": "u4Mn+XqEiqItwrvPoPBMcXSgBpLf9R4q9ahAtZ27IDc=",
   "Source": "Dentistry.Admin",
   "BasePath": "_content/Dentistry.Admin",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Dentistry.Admin\\wwwroot",
       "Source": "Dentistry.Admin",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Dentistry.Admin.styles.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Dentistry.Admin.styles.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "Dentistry.Admin#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -35,13 +35,13 @@
       "Integrity": "sLamqHbOJzWOD/BIObJ5MAm5ZJKsMvPv5Wg9MoRnaUk=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Dentistry.Admin.styles.css"
+      "OriginalItemSpec": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Dentistry.Admin.styles.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Admin.bundle.scp.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Admin.bundle.scp.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "Dentistry.Admin#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
@@ -56,13 +56,118 @@
       "Integrity": "sLamqHbOJzWOD/BIObJ5MAm5ZJKsMvPv5Wg9MoRnaUk=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Admin.bundle.scp.css"
+      "OriginalItemSpec": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Admin.bundle.scp.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\site.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-area-demo.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "BasePath": "_content/Dentistry.Admin",
+      "RelativePath": "assets/demo/chart-area-demo#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "g1bcqwktbt",
+      "Integrity": "HOPeQ33CTWDISpGLIVfuC4xPiQCk0EUEHwO7IzODjp8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\demo\\chart-area-demo.js"
+    },
+    {
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-bar-demo.js",
+      "SourceId": "Dentistry.Admin",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "BasePath": "_content/Dentistry.Admin",
+      "RelativePath": "assets/demo/chart-bar-demo#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "brjq0h443p",
+      "Integrity": "efVryvrAjYmniLkLrbG/nLbLad3QJdROpioyLqYGUCM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\demo\\chart-bar-demo.js"
+    },
+    {
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-pie-demo.js",
+      "SourceId": "Dentistry.Admin",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "BasePath": "_content/Dentistry.Admin",
+      "RelativePath": "assets/demo/chart-pie-demo#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bjnbpt8phk",
+      "Integrity": "GadUzcosBCCvAKbhEtLtfMcjwO0iKQDhgsD1MjKRDeI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\demo\\chart-pie-demo.js"
+    },
+    {
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\datatables-demo.js",
+      "SourceId": "Dentistry.Admin",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "BasePath": "_content/Dentistry.Admin",
+      "RelativePath": "assets/demo/datatables-demo#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "s2ygsab6ne",
+      "Integrity": "fLtBi6irYqHhTELUccxbgafCi+8gsCGq70Q5aL1/CHE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\demo\\datatables-demo.js"
+    },
+    {
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\img\\error-404-monochrome.svg",
+      "SourceId": "Dentistry.Admin",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "BasePath": "_content/Dentistry.Admin",
+      "RelativePath": "assets/img/error-404-monochrome#[.{fingerprint}]?.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "yp87i3fbss",
+      "Integrity": "GuryUo0+xyzRuEVttjuLmS8hqxoE9FucfaX/mboMWj8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\error-404-monochrome.svg"
+    },
+    {
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\site.css",
+      "SourceId": "Dentistry.Admin",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "css/site#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -80,10 +185,31 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\favicon.ico",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\styles.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "BasePath": "_content/Dentistry.Admin",
+      "RelativePath": "css/styles#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jj7jqzny2q",
+      "Integrity": "EZ3qmV2BzUHG+J7Bgf3ZtpVfzbTqZgw6SbhmOSL0f1o=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
+    },
+    {
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\favicon.ico",
+      "SourceId": "Dentistry.Admin",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "favicon#[.{fingerprint}]?.ico",
       "AssetKind": "All",
@@ -101,10 +227,31 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\site.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\scripts.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "BasePath": "_content/Dentistry.Admin",
+      "RelativePath": "js/scripts#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "rqrmf0cna0",
+      "Integrity": "8yRn/3E2To53jeCog2mRt/9pcv+aLUtl/bJc6398l9I=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\scripts.js"
+    },
+    {
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\site.js",
+      "SourceId": "Dentistry.Admin",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "js/site#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -122,10 +269,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -143,10 +290,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -164,10 +311,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -185,10 +332,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -206,10 +353,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -227,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -248,10 +395,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -269,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -290,10 +437,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -311,10 +458,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -332,10 +479,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -353,10 +500,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -374,10 +521,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -395,10 +542,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -416,10 +563,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -437,10 +584,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -458,10 +605,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -479,10 +626,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -500,10 +647,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -521,10 +668,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -542,10 +689,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -563,10 +710,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -584,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -605,10 +752,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -626,10 +773,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -647,10 +794,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -668,10 +815,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -689,10 +836,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -710,10 +857,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -731,10 +878,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -752,10 +899,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -773,10 +920,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -794,10 +941,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -815,10 +962,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -836,10 +983,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -857,10 +1004,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -878,10 +1025,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -899,10 +1046,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -920,10 +1067,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -941,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -962,10 +1109,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -983,10 +1130,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1004,10 +1151,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1025,10 +1172,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1046,10 +1193,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/bootstrap/LICENSE#[.{fingerprint}]?",
       "AssetKind": "All",
@@ -1067,10 +1214,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery/dist/jquery#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1088,10 +1235,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery/dist/jquery.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1109,10 +1256,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery/dist/jquery.min#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -1130,10 +1277,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery/LICENSE#[.{fingerprint}]?.txt",
       "AssetKind": "All",
@@ -1151,10 +1298,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery-validation/dist/additional-methods#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1172,10 +1319,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1193,10 +1340,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1214,10 +1361,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1235,10 +1382,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery-validation/LICENSE#[.{fingerprint}]?.md",
       "AssetKind": "All",
@@ -1256,10 +1403,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1277,10 +1424,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -1298,10 +1445,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "Dentistry.Admin",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\",
+      "ContentRoot": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\",
       "BasePath": "_content/Dentistry.Admin",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE#[.{fingerprint}]?.txt",
       "AssetKind": "All",
@@ -1321,8 +1468,418 @@
   ],
   "Endpoints": [
     {
+      "Route": "assets/demo/chart-area-demo.g1bcqwktbt.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-area-demo.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1584"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HOPeQ33CTWDISpGLIVfuC4xPiQCk0EUEHwO7IzODjp8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "g1bcqwktbt"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/demo/chart-area-demo.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-HOPeQ33CTWDISpGLIVfuC4xPiQCk0EUEHwO7IzODjp8="
+        }
+      ]
+    },
+    {
+      "Route": "assets/demo/chart-area-demo.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-area-demo.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1584"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HOPeQ33CTWDISpGLIVfuC4xPiQCk0EUEHwO7IzODjp8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-HOPeQ33CTWDISpGLIVfuC4xPiQCk0EUEHwO7IzODjp8="
+        }
+      ]
+    },
+    {
+      "Route": "assets/demo/chart-bar-demo.brjq0h443p.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-bar-demo.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1158"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"efVryvrAjYmniLkLrbG/nLbLad3QJdROpioyLqYGUCM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "brjq0h443p"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/demo/chart-bar-demo.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-efVryvrAjYmniLkLrbG/nLbLad3QJdROpioyLqYGUCM="
+        }
+      ]
+    },
+    {
+      "Route": "assets/demo/chart-bar-demo.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-bar-demo.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1158"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"efVryvrAjYmniLkLrbG/nLbLad3QJdROpioyLqYGUCM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-efVryvrAjYmniLkLrbG/nLbLad3QJdROpioyLqYGUCM="
+        }
+      ]
+    },
+    {
+      "Route": "assets/demo/chart-pie-demo.bjnbpt8phk.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-pie-demo.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "613"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GadUzcosBCCvAKbhEtLtfMcjwO0iKQDhgsD1MjKRDeI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bjnbpt8phk"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/demo/chart-pie-demo.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-GadUzcosBCCvAKbhEtLtfMcjwO0iKQDhgsD1MjKRDeI="
+        }
+      ]
+    },
+    {
+      "Route": "assets/demo/chart-pie-demo.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\chart-pie-demo.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "613"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GadUzcosBCCvAKbhEtLtfMcjwO0iKQDhgsD1MjKRDeI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-GadUzcosBCCvAKbhEtLtfMcjwO0iKQDhgsD1MjKRDeI="
+        }
+      ]
+    },
+    {
+      "Route": "assets/demo/datatables-demo.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\datatables-demo.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "107"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"fLtBi6irYqHhTELUccxbgafCi+8gsCGq70Q5aL1/CHE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-fLtBi6irYqHhTELUccxbgafCi+8gsCGq70Q5aL1/CHE="
+        }
+      ]
+    },
+    {
+      "Route": "assets/demo/datatables-demo.s2ygsab6ne.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\demo\\datatables-demo.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "107"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"fLtBi6irYqHhTELUccxbgafCi+8gsCGq70Q5aL1/CHE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "s2ygsab6ne"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/demo/datatables-demo.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-fLtBi6irYqHhTELUccxbgafCi+8gsCGq70Q5aL1/CHE="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/error-404-monochrome.svg",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\img\\error-404-monochrome.svg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6119"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GuryUo0+xyzRuEVttjuLmS8hqxoE9FucfaX/mboMWj8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-GuryUo0+xyzRuEVttjuLmS8hqxoE9FucfaX/mboMWj8="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/error-404-monochrome.yp87i3fbss.svg",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\assets\\img\\error-404-monochrome.svg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6119"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/svg+xml"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GuryUo0+xyzRuEVttjuLmS8hqxoE9FucfaX/mboMWj8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "yp87i3fbss"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/img/error-404-monochrome.svg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-GuryUo0+xyzRuEVttjuLmS8hqxoE9FucfaX/mboMWj8="
+        }
+      ]
+    },
+    {
       "Route": "css/site.c2tiyv64ts.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\site.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1343,7 +1900,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1367,7 +1924,7 @@
     },
     {
       "Route": "css/site.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\site.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1388,7 +1945,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1403,8 +1960,90 @@
       ]
     },
     {
+      "Route": "css/styles.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "196871"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EZ3qmV2BzUHG+J7Bgf3ZtpVfzbTqZgw6SbhmOSL0f1o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-EZ3qmV2BzUHG+J7Bgf3ZtpVfzbTqZgw6SbhmOSL0f1o="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.jj7jqzny2q.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\css\\styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "196871"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"EZ3qmV2BzUHG+J7Bgf3ZtpVfzbTqZgw6SbhmOSL0f1o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jj7jqzny2q"
+        },
+        {
+          "Name": "label",
+          "Value": "css/styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-EZ3qmV2BzUHG+J7Bgf3ZtpVfzbTqZgw6SbhmOSL0f1o="
+        }
+      ]
+    },
+    {
       "Route": "Dentistry.Admin.8aesy89k0t.bundle.scp.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Admin.bundle.scp.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Admin.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1425,7 +2064,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1449,7 +2088,7 @@
     },
     {
       "Route": "Dentistry.Admin.8aesy89k0t.styles.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Dentistry.Admin.styles.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Dentistry.Admin.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1470,7 +2109,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1494,7 +2133,7 @@
     },
     {
       "Route": "Dentistry.Admin.bundle.scp.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Admin.bundle.scp.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Admin.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1515,7 +2154,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1531,7 +2170,7 @@
     },
     {
       "Route": "Dentistry.Admin.styles.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Dentistry.Admin.styles.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\obj\\Debug\\net8.0\\scopedcss\\bundle\\Dentistry.Admin.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1552,7 +2191,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1568,7 +2207,7 @@
     },
     {
       "Route": "favicon.61n19gt1b8.ico",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\favicon.ico",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1589,7 +2228,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1613,7 +2252,7 @@
     },
     {
       "Route": "favicon.ico",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\favicon.ico",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1634,7 +2273,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1649,8 +2288,90 @@
       ]
     },
     {
+      "Route": "js/scripts.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\scripts.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "827"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8yRn/3E2To53jeCog2mRt/9pcv+aLUtl/bJc6398l9I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-8yRn/3E2To53jeCog2mRt/9pcv+aLUtl/bJc6398l9I="
+        }
+      ]
+    },
+    {
+      "Route": "js/scripts.rqrmf0cna0.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\scripts.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "827"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"8yRn/3E2To53jeCog2mRt/9pcv+aLUtl/bJc6398l9I=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 11 Jul 2024 11:12:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "rqrmf0cna0"
+        },
+        {
+          "Name": "label",
+          "Value": "js/scripts.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-8yRn/3E2To53jeCog2mRt/9pcv+aLUtl/bJc6398l9I="
+        }
+      ]
+    },
+    {
       "Route": "js/site.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\site.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\site.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1671,7 +2392,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1687,7 +2408,7 @@
     },
     {
       "Route": "js/site.xtxxf3hu2r.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\site.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\js\\site.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1708,7 +2429,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1732,7 +2453,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1753,7 +2474,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1769,7 +2490,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.css.73kdqttayv.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1790,7 +2511,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1814,7 +2535,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1835,7 +2556,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1851,7 +2572,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.min.6gzpyzhau4.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1872,7 +2593,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1896,7 +2617,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.min.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1917,7 +2638,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1933,7 +2654,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.min.css.8inm30yfxf.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1954,7 +2675,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1978,7 +2699,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.min.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1999,7 +2720,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2015,7 +2736,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.ozu22stjof.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2036,7 +2757,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2060,7 +2781,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2081,7 +2802,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2097,7 +2818,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.css.4gxs3k148c.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2118,7 +2839,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2142,7 +2863,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2163,7 +2884,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2179,7 +2900,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.gjcw7pocpk.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2200,7 +2921,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2224,7 +2945,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.min.6l4ir0ityv.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2245,7 +2966,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2269,7 +2990,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2290,7 +3011,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2306,7 +3027,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.fctod5rc9n.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2327,7 +3048,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2351,7 +3072,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2372,7 +3093,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2388,7 +3109,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2409,7 +3130,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2425,7 +3146,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2446,7 +3167,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2462,7 +3183,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.css.st1cbwfwo5.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2483,7 +3204,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2507,7 +3228,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.min.5p029spbuu.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2528,7 +3249,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2552,7 +3273,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2573,7 +3294,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2589,7 +3310,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.min.css.5vj65cig9w.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2610,7 +3331,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2634,7 +3355,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2655,7 +3376,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2671,7 +3392,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.nakmwdwsxp.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2692,7 +3413,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2716,7 +3437,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2737,7 +3458,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2753,7 +3474,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.2q4vfeazbq.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2774,7 +3495,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2798,7 +3519,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2819,7 +3540,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2835,7 +3556,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.e6q6xbwqzk.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2856,7 +3577,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2880,7 +3601,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2901,7 +3622,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2917,7 +3638,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2938,7 +3659,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2954,7 +3675,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.o371a8zbv2.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2975,7 +3696,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2999,7 +3720,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.dy6jgresuo.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3020,7 +3741,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3044,7 +3765,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3065,7 +3786,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3081,7 +3802,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.css.jeal3x0ldm.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3102,7 +3823,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3126,7 +3847,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3147,7 +3868,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3163,7 +3884,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3184,7 +3905,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3200,7 +3921,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3221,7 +3942,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3237,7 +3958,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.okkk44j0xs.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3258,7 +3979,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3282,7 +4003,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.min.z7kmom2977.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3303,7 +4024,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3327,7 +4048,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.mk8rdyw69w.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3348,7 +4069,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3372,7 +4093,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.97yrjpyf9r.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3393,7 +4114,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3417,7 +4138,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3438,7 +4159,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3454,7 +4175,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.cwzlr5n8x4.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3475,7 +4196,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3499,7 +4220,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3520,7 +4241,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3536,7 +4257,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3557,7 +4278,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3573,7 +4294,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3594,7 +4315,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3610,7 +4331,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.wmug9u23qg.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3631,7 +4352,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3655,7 +4376,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.y53cy5s2zj.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3676,7 +4397,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3700,7 +4421,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3721,7 +4442,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3737,7 +4458,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.css.j75batdsum.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3758,7 +4479,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3782,7 +4503,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3803,7 +4524,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3819,7 +4540,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.min.2yn17lgxub.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3840,7 +4561,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3864,7 +4585,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3885,7 +4606,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3901,7 +4622,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3922,7 +4643,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3938,7 +4659,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.vy0bq9ydhf.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3959,7 +4680,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3983,7 +4704,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4004,7 +4725,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4020,7 +4741,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.ab1c3rmv7g.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4041,7 +4762,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4065,7 +4786,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4086,7 +4807,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4102,7 +4823,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4123,7 +4844,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4139,7 +4860,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.56d2bn4wt9.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4160,7 +4881,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4184,7 +4905,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4205,7 +4926,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4221,7 +4942,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.ik6i2hrs65.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4242,7 +4963,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4266,7 +4987,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.ophe14yye5.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4287,7 +5008,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4311,7 +5032,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/css/bootstrap-utilities.z9shlbduue.css",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4332,7 +5053,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4356,7 +5077,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.1piudyfv7h.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4377,7 +5098,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4401,7 +5122,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.f6zq8v6eb3.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4422,7 +5143,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4446,7 +5167,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4467,7 +5188,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4483,7 +5204,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.js.kbynt5jhd9.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4504,7 +5225,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4528,7 +5249,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4549,7 +5270,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4565,7 +5286,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.min.89qbw8ngem.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4586,7 +5307,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4610,7 +5331,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4631,7 +5352,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4647,7 +5368,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.c2nslu3uf3.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4668,7 +5389,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4692,7 +5413,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4713,7 +5434,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4729,7 +5450,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4750,7 +5471,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4766,7 +5487,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.js.2lgwfvgpvi.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4787,7 +5508,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4811,7 +5532,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4832,7 +5553,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4848,7 +5569,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.min.jqwzsa9uv6.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4869,7 +5590,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4893,7 +5614,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4914,7 +5635,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4930,7 +5651,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4951,7 +5672,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4967,7 +5688,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.min.js.wsezl0heh6.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4988,7 +5709,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5012,7 +5733,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.esm.n5w6o92d9r.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5033,7 +5754,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5057,7 +5778,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5078,7 +5799,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5094,7 +5815,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.js.6ukhryfubh.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5115,7 +5836,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5139,7 +5860,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.js.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5160,7 +5881,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5176,7 +5897,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.min.4908xmbfjr.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5197,7 +5918,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5221,7 +5942,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.min.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5242,7 +5963,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5258,7 +5979,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.min.js.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5279,7 +6000,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5295,7 +6016,7 @@
     },
     {
       "Route": "lib/bootstrap/dist/js/bootstrap.min.js.u33ctipx7g.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5316,7 +6037,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5340,7 +6061,7 @@
     },
     {
       "Route": "lib/bootstrap/LICENSE",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\LICENSE",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5361,7 +6082,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5377,7 +6098,7 @@
     },
     {
       "Route": "lib/bootstrap/LICENSE.81b7ukuj9c",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\bootstrap\\LICENSE",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5398,7 +6119,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5422,7 +6143,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.7s2n0ol71w.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5443,7 +6164,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5467,7 +6188,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5488,7 +6209,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5504,7 +6225,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.min.5pze98is44.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5525,7 +6246,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5549,7 +6270,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.min.ehgnz7f14e.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5570,7 +6291,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5594,7 +6315,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.min.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5615,7 +6336,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5631,7 +6352,7 @@
     },
     {
       "Route": "lib/jquery/dist/jquery.min.map",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5652,7 +6373,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5668,7 +6389,7 @@
     },
     {
       "Route": "lib/jquery/LICENSE.mlv21k5csn.txt",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5689,7 +6410,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5713,7 +6434,7 @@
     },
     {
       "Route": "lib/jquery/LICENSE.txt",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5734,7 +6455,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5750,7 +6471,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/additional-methods.ay5nd8zt9x.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5771,7 +6492,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5795,7 +6516,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/additional-methods.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5816,7 +6537,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5832,7 +6553,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/additional-methods.min.9oaff4kq20.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5853,7 +6574,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5877,7 +6598,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/additional-methods.min.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5898,7 +6619,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5914,7 +6635,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/jquery.validate.6d0lkjaslc.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5935,7 +6656,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5959,7 +6680,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/jquery.validate.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5980,7 +6701,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5996,7 +6717,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/jquery.validate.min.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6017,7 +6738,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6033,7 +6754,7 @@
     },
     {
       "Route": "lib/jquery-validation/dist/jquery.validate.min.l1zq2mitth.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6054,7 +6775,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6078,7 +6799,7 @@
     },
     {
       "Route": "lib/jquery-validation/LICENSE.md",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6099,7 +6820,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6115,7 +6836,7 @@
     },
     {
       "Route": "lib/jquery-validation/LICENSE.x0q3zqp4vz.md",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6136,7 +6857,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6160,7 +6881,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.03hjc8e09r.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6181,7 +6902,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6205,7 +6926,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6226,7 +6947,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6242,7 +6963,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.48y08845bh.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6263,7 +6984,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6287,7 +7008,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6308,7 +7029,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6324,7 +7045,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/LICENSE.356vix0kms.txt",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6345,7 +7066,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -6369,7 +7090,7 @@
     },
     {
       "Route": "lib/jquery-validation-unobtrusive/LICENSE.txt",
-      "AssetFile": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "AssetFile": "D:\\Data\\Projects\\Dentistry\\Dentistry.Admin\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6390,7 +7111,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 04 Dec 2024 13:06:42 GMT"
+          "Value": "Wed, 04 Dec 2024 09:28:53 GMT"
         },
         {
           "Name": "Cache-Control",

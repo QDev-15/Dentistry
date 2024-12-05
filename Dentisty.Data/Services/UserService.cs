@@ -2,6 +2,7 @@
 using Dentistry.Data.Interfaces;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,7 @@ namespace Dentistry.Data.Services
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IConfiguration _config;
+        private readonly JwtTokenHelper _jwtTokenHelper;
 
         public UserService(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
@@ -32,58 +34,46 @@ namespace Dentistry.Data.Services
             _signInManager = signInManager;
             _roleManager = roleManager;
             _config = config;
+            _jwtTokenHelper = new JwtTokenHelper(config);
         }
 
-        public async Task<ApiResult<string>> Authencate(LoginRequest request)
+        public async Task<Result<string>> Authencate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) return new ApiErrorResult<string>("Tài khoản không tồn tại");
+            if (user == null) return new ErrorResult<string>("Tài khoản không tồn tại");
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
             {
-                return new ApiErrorResult<string>("Đăng nhập không đúng");
+                return new ErrorResult<string>("Đăng nhập không đúng");
             }
             var roles = await _userManager.GetRolesAsync(user);
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.GivenName,user.FirstName),
-                new Claim(ClaimTypes.Role, string.Join(";",roles)),
-                new Claim(ClaimTypes.Name, request.UserName)
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(_config["Tokens:Issuer"],
-                _config["Tokens:Issuer"],
-                claims,
-                expires: DateTime.Now.AddHours(3),
-                signingCredentials: creds);
+            string token = _jwtTokenHelper.GenerateToken(user, roles.ToList());
 
-            return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
+            return new SuccessResult<string>(token);
         }
 
-        public async Task<ApiResult<bool>> Delete(Guid id)
+        public async Task<Result<bool>> Delete(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
-                return new ApiErrorResult<bool>("User không tồn tại");
+                return new ErrorResult<bool>("User không tồn tại");
             }
             var reult = await _userManager.DeleteAsync(user);
             if (reult.Succeeded)
-                return new ApiSuccessResult<bool>();
+                return new SuccessResult<bool>();
 
-            return new ApiErrorResult<bool>("Xóa không thành công");
+            return new ErrorResult<bool>("Xóa không thành công");
         }
 
-        public async Task<ApiResult<UserVm>> GetById(Guid id)
+        public async Task<Result<UserVm>> GetById(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
-                return new ApiErrorResult<UserVm>("User không tồn tại");
+                return new ErrorResult<UserVm>("User không tồn tại");
             }
             var roles = await _userManager.GetRolesAsync(user);
             var userVm = new UserVm()
@@ -97,10 +87,10 @@ namespace Dentistry.Data.Services
                 UserName = user.UserName,
                 Roles = roles
             };
-            return new ApiSuccessResult<UserVm>(userVm);
+            return new SuccessResult<UserVm>(userVm);
         }
 
-        public async Task<ApiResult<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
+        public async Task<Result<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
         {
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -132,19 +122,19 @@ namespace Dentistry.Data.Services
                 PageSize = request.PageSize,
                 Items = data
             };
-            return new ApiSuccessResult<PagedResult<UserVm>>(pagedResult);
+            return new SuccessResult<PagedResult<UserVm>>(pagedResult);
         }
 
-        public async Task<ApiResult<bool>> Register(RegisterRequest request)
+        public async Task<Result<bool>> Register(RegisterRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user != null)
             {
-                return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
+                return new ErrorResult<bool>("Tài khoản đã tồn tại");
             }
             if (await _userManager.FindByEmailAsync(request.Email) != null)
             {
-                return new ApiErrorResult<bool>("Emai đã tồn tại");
+                return new ErrorResult<bool>("Emai đã tồn tại");
             }
 
             user = new AppUser()
@@ -159,20 +149,20 @@ namespace Dentistry.Data.Services
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                return new ApiSuccessResult<bool>();
+                return new SuccessResult<bool>();
             }
-            return new ApiErrorResult<bool>("Đăng ký không thành công") { 
+            return new ErrorResult<bool>("Đăng ký không thành công") { 
                 IsSuccessed = false,
                 data = result
             };
         }
 
-        public async Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request)
+        public async Task<Result<bool>> RoleAssign(Guid id, RoleAssignRequest request)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
-                return new ApiErrorResult<bool>("Tài khoản không tồn tại");
+                return new ErrorResult<bool>("Tài khoản không tồn tại");
             }
             var removedRoles = request.Roles.Where(x => x.Selected == false).Select(x => x.Name).ToList();
             foreach (var roleName in removedRoles)
@@ -193,14 +183,14 @@ namespace Dentistry.Data.Services
                 }
             }
 
-            return new ApiSuccessResult<bool>();
+            return new SuccessResult<bool>();
         }
 
-        public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
+        public async Task<Result<bool>> Update(Guid id, UserUpdateRequest request)
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
             {
-                return new ApiErrorResult<bool>("Emai đã tồn tại");
+                return new ErrorResult<bool>("Emai đã tồn tại");
             }
             var user = await _userManager.FindByIdAsync(id.ToString());
             user.Dob = request.Dob;
@@ -212,9 +202,9 @@ namespace Dentistry.Data.Services
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {
-                return new ApiSuccessResult<bool>();
+                return new SuccessResult<bool>();
             }
-            return new ApiErrorResult<bool>("Cập nhật không thành công");
+            return new ErrorResult<bool>("Cập nhật không thành công");
         }
     }
 }

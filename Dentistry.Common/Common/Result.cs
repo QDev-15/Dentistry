@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dentistry.ViewModels.Common
 {
-    public class ApiResult<T>
+    public class Result<T>
     {
         public bool IsSuccessed { get; set; }
 

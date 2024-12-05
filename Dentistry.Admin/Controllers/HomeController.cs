@@ -1,10 +1,12 @@
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Dentistry.Admin.Models;
-using Microsoft.AspNetCore.Mvc;
+using Dentistry.Common.Constants;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dentistry.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -15,6 +17,7 @@ namespace Dentistry.Admin.Controllers
 
         public IActionResult Index()
         {
+            var user = User.Identity.Name;
             return View();
         }
 
@@ -27,6 +30,15 @@ namespace Dentistry.Admin.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public IActionResult Language(NavigationViewModel viewModel)
+        {
+            HttpContext.Session.SetString(SystemConstants.AppSettings.DefaultLanguageId,
+                viewModel.CurrentLanguageId);
+
+            return Redirect(viewModel.ReturnUrl);
         }
     }
 }

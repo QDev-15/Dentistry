@@ -9,18 +9,18 @@ namespace Dentistry.Data.Interfaces
 {
     public interface IUserService
     {
-        Task<ApiResult<string>> Authencate(LoginRequest request);
+        Task<Result<string>> Authencate(LoginRequest request);
 
-        Task<ApiResult<bool>> Register(RegisterRequest request);
+        Task<Result<bool>> Register(RegisterRequest request);
 
-        Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
+        Task<Result<bool>> Update(Guid id, UserUpdateRequest request);
 
-        Task<ApiResult<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request);
+        Task<Result<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request);
 
-        Task<ApiResult<UserVm>> GetById(Guid id);
+        Task<Result<UserVm>> GetById(Guid id);
 
-        Task<ApiResult<bool>> Delete(Guid id);
+        Task<Result<bool>> Delete(Guid id);
 
-        Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request);
+        Task<Result<bool>> RoleAssign(Guid id, RoleAssignRequest request);
     }
 }

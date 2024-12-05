@@ -1,375 +1,375 @@
 {
   "Files": [
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Web.bundle.scp.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Dentistry.Web.bundle.scp.css",
       "PackagePath": "staticwebassets\\Dentistry.Web.mucpo3mscc.bundle.scp.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\background.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\background.png",
       "PackagePath": "staticwebassets\\assets\\img\\background.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\bg-chuyengia.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\bg-chuyengia.jpg",
       "PackagePath": "staticwebassets\\assets\\img\\bg-chuyengia.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\bg_book.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\bg_book.jpg",
       "PackagePath": "staticwebassets\\assets\\img\\bg_book.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\book.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\book.png",
       "PackagePath": "staticwebassets\\assets\\img\\book.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\ngo-lan-huong.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\img\\ngo-lan-huong.jpg",
       "PackagePath": "staticwebassets\\assets\\img\\ngo-lan-huong.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIEN DENTAL CLINIC.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIEN DENTAL CLINIC.png",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO NHIEN DENTAL CLINIC.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-01.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-01.jpg",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-01.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-02.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-02.jpg",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-02.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-02.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-02.png",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-02.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-03.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-03.jpg",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-03.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-03.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-03.png",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-03.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-04.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-04.jpg",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-04.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-04.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-04.png",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO NHIÊN DENTAL CLINIC DONE-04.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\LOGO.png",
       "PackagePath": "staticwebassets\\assets\\logo\\LOGO.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\mockup1.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\mockup1.png",
       "PackagePath": "staticwebassets\\assets\\logo\\mockup1.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\mockup2.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\mockup2.png",
       "PackagePath": "staticwebassets\\assets\\logo\\mockup2.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\mockup3.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\assets\\logo\\mockup3.png",
       "PackagePath": "staticwebassets\\assets\\logo\\mockup3.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\css\\navbar-mega.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\css\\navbar-mega.css",
       "PackagePath": "staticwebassets\\css\\navbar-mega.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\css\\site.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\favicon.ico",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\index.html",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\js\\navbar-mega.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\js\\navbar-mega.js",
       "PackagePath": "staticwebassets\\js\\navbar-mega.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\js\\site.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\css\\owl.carousel.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\css\\owl.carousel.min.css",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\css\\owl.carousel.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\css\\owl.theme.default.min.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\css\\owl.theme.default.min.css",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\css\\owl.theme.default.min.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\css\\style.css",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\css\\style.css",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\css\\style.css"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\mockup1.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\mockup1.png",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\images\\mockup1.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\mockup2.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\mockup2.png",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\images\\mockup2.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\mockup3.png",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\mockup3.png",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\images\\mockup3.png"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\slider-1.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\slider-1.jpg",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\images\\slider-1.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\slider-2.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\slider-2.jpg",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\images\\slider-2.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\slider-3.jpg",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\images\\slider-3.jpg",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\images\\slider-3.jpg"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\js\\main.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\js\\main.js",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\js\\main.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\js\\owl.carousel.min.js",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\carousel-01\\js\\owl.carousel.min.js",
       "PackagePath": "staticwebassets\\plugins\\carousel-01\\js\\owl.carousel.min.js"
     },
     {
-      "Id": "D:\\Working\\project\\WebApps\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\index.html",
+      "Id": "D:\\Data\\Projects\\Dentistry\\Dentistry.Web\\wwwroot\\plugins\\index.html",
       "PackagePath": "staticwebassets\\plugins\\index.html"
     },
     {

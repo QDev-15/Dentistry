@@ -13,6 +13,7 @@ namespace Dentistry.Common.Constants
         {
             public const string DefaultLanguageId = "DefaultLanguageId";
             public const string Token = "Token";
+            public const string AuthToken = "AuthToken";
             public const string BaseAddress = "BaseAddress";
         }
     }
