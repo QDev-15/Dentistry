@@ -1,4 +1,4 @@
-﻿using Dentistry.Data.GeneratorDB.Enums;
+﻿using Dentisty.Data.Common.Enums;
 
 namespace Dentistry.Data.GeneratorDB.Entities
 {

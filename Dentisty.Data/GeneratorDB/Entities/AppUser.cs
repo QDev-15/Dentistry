@@ -10,6 +10,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+        public string DisplayName { get; set; }
 
         public DateTime Dob { get; set; }
         public int? AvatarId { get; set; }

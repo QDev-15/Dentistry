@@ -9,20 +9,28 @@ using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using NhienDentistry.Core.Catalog.Articles;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add DbContext
 builder.Services.AddDbContext<DentistryDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(Constants.MainConnectionString)));
 
 builder.Services.AddIdentity<AppUser, AppRole>()
 .AddEntityFrameworkStores<DentistryDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+var jwtSettings = ("JwtTokens");
+var issuer = builder.Configuration.GetValue<string>(Constants.JwtTokens.Issuer);
+var audience = builder.Configuration.GetValue<string>(Constants.JwtTokens.Audience);
+var signingKey = builder.Configuration.GetValue<string>(Constants.JwtTokens.Key);
+byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey!);
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
         options.LoginPath = "/Login/Index";
@@ -40,6 +48,22 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 context.Response.Redirect("/Home/AccessDenied"); // Custom access denied path
                 return Task.CompletedTask;
             }
+        };
+    }).AddJwtBearer(options =>
+    {
+
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            ClockSkew = System.TimeSpan.Zero,
+            IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
         };
     });
 
@@ -70,16 +94,23 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
+    if (!dbContext.Database.EnsureCreated())
+    {
+        dbContext.Database.Migrate();
+    }
+}
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",

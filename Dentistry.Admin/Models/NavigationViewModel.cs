@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Dentistry.ViewModels.System.Users;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace Dentistry.Admin.Models
         public string CurrentLanguageId { get; set; }
 
         public string ReturnUrl { set; get; }
+        public UserVm CurrentUser { get; set; }
     }
 }

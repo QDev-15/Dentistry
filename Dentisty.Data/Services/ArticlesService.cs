@@ -3,6 +3,7 @@ using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Common;
+using Dentisty.Data.Common.Enums;
 using Dentisty.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -35,7 +36,7 @@ namespace NhienDentistry.Core.Catalog.Articles
                 var art = new Article()
                 {
                     LanguageId = 1,
-                    Name = request.Name,
+                    Title = request.Title,
                     Alias = request.Alias,
                     SortOrder = request.SortOrder,
                     Description = request.Description,
@@ -71,7 +72,7 @@ namespace NhienDentistry.Core.Catalog.Articles
                     CreatedDate = art.CreatedDate,
                     Description = art.Description,
                     Id = art.Id,
-                    Name = art.Name,
+                    Name = art.Title,
                     showHome = art.showHome,
                     SortOrder = art.SortOrder,
                     UpdatedDate = art.UpdatedDate,
@@ -93,7 +94,7 @@ namespace NhienDentistry.Core.Catalog.Articles
                     {
                         _repositoryImage.DeleteRange(article.Images);
                     }
-                    article.Status = Dentistry.Data.GeneratorDB.Enums.Status.InActive;
+                    article.Status = Status.InActive;
                 }
                 await _repositoryImage.SaveChangesAsync();
                 await _repositoryArticle.SaveChangesAsync();
@@ -109,7 +110,7 @@ namespace NhienDentistry.Core.Catalog.Articles
             var query = await _repositoryArticle.GetAllAsync();
             if (query != null && !string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.Name.Contains(request.Keyword, StringComparison.CurrentCultureIgnoreCase));
+                query = query.Where(x => x.Title.Contains(request.Keyword, StringComparison.CurrentCultureIgnoreCase));
             }
             if (query != null && request.LanguageId != null)
             {
@@ -125,7 +126,7 @@ namespace NhienDentistry.Core.Catalog.Articles
             query = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
 
             var articles = query.Select(x => new ArticleVm() {
-                Name = x.Name,
+                Name = x.Title,
                 Alias = x.Alias,
                 CreatedDate = x.CreatedDate,
                 Description = x.Description,
@@ -154,7 +155,7 @@ namespace NhienDentistry.Core.Catalog.Articles
                 articleVm = new ArticleVm()
                 {
                     Id = article.Id,
-                    Name = article.Name,
+                    Name = article.Title,
                     Alias = article.Alias,
                     CreatedDate = article.CreatedDate,
                     Description = article.Description,

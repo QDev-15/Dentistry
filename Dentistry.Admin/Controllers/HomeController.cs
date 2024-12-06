@@ -40,7 +40,7 @@ namespace Dentistry.Admin.Controllers
         [HttpPost]
         public IActionResult Language(NavigationViewModel viewModel)
         {
-            HttpContext.Session.SetString(SystemConstants.AppSettings.DefaultLanguageId,
+            HttpContext.Session.SetString(Constants.AppSettings.DefaultLanguageId,
                 viewModel.CurrentLanguageId);
 
             return Redirect(viewModel.ReturnUrl);

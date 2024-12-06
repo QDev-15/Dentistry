@@ -1,5 +1,5 @@
-﻿
-using Dentistry.Data.GeneratorDB.Enums;
+﻿using Dentisty.Data.Common.Enums;
+using Dentisty.Data.GeneratorDB.Entities;
 
 namespace Dentistry.Data.GeneratorDB.Entities
 {
@@ -7,7 +7,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
     {
         public int Id { get; set; }
         public string Alias { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int SortOrder { get; set; } = 0;
         public bool showHome { get; set; } = false;
@@ -18,6 +18,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public Guid CreatedById { get; set; }
         public int CategoryId { get; set; }
         public List<Image> Images { get; set; } = new List<Image>();
+        public List<HomeArticle> HomeArticles { get; set; } = new List<HomeArticle>();
 
         public Category Category { get; set; }
         public Language Language { get; set; }

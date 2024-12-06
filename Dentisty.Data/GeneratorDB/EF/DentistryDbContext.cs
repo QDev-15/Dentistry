@@ -10,6 +10,7 @@ using Dentistry.Data.GeneratorDB.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Dentisty.Data.GeneratorDB.Entities;
 
 namespace Dentistry.Data.GeneratorDB.EF
 {
@@ -37,6 +38,7 @@ namespace Dentistry.Data.GeneratorDB.EF
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
             modelBuilder.ApplyConfiguration(new LoggerConfiguration());
             modelBuilder.ApplyConfiguration(new ArticlesConfiguration());
+            modelBuilder.ApplyConfiguration(new HomeArticlesConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
@@ -61,6 +63,7 @@ namespace Dentistry.Data.GeneratorDB.EF
         public DbSet<Language> Languages { get; set; }
         public DbSet<Logger> Loggers { get; set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<HomeArticle> HomeArticles { get; set; }
         public DbSet<Slide> Slides { get; set;}
 
     }

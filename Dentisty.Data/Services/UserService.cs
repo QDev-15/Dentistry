@@ -82,7 +82,7 @@ namespace Dentistry.Data.Services
                 PhoneNumber = user.PhoneNumber,
                 FirstName = user.FirstName,
                 Dob = user.Dob,
-                Id = user.Id,
+                Id = user.Id.ToString(),
                 LastName = user.LastName,
                 UserName = user.UserName,
                 Roles = roles
@@ -110,7 +110,7 @@ namespace Dentistry.Data.Services
                     PhoneNumber = x.PhoneNumber,
                     UserName = x.UserName,
                     FirstName = x.FirstName,
-                    Id = x.Id,
+                    Id = x.Id.ToString(),
                     LastName = x.LastName
                 }).ToListAsync();
 

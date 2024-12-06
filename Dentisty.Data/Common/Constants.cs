@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dentistry.Common.Constants
 {
-    public class SystemConstants
+    public class Constants
     {
         public const string MainConnectionString = "DentistryDbConnection";
         public const string CartSession = "CartSession";
@@ -16,5 +16,12 @@ namespace Dentistry.Common.Constants
             public const string AuthToken = "AuthToken";
             public const string BaseAddress = "BaseAddress";
         }
+        public static class JwtTokens {
+            public const string Key = "JwtTokens:Key";
+            public const string Issuer = "JwtTokens:Issuer";
+            public const string Audience = "JwtTokens:Audience";
+            public const string ExpiresInMinutes = "JwtTokens:ExpiresInMinutes";
+        }
+        
     }
 }

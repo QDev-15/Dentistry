@@ -56,8 +56,16 @@ namespace Dentistry.Admin.Controllers
                 IsPersistent = request.RememberMe
             };
             // Lưu token vào cookie hoặc trả về trong response
-            HttpContext.Session.SetString(SystemConstants.AppSettings.DefaultLanguageId, _configuration[SystemConstants.AppSettings.DefaultLanguageId]);
-            HttpContext.Session.SetString(SystemConstants.AppSettings.Token, result.ResultObj);
+            HttpContext.Response.Cookies.Append(Constants.AppSettings.Token, result.ResultObj, new CookieOptions
+            {
+                Expires = DateTime.UtcNow.AddDays(1),  // Cookie sẽ hết hạn sau 1 ngày
+                IsEssential = true,  // Cookie là bắt buộc
+                HttpOnly = true,  // Cookie không thể được truy cập từ JavaScript
+                Secure = true  // Cookie chỉ được gửi qua HTTPS
+            });
+            HttpContext.Response.Cookies.Append(Constants.AppSettings.DefaultLanguageId, _configuration[Constants.AppSettings.DefaultLanguageId]);
+            //HttpContext.Session.SetString(Constants.AppSettings.DefaultLanguageId, _configuration[Constants.AppSettings.DefaultLanguageId]);
+            //HttpContext.Session.SetString(Constants.AppSettings.Token, result.ResultObj);
             await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         userPrincipal,
@@ -75,9 +83,9 @@ namespace Dentistry.Admin.Controllers
 
             validationParameters.ValidateLifetime = true;
 
-            validationParameters.ValidAudience = _configuration["JwtTokens:Issuer"];
-            validationParameters.ValidIssuer = _configuration["JwtTokens:Issuer"];
-            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtTokens:Key"]));
+            validationParameters.ValidAudience = _configuration[Constants.JwtTokens.Audience];
+            validationParameters.ValidIssuer = _configuration[Constants.JwtTokens.Issuer];
+            validationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration[Constants.JwtTokens.Key]));
 
             ClaimsPrincipal principal = new JwtSecurityTokenHandler().ValidateToken(jwtToken, validationParameters, out validatedToken);
 

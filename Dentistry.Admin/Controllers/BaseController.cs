@@ -16,7 +16,8 @@ namespace Dentistry.Admin.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var sessions = context.HttpContext.Session.GetString(SystemConstants.AppSettings.Token);
+            var sessions = context.HttpContext.Request.Cookies[Constants.AppSettings.Token];
+            //var sessions = context.HttpContext.Session.GetString(Constants.AppSettings.Token);
             if (sessions == null)
             {
                 context.Result = new RedirectToActionResult("Index", "Login", null);

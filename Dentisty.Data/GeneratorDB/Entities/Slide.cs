@@ -1,4 +1,4 @@
-﻿using Dentistry.Data.GeneratorDB.Enums;
+﻿using Dentisty.Data.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;

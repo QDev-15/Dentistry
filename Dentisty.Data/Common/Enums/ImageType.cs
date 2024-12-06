@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dentistry.Data.GeneratorDB.Enums
+namespace Dentisty.Data.Common.Enums
 {
     public enum ImageType
     {

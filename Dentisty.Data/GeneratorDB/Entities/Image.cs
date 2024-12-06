@@ -1,9 +1,4 @@
-﻿using Dentistry.Data.GeneratorDB.Enums;
-using Dentistry.Data.GeneratorDB.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dentistry.Data.GeneratorDB.Enums;
+﻿using Dentisty.Data.GeneratorDB.Entities;
 
 namespace Dentistry.Data.GeneratorDB.Entities
 {
@@ -19,6 +14,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public AppUser User { get; set; }
 
         public List<Article> Articles { get; set; } = new List<Article>();
+        public List<HomeArticle> HomeArticles { get; set; } = new List<HomeArticle>();
         public List<Slide> Slides { get; set; } = new List<Slide>();
     }
 }

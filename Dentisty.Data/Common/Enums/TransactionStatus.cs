@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dentistry.Data.GeneratorDB.Enums
+namespace Dentisty.Data.Common.Enums
 {
     public enum TransactionStatus
     {

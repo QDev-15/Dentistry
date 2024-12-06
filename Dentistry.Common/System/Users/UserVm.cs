@@ -7,7 +7,8 @@ namespace Dentistry.ViewModels.System.Users
 {
     public class UserVm
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
+        public string DisplayName { get; set; }
 
         [Display(Name = "Tên")]
         public string FirstName { get; set; }

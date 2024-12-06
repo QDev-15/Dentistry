@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Dentistry.Admin.Controllers;
+using Dentistry.Common.Constants;
 using Dentistry.Data.Interfaces;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.System.Users;
@@ -124,8 +125,7 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Remove("Token");
-            Response.Cookies.Delete("AuthToken");
+            Response.Cookies.Delete(Constants.AppSettings.Token);
             return RedirectToAction("Index", "Login");
         }
 

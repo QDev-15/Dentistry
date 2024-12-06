@@ -1,5 +1,5 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
-using Dentistry.Data.GeneratorDB.Enums;
+using Dentisty.Data.Common.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
