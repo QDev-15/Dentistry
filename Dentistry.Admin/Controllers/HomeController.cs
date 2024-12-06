@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Dentistry.Admin.Controllers
 {
+    [Authorize] 
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
@@ -22,6 +23,10 @@ namespace Dentistry.Admin.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult AccessDenied()
         {
             return View();
         }

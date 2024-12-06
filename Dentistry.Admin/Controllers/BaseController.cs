@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using Dentistry.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,37 +14,13 @@ namespace Dentistry.Admin.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        public bool IsTokenExpired(string token)
-        {
-            var handler = new JwtSecurityTokenHandler();
-
-            if (!handler.CanReadToken(token))
-            {
-                throw new ArgumentException("Invalid JWT token");
-            }
-
-            var jwtToken = handler.ReadJwtToken(token);
-
-            var expiration = jwtToken.ValidTo; // UTC time
-            return expiration < DateTime.UtcNow;
-        }
-        protected bool IsAuthenticated()
-        {
-            var token = HttpContext.Session.GetString("Token");
-            if (token != null && IsTokenExpired(token))
-            {
-                return false;
-            }
-            var cookie = Request.Cookies.ContainsKey("AuthToken");
-            return cookie;
-        }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (!IsAuthenticated())
+            var sessions = context.HttpContext.Session.GetString(SystemConstants.AppSettings.Token);
+            if (sessions == null)
             {
-                context.Result = RedirectToAction("Index", "Login");
+                context.Result = new RedirectToActionResult("Index", "Login", null);
             }
-
             base.OnActionExecuting(context);
         }
     }

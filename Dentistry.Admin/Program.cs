@@ -4,18 +4,14 @@ using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Interfaces;
 using Dentistry.Data.Services;
 using Dentistry.Data.Storages;
+using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using NhienDentistry.Core.Catalog.Articles;
-using System;
-using System.Text;
-using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add DbContext
@@ -26,6 +22,35 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 .AddEntityFrameworkStores<DentistryDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login/Index";
+        options.LogoutPath = "/User/Logout";
+        options.AccessDeniedPath = "/User/Forbidden/";
+        options.Events = new CookieAuthenticationEvents
+        {
+            OnRedirectToLogin = context =>
+            {
+                context.Response.Redirect("/Login"); // Custom login path
+                return Task.CompletedTask;
+            },
+            OnRedirectToAccessDenied = context =>
+            {
+                context.Response.Redirect("/Home/AccessDenied"); // Custom access denied path
+                return Task.CompletedTask;
+            }
+        };
+    });
+
+builder.Services.AddControllersWithViews()
+         .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+
 // Register Repository and Service
 builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddTransient<IUserService, UserService>();
@@ -35,76 +60,6 @@ builder.Services.AddScoped<LanguagesServices>();
 builder.Services.AddScoped<SlideService>();
 builder.Services.AddScoped<ArticlesService>();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddCookie(options =>
-{
-    options.LoginPath = "/Login/Index";
-}).AddJwtBearer(options =>
- {
-    var jwtSettings = builder.Configuration.GetSection("JwtTokens");
-    var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
-    options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key)
-        };
-     options.Events = new JwtBearerEvents
-     {
-         OnMessageReceived = context =>
-         {
-             var token = context.HttpContext.Request.Cookies[SystemConstants.AppSettings.AuthToken];
-             if (!string.IsNullOrEmpty(token))
-             {
-                 context.Token = token;
-             }
-             return Task.CompletedTask;
-         },
-         OnChallenge = context =>
-         {
-             var token = context.HttpContext.Request.Cookies[SystemConstants.AppSettings.AuthToken];
-             if (!string.IsNullOrEmpty(token))
-             {
-                 return Task.CompletedTask;
-             }
-             
-             context.HandleResponse(); // Prevent default 401
-             context.Response.Redirect("/Login/Index");
-             return Task.CompletedTask;
-         },
-         OnAuthenticationFailed = context =>
-        {
-            // Log the exception
-            Console.WriteLine("Authentication failed: " + context.Exception.Message);
-            return Task.CompletedTask;
-        }
-     };
- });
-builder.Services.AddAuthorization(options =>
-{
-    options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
-        .RequireAuthenticatedUser()
-        .Build();
-});
-
-
-
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
-
-// Add services to the container.
-builder.Services.AddControllersWithViews();
 
 
 var app = builder.Build();
@@ -115,26 +70,16 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.Use(async (context, next) =>
-{
-    var token = context.Request.Cookies[SystemConstants.AppSettings.AuthToken];
 
-    if (string.IsNullOrEmpty(token))
-    {
-        context.Response.Redirect("/Login/Index");
-        return;
-    }
-
-    await next.Invoke();
-});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession();
 
-app.UseAuthorization();
+
 app.UseAuthentication();
+app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
