@@ -1,8 +1,16 @@
 ﻿@model NavigationViewModel
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    <a class="navbar-brand" asp-controller="Home" asp-action="Index">@Model.CurrentUser.UserName</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-    </button><!-- Navbar Search-->
+    <div id="top-nav-logo">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <img src="~/assets/logo/LOGO.png" />
+            <span>Nhiên Dentistry</span>
+        </a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <!-- Navbar Search-->
+    <span>@Model.CurrentUser.DisplayName</span>
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
@@ -33,3 +41,18 @@
         </li>
     </ul>
 </nav>
+
+            <script>
+                // Lấy giá trị ban đầu từ mô hình
+                var isSidebarVisible = @Model.ShowLeftNavBar.ToString().ToLower();
+
+                // Chuyển đổi khả năng hiển thị của sidebar
+                document.getElementById("sidebarToggle").onclick = function() {
+                    isSidebarVisible = !isSidebarVisible;
+                    $("#top-nav-logo").toggleClass("show-slide-bar");
+                    // Bạn có thể làm gì đó với giá trị này ở đây, ví dụ:
+                    // - Chuyển đổi lớp cho sidebar
+                    // - Lưu trạng thái vào localStorage, sessionStorage hoặc cookie
+                    console.log("Sidebar is visible: " + isSidebarVisible);
+                };
+            </script>

@@ -20,3 +20,33 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.sb-topnav a img {
+    height: 40px;
+}
+.sb-topnav span {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    padding-left: 10px;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    color: white;
+}
+.show-slide-bar {
+    direction: rtl;
+}
+    .show-slide-bar a {
+        width: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+        .show-slide-bar a span {
+            display: none;
+        }
+    .show-slide-bar button {
+        margin-left: 10px;
+        margin-top: -2px;
+    }

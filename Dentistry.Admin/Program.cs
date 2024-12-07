@@ -7,6 +7,7 @@ using Dentistry.Data.Storages;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;
+using Dentisty.Data.Services.System;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -70,8 +71,16 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+// add controller views
 builder.Services.AddControllersWithViews()
-         .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+    .AddFluentValidation(fv =>
+    {
+        fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+        fv.DisableDataAnnotationsValidation = true;
+    });
+
+// add resource validator
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddSession(options =>
 {
@@ -86,6 +95,8 @@ builder.Services.AddScoped<IStorageService, FileStorageService>();
 builder.Services.AddScoped<LanguagesServices>();
 builder.Services.AddScoped<SlideService>();
 builder.Services.AddScoped<ArticlesService>();
+builder.Services.AddScoped<CategoriesService>();
+
 
 
 
