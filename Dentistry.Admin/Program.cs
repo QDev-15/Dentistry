@@ -25,12 +25,15 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 .AddEntityFrameworkStores<DentistryDbContext>()
 .AddDefaultTokenProviders();
 
-var jwtSettings = ("JwtTokens");
 var issuer = builder.Configuration.GetValue<string>(Constants.JwtTokens.Issuer);
 var audience = builder.Configuration.GetValue<string>(Constants.JwtTokens.Audience);
 var signingKey = builder.Configuration.GetValue<string>(Constants.JwtTokens.Key);
 byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey!);
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
     .AddCookie(options =>
     {
         options.LoginPath = "/Login/Index";
@@ -94,14 +97,14 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
-    if (!dbContext.Database.EnsureCreated())
-    {
-        dbContext.Database.Migrate();
-    }
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
+//    if (!dbContext.Database.EnsureCreated())
+//    {
+//        dbContext.Database.Migrate();
+//    }
+//}
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
