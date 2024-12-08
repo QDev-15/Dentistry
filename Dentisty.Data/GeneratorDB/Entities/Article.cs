@@ -11,7 +11,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string Description { get; set; } = string.Empty;
         public int SortOrder { get; set; } = 0;
         public bool showHome { get; set; } = false;
-        public Status Status { get; set; } = Status.InActive;
+        public bool Avtive { get; set; } = true;
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public int? LanguageId { get; set; }

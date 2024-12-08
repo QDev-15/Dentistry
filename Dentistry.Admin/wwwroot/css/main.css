@@ -46,7 +46,8 @@ body {
         .show-slide-bar a span {
             display: none;
         }
-    .show-slide-bar button {
-        margin-left: 10px;
-        margin-top: -2px;
-    }
+
+
+.slide-page {
+    padding: 15px;
+}

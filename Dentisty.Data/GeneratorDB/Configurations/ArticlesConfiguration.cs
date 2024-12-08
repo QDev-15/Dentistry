@@ -16,6 +16,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Title).HasMaxLength(200).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
+            builder.Property(x => x.Avtive).HasDefaultValue(true);
             builder.Property(x => x.showHome).IsRequired();
             builder.HasOne(x => x.Category).WithMany(x => x.Articles).HasForeignKey(x => x.CategoryId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(x => x.Images).WithMany(x => x.Articles).UsingEntity<Dictionary<string, object>>(

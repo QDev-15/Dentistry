@@ -19,6 +19,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Description).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Url).HasMaxLength(200).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
+            builder.Property(x => x.Active).HasDefaultValue(true);
             builder.HasOne(x => x.Image).WithMany(x => x.Slides).HasForeignKey(x => x.ImageId).IsRequired(false);
             builder.HasOne(x => x.CreatedBy).WithMany(x => x.Slides).HasForeignKey(x => x.UserId).IsRequired();
         }

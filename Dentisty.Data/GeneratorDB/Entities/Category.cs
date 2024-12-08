@@ -12,7 +12,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string Alias { set; get; }
         public int? ParentId { set; get; }
         public Guid? UserId { set; get; }
-        public Status Status { set; get; }
+        public bool Active { set; get; } = true;
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public Category Parent { set; get; }

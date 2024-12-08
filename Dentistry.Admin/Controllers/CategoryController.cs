@@ -6,7 +6,11 @@ namespace Dentistry.Admin.Controllers
     {
         public IActionResult Index(int id)
         {
-            return PartialView(id);
+            return View(id);
+        }
+        public IActionResult List(int id) {
+
+            return PartialView("List", id);
         }
     }
 }

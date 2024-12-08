@@ -94,7 +94,7 @@ namespace NhienDentistry.Core.Catalog.Articles
                     {
                         _repositoryImage.DeleteRange(article.Images);
                     }
-                    article.Status = Status.InActive;
+                    article.Avtive = false;
                 }
                 await _repositoryImage.SaveChangesAsync();
                 await _repositoryArticle.SaveChangesAsync();

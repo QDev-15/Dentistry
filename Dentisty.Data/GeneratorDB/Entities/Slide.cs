@@ -16,7 +16,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public AppUser CreatedBy { set; get; }
         public Image Image { get; set; }
         public int SortOrder { get; set; }
-        public Status Status { set; get; }
+        public bool Active { set; get; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
     }
