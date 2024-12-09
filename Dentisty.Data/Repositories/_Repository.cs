@@ -1,4 +1,5 @@
 ﻿using Dentistry.Data.GeneratorDB.EF;
+using Dentisty.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

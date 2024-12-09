@@ -1,9 +1,13 @@
-﻿using Dentistry.Data.GeneratorDB.EF;
+﻿using Azure.Core;
+using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;
+using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Common;
+using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Common.Enums;
+using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,16 +21,19 @@ namespace NhienDentistry.Core.Catalog.Articles
 {
     public class ArticlesService
     {
-        private readonly IRepository<Article> _repositoryArticle;
-        private readonly IRepository<Image> _repositoryImage;
-        private readonly IStorageService _fileStorageService;
-        public ArticlesService(IStorageService storage,
-            IRepository<Article> repositoryArticle,
-            IRepository<Image> repositoryImage)
+        private readonly ArticleRepository _articleRepository;
+        private readonly ImageRepository _imageRepository;
+        private readonly LoggerRepository logger;
+        private readonly IStorageService _storageService;
+        public ArticlesService(ArticleRepository articleRepository,
+            ImageRepository imageRepository,
+            LoggerRepository loggerRepository,
+            IStorageService storageService)
         {
-            _repositoryArticle = repositoryArticle;
-            _fileStorageService = storage;
-            _repositoryImage = repositoryImage;
+            _imageRepository = imageRepository;
+            _articleRepository = articleRepository;
+            _storageService = storageService;
+            logger = loggerRepository;
         }
 
         public async Task<ArticleVm> Create(ArticleRequestCreated request)
@@ -35,14 +42,14 @@ namespace NhienDentistry.Core.Catalog.Articles
             {
                 var art = new Article()
                 {
-                    LanguageId = 1,
                     Title = request.Title,
                     Alias = request.Alias,
-                    SortOrder = request.SortOrder,
                     Description = request.Description,
+                    CreatedById = request.CreatedById,
+                    CategoryId = request.CategoryId,   
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
-                    showHome = request.showHome,
+                    IsActive = true,
                     Images = []
                 };
                 if (request.ThumbnailImages.Count > 0)
@@ -55,7 +62,7 @@ namespace NhienDentistry.Core.Catalog.Articles
                             {
                                 FileSize = file.Length,
                                 CreatedDate = DateTime.Now,
-                                Path = await _fileStorageService.SaveFileAsync(file),
+                                Path = await _storageService.SaveFileAsync(file),
                                 Type = file.ContentType,
 
                             };
@@ -63,22 +70,38 @@ namespace NhienDentistry.Core.Catalog.Articles
                         }
                     };
                 }
-                await _repositoryArticle.AddAsync(art);
-                await _repositoryArticle.SaveChangesAsync();
+                var article = await _articleRepository.Create(art);
 
                 return new ArticleVm()
                 {
                     Alias = art.Alias,
-                    CreatedDate = art.CreatedDate,
                     Description = art.Description,
                     Id = art.Id,
                     Name = art.Title,
-                    showHome = art.showHome,
-                    SortOrder = art.SortOrder,
+                    Images = art.Images.Select(x => new ImageVm ()
+                    {
+                       Id = x.Id,
+                       FileSize = x.FileSize,
+                       Path = x.Path,
+                       Type = x.Type
+                    }).ToList(),
+                    CreatedBy = new UserVm
+                    {
+                       Id = art.CreatedBy.Id.ToString(),
+                       DisplayName = art.CreatedBy.DisplayName,
+                       Dob = art.CreatedBy.Dob,
+                       Email = art.CreatedBy.Email,
+                       FirstName = art.CreatedBy.FirstName,
+                       LastName = art.CreatedBy.LastName,   
+                       PhoneNumber = art.CreatedBy.PhoneNumber,
+                       UserName = art.CreatedBy.UserName
+                    },
                     UpdatedDate = art.UpdatedDate,
+                    CreatedDate = art.CreatedDate,
                 };
             }
             catch (Exception ex) {
+                logger.Add(ex.Message, null, request.CreatedById);
                 return new ArticleVm() { };
             }
         }
@@ -87,34 +110,30 @@ namespace NhienDentistry.Core.Catalog.Articles
         {
             try
             {
-                var article = await _repositoryArticle.GetByIdAsync(id);
+                var article = await _articleRepository.GetById(id);
                 if (article != null)
                 {
                     if (article.Images.Count > 0)
                     {
-                        _repositoryImage.DeleteRange(article.Images);
+                       await _imageRepository.DeleteRange(article.Images);
                     }
-                    article.Status = Status.InActive;
+                    article.IsActive = false;
                 }
-                await _repositoryImage.SaveChangesAsync();
-                await _repositoryArticle.SaveChangesAsync();
+                await _articleRepository.Update(article);
                 return true;
             }
             catch (Exception ex) {
+                logger.Add(ex.Message);
                 return false;   
             }
         }
 
         public async Task<PagedResult<ArticleVm>> GetAllPaging(GetManageArticlePagingRequest request)
         {
-            var query = await _repositoryArticle.GetAllAsync();
+            var query = await _articleRepository.GetAll();
             if (query != null && !string.IsNullOrEmpty(request.Keyword))
             {
                 query = query.Where(x => x.Title.Contains(request.Keyword, StringComparison.CurrentCultureIgnoreCase));
-            }
-            if (query != null && request.LanguageId != null)
-            {
-                query = query.Where(x => x.LanguageId == request.LanguageId);
             }
             if (query != null && request.CategoryId != null)
             {
@@ -130,7 +149,6 @@ namespace NhienDentistry.Core.Catalog.Articles
                 Alias = x.Alias,
                 CreatedDate = x.CreatedDate,
                 Description = x.Description,
-                showHome = x.showHome,
                 Id = x.Id,
                 UpdatedDate = x.UpdatedDate
             }).ToList();
@@ -148,7 +166,7 @@ namespace NhienDentistry.Core.Catalog.Articles
 
         public async Task<ArticleVm> GetById(int id)
         {
-            var article = await _repositoryArticle.GetByIdAsync(id);
+            var article = await _articleRepository.GetById(id);
             var articleVm = new ArticleVm();
             if (article != null)
             {
@@ -159,8 +177,6 @@ namespace NhienDentistry.Core.Catalog.Articles
                     Alias = article.Alias,
                     CreatedDate = article.CreatedDate,
                     Description = article.Description,
-                    showHome = article.showHome,
-                    SortOrder = article.SortOrder,
                     UpdatedDate = article.UpdatedDate
                 };
             }

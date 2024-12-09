@@ -2,7 +2,7 @@
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Interfaces;
 using Dentistry.ViewModels.Utilities.Slides;
-using Dentisty.Data.Repositories;
+using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;

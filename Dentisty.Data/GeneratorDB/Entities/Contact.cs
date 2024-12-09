@@ -12,6 +12,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string Email { set; get; }
         public string PhoneNumber { set; get; }
         public string Message { set; get; }
+        public bool IsActive { get; set; }
         public MessageType Type { set; get; } = MessageType.None;
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

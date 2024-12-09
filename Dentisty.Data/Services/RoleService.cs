@@ -12,26 +12,8 @@ using System.Threading.Tasks;
 
 namespace Dentistry.Data.Services
 {
-    public class RoleService : IRoleService
+    public class RoleService
     {
-        private readonly RoleManager<AppRole> _roleManager;
-
-        public RoleService(RoleManager<AppRole> roleManager)
-        {
-            _roleManager = roleManager;
-        }
-
-        public async Task<IEnumerable<RoleVm>> GetAll()
-        {
-            var roles = await _roleManager.Roles
-                .Select(x => new RoleVm()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description
-                }).ToListAsync();
-
-            return roles;
-        }
+       
     }
 }

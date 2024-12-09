@@ -12,12 +12,13 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string Description { set; get; }
         public string Url { set; get; }
         public int? ImageId { set; get; }
-        public Guid UserId { set; get; }
-        public AppUser CreatedBy { set; get; }
-        public Image Image { get; set; }
+        public string UserId { set; get; }
         public int SortOrder { get; set; }
-        public Status Status { set; get; }
+        public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+
+        public AppUser CreatedBy { set; get; }
+        public Image Image { get; set; }
     }
 }

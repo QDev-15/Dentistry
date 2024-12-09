@@ -5,6 +5,7 @@ using Dentistry.Data.Interfaces;
 using Dentistry.Data.Services;
 using Dentistry.Data.Storages;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;
 using FluentValidation.AspNetCore;
@@ -77,8 +78,8 @@ builder.Services.AddSession(options =>
 
 // Register Repository and Service
 builder.Services.AddTransient<IRoleService, RoleService>();
-builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddTransient<IUserRepository, UserService>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(_Repository<>));
 builder.Services.AddScoped<IStorageService, FileStorageService>();
 builder.Services.AddScoped<LanguagesServices>();
 builder.Services.AddScoped<SlideService>();
@@ -102,6 +103,7 @@ using (var scope = app.Services.CreateScope())
         dbContext.Database.Migrate();
     }
 }
+app.UseForwardedHeaders();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

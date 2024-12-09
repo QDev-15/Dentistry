@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Dentistry.Data.Services
 {
-    public class UserService : IUserService
+    public class UserService
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;

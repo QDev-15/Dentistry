@@ -13,7 +13,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Name).HasMaxLength(500).IsRequired();
             builder.Property(x => x.Address).HasMaxLength(500).IsRequired();
-            builder.Property(x=> x.Status).IsRequired();
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
         }
     }
 }

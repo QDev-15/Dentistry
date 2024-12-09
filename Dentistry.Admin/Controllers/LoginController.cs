@@ -21,9 +21,9 @@ namespace Dentistry.Admin.Controllers
     public class LoginController : Controller
     {
         private readonly IConfiguration _configuration;
-        private readonly IUserService _userService;
+        private readonly IUserRepository _userService;
 
-        public LoginController( IUserService userService,
+        public LoginController( IUserRepository userService,
             IConfiguration configuration)
         {
             _userService = userService;

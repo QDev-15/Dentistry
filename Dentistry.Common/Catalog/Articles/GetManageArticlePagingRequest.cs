@@ -10,8 +10,6 @@ namespace Dentistry.ViewModels.Catalog.Articles
     {
         public string Keyword { get; set; }
 
-        public int? LanguageId { get; set; }
-
         public int? CategoryId { get; set; }
     }
 }

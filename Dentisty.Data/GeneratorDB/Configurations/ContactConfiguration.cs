@@ -20,7 +20,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Message).IsRequired();
             builder.Property(x => x.Type).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
-
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Dentistry.ViewModels.Catalog.Articles
         public string Alias { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int SortOrder { get; set; } = 0;
-        public bool showHome { get; set; } = false;
+        public int CategoryId { get; set; }
+        public string CreatedById { get; set; }
         public List<IFormFile> ThumbnailImages { get; set; } = new List<IFormFile>();
     }
 }

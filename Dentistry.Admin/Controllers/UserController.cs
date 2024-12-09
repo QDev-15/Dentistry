@@ -24,11 +24,11 @@ namespace Dentistry.Admin.Controllers
     [Authorize]
     public class UserController : BaseController
     {
-        private readonly IUserService _userService;
+        private readonly IUserRepository _userService;
         private readonly IRoleService _roleService;
         private readonly IConfiguration _configuration;
 
-        public UserController(IUserService userService, IRoleService roleService,
+        public UserController(IUserRepository userService, IRoleService roleService,
             IConfiguration configuration)
         {
             _configuration = configuration;
