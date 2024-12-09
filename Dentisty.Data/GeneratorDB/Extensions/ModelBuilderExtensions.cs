@@ -88,7 +88,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 1,
                     ParentId = null,
-                    Active = true,
+                    IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Răng Sứ",
                     Alias = "rang-su",
@@ -98,7 +98,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 2,
                     ParentId = null,
-                    Active = true,
+                    IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Niềng Răng",
                     Alias = "nieng-rang",
@@ -108,7 +108,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 3,
                     ParentId = null,
-                    Active = true,
+                    IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Bệnh lý",
                     Alias = "benh-ly",
@@ -118,7 +118,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 4,
                     ParentId = null,
-                    Active = true,
+                    IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Giới thiệu",
                     Alias = "gioi-thieu",
@@ -127,7 +127,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 5,
                     ParentId = null,
-                    Active = true,
+                    IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Liên hệ",
                     Alias = "lien-he",
@@ -137,7 +137,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                  {
                      Id = 6,
                      ParentId = 1,
-                     Active = true,
+                     IsActive = true,
                      CreatedDate = DateTime.Now,
                      Name = "Tiêu chí răng sứ",
                      Alias = "tieu-chi-rang-su",

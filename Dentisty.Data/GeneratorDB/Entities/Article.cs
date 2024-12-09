@@ -10,7 +10,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
-        public string CreatedById { get; set; }
+        public Guid CreatedById { get; set; }
         public int CategoryId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
@@ -18,8 +18,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public List<HomeArticle> HomeArticles { get; set; } = new List<HomeArticle>();
 
         public Category Category { get; set; }
-        public Language Language { get; set; }
-        public AppUser CreatedBy { set; get; } 
+        public AppUser CreatedBy { set; get; }
 
     }
 }

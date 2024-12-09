@@ -11,7 +11,7 @@ namespace Dentisty.Data.GeneratorDB.Entities
     public class HomeArticle
     {
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
         public int BackgroundImageId { get; set; }
         public Image BackgroundImage { get; set; }
         public int ArticleId { get; set; }

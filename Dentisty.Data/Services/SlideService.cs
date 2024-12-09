@@ -1,74 +1,83 @@
-﻿using Azure.Core;
-using Dentistry.Data.GeneratorDB.EF;
+﻿using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
-using Dentistry.Data.Interfaces;
 using Dentistry.Data.Storages;
+using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Utilities.Slides;
 using Dentisty.Data.Interfaces;
-using Microsoft.AspNetCore.Identity;
+using Dentisty.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dentistry.Data.Services
 {
     public class SlideService
     {
-        private readonly IRepository<Slide> _repository;
-        private readonly DentistryDbContext _context;
-        private readonly IStorageService _storageService;
+        private readonly SlideRepository _slideRepository;
+        private readonly ImageRepository _imageRepository;
+        private readonly LoggerRepository logger;
 
-        public SlideService(DentistryDbContext context, IRepository<Slide> repository, IStorageService storageService)
+        public SlideService(SlideRepository slideRepository, ImageRepository imageRepository, LoggerRepository logger)
         {
-            _storageService = storageService;
-            _context = context;
-            _repository = repository;
+            _slideRepository = slideRepository;
+            _imageRepository = imageRepository;
+            this.logger = logger;
         }
 
         public async Task<IEnumerable<SlideVm>> GetAll()
         {
-            var slides = await _context.Slides.OrderBy(x => x.SortOrder)
-                .Select(x => new SlideVm()
+            var slides = await _slideRepository.GetAll();
+                
+            return slides.Select(x => new SlideVm()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Image = new ImageVm
                 {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description,
-                    Url = x.Url,
-                    ImageId = x.Image.Id
-                }).ToListAsync();
-
-            return slides;
+                    Id = x.Image.Id,
+                    FileName = x.Image.FileName,
+                    FileSize = x.Image.FileSize,
+                    Path = x.Image.Path,
+                    Type = x.Image.Type 
+                }
+            });
         }
         public async Task<SlideVm> Create(SlideVm slideVm)
         {
-            var slide = new Slide()
+            try
             {
-                Name = slideVm.Name,
-                Active = slideVm.Active,
-                Description = slideVm.Description,
-                CreatedDate = DateTime.Now,
-
-                //DateCreated = DateTime.Now,
-                //FileSize = request.ThumbnailImage.Length,
-                //ImagePath = await this.SaveFile(request.ThumbnailImage),
-                //IsDefault = true,
-                //SortOrder = 1
-            };
-            var image = new Image()
+                var slide = new Slide()
+                {
+                    Name = slideVm.Name,
+                    IsActive = slideVm.IsActive,
+                    Description = slideVm.Description,
+                    CreatedDate = DateTime.Now,
+                    
+                };
+                var image = await _imageRepository.Create(slideVm.ImageFile);
+                // set image to slideVm
+                slideVm.Image = new ImageVm()
+                {
+                    Id = image.Id,
+                    FileName = image.FileName,
+                    Type = image.Type,
+                    Path = image.Path,
+                    FileSize = image.FileSize,
+                };
+                // set image slide
+                slide.Image = image;
+                slide.ImageId = image.Id;
+                slide = await _slideRepository.Create(slide);
+                // set slide id
+                slideVm.Id = slide.Id;
+                return slideVm;
+            }
+            catch (Exception ex)
             {
-                CreatedDate = DateTime.Now,
-                FileSize = slideVm.Image.Length,
-                Path = await _storageService.SaveFileAsync(slideVm.Image),
-            };
-            _context.Images.Add(image);
-            await _context.SaveChangesAsync();
-            slide.Image = image;
-            slide.ImageId = image.Id;
-            await _repository.AddAsync(slide);
-            slideVm.Id = slide.Id;
+                logger.Add(ex.Message);
+                return null;
+            }
+            
+            
             return slideVm;
         }
     }

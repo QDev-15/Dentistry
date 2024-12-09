@@ -1,16 +1,12 @@
 ﻿
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using Dentistry.Data.GeneratorDB.Configurations;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.GeneratorDB.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Dentisty.Data.GeneratorDB.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Dentistry.Data.GeneratorDB.EF
 {

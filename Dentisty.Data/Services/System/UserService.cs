@@ -1,5 +1,4 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
-using Dentistry.Data.Interfaces;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Common;
@@ -78,13 +77,13 @@ namespace Dentisty.Data.Services.System
             var roles = await _userManager.GetRolesAsync(user);
             var userVm = new UserVm()
             {
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
+                Email = user.Email!,
+                PhoneNumber = user.PhoneNumber!,
                 FirstName = user.FirstName,
                 Dob = user.Dob,
                 Id = user.Id.ToString(),
                 LastName = user.LastName,
-                UserName = user.UserName,
+                UserName = user.UserName!,
                 Roles = roles
             };
             return new SuccessResult<UserVm>(userVm);
@@ -95,8 +94,8 @@ namespace Dentisty.Data.Services.System
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(request.Keyword))
             {
-                query = query.Where(x => x.UserName.Contains(request.Keyword)
-                 || x.PhoneNumber.Contains(request.Keyword));
+                query = query.Where(x => x.UserName!.Contains(request.Keyword)
+                 || x.PhoneNumber!.Contains(request.Keyword));
             }
 
             //3. Paging
@@ -106,9 +105,9 @@ namespace Dentisty.Data.Services.System
                 .Take(request.PageSize)
                 .Select(x => new UserVm()
                 {
-                    Email = x.Email,
-                    PhoneNumber = x.PhoneNumber,
-                    UserName = x.UserName,
+                    Email = x.Email!,
+                    PhoneNumber = x.PhoneNumber!,
+                    UserName = x.UserName!,
                     FirstName = x.FirstName,
                     Id = x.Id.ToString(),
                     LastName = x.LastName

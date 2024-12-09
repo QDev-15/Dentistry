@@ -26,14 +26,14 @@ namespace Dentisty.Data.Common
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.Email, user.Email!),
                 new Claim(ClaimTypes.GivenName,user.FirstName),
                 new Claim(ClaimTypes.Role, string.Join(";",roles)),
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Name, user.UserName!),
                 new Claim("DisplayName", user.DisplayName),
                 new Claim("FullName", $"{user.FirstName} {user.LastName}"),
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config[Constants.JwtTokens.Key]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config[Constants.JwtTokens.Key]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 

@@ -28,11 +28,13 @@ namespace Dentisty.Data.Repositories
 
         public async Task<Image> Create(IFormFile file)
         {
+            var _fileName = await _storageService.SaveFileAsync(file);
             var image = new Image()
             {
                 FileSize = file.Length,
                 Type = file.ContentType,
-                Path = await _storageService.SaveFileAsync(file),
+                FileName = _fileName,
+                Path = _storageService.GetFileUrl(_fileName),
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now
             };

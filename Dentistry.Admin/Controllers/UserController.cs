@@ -1,34 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Dentistry.Admin.Controllers;
-using Dentistry.Common.Constants;
-using Dentistry.Data.Interfaces;
+﻿using Dentistry.Common.Constants;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Dentistry.Admin.Controllers
 {
     [Authorize]
     public class UserController : BaseController
     {
-        private readonly IUserRepository _userService;
-        private readonly IRoleService _roleService;
+        private readonly UserService _userService;
+        private readonly RoleService _roleService;
         private readonly IConfiguration _configuration;
 
-        public UserController(IUserRepository userService, IRoleService roleService,
+        public UserController(UserService userService, RoleService roleService,
             IConfiguration configuration)
         {
             _configuration = configuration;

@@ -1,8 +1,8 @@
 ﻿using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
-using Dentistry.Data.Interfaces;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Utilities.Slides;
+using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,36 +16,63 @@ namespace Dentistry.Data.Services
 {
     public class CategoriesService
     {
-        private readonly IRepository<Category> _repository;
-        private readonly DentistryDbContext _context;
+        private readonly CategoryRepository _categoryRepository;
 
-        public CategoriesService(DentistryDbContext context, IRepository<Category> repository)
+        public CategoriesService(CategoryRepository categoryRepository)
         {
-            _context = context;
-            _repository = repository;
+            _categoryRepository = categoryRepository;
         }
 
-        public async Task<IEnumerable<CategoryVm>> GetAll()
+        public async Task<List<CategoryVm>> GetAll()
         {
-            var categories = await _context.Categories.Select(x => new CategoryVm
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Alias = x.Alias,
-                Parent = x.Parent != null ? new CategoryVm { Id = x.Parent.Id, Name = x.Parent.Name } : null,
-                ChildCategories = x.Categories.Select(a => new CategoryVm
-                {
-                    Id = a.Id,
-                    Name = a.Name,
-                    Alias = a.Alias
-                }).ToList()
-            }).ToListAsync();
+            var categories = await _categoryRepository.GetAll();
 
-            return categories;
+            if (categories == null || !categories.Any())
+            {
+                return new List<CategoryVm>();
+            }
+
+            var items = new List<CategoryVm>();
+            foreach (var item in categories.ToList())
+            {
+                var newCategory = new CategoryVm()
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Alias = item.Alias
+                };
+                if (item.Parent != null)
+                {
+                    newCategory.Parent = new CategoryVm()
+                    {
+                        Id = item.Parent.Id,
+                        Name = item.Parent.Name,
+                        Alias = item.Parent.Alias,
+                        ParentId = item.Parent.Id
+                    };
+                }
+                if (item.Categories != null && item.Categories.Count > 0)
+                {
+                    newCategory.ChildCategories = new List<CategoryVm>();
+                    foreach (var cat in item.Categories)
+                    {
+                        newCategory.ChildCategories.Add(new CategoryVm()
+                        {
+                           Id = cat.Id,
+                           Alias = cat.Alias,
+                           Name = cat.Name,
+                           ParentId = cat.ParentId
+                        });
+                    }
+                }
+                items.Add(newCategory);
+            }
+
+            return items;
         }
         public async Task<CategoryVm> GetById(int id)
         {
-            var category = await _context.Categories.SingleOrDefaultAsync(x => x.Id == id);
+            var category = await _categoryRepository.GetById(id);
             return new CategoryVm()
             {
                 Id = id,

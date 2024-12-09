@@ -9,6 +9,7 @@ using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Common.Enums;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
+using Dentisty.Data.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace NhienDentistry.Core.Catalog.Articles
                     Title = request.Title,
                     Alias = request.Alias,
                     Description = request.Description,
-                    CreatedById = request.CreatedById,
+                    CreatedById = new Guid(request.CreatedById),
                     CategoryId = request.CategoryId,   
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
@@ -58,50 +59,44 @@ namespace NhienDentistry.Core.Catalog.Articles
                     {
                         if (file != null)
                         {
-                            var _image = new Image()
-                            {
-                                FileSize = file.Length,
-                                CreatedDate = DateTime.Now,
-                                Path = await _storageService.SaveFileAsync(file),
-                                Type = file.ContentType,
-
-                            };
-                            art.Images.Add(_image);
+                            var img = await _imageRepository.Create(file);
+                            art.Images.Add(img);
                         }
                     };
                 }
-                var article = await _articleRepository.Create(art);
+                var result = await _articleRepository.Create(art);
 
                 return new ArticleVm()
                 {
-                    Alias = art.Alias,
-                    Description = art.Description,
-                    Id = art.Id,
-                    Name = art.Title,
-                    Images = art.Images.Select(x => new ImageVm ()
+                    Alias = result.Alias,
+                    Description = result.Description,
+                    Id = result.Id,
+                    Name = result.Title,
+                    Images = result.Images.Select(x => new ImageVm ()
                     {
                        Id = x.Id,
                        FileSize = x.FileSize,
+                       FileName = x.FileName,
                        Path = x.Path,
                        Type = x.Type
                     }).ToList(),
                     CreatedBy = new UserVm
                     {
-                       Id = art.CreatedBy.Id.ToString(),
-                       DisplayName = art.CreatedBy.DisplayName,
+                       Id = result.CreatedBy.Id.ToString(),
+                       DisplayName = result.CreatedBy.DisplayName,
                        Dob = art.CreatedBy.Dob,
-                       Email = art.CreatedBy.Email,
-                       FirstName = art.CreatedBy.FirstName,
-                       LastName = art.CreatedBy.LastName,   
-                       PhoneNumber = art.CreatedBy.PhoneNumber,
-                       UserName = art.CreatedBy.UserName
+                       Email = result.CreatedBy.Email!,
+                       FirstName = result.CreatedBy.FirstName,
+                       LastName = result.CreatedBy.LastName,   
+                       PhoneNumber = result.CreatedBy.PhoneNumber!,
+                       UserName = result.CreatedBy.UserName!
                     },
-                    UpdatedDate = art.UpdatedDate,
-                    CreatedDate = art.CreatedDate,
+                    UpdatedDate = result.UpdatedDate,
+                    CreatedDate = result.CreatedDate,
                 };
             }
             catch (Exception ex) {
-                logger.Add(ex.Message, null, request.CreatedById);
+                logger.Add(ex.Message, string.Empty, request.CreatedById);
                 return new ArticleVm() { };
             }
         }
@@ -118,8 +113,9 @@ namespace NhienDentistry.Core.Catalog.Articles
                        await _imageRepository.DeleteRange(article.Images);
                     }
                     article.IsActive = false;
+                    await _articleRepository.Update(article);
                 }
-                await _articleRepository.Update(article);
+                
                 return true;
             }
             catch (Exception ex) {
@@ -140,11 +136,16 @@ namespace NhienDentistry.Core.Catalog.Articles
                 query = query.Where(x => x.CategoryId == request.CategoryId);
             }
 
-            var total = query.Count();
+            int total = 0;
+            if (query != null && query.Count() > 0)
+            {
+                total = query.Count();
+            }
+            
 
-            query = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
+            query = query?.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
 
-            var articles = query.Select(x => new ArticleVm() {
+            var articles = query?.Select(x => new ArticleVm() {
                 Name = x.Title,
                 Alias = x.Alias,
                 CreatedDate = x.CreatedDate,
@@ -158,7 +159,7 @@ namespace NhienDentistry.Core.Catalog.Articles
                 TotalRecords = total,
                 PageSize = request.PageSize,
                 PageIndex = request.PageIndex,
-                Items = articles
+                Items = articles!
             };
             return pagedResult;
 

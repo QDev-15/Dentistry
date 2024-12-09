@@ -2,12 +2,8 @@
 using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dentistry.Data.Storages
 {
@@ -39,9 +35,12 @@ namespace Dentistry.Data.Storages
                 {
                     Directory.CreateDirectory(_userContentFolder); // Ensure folder exists
                 }
-
-                using var output = new FileStream(filePath, FileMode.Create);
-                await mediaBinaryStream.CopyToAsync(output);
+                using (var output = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                {
+                    await mediaBinaryStream.CopyToAsync(output);
+                }
+                //using var output = new FileStream(filePath, FileMode.Create);
+                //await mediaBinaryStream.CopyToAsync(output);
             }
             catch (Exception ex)
             {
@@ -55,9 +54,10 @@ namespace Dentistry.Data.Storages
             if (file.Length > 10485760) // Limit: 10 MB
                 throw new ArgumentException("File size exceeds the limit of 10 MB.");
 
-            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName!.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
             await SaveFileAsync(file.OpenReadStream(), fileName);
+            
             return fileName;
         }
 

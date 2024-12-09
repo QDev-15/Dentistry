@@ -1,29 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dentistry.Common.Constants;
+using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Dentistry.ViewModels.System.Users;
-using Dentistry.Data.Interfaces;
-using Dentistry.Common.Constants;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Dentistry.Admin.Controllers
 {
     public class LoginController : Controller
     {
         private readonly IConfiguration _configuration;
-        private readonly IUserRepository _userService;
+        private readonly UserService _userService;
 
-        public LoginController( IUserRepository userService,
+        public LoginController(UserService userService,
             IConfiguration configuration)
         {
             _userService = userService;
@@ -64,8 +58,6 @@ namespace Dentistry.Admin.Controllers
                 Secure = true  // Cookie chỉ được gửi qua HTTPS
             });
             HttpContext.Response.Cookies.Append(Constants.AppSettings.DefaultLanguageId, _configuration[Constants.AppSettings.DefaultLanguageId]);
-            //HttpContext.Session.SetString(Constants.AppSettings.DefaultLanguageId, _configuration[Constants.AppSettings.DefaultLanguageId]);
-            //HttpContext.Session.SetString(Constants.AppSettings.Token, result.ResultObj);
             await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         userPrincipal,

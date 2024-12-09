@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dentisty.Data.Migrations
 {
     [DbContext(typeof(DentistryDbContext))]
-    [Migration("20241206063256_init")]
+    [Migration("20241209153238_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -145,6 +145,7 @@ namespace Dentisty.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
@@ -154,6 +155,11 @@ namespace Dentisty.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -192,9 +198,7 @@ namespace Dentisty.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AvatarId")
-                        .IsUnique()
-                        .HasFilter("[AvatarId] IS NOT NULL");
+                    b.HasIndex("AvatarId");
 
                     b.ToTable("AppUsers", (string)null);
 
@@ -203,17 +207,18 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b012aa42-9112-4045-8529-92390eee9499",
+                            ConcurrencyStamp = "76aee5fc-597a-4dc2-996c-a09c7063c1a7",
                             DisplayName = "Nguyễn Hữu Quỳnh",
                             Dob = new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nguyenquynhvp.ictu@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Quynh",
+                            IsActive = false,
                             LastName = "Nguyen",
                             LockoutEnabled = false,
                             NormalizedEmail = "nguyenquynhvp.ictu@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAECBhNDWs6JpRFkRPIn0prUSs0kSgoSXS08Ll1BKscPz2djIozjvkc18zrEPUVNxjHg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC/CATr9hyEA+9Ki5RL+YvTkqbn1LpdhAmRDFqKlkSL0JszSfWUSOZW8wojZZSLPMg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -223,17 +228,18 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ca-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b077f300-1044-4910-87f7-139dd188b4dd",
+                            ConcurrencyStamp = "11fa917d-014b-452c-a2f7-360cc8f614ec",
                             DisplayName = "Nick Qaury Normal",
                             Dob = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "quynhvpit@outlook.com",
                             EmailConfirmed = true,
                             FirstName = "Nick",
+                            IsActive = false,
                             LastName = "Qaury",
                             LockoutEnabled = false,
                             NormalizedEmail = "quynhvpit@outlook.com",
                             NormalizedUserName = "Nick QN",
-                            PasswordHash = "AQAAAAIAAYagAAAAED9Ys7wpwfO9imXEfvJ4OVx6iT9aymCyv2uylXAwwaFRlWWSAOzR9r6QAZ4YuVXJfw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKNzruUjqvcQX4LaPpYOqBUAmHnuW02rKfWdDG9ROZ1fn71NA2WTt9xJ7CgtBr9Brw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -266,14 +272,10 @@ namespace Dentisty.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -283,16 +285,11 @@ namespace Dentisty.Data.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("showHome")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("CreatedById");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("Articles", (string)null);
 
@@ -303,13 +300,11 @@ namespace Dentisty.Data.Migrations
                             Alias = "bai-viet-test",
                             CategoryId = 1,
                             CreatedById = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5429),
+                            CreatedDate = new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5551),
                             Description = "Bài viết test.",
-                            SortOrder = 0,
-                            Status = 0,
+                            IsActive = false,
                             Title = "Sự phát triển của răng sứ",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            showHome = false
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -329,6 +324,11 @@ namespace Dentisty.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("Map")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -337,9 +337,6 @@ namespace Dentisty.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -364,17 +361,17 @@ namespace Dentisty.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -395,9 +392,9 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 1,
                             Alias = "rang-su",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5347),
+                            CreatedDate = new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5340),
+                            IsActive = true,
                             Name = "Răng Sứ",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
@@ -405,9 +402,9 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 2,
                             Alias = "nieng-rang",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5366),
+                            CreatedDate = new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5361),
+                            IsActive = true,
                             Name = "Niềng Răng",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
@@ -415,9 +412,9 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 3,
                             Alias = "benh-ly",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5374),
+                            CreatedDate = new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5363),
+                            IsActive = true,
                             Name = "Bệnh lý",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
@@ -425,9 +422,9 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 4,
                             Alias = "gioi-thieu",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5375),
+                            CreatedDate = new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5366),
+                            IsActive = true,
                             Name = "Giới thiệu",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
@@ -435,9 +432,9 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 5,
                             Alias = "lien-he",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5377),
+                            CreatedDate = new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5368),
+                            IsActive = true,
                             Name = "Liên hệ",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
@@ -445,10 +442,10 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 6,
                             Alias = "tieu-chi-rang-su",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5378),
+                            CreatedDate = new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5371),
+                            IsActive = true,
                             Name = "Tiêu chí răng sứ",
                             ParentId = 1,
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         });
@@ -522,6 +519,11 @@ namespace Dentisty.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -558,6 +560,10 @@ namespace Dentisty.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("FileSize")
                         .HasColumnType("bigint");
 
@@ -591,9 +597,6 @@ namespace Dentisty.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(5)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
 
@@ -601,9 +604,6 @@ namespace Dentisty.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -614,19 +614,15 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 1,
                             Code = "vi",
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDefault = true,
-                            Name = "Tiếng Việt",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Tiếng Việt"
                         },
                         new
                         {
                             Id = 2,
                             Code = "en",
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDefault = false,
-                            Name = "English",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "English"
                         });
                 });
 
@@ -679,15 +675,17 @@ namespace Dentisty.Data.Migrations
                     b.Property<int?>("ImageId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -871,8 +869,9 @@ namespace Dentisty.Data.Migrations
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.AppUser", b =>
                 {
                     b.HasOne("Dentistry.Data.GeneratorDB.Entities.Image", "Avatar")
-                        .WithOne("User")
-                        .HasForeignKey("Dentistry.Data.GeneratorDB.Entities.AppUser", "AvatarId");
+                        .WithMany("AppUsers")
+                        .HasForeignKey("AvatarId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Avatar");
                 });
@@ -891,15 +890,9 @@ namespace Dentisty.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dentistry.Data.GeneratorDB.Entities.Language", "Language")
-                        .WithMany("Articles")
-                        .HasForeignKey("LanguageId");
-
                     b.Navigation("Category");
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Category", b =>
@@ -995,18 +988,15 @@ namespace Dentisty.Data.Migrations
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Image", b =>
                 {
+                    b.Navigation("AppUsers");
+
                     b.Navigation("HomeArticles");
 
                     b.Navigation("Slides");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Language", b =>
                 {
-                    b.Navigation("Articles");
-
                     b.Navigation("CategoryTranslations");
                 });
 #pragma warning restore 612, 618

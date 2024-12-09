@@ -16,17 +16,17 @@
             <input type="text" class="form-control ps-2" id="Name" name="Name" asp-for="Name" value="@Model.Name" required />
         </div>
         <div class="form-group">
-            <label asp-for="Image">Upload Image</label>
-            <input asp-for="Image" type="file" class="form-control ps-2" id="Image" accept="image/*" />
-            <span asp-validation-for="Image" class="text-danger"></span>
+            <label asp-for="ImageFile">Upload Image</label>
+            <input asp-for="ImageFile" type="file" class="form-control ps-2" id="Image" accept="image/*" />
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Description">Description</label>
             <textarea class="form-control ps-2" id="Description" asp-for="Description" name="Description">@Model.Description</textarea>
         </div>
         <div class="form-group">
-            <input type="checkbox" id="Active" name="Active" asp-for="Active" />
-            <label asp-for="Active">IsActive</label>
+            <input type="checkbox" id="IsActive" name="IsActive" asp-for="IsActive" />
+            <label asp-for="IsActive">IsActive</label>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

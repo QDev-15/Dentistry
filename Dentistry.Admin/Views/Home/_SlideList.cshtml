@@ -20,9 +20,9 @@
             {
                 <tr>
                     <td>@slide.Name</td>
-                    <td><img src="@slide.Url" alt="@slide.Name" style="width: 100px; height: auto;" /></td>
+                    <td><img src="@slide.Image.Path" alt="@slide.Name" style="width: 100px; height: auto;" /></td>
                     <td>@slide.Description</td>
-                    <td>@(slide.Active ? "Active" : "Inactive")</td>
+                    <td>@(slide.IsActive ? "Active" : "Inactive")</td>
                     <td>
                         <a href="@Url.Action("Edit", "Slide", new { id = slide.Id })" class="btn btn-primary nav-partial">Edit</a>
                     </td>

@@ -43,9 +43,9 @@ namespace Dentisty.Data.Repositories
                 {
                     CreatedDate = DateTime.UtcNow,
                     Body = Message,
-                    IdAddress = GetClientIpAddress(),
-                    Title = title,
-                    UserId = UserId
+                    IdAddress = GetClientIpAddress()!,
+                    Title = title!,
+                    UserId = UserId!
                 };
                 logger.IdAddress = GetClientIpAddress()!;
                 await _loggerRepository.AddAsync(logger);
