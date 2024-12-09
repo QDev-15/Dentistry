@@ -9,30 +9,30 @@ namespace Dentistry.ViewModels.System.Users
     {
         public RegisterRequestValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty().WithMessage("First name is required")
-                .MaximumLength(200).WithMessage("First name can not over 200 characters");
+            RuleFor(x => x.FirstName).NotEmpty().WithMessage("Tên là bắt buộc.")
+                .MaximumLength(200).WithMessage("Tên không vượt quá 200 ký tự.");
 
-            RuleFor(x => x.LastName).NotEmpty().WithMessage("Last name is required")
-                .MaximumLength(200).WithMessage("Last name can not over 200 characters");
+            RuleFor(x => x.LastName).NotEmpty().WithMessage("Tên họ là bắt buộc.")
+                .MaximumLength(200).WithMessage("Tên họ không vượt quá 200 ký tự.");
 
-            RuleFor(x => x.Dob).GreaterThan(DateTime.Now.AddYears(-100)).WithMessage("Birthday cannot greater than 100 years");
+            RuleFor(x => x.Dob).GreaterThan(DateTime.Now.AddYears(-100)).WithMessage("Ngày sinh không vượt quá 100 năm.");
 
-            RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required")
+            RuleFor(x => x.Email).NotEmpty().WithMessage("Email là bắt buộc.")
                 .Matches(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")
-                .WithMessage("Email format not match");
+                .WithMessage("Email không đúng.");
 
-            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("Phone number is required");
+            RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("Số điện thoại là bắt buộc.");
 
-            RuleFor(x => x.UserName).NotEmpty().WithMessage("User name is required");
+            RuleFor(x => x.UserName).NotEmpty().WithMessage("Tên tài khoản là bắt buộc.");
 
-            RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required")
-                .MinimumLength(6).WithMessage("Password is at least 6 characters");
+            RuleFor(x => x.Password).NotEmpty().WithMessage("Mật khẩu là bắt buộc.")
+                .MinimumLength(6).WithMessage("Mật khẩu ít nhất có 6 ký tự.");
 
             RuleFor(x => x).Custom((request, context) =>
             {
                 if (request.Password != request.ConfirmPassword)
                 {
-                    context.AddFailure("Confirm password is not match");
+                    context.AddFailure("Nhập lại mật khẩu không đúng.");
                 }
             });
         }

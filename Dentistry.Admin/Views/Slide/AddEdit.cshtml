@@ -1,0 +1,33 @@
+﻿@using Dentistry.ViewModels.Utilities.Slides
+@model SlideVm
+
+<div class="add-edit-slide p-3">
+    @if (Model.Id == 0) {
+        <h2>Create Slide</h2>
+    } else {
+        <h2>Edit Slide</h2>
+    }
+    
+
+    <form asp-action="AddEdit" asp-controllder="Slide" enctype="multipart/form-data" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input type="text" class="form-control ps-2" id="Name" name="Name" asp-for="Name" value="@Model.Name" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="Image">Upload Image</label>
+            <input asp-for="Image" type="file" class="form-control ps-2" id="Image" accept="image/*" />
+            <span asp-validation-for="Image" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea class="form-control ps-2" id="Description" asp-for="Description" name="Description">@Model.Description</textarea>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="Active" name="Active" asp-for="Active" />
+            <label asp-for="Active">IsActive</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

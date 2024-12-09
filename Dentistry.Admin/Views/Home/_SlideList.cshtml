@@ -1,0 +1,33 @@
+﻿@model List<Dentistry.ViewModels.Utilities.Slides.SlideVm>
+
+<div id="slide-page" class="p-3">
+    <h2>Slides</h2>
+    <div class="d-flex py-2 justify-content-end">
+        <a class="btn btn-primary nav-partial" id="btnAddSlide" asp-controller="Slide" asp-action="AddEdit">Thêm mới</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var slide in Model)
+            {
+                <tr>
+                    <td>@slide.Name</td>
+                    <td><img src="@slide.Url" alt="@slide.Name" style="width: 100px; height: auto;" /></td>
+                    <td>@slide.Description</td>
+                    <td>@(slide.Active ? "Active" : "Inactive")</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Slide", new { id = slide.Id })" class="btn btn-primary nav-partial">Edit</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

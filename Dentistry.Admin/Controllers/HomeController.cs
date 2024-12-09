@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Dentistry.Admin.Models;
 using Dentistry.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
+using Dentistry.Data.Services;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -10,10 +11,14 @@ namespace Dentistry.Admin.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly SlideService _slideService;
+        private readonly CategoriesService _categoriesService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, SlideService slideService, CategoriesService categoriesService)
         {
             _logger = logger;
+            _slideService = slideService;
+            _categoriesService = categoriesService;
         }
 
         public IActionResult Index()
@@ -29,6 +34,14 @@ namespace Dentistry.Admin.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+        public async Task<IActionResult> Settings()
+        {
+            var settings = new SettingsViewModel();
+            var slides = await _slideService.GetAll();
+            settings.Slides = slides.ToList();
+            
+            return View(settings);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

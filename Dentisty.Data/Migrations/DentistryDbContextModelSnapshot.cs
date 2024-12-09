@@ -200,7 +200,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b012aa42-9112-4045-8529-92390eee9499",
+                            ConcurrencyStamp = "d50f6f81-64e8-48c5-a7db-553b8755c163",
                             DisplayName = "Nguyễn Hữu Quỳnh",
                             Dob = new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nguyenquynhvp.ictu@gmail.com",
@@ -210,7 +210,7 @@ namespace Dentisty.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "nguyenquynhvp.ictu@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAECBhNDWs6JpRFkRPIn0prUSs0kSgoSXS08Ll1BKscPz2djIozjvkc18zrEPUVNxjHg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECft7iwIab956Iq/Fopse3dJcGbEVaICmr8zhAZ7o2/m6GEta2ld1aCQRffbanUEZQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -220,7 +220,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ca-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b077f300-1044-4910-87f7-139dd188b4dd",
+                            ConcurrencyStamp = "b7bf55fe-4a3c-4e2a-b664-5787d0a6a2df",
                             DisplayName = "Nick Qaury Normal",
                             Dob = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "quynhvpit@outlook.com",
@@ -230,7 +230,7 @@ namespace Dentisty.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "quynhvpit@outlook.com",
                             NormalizedUserName = "Nick QN",
-                            PasswordHash = "AQAAAAIAAYagAAAAED9Ys7wpwfO9imXEfvJ4OVx6iT9aymCyv2uylXAwwaFRlWWSAOzR9r6QAZ4YuVXJfw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHhk8Hb85YxJWCeLRl+sLaJ3mlbtMWUDrYclQBVxKG98hC4l+nhjbEfCwiTIGmpYzA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -250,6 +250,11 @@ namespace Dentisty.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Avtive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
@@ -267,9 +272,6 @@ namespace Dentisty.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -298,12 +300,12 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 1,
                             Alias = "bai-viet-test",
+                            Avtive = true,
                             CategoryId = 1,
                             CreatedById = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5429),
+                            CreatedDate = new DateTime(2024, 12, 8, 15, 2, 4, 212, DateTimeKind.Local).AddTicks(6682),
                             Description = "Bài viết test.",
                             SortOrder = 0,
-                            Status = 0,
                             Title = "Sự phát triển của răng sứ",
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             showHome = false
@@ -354,6 +356,11 @@ namespace Dentisty.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("Alias")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -367,11 +374,6 @@ namespace Dentisty.Data.Migrations
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -391,61 +393,61 @@ namespace Dentisty.Data.Migrations
                         new
                         {
                             Id = 1,
+                            Active = true,
                             Alias = "rang-su",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5347),
+                            CreatedDate = new DateTime(2024, 12, 8, 15, 2, 4, 212, DateTimeKind.Local).AddTicks(6465),
                             Name = "Răng Sứ",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 2,
+                            Active = true,
                             Alias = "nieng-rang",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5366),
+                            CreatedDate = new DateTime(2024, 12, 8, 15, 2, 4, 212, DateTimeKind.Local).AddTicks(6491),
                             Name = "Niềng Răng",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 3,
+                            Active = true,
                             Alias = "benh-ly",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5374),
+                            CreatedDate = new DateTime(2024, 12, 8, 15, 2, 4, 212, DateTimeKind.Local).AddTicks(6494),
                             Name = "Bệnh lý",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 4,
+                            Active = true,
                             Alias = "gioi-thieu",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5375),
+                            CreatedDate = new DateTime(2024, 12, 8, 15, 2, 4, 212, DateTimeKind.Local).AddTicks(6497),
                             Name = "Giới thiệu",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 5,
+                            Active = true,
                             Alias = "lien-he",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5377),
+                            CreatedDate = new DateTime(2024, 12, 8, 15, 2, 4, 212, DateTimeKind.Local).AddTicks(6499),
                             Name = "Liên hệ",
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 6,
+                            Active = true,
                             Alias = "tieu-chi-rang-su",
-                            CreatedDate = new DateTime(2024, 12, 6, 13, 32, 56, 455, DateTimeKind.Local).AddTicks(5378),
+                            CreatedDate = new DateTime(2024, 12, 8, 15, 2, 4, 212, DateTimeKind.Local).AddTicks(6501),
                             Name = "Tiêu chí răng sứ",
                             ParentId = 1,
-                            Status = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         });
@@ -665,6 +667,11 @@ namespace Dentisty.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -682,9 +689,6 @@ namespace Dentisty.Data.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")

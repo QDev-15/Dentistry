@@ -8,6 +8,7 @@ using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;
+using Dentisty.Data.Services.System;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -26,12 +27,15 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 .AddEntityFrameworkStores<DentistryDbContext>()
 .AddDefaultTokenProviders();
 
-var jwtSettings = ("JwtTokens");
 var issuer = builder.Configuration.GetValue<string>(Constants.JwtTokens.Issuer);
 var audience = builder.Configuration.GetValue<string>(Constants.JwtTokens.Audience);
 var signingKey = builder.Configuration.GetValue<string>(Constants.JwtTokens.Key);
 byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey!);
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
     .AddCookie(options =>
     {
         options.LoginPath = "/Login/Index";
@@ -68,8 +72,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// add controller views
 builder.Services.AddControllersWithViews()
-         .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+    .AddFluentValidation(fv =>
+    {
+        fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+        fv.DisableDataAnnotationsValidation = true;
+    });
+
+// add resource validator
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddSession(options =>
 {
@@ -84,6 +96,8 @@ builder.Services.AddScoped<IStorageService, FileStorageService>();
 builder.Services.AddScoped<LanguagesServices>();
 builder.Services.AddScoped<SlideService>();
 builder.Services.AddScoped<ArticlesService>();
+builder.Services.AddScoped<CategoriesService>();
+
 
 
 
@@ -98,10 +112,7 @@ if (!app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
-    if (!dbContext.Database.EnsureCreated())
-    {
-        dbContext.Database.Migrate();
-    }
+    dbContext.Database.Migrate();
 }
 app.UseForwardedHeaders();
 app.UseHttpsRedirection();
