@@ -1,4 +1,4 @@
-﻿@using Dentistry.ViewModels.Utilities.Slides
+﻿@using Dentistry.ViewModels.Catalog.Slide
 @model SlideVm
 
 <div class="add-edit-slide p-3">
@@ -12,22 +12,37 @@
     <form asp-action="AddEdit" asp-controllder="Slide" enctype="multipart/form-data" method="post">
         <input type="hidden" asp-for="Id" />
         <div class="form-group">
-            <label asp-for="Name">Name</label>
+            <label asp-for="Name">Tiêu dề</label>
             <input type="text" class="form-control ps-2" id="Name" name="Name" asp-for="Name" value="@Model.Name" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SubName">Tiêu đề phụ</label>
+            <input type="text" class="form-control ps-2" id="SubName" name="SubName" asp-for="SubName" value="@Model.SubName" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea class="form-control ps-2" id="Description" asp-for="Description" name="Description" required>@Model.Description</textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Url">Đường dẫn</label>
+            <input type="text" class="form-control ps-2" id="Url" name="Url" asp-for="Url" value="@Model.Url"/>
+        </div>
+        <div class="form-group">
+            <label asp-for="SortOrder">Thứ tự</label>
+            <input type="number" class="form-control ps-2" id="SortOrder" name="SortOrder" asp-for="SortOrder" value="@Model.SortOrder"/>
         </div>
         <div class="form-group">
             <label asp-for="ImageFile">Upload Image</label>
             <input asp-for="ImageFile" type="file" class="form-control ps-2" id="Image" accept="image/*" />
-            <span asp-validation-for="ImageFile" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description">Description</label>
-            <textarea class="form-control ps-2" id="Description" asp-for="Description" name="Description">@Model.Description</textarea>
         </div>
         <div class="form-group">
             <input type="checkbox" id="IsActive" name="IsActive" asp-for="IsActive" />
             <label asp-for="IsActive">IsActive</label>
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <div class="form-group d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
     </form>
 </div>

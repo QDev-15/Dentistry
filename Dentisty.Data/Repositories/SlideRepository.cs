@@ -1,16 +1,9 @@
 ﻿using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog;
-using Dentistry.ViewModels.Utilities.Slides;
+using Dentistry.ViewModels.Catalog.Slide;
 using Dentisty.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dentisty.Data.Repositories
 {
@@ -41,25 +34,34 @@ namespace Dentisty.Data.Repositories
                 var slide = new Slide()
                 {
                     Name = slideVm.Name,
-                    IsActive = slideVm.IsActive,
+                    SubName = slideVm.SubName,
                     Description = slideVm.Description,
+                    Url = slideVm.Url,
+                    SortOrder = slideVm.SortOrder,
+                    IsActive = slideVm.IsActive,
                     CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
                     UserId = new Guid(_logs.GetCurrentUserId() ?? "")
                 };
-                var image = await _imageRepository.CreateAsync(slideVm.ImageFile);
-                // set image to slideVm
-                slideVm.Image = new ImageVm()
+                if (slideVm.ImageFile != null)
                 {
-                    Id = image.Id,
-                    FileName = image.FileName,
-                    Type = image.Type,
-                    Path = image.Path,
-                    FileSize = image.FileSize,
-                };
+                    var image = await _imageRepository.CreateAsync(slideVm.ImageFile);
+                    // set image to slideVm
+                    slideVm.Image = new ImageVm()
+                    {
+                        Id = image.Id,
+                        FileName = image.FileName,
+                        Type = image.Type,
+                        Path = image.Path,
+                        FileSize = image.FileSize,
+                    };
+                    slide.Image = image;
+                }
                 // set image slide
-                slide.Image = image;
-                slide.ImageId = image.Id;
                 await AddAsync(slide);
+                await SaveChangesAsync();       
+                // update imageId
+                slide.ImageId = slide.Image.Id;
                 await SaveChangesAsync();
                 // set slide id
                 slideVm.Id = slide.Id;
@@ -71,6 +73,28 @@ namespace Dentisty.Data.Repositories
                 _logs.QueueLog(ex.Message);
                 return new SlideVm();
             }
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            try
+            {
+                var slide = await GetByIdAsync(id);
+                if (slide != null) {
+                    if (slide.Image != null) { 
+                        await _imageRepository.Delete(slide.Image);
+                        slide.ImageId = null;
+                    }
+                    Delete(slide);
+                    await SaveChangesAsync();
+                }
+                return true;
+            }
+            catch (Exception ex) {
+                _logs.QueueLog(ex.Message);
+                return false;
+            }
+            
         }
     }
 }

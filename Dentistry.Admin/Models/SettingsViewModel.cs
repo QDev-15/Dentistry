@@ -1,6 +1,6 @@
 ﻿using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Categories;
-using Dentistry.ViewModels.Utilities.Slides;
+using Dentistry.ViewModels.Catalog.Slide;
 
 namespace Dentistry.Admin.Models
 {

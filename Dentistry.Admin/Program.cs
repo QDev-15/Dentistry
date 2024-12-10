@@ -2,6 +2,7 @@ using Dentistry.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;
+using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
@@ -71,6 +72,7 @@ builder.Services.AddControllersWithViews()
     .AddFluentValidation(fv =>
     {
         fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<SlideVmValidator>();
         fv.DisableDataAnnotationsValidation = true;
     });
 

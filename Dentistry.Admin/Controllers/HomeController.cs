@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using Dentistry.Admin.Models;
 using Dentistry.Common.Constants;
-using Microsoft.AspNetCore.Authorization;
-using Dentisty.Data.Interfaces;
-using Dentistry.ViewModels.Utilities.Slides;
 using Dentistry.ViewModels.Catalog;
+using Dentistry.ViewModels.Catalog.Slide;
+using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace Dentistry.Admin.Controllers
 {

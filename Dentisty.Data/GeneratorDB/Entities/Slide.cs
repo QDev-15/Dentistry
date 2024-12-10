@@ -9,8 +9,9 @@ namespace Dentistry.Data.GeneratorDB.Entities
     {
         public int Id { set; get; }
         public string Name { set; get; }
+        public string SubName { set; get; }
         public string Description { set; get; }
-        public string Url { set; get; }
+        public string? Url { set; get; }
         public int? ImageId { set; get; }
         public Guid UserId { set; get; }
         public int SortOrder { get; set; }

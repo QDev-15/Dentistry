@@ -1,5 +1,5 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
-using Dentistry.ViewModels.Utilities.Slides;
+using Dentistry.ViewModels.Catalog.Slide;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +11,6 @@ namespace Dentisty.Data.Interfaces
     public interface ISlideRepository : IRepository<Slide>
     {
         Task<SlideVm> Create(SlideVm slideVm);
+        Task<bool> Delete(int id);
     }
 }
