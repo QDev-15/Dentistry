@@ -17,7 +17,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.Url).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.Url).HasMaxLength(200).IsRequired(false);
             builder.Property(x => x.CreatedDate).IsRequired();
             builder.Property(x => x.IsActive).HasDefaultValue(true);
             builder.HasOne(x => x.Image).WithMany(x => x.Slides).HasForeignKey(x => x.ImageId).IsRequired(false);

@@ -1,19 +1,16 @@
 using Dentistry.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
-using Dentistry.Data.Services;
 using Dentistry.Data.Storages;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
-using Dentisty.Data.Services;
 using Dentisty.Data.Services.System;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using NhienDentistry.Core.Catalog.Articles;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add DbContext
@@ -85,24 +82,20 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
-// Register Repository
+// Register Repository  add services
+builder.Services.AddSingleton<Logs>();
+builder.Services.AddScoped<DentistryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<ArticleRepository>();
-builder.Services.AddScoped<BaseRepository>();
-builder.Services.AddScoped<CategoryRepository>();
-builder.Services.AddScoped<ContactRepository>();
+builder.Services.AddScoped<ICategoryReposiroty, CategoryRepository>();
+builder.Services.AddScoped<ISlideRepository, SlideRepository>();
+
+
 builder.Services.AddScoped<ImageRepository>();
 builder.Services.AddScoped<LoggerRepository>();
-builder.Services.AddScoped<SlideRepository>();
-
-// add services
+builder.Services.AddHostedService<LoggerBackgroundService>();
 builder.Services.AddScoped<IStorageService, FileStorageService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RoleService>();
-builder.Services.AddScoped<ArticlesService>();
-builder.Services.AddScoped<CategoriesService>();
-builder.Services.AddScoped<LanguagesServices>();
-builder.Services.AddScoped<SlideService>();
 
 
 var app = builder.Build();

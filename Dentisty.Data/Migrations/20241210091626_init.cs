@@ -273,7 +273,7 @@ namespace Dentisty.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     ImageId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
@@ -446,8 +446,8 @@ namespace Dentisty.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AvatarId", "ConcurrencyStamp", "DisplayName", "Dob", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, null, "76aee5fc-597a-4dc2-996c-a09c7063c1a7", "Nguyễn Hữu Quỳnh", new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "nguyenquynhvp.ictu@gmail.com", true, "Quynh", "Nguyen", false, null, "nguyenquynhvp.ictu@gmail.com", "admin", "AQAAAAIAAYagAAAAEC/CATr9hyEA+9Ki5RL+YvTkqbn1LpdhAmRDFqKlkSL0JszSfWUSOZW8wojZZSLPMg==", null, false, "", false, "admin" },
-                    { new Guid("69bd714f-9576-45ca-b5b7-f00649be00de"), 0, null, "11fa917d-014b-452c-a2f7-360cc8f614ec", "Nick Qaury Normal", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "quynhvpit@outlook.com", true, "Nick", "Qaury", false, null, "quynhvpit@outlook.com", "Nick QN", "AQAAAAIAAYagAAAAEKNzruUjqvcQX4LaPpYOqBUAmHnuW02rKfWdDG9ROZ1fn71NA2WTt9xJ7CgtBr9Brw==", null, false, "", false, "User Default" }
+                    { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, null, "aafea5d5-955a-4eca-853f-99f6d51489a2", "Nguyễn Hữu Quỳnh", new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "nguyenquynhvp.ictu@gmail.com", true, "Quynh", "Nguyen", false, null, "nguyenquynhvp.ictu@gmail.com", "admin", "AQAAAAIAAYagAAAAEIgt7g+UHBYI2MQ0C0j3xL6fXoVd+X27I7xhfr/RPDxoj7T11U7VOUF19Q1IP1IGog==", null, false, "", false, "admin" },
+                    { new Guid("69bd714f-9576-45ca-b5b7-f00649be00de"), 0, null, "4e08b75e-9857-4384-bca3-4d2ab107452d", "Nick Qaury Normal", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "quynhvpit@outlook.com", true, "Nick", "Qaury", false, null, "quynhvpit@outlook.com", "Nick QN", "AQAAAAIAAYagAAAAEMfCIw7xgUWridHba2hIBcbN4Tbyru1PMh67a0YxYW27G+btXmW651iuIigP787cow==", null, false, "", false, "User Default" }
                 });
 
             migrationBuilder.InsertData(
@@ -464,22 +464,22 @@ namespace Dentisty.Data.Migrations
                 columns: new[] { "Id", "Alias", "CreatedDate", "IsActive", "Name", "ParentId", "UpdatedDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "rang-su", new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5340), true, "Răng Sứ", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { 2, "nieng-rang", new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5361), true, "Niềng Răng", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { 3, "benh-ly", new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5363), true, "Bệnh lý", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { 4, "gioi-thieu", new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5366), true, "Giới thiệu", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { 5, "lien-he", new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5368), true, "Liên hệ", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") }
+                    { 1, "rang-su", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4424), true, "Răng Sứ", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 2, "nieng-rang", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4439), true, "Niềng Răng", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 3, "benh-ly", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4441), true, "Bệnh lý", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 4, "gioi-thieu", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4442), true, "Giới thiệu", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 5, "lien-he", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4444), true, "Liên hệ", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") }
                 });
 
             migrationBuilder.InsertData(
                 table: "Articles",
                 columns: new[] { "Id", "Alias", "CategoryId", "CreatedById", "CreatedDate", "Description", "Title", "UpdatedDate" },
-                values: new object[] { 1, "bai-viet-test", 1, new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5551), "Bài viết test.", "Sự phát triển của răng sứ", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, "bai-viet-test", 1, new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4485), "Bài viết test.", "Sự phát triển của răng sứ", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Alias", "CreatedDate", "IsActive", "Name", "ParentId", "UpdatedDate", "UserId" },
-                values: new object[] { 6, "tieu-chi-rang-su", new DateTime(2024, 12, 9, 22, 32, 37, 885, DateTimeKind.Local).AddTicks(5371), true, "Tiêu chí răng sứ", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") });
+                values: new object[] { 6, "tieu-chi-rang-su", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4445), true, "Tiêu chí răng sứ", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUsers_AvatarId",

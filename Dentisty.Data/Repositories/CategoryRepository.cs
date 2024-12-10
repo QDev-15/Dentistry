@@ -1,5 +1,8 @@
-﻿using Dentistry.Data.GeneratorDB.Entities;
+﻿using Dentistry.Data.GeneratorDB.EF;
+using Dentistry.Data.GeneratorDB.Entities;
+using Dentistry.ViewModels.Catalog.Categories;
 using Dentisty.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,28 +11,19 @@ using System.Threading.Tasks;
 
 namespace Dentisty.Data.Repositories
 {
-    public class CategoryRepository
+    public class CategoryRepository : Repository<Category>, ICategoryReposiroty
     {
-        private readonly IRepository<Category> _repository;
+        private readonly DentistryDbContext _context;
 
-        public CategoryRepository(IRepository<Category> repository)
+        public CategoryRepository(DentistryDbContext context) : base(context)
         {
-            _repository = repository;
+            _context = context;
         }
-        public async Task<Category> GetById(int id)
-        {
-            var category = await _repository.GetByIdAsync(id);
-            return category;
-        }
-        public async Task<IEnumerable<Category>> GetAll()
-        {
-            return await _repository.GetAllAsync();
-        }
+
         public async Task<IEnumerable<Category>> GetByParentId(int parentId)
         {
-            var categories = await _repository.GetAllAsync();
-            var category = categories.Where(x => x.ParentId == parentId);
-            return category;
+            var categories = await _context.Categories.Where(x => x.ParentId == parentId).ToListAsync();
+            return categories;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Dentistry.Common.Constants;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -16,10 +17,13 @@ namespace Dentistry.Admin.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly UserService _userService;
+        private readonly LoggerRepository _logs;
 
         public LoginController(UserService userService,
+            LoggerRepository logs,
             IConfiguration configuration)
         {
+            _logs = logs;
             _userService = userService;
             _configuration = configuration;
         }
@@ -63,6 +67,7 @@ namespace Dentistry.Admin.Controllers
                         userPrincipal,
                         authProperties);
 
+            _logs.QueueLog("login done");
             return RedirectToAction("Index", "Home");
         }
 

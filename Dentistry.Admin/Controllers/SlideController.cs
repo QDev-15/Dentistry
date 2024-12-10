@@ -1,15 +1,16 @@
-﻿using Dentistry.Data.Services;
+﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Utilities.Slides;
+using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Admin.Controllers
 {
     public class SlideController : Controller
     {
-        private readonly SlideService _slideService;
-        public SlideController(SlideService slideService)
+        private readonly ISlideRepository _slideRepository;
+        public SlideController(ISlideRepository slideRepository)
         {
-            _slideService = slideService;
+            _slideRepository = slideRepository;
         }
 
         public IActionResult Index()
@@ -28,10 +29,10 @@ namespace Dentistry.Admin.Controllers
         }
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public IActionResult AddEdit([FromForm] SlideVm model)
+        public async Task<IActionResult> AddEdit([FromForm] SlideVm model)
         {
-            var slide = _slideService.Create(model);
-            return View(model);
+            var slide = await _slideRepository.Create(model);
+            return View(slide);
         }
     }
 }

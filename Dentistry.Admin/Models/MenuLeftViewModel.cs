@@ -4,6 +4,6 @@ namespace Dentistry.Admin.Models
 {
     public class MenuLeftViewModel
     {
-        public List<CategoryVm> Categories { get; set; }
+        public List<CategoryVm> Categories { get; set; } = new List<CategoryVm>();
     }
 }

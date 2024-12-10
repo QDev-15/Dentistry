@@ -3,7 +3,9 @@ using System.Diagnostics;
 using Dentistry.Admin.Models;
 using Dentistry.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
-using Dentistry.Data.Services;
+using Dentisty.Data.Interfaces;
+using Dentistry.ViewModels.Utilities.Slides;
+using Dentistry.ViewModels.Catalog;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -11,14 +13,14 @@ namespace Dentistry.Admin.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly SlideService _slideService;
-        private readonly CategoriesService _categoriesService;
+        private readonly ICategoryReposiroty _categoryReposiroty;
+        private readonly ISlideRepository _slideRepository;
 
-        public HomeController(ILogger<HomeController> logger, SlideService slideService, CategoriesService categoriesService)
+        public HomeController(ILogger<HomeController> logger, ISlideRepository slideRepository, ICategoryReposiroty categoryReposiroty)
         {
             _logger = logger;
-            _slideService = slideService;
-            _categoriesService = categoriesService;
+            _slideRepository = slideRepository;
+            _categoryReposiroty = categoryReposiroty;
         }
 
         public IActionResult Index()
@@ -38,8 +40,22 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> Settings()
         {
             var settings = new SettingsViewModel();
-            var slides = await _slideService.GetAll();
-            settings.Slides = slides.ToList();
+            var slides = await _slideRepository.GetAllAsync();
+            settings.Slides = slides.Select( x => new SlideVm
+            {
+                Description = x.Description,
+                Id = x.Id,
+                IsActive = x.IsActive,
+                Name = x.Name,
+                Image = x.Image != null ? new ImageVm()
+                {
+                    Id = x.Image.Id,
+                    FileName = x.Image.FileName,
+                    FileSize = x.Image.FileSize,  
+                    Path = x.Image.Path,
+                    Type = x.Image.Type,
+                } : null
+            }).ToList();
             
             return View(settings);
         }
