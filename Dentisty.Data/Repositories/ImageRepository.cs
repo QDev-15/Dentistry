@@ -45,6 +45,7 @@ namespace Dentisty.Data.Repositories
         {
             try
             {
+                if (image == null) return false;
                 await _storageService.DeleteFileAsync($"{image.Path}");
                 _context.Images.Remove(image);
                 return true;

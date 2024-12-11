@@ -11,6 +11,7 @@ namespace Dentisty.Data.Interfaces
     public interface ISlideRepository : IRepository<Slide>
     {
         Task<SlideVm> Create(SlideVm slideVm);
+        Task<SlideVm> UpdateSlide(SlideVm slideVm);
         Task<bool> Delete(int id);
     }
 }

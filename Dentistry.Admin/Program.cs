@@ -69,6 +69,7 @@ builder.Services.AddAuthentication(options =>
 
 // add controller views
 builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation()
     .AddFluentValidation(fv =>
     {
         fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();

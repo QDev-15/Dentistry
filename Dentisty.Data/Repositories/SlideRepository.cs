@@ -74,6 +74,55 @@ namespace Dentisty.Data.Repositories
                 return new SlideVm();
             }
         }
+        public async Task<SlideVm> UpdateSlide(SlideVm slideVm)
+        {
+            try
+            {
+                var slide = await GetByIdAsync(slideVm.Id);
+                if (slide == null)
+                {
+                    return slideVm;
+                }
+                var imageOld = slide.Image;
+                if (slideVm.ImageFile != null)
+                {
+                    var image = await _imageRepository.CreateAsync(slideVm.ImageFile);
+                    // set image to slideVm
+                    slideVm.Image = new ImageVm()
+                    {
+                        Id = image.Id,
+                        FileName = image.FileName,
+                        Type = image.Type,
+                        Path = image.Path,
+                        FileSize = image.FileSize,
+                    };
+                    
+                    slide.Image = image;
+                }
+                // set image slide
+                Update(slide);
+                await SaveChangesAsync();       
+                // update imageId
+                slide.ImageId = slide.Image.Id;
+                await SaveChangesAsync();
+                // delete oldImage
+                if (imageOld != null)
+                {
+                    await _imageRepository.Delete(imageOld);
+                    await SaveChangesAsync();
+                }
+
+                // set slide id
+                slideVm.Id = slide.Id;
+                slideVm.Image.Id = slide.Image.Id;
+                return slideVm;
+            }
+            catch (Exception ex)
+            {
+                _logs.QueueLog(ex.Message);
+                return new SlideVm();
+            }
+        }
 
         public async Task<bool> Delete(int id)
         {

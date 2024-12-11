@@ -24,16 +24,46 @@ namespace Dentistry.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> AddEdit(int id)
         {
+            if (id == 0)
+            {
+                return View("_Partial_Slide_AddEdit", new SlideVm());
+            }
             var slide = await _slideRepository.GetByIdAsync(id);
-            return View(slide.ReturnViewModel());
+            return View("_Partial_Slide_AddEdit", slide.ReturnViewModel());
         }
+
         [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> AddEdit([FromForm] SlideVm model)
+        public async Task<IActionResult> AddEdit(SlideVm model)
         {
-            var slide = await _slideRepository.Create(model);
-            return RedirectToAction("Index");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data");
+            }
+
+            if (model.Id == 0)
+            {
+                // Add slide logic
+                var slide = await _slideRepository.Create(model);
+            }
+            else
+            {
+                // Update slide logic
+                var slide = await _slideRepository.UpdateSlide(model);
+            }
+
+            return Json(new { success = true });
         }
+
+
+
+
+        //[HttpPost]
+        //[Consumes("multipart/form-data")]
+        //public async Task<IActionResult> AddEdit([FromForm] SlideVm model)
+        //{
+        //    var slide = await _slideRepository.Create(model);
+        //    return RedirectToAction("Index");
+        //}
         [HttpPost]
         public async Task<IActionResult> Delete(int id) { 
             var result = await _slideRepository.Delete(id);

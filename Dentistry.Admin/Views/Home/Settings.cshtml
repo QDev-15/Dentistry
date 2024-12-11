@@ -5,15 +5,25 @@
 @{
     ViewData["Title"] = "Cài đặt Trang Chủ";
 }
-
-<div id="setting-page">
-    <div class="slide-session">
-        @{
-            Html.RenderPartial("_SlideList", Model.Slides); 
-        }
-    </div>
-    <hr class="my-4">
-    <div class="article-session">
-
+<div class="container-fluid p-3">
+    <ul class="nav nav-tabs" id="tabMenu" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link active" id="slide-tab" data-bs-toggle="tab" data-bs-target="#slide" type="button" role="tab">Slides</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">Tab 2</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="tabContent">
+        <!-- Slide -->
+        <div class="tab-pane p-2 fade show active" id="slide" role="tabpanel">
+            @{
+                Html.RenderPartial("_Partial_Slide_list", Model.Slides);
+            }
+        </div>
+        <!-- Tab 2 -->
+        <div class="tab-pane p-2 fade" id="tab2" role="tabpanel">
+            <p>Content for Tab 2</p>
+        </div>
     </div>
 </div>
