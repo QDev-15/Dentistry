@@ -2,6 +2,7 @@
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -37,6 +38,24 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> Delete(int id) { 
             var result = await _slideRepository.Delete(id);
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult Edit(int id, string name, int age)
+        {
+            //var user = _context.Users.FirstOrDefault(u => u.Id == id);
+
+            //if (user == null)
+            //{
+            //    return Json(new { success = false });
+            //}
+
+            //// Cập nhật thông tin người dùng
+            //user.Name = name;
+            //user.Age = age;
+
+            //_context.SaveChanges();
+
+            return Json(new { success = true });
         }
     }
 }
