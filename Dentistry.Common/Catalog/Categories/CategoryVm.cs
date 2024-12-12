@@ -9,9 +9,11 @@ namespace Dentistry.ViewModels.Catalog.Categories
         public int Id { set; get; }
         public string Name { set; get; }
         public string Alias { set; get; }
+        public int Sort { set; get; }
         public int? ParentId { set; get; }
         public Guid? UserId { set; get; }
         public bool IsActive { get; set; } = true;
+        public bool IsSub { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 

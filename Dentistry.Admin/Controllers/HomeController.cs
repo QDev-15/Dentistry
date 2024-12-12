@@ -2,6 +2,7 @@ using Dentistry.Admin.Models;
 using Dentistry.Common.Constants;
 using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.Slide;
+using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -41,21 +42,9 @@ namespace Dentistry.Admin.Controllers
         {
             var settings = new SettingsViewModel();
             var slides = await _slideRepository.GetAllAsync();
-            settings.Slides = slides.Select( x => new SlideVm
-            {
-                Description = x.Description,
-                Id = x.Id,
-                IsActive = x.IsActive,
-                Name = x.Name,
-                Image = x.Image != null ? new ImageVm()
-                {
-                    Id = x.Image.Id,
-                    FileName = x.Image.FileName,
-                    FileSize = x.Image.FileSize,  
-                    Path = x.Image.Path,
-                    Type = x.Image.Type,
-                } : null
-            }).ToList();
+            var categories = await _categoryReposiroty.GetAllAsync();
+            settings.Slides = slides.Select( x => x.ReturnViewModel()).ToList();
+            settings.Categories = categories.Select(x => x.ReturnViewModel()).ToList();
             
             return View(settings);
         }

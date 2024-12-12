@@ -22,9 +22,9 @@ namespace Dentisty.Data.Repositories
             _loggerRepository = repository;
             _logQueue = logQueue;
         }
-        public string? GetCurrentUserId()
+        public string GetCurrentUserId()
         {
-            return _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
         }
         public string? GetClientIpAddress()
         {

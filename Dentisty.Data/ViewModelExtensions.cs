@@ -53,6 +53,7 @@ namespace Dentisty.Data
                 Id = item.Id,
                 Alias = item.Alias,
                 Name = item.Name,
+                Sort = item.Sort,
                 IsActive = item.IsActive,
                 ParentId = item.ParentId,
                 UpdatedDate = item.UpdatedDate,
@@ -63,6 +64,7 @@ namespace Dentisty.Data
                     Id = item.Parent.Id,
                     Alias = item.Parent.Alias,
                     Name = item.Parent.Name,
+                    Sort = item.Parent.Sort,
                     IsActive = item.Parent.IsActive,
                     UpdatedDate = item.Parent.UpdatedDate,
                     CreatedDate = item.Parent.CreatedDate,
@@ -71,6 +73,7 @@ namespace Dentisty.Data
                 ChildCategories = item.Categories != null && item.Categories.Any() ? item.Categories.Select(c => new CategoryVm {
                     Id = c.Id,
                     Alias = c.Alias,
+                    Sort = c.Sort,
                     Name = c.Name,
                     IsActive = c.IsActive,
                     UpdatedDate = c.UpdatedDate,

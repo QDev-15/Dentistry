@@ -13,6 +13,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public int? ParentId { set; get; }
         public Guid? UserId { set; get; }
         public bool IsActive { get; set; }
+        public int Sort {  set; get; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public Category Parent { set; get; }

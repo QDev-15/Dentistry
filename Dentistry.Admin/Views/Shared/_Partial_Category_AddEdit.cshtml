@@ -1,0 +1,57 @@
+﻿@using Dentistry.ViewModels.Catalog.Categories
+@model CategoryVmAddEdit
+@{
+    Layout = null;
+}
+
+<div class="add-edit-category p-3">
+    @if (Model.item.Id == 0)
+    {
+        <h2>Thêm mới danh mục</h2>
+    }
+    else
+    {
+        <h2>Sửa danh mục</h2>
+    }
+
+
+    <form asp-action="AddEdit" asp-controllder="Category" enctype="multipart/form-data" method="post">
+        <input type="hidden" asp-for="@Model.item.Id" />
+        <div class="form-group">
+            <label asp-for="@Model.item.Name" class="form-label">Tên</label>
+            <input type="text" class="form-control ps-2" asp-for="@Model.item.Name" required />
+            <span asp-validation-for="@Model.item.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.item.Alias" class="form-label">Tên rút gọn</label>
+            <input type="text" class="form-control ps-2" asp-for="@Model.item.Alias" required/>
+            <span asp-validation-for="@Model.item.Alias" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.item.Sort" class="form-label">Thứ tự</label>
+            <input type="number" class="form-control ps-2" asp-for="@Model.item.Sort" />
+        </div>
+        @{
+            if (Model.item.IsSub) {
+                <div class="form-group">
+                    <label asp-for="@Model.item.ParentId" class="form-label">Danh mục chính</label>
+                    <select class="form-select" asp-for="@Model.item.ParentId">
+                        @foreach (var item in Model.parrents)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            }
+        }
+
+
+        <div class="form-group">
+            <input type="checkbox" asp-for="@Model.item.IsActive" />
+            <label asp-for="@Model.item.IsActive">IsActive</label>
+        </div>
+        <div class="form-group d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+</div>

@@ -11,7 +11,15 @@ namespace Dentisty.Data.Interfaces
     public interface ICategoryReposiroty : IRepository<Category>
     {
         Task<IEnumerable<Category>> GetByParentId(int parentId);
+        Task<IEnumerable<Category>> GetByParent();
         Task<Category> GetById(int id);
-        Task<Category> CreateNew(CategoryVm category);
+        Task<CategoryVm> CreateNew(CategoryVm category);
+        Task<CategoryVm> UpdateCategory(CategoryVm category);
+        /// <summary>
+        /// If exixts return True, else return False
+        /// </summary>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        Task<bool> CheckExistsAlias(string alias);
     }
 }

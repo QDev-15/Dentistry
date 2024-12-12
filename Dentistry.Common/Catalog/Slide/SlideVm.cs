@@ -25,6 +25,6 @@ namespace Dentistry.ViewModels.Catalog.Slide
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public IFormFile ImageFile { get; set; }
-        public ImageVm Image { get; set; }
+        public ImageVm? Image { get; set; }
     }
 }

@@ -92,6 +92,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     CreatedDate = DateTime.Now,
                     Name = "Răng Sứ",
                     Alias = "rang-su",
+                    Sort = 1,
                     UserId = adminId,
                 },
                 new Category()
@@ -102,6 +103,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     CreatedDate = DateTime.Now,
                     Name = "Niềng Răng",
                     Alias = "nieng-rang",
+                    Sort = 2,
                     UserId= adminId,   
                 },
                 new Category()
@@ -112,6 +114,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     CreatedDate = DateTime.Now,
                     Name = "Bệnh lý",
                     Alias = "benh-ly",
+                    Sort = 3,
                     UserId= adminId,   
                 },
                 new Category()
@@ -122,6 +125,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     CreatedDate = DateTime.Now,
                     Name = "Giới thiệu",
                     Alias = "gioi-thieu",
+                    Sort = 4,
                     UserId= adminId,   },
                 new Category()
                 {
@@ -131,6 +135,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     CreatedDate = DateTime.Now,
                     Name = "Liên hệ",
                     Alias = "lien-he",
+                    Sort  = 5,
                     UserId= adminId,
                 },
                  new Category()
@@ -141,6 +146,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                      CreatedDate = DateTime.Now,
                      Name = "Tiêu chí răng sứ",
                      Alias = "tieu-chi-rang-su",
+                     Sort = 6,
                      UserId = adminId,
                      
                  }

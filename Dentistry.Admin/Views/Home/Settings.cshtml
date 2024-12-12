@@ -11,6 +11,9 @@
             <button class="nav-link active" id="slide-tab" data-bs-toggle="tab" data-bs-target="#slide" type="button" role="tab">Slides</button>
         </li>
         <li class="nav-item">
+            <button class="nav-link" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab">Danh mục</button>
+        </li>
+        <li class="nav-item">
             <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">Tab 2</button>
         </li>
     </ul>
@@ -21,7 +24,7 @@
                 Html.RenderPartial("_Partial_Slide_list", Model.Slides);
             }
         </div>
-        <!-- Slide -->
+        <!-- category -->
         <div class="tab-pane p-2 fade show" id="category" role="tabpanel">
             @{
                 Html.RenderPartial("_Partial_Category_list", Model.Categories);
