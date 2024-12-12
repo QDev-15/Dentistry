@@ -5,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Dentisty.Data.Common
@@ -26,6 +28,37 @@ namespace Dentisty.Data.Common
             var result = await userManager.CheckPasswordAsync(user, enteredPassword);
             return result; // Returns true if the password is correct, false otherwise
         }
-       
+
+        public static string ConvertToSlug(string text)
+        {
+            // Chuyển thành chữ thường
+            text = text.ToLowerInvariant();
+
+            // Loại bỏ dấu
+            text = RemoveDiacritics(text);
+
+            // Thay thế khoảng trắng bằng dấu gạch ngang
+            text = Regex.Replace(text, @"\s+", "-");
+
+            return text;
+        }
+
+        public static string RemoveDiacritics(string text)
+        {
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var character in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(character);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(character);
+                }
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
+
     }
 }

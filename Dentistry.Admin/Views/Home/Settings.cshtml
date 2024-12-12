@@ -21,6 +21,12 @@
                 Html.RenderPartial("_Partial_Slide_list", Model.Slides);
             }
         </div>
+        <!-- Slide -->
+        <div class="tab-pane p-2 fade show" id="category" role="tabpanel">
+            @{
+                Html.RenderPartial("_Partial_Category_list", Model.Categories);
+            }
+        </div>
         <!-- Tab 2 -->
         <div class="tab-pane p-2 fade" id="tab2" role="tabpanel">
             <p>Content for Tab 2</p>
