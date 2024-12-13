@@ -42,7 +42,6 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                debugger;
                 if (response.success) {
                     $('#addEditCategoryModal').modal('hide');
                     location.reload(); // Hoặc cập nhật bảng

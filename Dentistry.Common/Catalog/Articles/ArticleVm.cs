@@ -1,9 +1,6 @@
-﻿using Dentistry.ViewModels.System.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.System.Users;
+
 
 namespace Dentistry.ViewModels.Catalog.Articles
 {
@@ -11,12 +8,17 @@ namespace Dentistry.ViewModels.Catalog.Articles
     {
         public int Id { get; set; }
         public string Alias { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public bool IsActive { get; set; }
+        public Guid CreatedById { get; set; }
+        public int CategoryId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public List<ImageVm> Images { get; set; } = new List<ImageVm>();
-        public UserVm CreatedBy { get; set; }
+
+        public CategoryVm Category { get; set; }
+        public UserVm CreatedBy { set; get; }
 
     }
 }

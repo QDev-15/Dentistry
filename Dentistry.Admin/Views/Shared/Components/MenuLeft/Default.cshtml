@@ -4,43 +4,45 @@
     <div class="nav">
         <div class="sb-sidenav-menu-heading">Quảng lý Trang chủ</div>
         <a class="nav-link" asp-controller="Home" asp-action="Settings">
-            <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
-            Trang chủ website
-        </a>
-        <a class="nav-link" asp-controller="Slide" asp-action="Index">
             <div class="sb-nav-link-icon">
-                <i class="fa-solid fa-sliders"></i>
+                <i class="fa-solid fa-gear"></i>
             </div>
-            Slides
+            Cài đặt trang
         </a>
-        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDanhMuc" aria-expanded="true" aria-controls="collapseDanhMuc">
-            <div class="sb-nav-link-icon"><i class="fa fa-solid fa-list"></i></div>
-            Danh mục website
-            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-        </a>
-        <div class="collapse show" id="collapseDanhMuc" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-            <nav class="sb-sidenav-menu-nested nav">
-                @foreach (var item in Model.Categories) {
-                    if (item.Parent == null) {
-                        <a class="nav-link" asp-controller="Category" asp-action="Index" asp-route-id="@item.Id">@item.Name</a>
-                    }
-                }
-            </nav>
-        </div>
         <a class="nav-link" asp-controller="Articles" asp-action="Index">
             <div class="sb-nav-link-icon"><i class="fa-solid fa-newspaper"></i></div>
             Bài Viết
         </a>
+
+
         <div class="sb-sidenav-menu-heading">Hệ thống</div>
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseNguoiDung" aria-expanded="false" aria-controls="collapseNguoiDung">
-            <div class="sb-nav-link-icon"><i class="fa-solid fa-user"></i></div>
+        <a class="nav-link" asp-controller="User" asp-action="Index">
+            <div class="sb-nav-link-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
             Người dùng
+        </a>
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDanhMuc" aria-expanded="true" aria-controls="collapseDanhMuc">
+            <div class="sb-nav-link-icon">
+                <i class="fa-brands fa-ubuntu"></i>
+            </div>
+            Quản lý chung
             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
         </a>
-        <div class="collapse" id="collapseNguoiDung" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+        <div class="collapse" id="collapseDanhMuc" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
             <nav class="sb-sidenav-menu-nested nav">
-                <a class="nav-link" asp-controller="User" asp-action="Index">Danh sách</a>
-                <a class="nav-link" asp-controller="User" asp-action="Create">Thêm mới</a>
+                <a class="nav-link" asp-controller="Access" asp-action="Index">
+                    <div class="sb-nav-link-icon">
+                        <i class="fa-brands fa-accessible-icon"></i>
+                    </div>
+                    Lượng truy cập
+                </a>
+                <a class="nav-link" asp-controller="Logger" asp-action="Index">
+                    <div class="sb-nav-link-icon">
+                        <i class="fa-brands fa-accessible-icon"></i>
+                    </div>
+                    Logger
+                </a>
             </nav>
         </div>
     </div>

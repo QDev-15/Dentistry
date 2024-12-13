@@ -5,16 +5,20 @@
 @{
     ViewData["Title"] = "Cài đặt Trang Chủ";
 }
-<div class="container-fluid p-3">
-    <ul class="nav nav-tabs" id="tabMenu" role="tablist">
+<div class="container-fluid px-0 py-0">
+    <ul class="nav nav-tabs pt-2" id="tabMenu" role="tablist">
         <li class="nav-item">
-            <button class="nav-link active" id="slide-tab" data-bs-toggle="tab" data-bs-target="#slide" type="button" role="tab">Slides</button>
+            <button class="nav-link active" id="slide-tab" data-bs-toggle="tab" data-tab="slide" data-bs-target="#slide" type="button" role="tab">
+                <i class="fa-solid fa-sliders me-2"></i>Slides
+            </button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab">Danh mục</button>
+            <button class="nav-link" id="category-tab" data-bs-toggle="tab" data-tab="category" data-bs-target="#category" type="button" role="tab">
+                <i class="fa fa-solid fa-list me-2"></i> Danh mục
+            </button>
         </li>
         <li class="nav-item">
-            <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-bs-target="#tab2" type="button" role="tab">Tab 2</button>
+            <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-tab="tab2" data-bs-target="#tab2" type="button" role="tab">Tab 2</button>
         </li>
     </ul>
     <div class="tab-content" id="tabContent">
@@ -25,7 +29,7 @@
             }
         </div>
         <!-- category -->
-        <div class="tab-pane p-2 fade show" id="category" role="tabpanel">
+        <div class="tab-pane p-2 fade" id="category" role="tabpanel">
             @{
                 Html.RenderPartial("_Partial_Category_list", Model.Categories);
             }
@@ -36,3 +40,5 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="~/js/home-settings.js"></script>
