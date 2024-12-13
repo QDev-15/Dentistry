@@ -12,6 +12,8 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string Alias { set; get; }
         public int? ParentId { set; get; }
         public Guid? UserId { set; get; }
+        public string? Description { set; get; }
+        public int? ImageId { set; get; }
         public bool IsActive { get; set; }
         public int Sort {  set; get; }
         public DateTime CreatedDate { get; set; }

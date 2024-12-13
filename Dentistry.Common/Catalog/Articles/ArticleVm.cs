@@ -1,5 +1,6 @@
 ﻿using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.System.Users;
+using Microsoft.AspNetCore.Http;
 
 
 namespace Dentistry.ViewModels.Catalog.Articles
@@ -19,6 +20,7 @@ namespace Dentistry.ViewModels.Catalog.Articles
 
         public CategoryVm Category { get; set; }
         public UserVm CreatedBy { set; get; }
+        public List<IFormFile> ImageFiles { get; set; }
 
     }
 }

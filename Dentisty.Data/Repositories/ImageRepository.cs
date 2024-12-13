@@ -41,13 +41,12 @@ namespace Dentisty.Data.Repositories
             }
             
         }
-        public async Task<bool> Delete(Image image)
+        public async Task<bool> DeleteFile(Image image)
         {
             try
             {
                 if (image == null) return false;
                 await _storageService.DeleteFileAsync($"{image.Path}");
-                _context.Images.Remove(image);
                 return true;
             }
             catch (Exception ex)
@@ -57,7 +56,7 @@ namespace Dentisty.Data.Repositories
             }
             
         }     
-        public async Task<bool> DeleteRange(List<Image> images)
+        public async Task<bool> DeleteRangeFiles(List<Image> images)
         {
             try
             {
@@ -65,7 +64,6 @@ namespace Dentisty.Data.Repositories
                 {
                     await _storageService.DeleteFileAsync($"{image.Path}");
                 }
-                _context.Images.RemoveRange(images);
                 return true;
             }
             catch (Exception ex)

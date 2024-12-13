@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dentistry.ViewModels.Catalog.Articles
 {
-    public class ArticleListVm
+    public class ArticleVmList
     {
         public ArticleVm items { set; get; }
     }

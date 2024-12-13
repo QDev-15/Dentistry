@@ -4,6 +4,7 @@ using Dentistry.ViewModels.Catalog.Slide;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Admin.Controllers
@@ -17,9 +18,11 @@ namespace Dentistry.Admin.Controllers
         {
             _categoryRepository = categoryRepository;
         }
-        public IActionResult Index(int id)
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
-            return View(id);
+            var categories = await _categoryRepository.GetAllAsync();
+            return View(categories);
         }
         [HttpGet]
         public async Task<IActionResult> AddEdit(int id, string type) {

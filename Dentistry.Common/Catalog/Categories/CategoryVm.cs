@@ -16,7 +16,7 @@ namespace Dentistry.ViewModels.Catalog.Categories
         public bool IsSub { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-
+        public string Decription { set; get; }
         public CategoryVm? Parent { get; set; }
         public List<CategoryVm> ChildCategories { get; set; } = new List<CategoryVm>();
     }

@@ -14,5 +14,18 @@ namespace Dentisty.Data
             if (string.IsNullOrEmpty(value)) return value;
             return Utilities.ConvertToSlug(value);
         }
+        /// <summary>
+        ///  dd/MM/yyyy - 15/09/2009
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string Format_DMY(this DateTime value)
+        {
+            return value.ToString("d");
+        }
+        public static string GetTimestamp(this DateTime value)
+        {
+            return value.ToString("yyyyMMddHHmmssffff");
+        }
     }
 }

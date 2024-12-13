@@ -91,14 +91,17 @@ builder.Services.AddSession(options =>
 builder.Services.AddSingleton<Logs>();
 builder.Services.AddScoped<DentistryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<ICategoryReposiroty, CategoryRepository>();
 builder.Services.AddScoped<ISlideRepository, SlideRepository>();
+builder.Services.AddScoped<IStorageService, FileStorageService>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 
 
-builder.Services.AddScoped<ImageRepository>();
+
 builder.Services.AddScoped<LoggerRepository>();
 builder.Services.AddHostedService<LoggerBackgroundService>();
-builder.Services.AddScoped<IStorageService, FileStorageService>();
+
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RoleService>();
 

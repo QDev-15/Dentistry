@@ -11,5 +11,8 @@ namespace Dentisty.Data.Interfaces
     public interface IImageRepository : IRepository<Image>
     {
         Task<Image> CreateAsync(IFormFile file);
+        Task<bool> DeleteFile(Image image);
+        Task<bool> DeleteRangeFiles(List<Image> image);
+
     }
 }

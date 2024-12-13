@@ -10,10 +10,10 @@ namespace Dentisty.Data.Repositories
     public class SlideRepository : Repository<Slide>, ISlideRepository
     {
         private readonly DentistryDbContext _context;
-        private readonly ImageRepository _imageRepository;
+        private readonly IImageRepository _imageRepository;
         private readonly LoggerRepository _logs;
 
-        public SlideRepository(DentistryDbContext context, LoggerRepository logs, ImageRepository imageRepository) : base(context)
+        public SlideRepository(DentistryDbContext context, LoggerRepository logs, IImageRepository imageRepository) : base(context)
         {
             _logs = logs;
             _context = context;
@@ -108,7 +108,8 @@ namespace Dentisty.Data.Repositories
                 // delete oldImage
                 if (imageOld != null)
                 {
-                    await _imageRepository.Delete(imageOld);
+                    await _imageRepository.DeleteFile(imageOld);
+                    _imageRepository.Delete(imageOld);
                     await SaveChangesAsync();
                 }
 
@@ -131,7 +132,8 @@ namespace Dentisty.Data.Repositories
                 var slide = await GetByIdAsync(id);
                 if (slide != null) {
                     if (slide.Image != null) { 
-                        await _imageRepository.Delete(slide.Image);
+                        await _imageRepository.DeleteFile(slide.Image);
+                        _imageRepository.Delete(slide.Image);
                         slide.ImageId = null;
                     }
                     Delete(slide);

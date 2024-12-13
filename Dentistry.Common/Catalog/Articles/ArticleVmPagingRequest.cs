@@ -6,7 +6,7 @@ using System.Text;
 namespace Dentistry.ViewModels.Catalog.Articles
 
 {
-    public class GetManageArticlePagingRequest : PagingRequestBase
+    public class ArticleVmPagingRequest : PagingRequestBase
     {
         public string Keyword { get; set; }
 

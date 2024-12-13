@@ -1,5 +1,10 @@
-﻿@{
+﻿@using Dentistry.ViewModels.Catalog.Articles
+@{
     ViewData["Title"] = "Danh sách bài viết";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-Article Details
+@model List<ArticleVm>
+
+    @{
+        Html.RenderPartial("_Partial_Article_list", Model);
+    }
