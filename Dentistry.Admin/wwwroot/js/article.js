@@ -19,14 +19,7 @@
         });
     });
 
-   
-
-    // delete article when close(draft), click button delete
-    $(document).on('click', '.delete-btn', function () {
-        const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
-
-        showConfirmDelete(deleteArt, id);
-    });
+  
     $(document).on('click', '#addEditArticleModal .action-close', function () {
         const id = $('#Item_Id').val();
         var isDraft = $('#Item_IsDraft').val()?.toLowerCase() == 'true';
@@ -41,7 +34,7 @@
         const formData = new FormData(this);
 
         $.ajax({
-            url: $(this).attr('action'),
+            url: 'Articles/AddEdit',
             type: 'POST',
             data: formData,
             processData: false,
@@ -62,13 +55,21 @@
 
     
 });
+function deleteArticle(id) {
+    showConfirmDelete(deleteArt(id));
+}
 var deleteArt = function(id) {
-    $.ajax({
+    return $.ajax({
         url: `/Articles/Delete/${id}`,
         type: 'Delete',
         success: function (result) {
             console.log("result delete: ", result);
-            closeModal();
+            document.querySelectorAll('.modal.show').forEach(modal => {
+                const modalInstance = bootstrap.Modal.getInstance(modal); // Lấy instance của modal
+                if (modalInstance) {
+                    modalInstance.hide(); // Đóng modal
+                }
+            });
             loadArticle();
         },
         error: function (err) {
@@ -90,7 +91,7 @@ var loadArticle = function() {
 }
 var initTiny = function () {
     var editorId = 'Item_Description';
-    if (tinymce.get(editorId)) {
+    while (tinymce.get(editorId)) {
         tinymce.get(editorId).destroy();
     }
     tinymce.init({
@@ -98,11 +99,11 @@ var initTiny = function () {
         plugins: [
             'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media',
             'searchreplace', 'table', 'visualblocks', 'wordcount', 'checklist', 'mediaembed', 'casechange',
-            'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen',
+            'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen',
             'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'mentions',
-            'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss'
+            'tableofcontents', 'footnotes', 'autocorrect', 'inlinecss'
         ],
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | spellcheckdialog a11ycheck | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         height: 500,
         automatic_uploads: true,
         // File picker configuration (Choose file manually)
@@ -138,36 +139,45 @@ var initTiny = function () {
         },
 
         // Drag-and-drop configuration
-        images_upload_handler: function (blobInfo, success, failure) {
-            var formData = new FormData();
-            formData.append('file', blobInfo.blob(), blobInfo.filename());
+        images_upload_handler: (blobInfo, progress) => new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
             var id = $('#Item_Id').val();
-            const baseUrl = window.location.origin;
-            fetch('/article-upload-image?id=' + id, {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data && data.path) {
-                        const imageUrl = `${baseUrl}${data.path}`;
-                        success(imageUrl); // Pass the uploaded image URL to TinyMCE
-                    } else {
-                        failure('Invalid server response');
-                    }
-                })
-                .catch(error => {
-                    console.error('Image upload error:', error);
-                    failure('Image upload failed');
-                });
-        },
+            xhr.open('POST', '/article-upload-image?id=' + id);
 
-        // Configuration for TinyMCE features
-        link_assume_external_targets: true,
-        link_default_protocol: 'http',
-        mergetags_list: [
-            { value: 'First.Name', title: 'First Name' },
-            { value: 'Email', title: 'Email' },
-        ],
+            xhr.upload.onprogress = (e) => {
+                progress(e.loaded / e.total * 100);
+            };
+
+            xhr.onload = () => {
+                if (xhr.status === 403) {
+                    reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+                    return;
+                }
+
+                if (xhr.status < 200 || xhr.status >= 300) {
+                    reject('HTTP Error: ' + xhr.status);
+                    return;
+                }
+
+                const json = JSON.parse(xhr.responseText);
+
+                if (!json || typeof json.path != 'string') {
+                    reject('Invalid JSON: ' + xhr.responseText);
+                    return;
+                }
+
+                resolve(json.path);
+            };
+
+            xhr.onerror = () => {
+                reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+            };
+
+            const formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+            xhr.send(formData);
+        })
     });
 }

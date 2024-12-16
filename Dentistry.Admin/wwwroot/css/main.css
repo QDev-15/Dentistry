@@ -69,9 +69,13 @@ button[title="Browse links"] {
     display: none !important;
 }
 
-
+.tox-editor-header .tox-promotion {
+    display: none !important;
+}
+.tox-statusbar .tox-statusbar__right-container .tox-statusbar__branding {
+    display: none !important;
+}
 /** Modal */
-
 .modal-header, .modal-footer {
     background: #ebebeb;
 }

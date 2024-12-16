@@ -7,8 +7,18 @@ window.onpopstate = function () {
     $('#layoutSidenav_content main').load(url);
 };
 
-var functionDelete = null;
+var runAction = null;
 
+function openInfoModal() {
+    // Open modal 
+    const modal = new bootstrap.Modal(document.getElementById('infoModal'));
+    modal.show();
+}
+function resetFooterBtn() {
+    //remove d-none
+    $('#infoModal .modal-footer .btn-danger').removeClass('d-none');
+    $('#infoModal .modal-footer .btn-warning').removeClass('d-none');
+}
 function showInfo(message, title) {
     if (title && title.length > 0) {
         $('#infoModalLabel').text(title)
@@ -20,13 +30,13 @@ function showInfo(message, title) {
     $('.infoModal-header').css('background-color', 'rgb(13,202,240)');
     $('.infoModal-header').css('color', 'white');
     // set footer
+    resetFooterBtn();
     $('#infoModal .modal-footer .btn-danger').addClass('d-none');
     $('#infoModal .modal-footer .btn-warning').addClass('d-none');
 
 
     // show modal
-
-    $('#infoModal').modal('show');
+    openInfoModal();
 }
 function showSuccess(message, title) {
     if (title && title.length > 0) {
@@ -38,14 +48,14 @@ function showSuccess(message, title) {
     // set header
     $('.infoModal-header').css('background-color', 'Green');
     $('.infoModal-header').css('color', 'white');
-    // set footer
+    // set footer                                    
+    resetFooterBtn();
     $('#infoModal .modal-footer .btn-danger').addClass('d-none');
     $('#infoModal .modal-footer .btn-warning').addClass('d-none');
 
 
     // show modal
-
-    $('#infoModal').modal('show');
+    openInfoModal();
 }
 function showConfirm(message, title) {
     if (title && title.length > 0) {
@@ -57,32 +67,26 @@ function showConfirm(message, title) {
     // set header
     $('.infoModal-header').css('background-color', 'rgb(166,115,208)');
     $('.infoModal-header').css('color', 'white');
-    // set footer
+    // set footer                              
+    resetFooterBtn();
     $('#infoModal .modal-footer .btn-danger').addClass('d-none');
-    $('#infoModal .modal-footer .btn-warning').addClass('d-none');
-
-    $('#infoModal .modal-footer .btn-warning').removeClass('d-none');
     // show modal
-
-    $('#infoModal').modal('show');
+    openInfoModal();
 }
-function showConfirmDelete(method, value) {
+function showConfirmDelete(returnAction, value) {
     $('#infoModalLabel').text("Xác nhận")
     $('#infoModal #message-content').text("Bạn có chắc chắn muốn xóa?");
-    functionDelete = method;
+    runAction = returnAction;
     // set value
     document.getElementById('confirmModalDeleteButton').setAttribute('data-id', value);
     // set header
     $('.infoModal-header').css('background-color', 'rgb(166,115,208)');
     $('.infoModal-header').css('color', 'white');
-    // set footer
-    $('#infoModal .modal-footer .btn-danger').addClass('d-none');
+    // set footer                  
+    resetFooterBtn();
     $('#infoModal .modal-footer .btn-warning').addClass('d-none');
-
-    $('#infoModal .modal-footer .btn-danger').removeClass('d-none');
     // show modal
-
-    $('#infoModal').modal('show');
+    openInfoModal();
 }
 function showError(message, title) {
     if (title && title.length > 0) {
@@ -94,15 +98,24 @@ function showError(message, title) {
     // set header
     $('.infoModal-header').css('background-color', 'red');
     $('.infoModal-header').css('color', 'white');
-    // set footer
+    // set footer       
+    resetFooterBtn();
     $('#infoModal .modal-footer .btn-danger').addClass('d-none');
     $('#infoModal .modal-footer .btn-warning').addClass('d-none');
 
     // show modal
-
-    $('#infoModal').modal('show');
+    openInfoModal();
 }
-
+$('#confirmModalDeleteButton').off('click').on('click', function () {
+    if (runAction) {
+        runAction.then(function (resp) {
+            if (resp) {
+                console.log(resp);
+            }
+            runAction = null;
+        });
+    }
+});
 function closeModal() {
     $('.modal.show').each(function () {
         var modalInstance = bootstrap.Modal.getInstance(this);
@@ -115,10 +128,7 @@ const confirmDeleteButton = document.getElementById('confirmModalDeleteButton');
 
 // Xử lý khi nhấn nút "Delete" trong modal
 confirmDeleteButton.addEventListener('click', function () {
-    var id = $(this).data('id') || 0;
-    if (functionDelete) {
-        functionDelete(id);
-    }
+    
 });
 
 
