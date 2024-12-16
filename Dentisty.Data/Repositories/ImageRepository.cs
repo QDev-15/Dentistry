@@ -37,7 +37,7 @@ namespace Dentisty.Data.Repositories
                 return image;
             } catch(Exception ex)
             {
-                return new Image();
+                return null;
             }
             
         }

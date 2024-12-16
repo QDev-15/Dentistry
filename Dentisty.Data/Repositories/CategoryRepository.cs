@@ -28,6 +28,11 @@ namespace Dentisty.Data.Repositories
             var categories = await _context.Categories.Include(i => i.Parent).Include(i => i.Categories).Where(x => x.ParentId == null || x.ParentId == 0).ToListAsync();
             return categories;
         }
+        public async Task<IEnumerable<Category>> GetChilds()
+        {
+            var categories = await _context.Categories.Include(i => i.Parent).Include(i => i.Categories).Where(x => x.ParentId != null && x.ParentId > 0).ToListAsync();
+            return categories;
+        }
         public async Task<Category> GetById(int id)
         {
             var category = await _context.Categories.Include(i => i.Parent).Include(i => i.Categories).FirstOrDefaultAsync(x => x.Id == id);

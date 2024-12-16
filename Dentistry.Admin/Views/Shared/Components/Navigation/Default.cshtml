@@ -3,14 +3,14 @@
     <div id="top-nav-logo">
         <a class="navbar-brand" asp-controller="Home" asp-action="Index">
             <img src="~/assets/logo/LOGO.png" />
-            <span>Nhiên Dentistry</span>
+            <span class="d-none d-md-inline-block">Nhiên Dentistry</span>
         </a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle">
             <i class="fas fa-bars"></i>
         </button>
     </div>
     <!-- Navbar Search-->
-    <span>@Model.CurrentUser.DisplayName</span>
+
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
@@ -21,17 +21,37 @@
     </form>
 
     <!-- Navbar-->
+
     <ul class="navbar-nav ml-auto ml-md-0">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <span class="dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @{
+                    if (string.IsNullOrEmpty(Model.CurrentUser.DisplayName)) {
+                        @Model.CurrentUser.Email
+                        ;
+                    } else {
+                        @Model.CurrentUser.DisplayName;
+                    }
+                }
+            </span>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="/Profile/Index">@User.Identity.Name</a>
-                <a class="dropdown-item" href="#">Activity Log</a>
+                <a class="dropdown-item" asp-controller="User" asp-action="Index">Thông tin cá nhân</a>
                 <div class="dropdown-divider"></div>
                 <form method="post" asp-controller="User" asp-action="Logout">
                     <button type="submit" class="dropdown-item">Đăng xuất</button>
                 </form>
             </div>
+            @{
+                if (Model.CurrentUser.Avatar != null && !string.IsNullOrEmpty(Model.CurrentUser.Avatar.Path)) {
+                    <img src="@Model.CurrentUser.Avatar.Path" alt="@Model.CurrentUser.DisplayName" style="width: 40px; height: 40px;" />
+                } else {
+                    <span>
+                        <i class="fas fa-user fa-fw"></i>
+                    </span>
+                }
+            }
+            
+            
         </li>
     </ul>
 </nav>

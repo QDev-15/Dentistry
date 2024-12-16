@@ -7,12 +7,118 @@ window.onpopstate = function () {
     $('#layoutSidenav_content main').load(url);
 };
 
-function loadData(url) {
-    $('#layoutSidenav_content main').load(url, function (response, status, xhr) {
-        if (status === "error") {
-            $('#layoutSidenav_content main').html(`<p>Error loading content: ${xhr.statusText}</p>`);
-        } else {
-            history.pushState(null, '', url); // Update URL in the browser
+var functionDelete = null;
+
+function showInfo(message, title) {
+    if (title && title.length > 0) {
+        $('#infoModalLabel').text(title)
+    } else {
+        $('#infoModalLabel').text("Thông báo")
+    }
+    $('#infoModal #message-content').text(message);
+    // set header
+    $('.infoModal-header').css('background-color', 'rgb(13,202,240)');
+    $('.infoModal-header').css('color', 'white');
+    // set footer
+    $('#infoModal .modal-footer .btn-danger').addClass('d-none');
+    $('#infoModal .modal-footer .btn-warning').addClass('d-none');
+
+
+    // show modal
+
+    $('#infoModal').modal('show');
+}
+function showSuccess(message, title) {
+    if (title && title.length > 0) {
+        $('#infoModalLabel').text(title)
+    } else {
+        $('#infoModalLabel').text("Thành công")
+    }
+    $('#infoModal #message-content').text(message);
+    // set header
+    $('.infoModal-header').css('background-color', 'Green');
+    $('.infoModal-header').css('color', 'white');
+    // set footer
+    $('#infoModal .modal-footer .btn-danger').addClass('d-none');
+    $('#infoModal .modal-footer .btn-warning').addClass('d-none');
+
+
+    // show modal
+
+    $('#infoModal').modal('show');
+}
+function showConfirm(message, title) {
+    if (title && title.length > 0) {
+        $('#infoModalLabel').text(title)
+    } else {
+        $('#infoModalLabel').text("Xác nhận")
+    }
+    $('#infoModal #message-content').text(message);
+    // set header
+    $('.infoModal-header').css('background-color', 'rgb(166,115,208)');
+    $('.infoModal-header').css('color', 'white');
+    // set footer
+    $('#infoModal .modal-footer .btn-danger').addClass('d-none');
+    $('#infoModal .modal-footer .btn-warning').addClass('d-none');
+
+    $('#infoModal .modal-footer .btn-warning').removeClass('d-none');
+    // show modal
+
+    $('#infoModal').modal('show');
+}
+function showConfirmDelete(method, value) {
+    $('#infoModalLabel').text("Xác nhận")
+    $('#infoModal #message-content').text("Bạn có chắc chắn muốn xóa?");
+    functionDelete = method;
+    // set value
+    document.getElementById('confirmModalDeleteButton').setAttribute('data-id', value);
+    // set header
+    $('.infoModal-header').css('background-color', 'rgb(166,115,208)');
+    $('.infoModal-header').css('color', 'white');
+    // set footer
+    $('#infoModal .modal-footer .btn-danger').addClass('d-none');
+    $('#infoModal .modal-footer .btn-warning').addClass('d-none');
+
+    $('#infoModal .modal-footer .btn-danger').removeClass('d-none');
+    // show modal
+
+    $('#infoModal').modal('show');
+}
+function showError(message, title) {
+    if (title && title.length > 0) {
+        $('#infoModalLabel').text(title)
+    } else {
+        $('#infoModalLabel').text("Lỗi")
+    }
+    $('#infoModal #message-content').text(message);
+    // set header
+    $('.infoModal-header').css('background-color', 'red');
+    $('.infoModal-header').css('color', 'white');
+    // set footer
+    $('#infoModal .modal-footer .btn-danger').addClass('d-none');
+    $('#infoModal .modal-footer .btn-warning').addClass('d-none');
+
+    // show modal
+
+    $('#infoModal').modal('show');
+}
+
+function closeModal() {
+    $('.modal.show').each(function () {
+        var modalInstance = bootstrap.Modal.getInstance(this);
+        if (modalInstance) {
+            modalInstance.hide();
         }
     });
 }
+const confirmDeleteButton = document.getElementById('confirmModalDeleteButton');
+
+// Xử lý khi nhấn nút "Delete" trong modal
+confirmDeleteButton.addEventListener('click', function () {
+    var id = $(this).data('id') || 0;
+    if (functionDelete) {
+        functionDelete(id);
+    }
+});
+
+

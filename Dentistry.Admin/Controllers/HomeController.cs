@@ -4,24 +4,23 @@ using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
+using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Dentistry.Admin.Controllers
 {
-    [Authorize]
-    
+    [Authorize] 
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICategoryReposiroty _categoryReposiroty;
-        private readonly IImageRepository _imageRepository;
         private readonly ISlideRepository _slideRepository;
 
-        public HomeController(ILogger<HomeController> logger,IImageRepository imageRepository, ISlideRepository slideRepository, ICategoryReposiroty categoryReposiroty)
+
+        public HomeController(ILogger<HomeController> logger, ISlideRepository slideRepository, ICategoryReposiroty categoryReposiroty)
         {
-            _imageRepository = imageRepository;
             _logger = logger;
             _slideRepository = slideRepository;
             _categoryReposiroty = categoryReposiroty;
@@ -41,7 +40,6 @@ namespace Dentistry.Admin.Controllers
         {
             return View();
         }
-        [HttpGet("cai-dat")]
         public async Task<IActionResult> Settings()
         {
             var settings = new SettingsViewModel();
@@ -62,21 +60,11 @@ namespace Dentistry.Admin.Controllers
         [HttpPost]
         public IActionResult Language(NavigationViewModel viewModel)
         {
-            HttpContext.Session.SetString(Constants.AppSettings.DefaultLanguageId,
+            HttpContext.Session.SetString(SystemConstants.AppSettings.DefaultLanguageId,
                 viewModel.CurrentLanguageId);
 
             return Redirect(viewModel.ReturnUrl);
         }
-        [HttpPost("upload-image")]
-        public async Task<IActionResult> UploadImage(IFormFile file)
-        {
-            if (file == null || file.Length == 0)
-            {
-                return BadRequest("No file uploaded.");
-            }
-
-            var image = await _imageRepository.CreateAsync(file);
-            return Json(image);
-        }
+        
     }
 }

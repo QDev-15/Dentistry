@@ -27,7 +27,8 @@ namespace Dentisty.Data
                 Id = item.Id.ToString(),
                 LastName = item.LastName,
                 PhoneNumber = item.PhoneNumber,
-                UserName = item.UserName
+                UserName = item.UserName,
+                Avatar = item.Avatar.ReturnViewModel()
             };
             return vm;
         }
@@ -110,6 +111,7 @@ namespace Dentisty.Data
                 Description = item.Description,
                 Images = item.Images.Select(x => x.ReturnViewModel()).ToList(),
                 IsActive = item.IsActive,
+                IsDraft = item.IsDraft,
                 Title = item.Title,
                 UpdatedDate = item.UpdatedDate
             };

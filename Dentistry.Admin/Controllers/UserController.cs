@@ -113,7 +113,7 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            Response.Cookies.Delete(Constants.AppSettings.Token);
+            Response.Cookies.Delete(SystemConstants.AppSettings.Token);
             return RedirectToAction("Index", "Login");
         }
 

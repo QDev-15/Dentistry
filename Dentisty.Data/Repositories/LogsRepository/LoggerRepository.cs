@@ -26,6 +26,10 @@ namespace Dentisty.Data.Repositories
         {
             return _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown";
         }
+        public Guid GetCurrentUserGuidId()
+        {
+            return new Guid(_httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "unknown");
+        }
         public string? GetClientIpAddress()
         {
             return _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();

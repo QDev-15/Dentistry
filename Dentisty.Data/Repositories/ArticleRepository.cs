@@ -4,6 +4,7 @@ using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data.Common;
 using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,9 +27,13 @@ namespace Dentisty.Data.Repositories
             _loggerRepository = loggerRepository;
         }
 
-        public async Task<bool> CheckExistsAlias(string alias)
+        public async Task<bool> CheckExistsAlias(ArticleVm articleVm)
         {
-            return await _context.Articles.AnyAsync(a => a.Alias == alias);
+            return await _context.Articles.AnyAsync(a => a.Alias == articleVm.Alias && a.Id != articleVm.Id);
+        }
+        public async Task<bool> CheckExistsAlias(Article item)
+        {
+            return await _context.Articles.AnyAsync(a => a.Alias == item.Alias && a.Id != item.Id);
         }
         public async Task<Article> GetByAliasAsync(string alias)
         {
@@ -40,7 +45,7 @@ namespace Dentisty.Data.Repositories
         }
         public async Task<IEnumerable<Article>> GetAllAsync()
         {
-            return await _context.Articles.Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).ToListAsync();
+            return await _context.Articles.Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).Where(x=>x.IsActive).ToListAsync();
         }
 
         public async Task<ArticleVm> CreateNew(ArticleVm item)
@@ -49,13 +54,14 @@ namespace Dentisty.Data.Repositories
             {
                 var art = new Article()
                 {
-                    Alias = await GenerateAlias(item),
+                    Alias = string.IsNullOrEmpty(item.Alias) ? await GenerateAlias(item) : item.Alias,
                     CategoryId = item.CategoryId,
-                    CreatedById = item.CreatedById,
-                    CreatedDate = DateTime.Now,
+                    CreatedById = _loggerRepository.GetCurrentUserGuidId(),
                     Description = item.Description,
-                    IsActive = item.IsActive,
+                    IsActive = true,
+                    IsDraft = item.IsDraft,
                     Title = item.Title,
+                    CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now
                 };
                 if (item.ImageFiles != null && item.ImageFiles.Any())
@@ -68,8 +74,7 @@ namespace Dentisty.Data.Repositories
                 }
                 await AddAsync(art);
                 await SaveChangesAsync();
-                item.Images = art.Images.Select(art => art.ReturnViewModel()).ToList();
-                return item;
+                return art.ReturnViewModel();
             }
             catch (Exception ex) {
                 _loggerRepository.QueueLog(ex.Message, "Create new Article");
@@ -79,13 +84,14 @@ namespace Dentisty.Data.Repositories
         }
 
 
-        public async Task<ArticleVm> UpdateCategory(ArticleVm item)
+        public async Task<ArticleVm> UpdateArticle(ArticleVm item)
         {
             try
             {
-                var art = await GetByIdAsync(item.CategoryId);
+                var art = await GetByIdAsync(item.Id);
                 if (art != null)
                 {
+                    art.IsDraft = false;
                     art.CategoryId = item.CategoryId;
                     art.Title = item.Title;
                     art.Alias = await GenerateAlias(item);
@@ -106,10 +112,42 @@ namespace Dentisty.Data.Repositories
 
         }
 
+        public async Task<bool> DeleteArticle(int id)
+        {
+            try
+            {
+                var art = _context.Articles.Include(x=>x.Images).FirstOrDefault(x => x.Id == id);
+                if (art != null)
+                {
+                    if (art.Images != null && art.Images.Any())
+                    {
+                        await _imageRepository.DeleteRangeFiles(art.Images);
+                        art.Images.Clear();
+                    }
+                    if (art.IsDraft)
+                    {
+                        _context.Remove(art);
+                        _context.SaveChanges();
+                    } else
+                    {
+                        art.IsActive = false;
+                        Update(art);
+                        await SaveChangesAsync();
+                    }
+                }
+                return true;
+            } catch(Exception ex)
+            {
+                _loggerRepository.QueueLog(ex.Message);
+                return false;
+            }
+            
+        }
+
         public async Task<string> GenerateAlias(ArticleVm item)
         {
             var alias = item.Title.ToSlus();
-            var art = await CheckExistsAlias(alias);
+            var art = await CheckExistsAlias(item);
             if (art)
             {
                 alias = DateTime.Now.GetTimestamp() + item.Title.ToSlus();

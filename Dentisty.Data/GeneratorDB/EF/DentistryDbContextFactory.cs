@@ -19,7 +19,7 @@ namespace Dentistry.Data.GeneratorDB.EF
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            var connectionString = configuration.GetConnectionString(Constants.MainConnectionString);
+            var connectionString = configuration.GetConnectionString(SystemConstants.MainConnectionString);
 
             var optionsBuilder = new DbContextOptionsBuilder<DentistryDbContext>();
             optionsBuilder.UseSqlServer(connectionString);

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Dentistry.Common.Constants
 {
-    public class Constants
+    public class SystemConstants
     {
         public const string MainConnectionString = "DentistryDbConnection";
         public const string CartSession = "CartSession";

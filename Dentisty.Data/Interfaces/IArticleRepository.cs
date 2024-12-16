@@ -12,13 +12,15 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<Article>> GetAllAsync();
         Task<IEnumerable<Article>> GetByPagingAsync(ArticleVmPagingRequest request);
         Task<ArticleVm> CreateNew(ArticleVm item);
-        Task<ArticleVm> UpdateCategory(ArticleVm item);
+        Task<ArticleVm> UpdateArticle(ArticleVm item);
+        Task<bool> DeleteArticle(int id);
         /// <summary>
         /// If exixts return True, else return False
         /// </summary>
         /// <param name="alias"></param>
         /// <returns></returns>
-        Task<bool> CheckExistsAlias(string alias);
+        Task<bool> CheckExistsAlias(Article item);
+        Task<bool> CheckExistsAlias(ArticleVm item);
         Task<string> GenerateAlias(ArticleVm item);
         Task<bool> DeleteFile(int artId, int fileId);
         Task<bool> AddFile(int artId, IEnumerable<IFormFile> file);

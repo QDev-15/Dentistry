@@ -12,6 +12,7 @@ namespace Dentistry.ViewModels.Catalog.Articles
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public bool IsActive { get; set; }
+        public bool IsDraft { get; set; } = false;
         public Guid CreatedById { get; set; }
         public int CategoryId { get; set; }
         public DateTime CreatedDate { get; set; }

@@ -17,15 +17,15 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 // Add DbContext
 builder.Services.AddDbContext<DentistryDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(Constants.MainConnectionString)));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 
 builder.Services.AddIdentity<AppUser, AppRole>()
 .AddEntityFrameworkStores<DentistryDbContext>()
 .AddDefaultTokenProviders();
 
-var issuer = builder.Configuration.GetValue<string>(Constants.JwtTokens.Issuer);
-var audience = builder.Configuration.GetValue<string>(Constants.JwtTokens.Audience);
-var signingKey = builder.Configuration.GetValue<string>(Constants.JwtTokens.Key);
+var issuer = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Issuer);
+var audience = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Audience);
+var signingKey = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Key);
 byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey!);
 builder.Services.AddAuthentication(options =>
 {
@@ -75,7 +75,7 @@ builder.Services.AddControllersWithViews()
     {
         fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<SlideVmValidator>();
-        fv.RegisterValidatorsFromAssemblyContaining<CategoryVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<ArticleVmValidator>();
         fv.DisableDataAnnotationsValidation = true;
     });
 

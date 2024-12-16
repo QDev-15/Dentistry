@@ -33,7 +33,7 @@ namespace Dentisty.Data.Common
                 new Claim("DisplayName", user.DisplayName),
                 new Claim("FullName", $"{user.FirstName} {user.LastName}"),
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config[Constants.JwtTokens.Key]!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config[SystemConstants.JwtTokens.Key]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 
@@ -42,8 +42,8 @@ namespace Dentisty.Data.Common
                 Subject = new ClaimsIdentity(claims),  // Thêm claim vào Subject
                 Expires = DateTime.UtcNow.AddHours(1),  // Thời gian hết hạn
                 SigningCredentials = creds,
-                Issuer = _config[Constants.JwtTokens.Issuer],  // Người phát hành
-                Audience = _config[Constants.JwtTokens.Audience]  // Đối tượng nhận token
+                Issuer = _config[SystemConstants.JwtTokens.Issuer],  // Người phát hành
+                Audience = _config[SystemConstants.JwtTokens.Audience]  // Đối tượng nhận token
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

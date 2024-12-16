@@ -12,12 +12,12 @@ namespace Dentistry.Data.Storages
         private readonly string _userContentFolder;
         private readonly LoggerRepository logger;
         
-        private readonly string Content_folder = Constants.USER_CONTENT_FOLDER_NAME;
+        private readonly string Content_folder = SystemConstants.USER_CONTENT_FOLDER_NAME;
 
         public FileStorageService(IWebHostEnvironment webHostEnvironment, LoggerRepository loggerRepository)
         {
             logger = loggerRepository;
-            _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, Constants.USER_CONTENT_FOLDER_NAME);
+            _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, SystemConstants.USER_CONTENT_FOLDER_NAME);
         }
 
         public string GetFileUrl(string fileName)

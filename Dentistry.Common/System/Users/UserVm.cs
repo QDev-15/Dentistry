@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dentistry.ViewModels.Catalog;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -27,6 +29,8 @@ namespace Dentistry.ViewModels.System.Users
 
         [Display(Name = "Ngày sinh")]
         public DateTime Dob { get; set; }
+        public ImageVm Avatar { get; set; }
+        public IFormFile ImageFile { get; set; }
 
         public IList<string> Roles { get; set; }
     }
