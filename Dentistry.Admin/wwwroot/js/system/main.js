@@ -106,17 +106,7 @@ function showError(message, title) {
     // show modal
     openInfoModal();
 }
-$('#confirmModalDeleteButton').off('click').on('click', function () {
-    if (runAction) {
-        runAction.then(function (resp) {
-            if (resp) {
-                console.log(resp);
-            }
-            runAction = null;
-        });
-    }
-});
-function closeModal() {
+function closeAllModal() {
     $('.modal.show').each(function () {
         var modalInstance = bootstrap.Modal.getInstance(this);
         if (modalInstance) {
@@ -124,11 +114,19 @@ function closeModal() {
         }
     });
 }
-const confirmDeleteButton = document.getElementById('confirmModalDeleteButton');
 
-// Xử lý khi nhấn nút "Delete" trong modal
-confirmDeleteButton.addEventListener('click', function () {
-    
+
+$('#confirmModalDeleteButton').off('click').on('click', function () {
+    if (runAction) {
+        runAction.then(function (resp) {
+            if (resp) {
+                console.log(resp);
+            }
+            runAction = null;
+
+        });
+        closeAllModal();
+    }
 });
 
 

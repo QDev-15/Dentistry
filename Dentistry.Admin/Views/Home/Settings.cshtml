@@ -18,6 +18,11 @@
             </button>
         </li>
         <li class="nav-item">
+            <button class="nav-link" id="doctor-tab" data-bs-toggle="tab" data-tab="doctor" data-bs-target="#doctor" type="button" role="tab">
+                <i class="fas fa-user-md"></i> Bác sĩ 
+            </button>
+        </li>
+        <li class="nav-item">
             <button class="nav-link" id="tab2-tab" data-bs-toggle="tab" data-tab="tab2" data-bs-target="#tab2" type="button" role="tab">Tab 2</button>
         </li>
     </ul>
@@ -33,6 +38,10 @@
             @{
                 Html.RenderPartial("_Partial_Category_list", Model.Categories);
             }
+        </div>
+        <!-- doctor -->
+        <div class="tab-pane p-2 fade" id="doctor" role="tabpanel">
+            @await Component.InvokeAsync("DoctorList")
         </div>
         <!-- Tab 2 -->
         <div class="tab-pane p-2 fade" id="tab2" role="tabpanel">

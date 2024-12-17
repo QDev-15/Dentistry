@@ -1,11 +1,9 @@
-﻿using Dentisty.Data.Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using Dentistry.ViewModels.System.Users;
 
-namespace Dentistry.Data.GeneratorDB.Entities
+namespace Dentistry.ViewModels.Catalog.Contacts
 {
-    public class Contact
+    public class ContactVm
     {
         public int Id { set; get; }
         public string Name { set; get; }
@@ -13,10 +11,8 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string PhoneNumber { set; get; }
         public string Message { set; get; }
         public bool IsActive { get; set; }
-        public Guid? ProcessById { set; get; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public AppUser ProcessBy { set; get; }
-
+        public UserVm ProcessBy {  set; get; }
     }
 }

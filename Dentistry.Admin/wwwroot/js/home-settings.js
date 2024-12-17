@@ -19,7 +19,6 @@ $(document).ready(function () {
     setActiveTab(selectedTab);
 });
 
-
 function setActiveTab(tabId) {
     $('#tabMenu .nav-link').removeClass('active');
     $(`#tabMenu .nav-link[data-tab=${tabId}]`).addClass('active');

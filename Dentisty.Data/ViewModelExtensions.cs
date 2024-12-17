@@ -2,8 +2,11 @@
 using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Catalog.Contacts;
+using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.GeneratorDB.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -29,6 +32,42 @@ namespace Dentisty.Data
                 PhoneNumber = item.PhoneNumber,
                 UserName = item.UserName,
                 Avatar = item.Avatar.ReturnViewModel()
+            };
+            return vm;
+        }
+        public static DoctorVm ReturnViewModel(this Doctor item)
+        {
+            if (item != null) return null;
+            var vm = new DoctorVm()
+            {
+                Id = item.Id,
+                Description = item.Description,
+                Avatar = item.Avatar.ReturnViewModel(),
+                Dob = item.Dob,
+                Name = item.Name,
+                Position = item.Position,
+                PositionExtent = item.PositionExtent,
+                Profile = item.Profile
+            };
+            return vm;
+        }
+        public static ContactVm ReturnViewModel(this Contact item)
+        {
+            if (item == null)
+            {
+                return null;
+            }
+            var vm = new ContactVm()
+            {
+                CreatedDate = item.CreatedDate,
+                Email = item.Email,
+                Id = item.Id,
+                IsActive = item.IsActive,
+                Message = item.Message,
+                Name = item.Name,
+                PhoneNumber = item.PhoneNumber,
+                UpdatedDate = item.UpdatedDate,
+                ProcessBy = item.ProcessBy.ReturnViewModel()
             };
             return vm;
         }

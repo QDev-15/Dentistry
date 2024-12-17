@@ -15,7 +15,7 @@
     <link href="~/lib/bootstrap-5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
     <!-- DataTables CSS (Bootstrap 5 compatible) -->
-    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="~/css/dataTables.bootstrap5.min.css" rel="stylesheet" crossorigin="anonymous">
     <!-- Font Awesome 6 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
@@ -28,12 +28,15 @@
     <script src="~/lib/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
     <!-- DataTables JS (Bootstrap 5 compatible) -->
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/system/jquery.dataTables.min.js"></script>
+    <script src="~/js/system/dataTables.bootstrap5.min.js"></script>
     <!-- Tinycme -->
     @* <script src="https://cdn.tiny.cloud/1/xhgl36xldfnf0slrwjswywl5tt48e645589wysh06f2rdo3m/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> *@
     <script src="~/lib/plugins/tinymce/tinymce.min.js"></script>
-    <script src="~/js/tinymce.js"></script>
+    <script src="~/js/system/tinymce.js"></script>
+    <script src="~/js/system/scripts.js"></script>
+    <script src="~/js/system/main.js"></script>
+    <script src="~/js/menuSideNav.js"></script>
 </head>
 <body class="sb-nav-fixed">
     @await Component.InvokeAsync("Navigation")
@@ -81,9 +84,7 @@
             </div>
         </div>
     </div>
-    <script src="~/js/scripts.js"></script>
-    <script src="~/js/main.js"></script>
-    <script src="~/js/menuSideNav.js"></script>
+
 
     @RenderSection("Scripts", required: false)
 </body>

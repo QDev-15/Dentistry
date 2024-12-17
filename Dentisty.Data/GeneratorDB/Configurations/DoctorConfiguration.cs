@@ -18,7 +18,7 @@ namespace Dentisty.Data.GeneratorDB.Configurations
             builder.Property(x =>x.Name).IsRequired();
             builder.Property(x => x.Dob).IsRequired();
             builder.Property(x => x.Position).IsRequired();
-            builder.HasOne(x => x.Avatar).WithOne(x => x.Doctor).HasForeignKey<Doctor>(x => x.ImageId).OnDelete(DeleteBehavior.Cascade).IsRequired(false);
+            builder.HasOne(x => x.Avatar).WithMany(x => x.Doctors).HasForeignKey(x => x.ImageId).OnDelete(DeleteBehavior.Cascade).IsRequired(false);
         }
 
     }

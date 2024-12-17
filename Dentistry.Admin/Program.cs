@@ -1,8 +1,11 @@
+using Dentistry.Admin.Common;
 using Dentistry.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;
 using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Catalog.Contacts;
+using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Interfaces;
@@ -69,7 +72,11 @@ builder.Services.AddAuthentication(options =>
     });
 
 // add controller views
-builder.Services.AddControllersWithViews()
+builder.Services.AddControllersWithViews(options =>
+{
+    // write log exception controller
+    options.Filters.Add<GlobalExceptionFilter>();
+})
     .AddRazorRuntimeCompilation()
     .AddFluentValidation(fv =>
     {
@@ -77,6 +84,8 @@ builder.Services.AddControllersWithViews()
         fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<SlideVmValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<ArticleVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<ContactVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<DoctorVmValidator>();
         fv.DisableDataAnnotationsValidation = true;
     });
 
@@ -97,6 +106,8 @@ builder.Services.AddScoped<ICategoryReposiroty, CategoryRepository>();
 builder.Services.AddScoped<ISlideRepository, SlideRepository>();
 builder.Services.AddScoped<IStorageService, FileStorageService>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
 
 
 
