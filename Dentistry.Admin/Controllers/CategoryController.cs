@@ -28,7 +28,7 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> AddEdit(int id, string type) {
             var categoryAddEdit = new CategoryVmAddEdit();
             var parentCategories = new List<CategoryVm>();
-            if (!string.IsNullOrEmpty(type)) // add sub category
+            if (type == "sub") // add sub category
             {
                 categoryAddEdit.parrents = (await _categoryRepository.GetByParent()).Select(x => x.ReturnViewModel()).ToList();
             }
@@ -39,7 +39,7 @@ namespace Dentistry.Admin.Controllers
             {
                 categoryAddEdit.item = (await _categoryRepository.GetById(id)).ReturnViewModel();               
             }
-            categoryAddEdit.item.IsSub = !string.IsNullOrEmpty(type);
+            categoryAddEdit.item.IsSub = type == "sub";
             return PartialView("_Partial_Category_AddEdit", categoryAddEdit);
         }
         [HttpPost]
@@ -50,10 +50,10 @@ namespace Dentistry.Admin.Controllers
                 return BadRequest("Invalid data");
             }
 
-            var checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Alias);
+            var checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Alias, model.item.Id);
             if (checkAlis)
             {
-                checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Name.ToSlus());
+                checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Name.ToSlus(), model.item.Id);
                 if (checkAlis) {
                     return Json(new { success = false, message = "Tên rút gọn đã tồn tại." });
                 }

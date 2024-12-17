@@ -22,7 +22,7 @@
             @foreach (var slide in Model)
             {
                 <tr>
-                    <td class="align-middle"><img src="@slide.Image.Path" alt="@slide.Name" style="width: 100px; height: auto;" /></td>
+                    <td class="align-middle"><img src="@slide.Image?.Path" alt="@slide.Name" style="width: 100px; height: auto;" /></td>
                     <td class="align-middle">@slide.Name</td>
                     <td class="align-middle">@slide.SubName</td>
                     <td class="align-middle">@slide.Description</td>

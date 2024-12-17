@@ -10,6 +10,7 @@
         <table id="categoryTable" class="table table-striped">
             <thead>
                 <tr>
+                    <th>Hình ảnh</th>
                     <th>Tên</th>
                     <th>Tên rút gọn</th>
                     <th>Thứ tự</th>
@@ -22,6 +23,7 @@
                 {
                     if (item.Parent == null) {
                         <tr>
+                            <td class="align-middle"><img src="@item.Image?.Path" alt="@item.Name" style="width: 100px; height: auto;" /></td>
                             <td class="align-middle">@item.Name</td>
                             <td class="align-middle">@item.Alias</td>
                             <td class="align-middle">@item.Sort</td>
@@ -47,6 +49,7 @@
         <table id="subCategoryTable" class="table table-striped">
             <thead>
                 <tr>
+                    <th>Hình ảnh</th>
                     <th>Tên</th>
                     <th>Tên rút gọn</th>
                     <th>Danh mục chính</th>
@@ -61,6 +64,7 @@
                     if (item.Parent != null)
                     {
                         <tr>
+                            <td class="align-middle"><img src="@item.Image?.Path" alt="@item.Name" style="width: 100px; height: auto;" /></td>
                             <td class="align-middle">@item.Name</td>
                             <td class="align-middle">@item.Alias</td>
                             <td class="align-middle">@item.Parent.Name</td>

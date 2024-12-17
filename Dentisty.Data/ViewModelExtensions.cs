@@ -87,10 +87,12 @@ namespace Dentisty.Data
                 Sort = item.Sort,
                 IsActive = item.IsActive,
                 ParentId = item.ParentId,
+                ImageId = item.ImageId,
                 UpdatedDate = item.UpdatedDate,
                 CreatedDate = item.CreatedDate,
                 Decription = item.Description,
                 UserId = item.UserId,
+                Image = item.Image.ReturnViewModel(),
                 Parent = item.Parent != null ? new CategoryVm() { Id = item.Parent.Id, Name = item.Parent.Name, Alias = item.Parent.Alias } : null,
                 ChildCategories = item.Categories != null && item.Categories.Any() ? item.Categories.Select(c => c.ReturnViewModel()).ToList() : new List<CategoryVm>()
             };

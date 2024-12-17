@@ -2,6 +2,7 @@
 using Dentistry.Data.GeneratorDB.Configurations;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.GeneratorDB.Extensions;
+using Dentisty.Data.GeneratorDB.Configurations;
 using Dentisty.Data.GeneratorDB.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -36,6 +37,8 @@ namespace Dentistry.Data.GeneratorDB.EF
             modelBuilder.ApplyConfiguration(new ArticlesConfiguration());
             modelBuilder.ApplyConfiguration(new HomeArticlesConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
+            modelBuilder.ApplyConfiguration(new DoctorConfiguration());
+            modelBuilder.ApplyConfiguration(new AppSettingfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -61,6 +64,8 @@ namespace Dentistry.Data.GeneratorDB.EF
         public DbSet<Article> Articles { get; set; }
         public DbSet<HomeArticle> HomeArticles { get; set; }
         public DbSet<Slide> Slides { get; set;}
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<AppSetting> AppSettings { get; set; }
 
     }
 }
