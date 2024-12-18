@@ -1,7 +1,67 @@
 ﻿@using Dentistry.ViewModels.Catalog.Doctors
 @model List<DoctorVm>
 
-<div id="section-doctor">
-    Hello bacs si <button type="button" onclick="reloadDoctorList()">Reload</button>
+<div class="container-fluid p-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Danh sách bác sĩ</h2>
+        <button class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#addEditDoctorModal" data-id="0">Thêm mới</button>
+    </div>
+
+    <div class="table-responsive">
+        <table id="doctorTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Avatar</th>
+                    <th>Tên</th>
+                    <th>Vị trí</th>
+                    <th>Ngày sinh</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Rows -->
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle"><img src="@item.Avatar?.Path" alt="@item.Name" style="width: 100px; height: 100px; border-radius: 50%" /></td>
+                        <td class="align-middle">@item.Name</td>
+                        <td class="align-middle">@item.Position</td>
+                        <td class="align-middle">@item.Dob</td>
+                        <td class="align-middle">
+                            <button class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#addEditDoctorModal" data-id="@item.Id">Sửa</button>
+                            <button class="btn btn-sm btn-danger delete-btn" onclick="deleteArticle(@item.Id)">Xóa</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
+<!-- Add Article Modal -->
+<div class="modal fade" id="addEditDoctorModal" tabindex="-1" aria-labelledby="addDoctorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Initialize DataTable
+    $('#doctorTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        pageLength: 5
+    });
+</script>
+
+
+
+
+
+
+
+
 <script src="~/js/doctor.js"></script>

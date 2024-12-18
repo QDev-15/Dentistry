@@ -3,8 +3,7 @@
 @{
     Layout = null;   
 }
-
-<div class="add-edit-slide p-3">
+<div class="modal-header">
     @if (Model.Id == 0)
     {
         <h2>Thêm Slide</h2>
@@ -13,61 +12,64 @@
     {
         <h2>Cập nhật Slide</h2>
     }
-
-
-    <form asp-action="AddEdit" asp-controllder="Slide" enctype="multipart/form-data" method="post">
-        <input type="hidden" asp-for="Id" />
-        <div class="form-group">
-            <label asp-for="Name">Tiêu dề</label>
-            <input type="text" class="form-control ps-2" id="Name" name="Name" asp-for="Name" value="@Model.Name" required />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="SubName">Tiêu đề phụ</label>
-            <input type="text" class="form-control ps-2" id="SubName" name="SubName" asp-for="SubName" value="@Model.SubName" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Description">Description</label>
-            <textarea class="form-control ps-2" id="Description" asp-for="Description" name="Description" required>@Model.Description</textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Url">Đường dẫn</label>
-            <input type="text" class="form-control ps-2" id="Url" name="Url" asp-for="Url" value="@Model.Url" />
-        </div>
-        <div class="form-group">
-            <label asp-for="SortOrder">Thứ tự</label>
-            <input type="number" class="form-control ps-2" id="SortOrder" name="SortOrder" asp-for="SortOrder" value="@Model.SortOrder" />
-        </div>
-        <div class="form-group">
-            <label asp-for="ImageFile">Upload Image</label>
-            <input asp-for="ImageFile" type="file" class="form-control ps-2" id="ImageFile" accept="image/*" />
-            
-        </div>
-        @{
-            if (string.IsNullOrEmpty(Model.Image?.Path)) {
-                <div id="preview-container" style="display: none">
-                    <label>Image Preview:</label>
-                    <img id="imagePreview" src="@Model.Image?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
-                </div>
-            } else {
-                <div id="preview-container" style="display: block">
-                    <label class="me-2">Image Preview:</label>
-                    <img id="imagePreview" src="@Model.Image?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
-                </div>
-            }
-        }
-        
-        <div class="form-group">
-            <input type="checkbox" id="IsActive" name="IsActive" asp-for="IsActive" />
-            <label asp-for="IsActive">IsActive</label>
-        </div>
-        <div class="form-group d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-    </form>
+    <button type="button" class="btn-close action-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
-
+<div class="modal-body">
+    <div class="add-edit-slide p-3">
+        <form asp-action="AddEdit" id="slide-add-edit" asp-controllder="Slide" enctype="multipart/form-data" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name">Tiêu dề</label>
+                <input type="text" class="form-control ps-2" id="Name" name="Name" asp-for="Name" value="@Model.Name" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubName">Tiêu đề phụ</label>
+                <input type="text" class="form-control ps-2" id="SubName" name="SubName" asp-for="SubName" value="@Model.SubName" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <textarea class="form-control ps-2" id="Description" asp-for="Description" name="Description" required>@Model.Description</textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Url">Đường dẫn</label>
+                <input type="text" class="form-control ps-2" id="Url" name="Url" asp-for="Url" value="@Model.Url" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SortOrder">Thứ tự</label>
+                <input type="number" class="form-control ps-2" id="SortOrder" name="SortOrder" asp-for="SortOrder" value="@Model.SortOrder" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile">Upload Image</label>
+                <input asp-for="ImageFile" type="file" class="form-control ps-2" id="ImageFile" accept="image/*" />
+            
+            </div>
+            @{
+                if (string.IsNullOrEmpty(Model.Image?.Path)) {
+                    <div id="preview-container" style="display: none">
+                        <label>Image Preview:</label>
+                        <img id="imagePreview" src="@Model.Image?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
+                    </div>
+                } else {
+                    <div id="preview-container" style="display: block">
+                        <label class="me-2">Image Preview:</label>
+                        <img id="imagePreview" src="@Model.Image?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
+                    </div>
+                }
+            }
+        
+            <div class="form-group">
+                <input type="checkbox" id="IsActive" name="IsActive" asp-for="IsActive" />
+                <label asp-for="IsActive">IsActive</label>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+    <button type="button" class="btn btn-secondary action-close" data-bs-dismiss="modal">Hủy</button>
+    <button type="submit" form="slide-add-edit" class="btn btn-primary">Lưu</button>
+</div>
                 <script>
                     $(document).ready(function () {
                         document.getElementById('ImageFile').addEventListener('change', function (event) {

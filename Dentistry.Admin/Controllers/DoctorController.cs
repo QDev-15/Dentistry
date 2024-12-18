@@ -28,11 +28,11 @@ namespace Dentistry.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> AddEdit(int id) {
             if (id == 0) {
-                return View(new DoctorVm());
+                return PartialView("~/Views/Doctor/Partial/_addEdit.cshtml", new DoctorVm() { Dob = DateTime.Now });
             } else
             {
                 var doctor = await _doctorRepository.GetById(id);
-                return View(doctor.ReturnViewModel());
+                return PartialView("~/Views/Doctor/Partial/_addEdit.cshtml", doctor.ReturnViewModel());
             }
         }
         [HttpPost]

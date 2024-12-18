@@ -1,0 +1,107 @@
+﻿@using Dentistry.ViewModels.Catalog.Doctors;
+@model DoctorVm
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    @if (Model.Id == 0)
+    {
+        <h5 class="modal-title" id="addDoctorModalLabel">Thêm mới</h5>
+    }
+    else
+    {
+        <h5 class="modal-title" id="addDoctorModalLabel">Cập nhật</h5>
+    }
+    <button type="button" class="btn-close action-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <form id="addDoctorForm" asp-action="AddEdit" asp-controller="Doctor" method="post" class="needs-validation" validate>
+        <input type="hidden" asp-for="@Model.Id" />
+        <div class="mb-3">
+            <label asp-for="@Model.Name" class="form-label">Bác sĩ</label>
+            <input type="text" class="form-control" asp-for="@Model.Name" placeholder="Nhập tên bác sĩ" required>
+            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Position" class="form-label">Vị trí</label>
+            <input type="text" class="form-control" asp-for="@Model.Position" placeholder="Chức vụ" required>
+            <span asp-validation-for="@Model.Position" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Dob" class="form-label">Ngày sinh</label>
+            <div class="input-group">
+                <input type="text" class="form-control" asp-for="@Model.Dob" id="datepicker" placeholder="dd/mm/yyyy" required>
+                <span class="input-group-text">
+                    <i class="bi bi-calendar"></i>
+                </span>
+            </div>
+            <span asp-validation-for="@Model.Dob" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.PositionExtent" class="form-label">Tiểu sử công tác</label>
+            <textarea asp-for="@Model.PositionExtent" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.formFile">Upload Image</label>
+            <input asp-for="@Model.formFile" type="file" id="item_formFile" class="form-control ps-2" accept="image/*" />
+
+        </div>
+        @{
+            if (string.IsNullOrEmpty(Model.Avatar?.Path))
+            {
+                <div id="doctor-preview-container" style="display: none">
+                    <label>Image Preview:</label>
+                    <img id="doctor-preview-imagePreview" src="@Model.Avatar?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
+                </div>
+            }
+            else
+            {
+                <div id="doctor-preview-container" style="display: block">
+                    <label class="me-2">Image Preview:</label>
+                    <img id="doctor-preview-imagePreview" src="@Model.Avatar?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
+                </div>
+            }
+        }
+        <div class="mb-3">
+            <label asp-for="@Model.Description" class="form-label">Giới thiệu</label>
+            <textarea asp-for="@Model.Description" id="doctor_Description"></textarea>
+        </div>
+    </form>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+    <button type="button" class="btn btn-secondary action-close" data-bs-dismiss="modal">Hủy</button>
+    <button type="submit" form="addDoctorForm" class="btn btn-primary">Lưu</button>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#datepicker').datepicker({
+            format: 'dd/mm/yyyy', // Định dạng ngày
+            autoclose: true, // Tự đóng khi chọn ngày
+            todayHighlight: true, // Làm nổi bật ngày hiện tại
+            language: 'vi', // Cài đặt ngôn ngữ (nếu cần)
+            startDate: '01/01/1940', // Ngày nhỏ nhất có thể chọn
+        });
+        $('.input-group-text').click(function () {
+            $('#datepicker').datepicker('show');
+        });
+        document.getElementById('item_formFile').addEventListener('change', function (event) {
+            const file = event.target.files[0]; // Lấy file đầu tiên từ input
+            const previewContainer = document.getElementById("doctor-preview-container");
+            const imagePreview = document.getElementById("doctor-preview-imagePreview");
+            debugger;
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Gán đường dẫn ảnh vào thẻ <img>
+                    imagePreview.src = e.target.result;
+                    previewContainer.style.display = "block"; // Hiện ảnh
+                };
+                reader.readAsDataURL(file); // Đọc file dưới dạng URL
+            } else {
+                previewContainer.style.display = "none"; // Ẩn ảnh nếu không có file
+            }
+        });
+    });
+</script>

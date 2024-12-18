@@ -37,7 +37,10 @@ namespace Dentisty.Data
         }
         public static DoctorVm ReturnViewModel(this Doctor item)
         {
-            if (item != null) return null;
+            if (item == null)
+            { 
+                return null;
+            }
             var vm = new DoctorVm()
             {
                 Id = item.Id,

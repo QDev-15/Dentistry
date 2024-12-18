@@ -13,7 +13,7 @@
         pageLength: 5
     });
     // handle Edit - Add button click
-    $(document).on('click', '.add-edit-btn', function () {
+    $(document).on('click', '.category-edit-btn, .category-add-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
         const type = $(this).data('type'); // Nếu không có ID, thì tạo mới
 

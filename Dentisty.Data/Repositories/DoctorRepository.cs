@@ -92,8 +92,8 @@ namespace Dentisty.Data.Repositories
                         {
                             await _imageRepository.DeleteFile(img);
                             _imageRepository.Delete(doctor.Avatar);
-                            doctor.Avatar = img;
                         }
+                        doctor.Avatar = img;
                     }
                     Update(doctor);
                     await SaveChangesAsync();
