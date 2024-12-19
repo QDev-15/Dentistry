@@ -13,6 +13,6 @@ namespace Dentistry.ViewModels.Catalog.Contacts
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public UserVm ProcessBy {  set; get; }
+        public UserVm? ProcessBy {  set; get; }
     }
 }

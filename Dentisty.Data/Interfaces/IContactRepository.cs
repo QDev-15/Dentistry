@@ -10,9 +10,11 @@ namespace Dentisty.Data.Interfaces
 {
     public interface IContactRepository : IRepository<Contact>
     {
+        Task<IEnumerable<Contact>> GetAll(bool isActive);
         Task<IEnumerable<Contact>> GetByEmail(string email);
         Task<IEnumerable<Contact>> GetByPhone(string phone);
         Task<ContactVm> Update(ContactVm vm);
         Task<ContactVm> Create(ContactVm vm);
+        Task<bool> Process(int id);
     }
 }

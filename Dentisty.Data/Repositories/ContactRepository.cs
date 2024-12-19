@@ -49,6 +49,12 @@ namespace Dentisty.Data.Repositories
             
         }
 
+        public async Task<IEnumerable<Contact>> GetAll(bool isActive)
+        {
+            var contacts = await _context.Contacts.Where(x => x.IsActive).Include(x => x.ProcessBy).ToListAsync();
+            return contacts;
+        }
+
         public async Task<IEnumerable<Contact>> GetByEmail(string email)
         {
             return await _context.Contacts.Where(x => x.Email == email).ToListAsync();
@@ -57,6 +63,20 @@ namespace Dentisty.Data.Repositories
         public async Task<IEnumerable<Contact>> GetByPhone(string phone)
         {
             return await _context.Contacts.Where(x => x.PhoneNumber == phone).ToListAsync();
+        }
+
+        public async Task<bool> Process(int id)
+        {
+            var contact = await GetByIdAsync(id);
+            if (contact != null)
+            {
+                contact.IsActive = false;
+                contact.ProcessById = new Guid(_loggerRepository.GetCurrentUserId());
+                Update(contact);
+                await SaveChangesAsync();
+                return true;    
+            }
+            return false;
         }
 
         public async Task<ContactVm> Update(ContactVm vm)

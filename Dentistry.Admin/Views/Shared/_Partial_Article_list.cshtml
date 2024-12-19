@@ -24,13 +24,13 @@
                 {
                     <tr>
                         <td class="align-middle">@item.Title</td>
-                        <td class="align-middle">@item.Category.Name</td>
+                        <td class="align-middle">@item.Category?.Name</td>
                         <td class="align-middle">
                             @{
-                                if (string.IsNullOrEmpty(item.CreatedBy.DisplayName)) {
-                                    @item.CreatedBy.UserName
+                                if (string.IsNullOrEmpty(item.CreatedBy?.DisplayName)) {
+                                    @item.CreatedBy?.UserName
                                 } else {
-                                    @item.CreatedBy.DisplayName
+                                    @item.CreatedBy?.DisplayName
                                 }
                             }
                         </td>

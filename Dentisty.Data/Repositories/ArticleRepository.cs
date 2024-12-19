@@ -45,7 +45,7 @@ namespace Dentisty.Data.Repositories
         }
         public async Task<IEnumerable<Article>> GetAllAsync()
         {
-            return await _context.Articles.Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).Where(x=>x.IsActive).ToListAsync();
+            return await _context.Articles.Where(x => x.IsActive == true).Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).ToListAsync();
         }
 
         public async Task<ArticleVm> CreateNew(ArticleVm item)
