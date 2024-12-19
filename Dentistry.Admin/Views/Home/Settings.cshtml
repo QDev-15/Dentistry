@@ -22,6 +22,11 @@
                 <i class="fas fa-user-md"></i> Bác sĩ 
             </button>
         </li>
+        <li class="nav-item">
+            <button class="nav-link" id="app-setting-tab" data-bs-toggle="tab" data-tab="app-setting" data-bs-target="#app-setting" type="button" role="tab">
+                <i class="fa-solid fa-gears"></i> Cài đặt
+            </button>
+        </li>
     </ul>
     <div class="tab-content" id="tabContent">
         <!-- Slide -->
@@ -39,6 +44,10 @@
         <!-- doctor -->
         <div class="tab-pane p-2 fade" id="doctor" role="tabpanel">
             @await Component.InvokeAsync("DoctorList")
+        </div>
+        <!-- app-setting -->
+        <div class="tab-pane p-2 fade" id="app-setting" role="tabpanel">
+            @await Component.InvokeAsync("AppSettings")
         </div>
     </div>
 </div>

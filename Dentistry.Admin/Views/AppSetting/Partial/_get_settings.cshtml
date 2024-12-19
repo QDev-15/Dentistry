@@ -1,5 +1,128 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Dentistry.ViewModels.Catalog.AppSettings
+@model AppSettingVm
+
+<div class="container-fluid mt-4">
+    <!-- Name hiển thị và căn giữa -->
+    <h3 class="text-center mb-4">@Model.Name</h3>
+
+    <!-- Form cập nhật -->
+    <form id="updateForm" asp-action="UpdateSetting" asp-controller="AppSetting" method="post" class="row g-3">
+        <input asp-for="Id" type="hidden" />
+        <!-- Hotline Group -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Hotline</div>
+                <div class="card-body row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="Hotline1" class="form-label">Hotline 1</label>
+                        <input type="text" class="form-control" asp-for="Hotline1">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Hotline2" class="form-label">Hotline 2</label>
+                        <input type="text" class="form-control" asp-for="Hotline2">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Hotline3" class="form-label">Hotline 3</label>
+                        <input type="text" class="form-control" asp-for="Hotline3">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="Hotline4" class="form-label">Hotline 4</label>
+                        <input type="text" class="form-control" asp-for="Hotline4">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zalo Group -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Zalo</div>
+                <div class="card-body row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="Zalo1" class="form-label">Zalo 1</label>
+                        <input type="text" class="form-control" asp-for="Zalo1">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Zalo2" class="form-label">Zalo 2</label>
+                        <input type="text" class="form-control" asp-for="Zalo2">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Zalo3" class="form-label">Zalo 3</label>
+                        <input type="text" class="form-control" asp-for="Zalo3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facebook Group -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Facebook</div>
+                <div class="card-body row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="Facebook1" class="form-label">Facebook 1</label>
+                        <input type="text" class="form-control" asp-for="Facebook1">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Facebook2" class="form-label">Facebook 2</label>
+                        <input type="text" class="form-control" asp-for="Facebook2">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Facebook3" class="form-label">Facebook 3</label>
+                        <input type="text" class="form-control" asp-for="Facebook3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Group -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Instagram</div>
+                <div class="card-body row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="Instagram1" class="form-label">Instagram 1</label>
+                        <input type="text" class="form-control" asp-for="Instagram1">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Instagram2" class="form-label">Instagram 2</label>
+                        <input type="text" class="form-control" asp-for="Instagram2">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Instagram3" class="form-label">Instagram 3</label>
+                        <input type="text" class="form-control" asp-for="Instagram3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Twitter Group -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Twitter</div>
+                <div class="card-body row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="Twitter1" class="form-label">Twitter 1</label>
+                        <input type="text" class="form-control" asp-for="Twitter1">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Twitter2" class="form-label">Twitter 2</label>
+                        <input type="text" class="form-control" asp-for="Twitter2">
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="Twitter3" class="form-label">Twitter 3</label>
+                        <input type="text" class="form-control" asp-for="Twitter3">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-12 text-center mt-4">
+            <button type="submit" id="btn-setting-update" class="btn btn-primary">Cập nhật</button>
+        </div>
+    </form>
+</div>
+
+
+<script src="~/js/app-setting.js"></script>
