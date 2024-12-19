@@ -164,31 +164,20 @@ namespace Dentisty.Data.Services.System
             {
                 return new ErrorResult<bool>("Tài khoản không tồn tại");
             }
-            var removedRoles = request.Roles.Where(x => x.Selected == false).Select(x => x.Name).ToList();
-            foreach (var roleName in removedRoles)
+            // remove role not check
+            var removedRoles = await _userManager.GetRolesAsync(user);
+            removedRoles = removedRoles.Except(request.Roles.Where(x => x.Selected).Select(x => x.Name)).ToList();
+            if (removedRoles.Any())
             {
-                if (await _userManager.IsInRoleAsync(user, roleName) == true)
-                {
-                    await _userManager.RemoveFromRoleAsync(user, roleName);
-                }
+                await _userManager.RemoveFromRolesAsync(user, removedRoles);
             }
-            await _userManager.RemoveFromRolesAsync(user, removedRoles);
-
+            // add role checked
             var addedRoles = request.Roles.Where(x => x.Selected).Select(x => x.Name).ToList();
-            
             foreach (var roleName in addedRoles)
             {
-                var role = await _roleManager.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
-
-                if (role == null)
+                if (!await _userManager.IsInRoleAsync(user, roleName))
                 {
-                    // Nếu role không tồn tại, bạn cần tạo mới
-                    await _roleManager.CreateAsync(new AppRole { Name = roleName, NormalizedName = roleName.ToUpper(), Description = "Default" });
-                    role = await _roleManager.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
-                }
-                if (await _userManager.IsInRoleAsync(user, role.Name) == false)
-                {
-                    await _userManager.AddToRoleAsync(user, role.Name);
+                    await _userManager.AddToRoleAsync(user, roleName);
                 }
             }
             return new SuccessResult<bool>();
