@@ -2,6 +2,7 @@
 using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Net.Http.Headers;
 
@@ -10,19 +11,23 @@ namespace Dentistry.Data.Storages
     public class FileStorageService : IStorageService
     {
         private readonly string _userContentFolder;
+        private readonly string _hostAdmin;
         private readonly LoggerRepository logger;
-        
+        private readonly IConfiguration _configuration;
+
         private readonly string Content_folder = SystemConstants.USER_CONTENT_FOLDER_NAME;
 
-        public FileStorageService(IWebHostEnvironment webHostEnvironment, LoggerRepository loggerRepository)
+        public FileStorageService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration, LoggerRepository loggerRepository)
         {
+
+            _configuration = configuration;
             logger = loggerRepository;
             _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, SystemConstants.USER_CONTENT_FOLDER_NAME);
         }
 
         public string GetFileUrl(string fileName)
         {
-            return $"/{Content_folder}/{fileName}";
+            return $"{_configuration["hostAdmin"]}/{Content_folder}/{fileName}";
         }
 
         public async Task SaveFileAsync(Stream mediaBinaryStream, string fileName)

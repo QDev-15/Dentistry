@@ -3,6 +3,7 @@ using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace Dentisty.Data.Repositories
 {
@@ -12,7 +13,7 @@ namespace Dentisty.Data.Repositories
         private readonly IStorageService _storageService;
         private readonly LoggerRepository _loggerRepository;
 
-        public ImageRepository(DentistryDbContext context, IStorageService storageService, LoggerRepository loggerRepository) : base(context)
+        public ImageRepository(DentistryDbContext context, IConfiguration configuration, IStorageService storageService, LoggerRepository loggerRepository) : base(context)
         {
             _loggerRepository = loggerRepository;
             _context = context;
