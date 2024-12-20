@@ -1,7 +1,9 @@
 ﻿using Dentistry.Admin.Models;
 using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Dentistry.Admin.Controllers.Components
 {
@@ -53,6 +55,18 @@ namespace Dentistry.Admin.Controllers.Components
                 }
                 menuLeft.Categories.Add(newCategory);
             }
+            /// get users
+            var claimsPrincipal = User as ClaimsPrincipal;
+            var userVm = new UserVm
+            {
+                Id = claimsPrincipal.FindFirst(ClaimTypes.NameIdentifier)?.Value!,
+                DisplayName = claimsPrincipal.FindFirst("DisplayName")?.Value!,
+                Email = claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value!,
+                FirstName = claimsPrincipal.FindFirst(ClaimTypes.GivenName)?.Value!,
+                UserName = claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value!,
+                Roles = claimsPrincipal.FindFirst(ClaimTypes.Role)?.Value!.Split(';'),
+            };
+            menuLeft.CurrentUser = userVm;
             return View("Default", menuLeft);
         }
     }

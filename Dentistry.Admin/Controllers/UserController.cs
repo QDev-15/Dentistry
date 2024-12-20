@@ -1,6 +1,7 @@
 ﻿using Dentistry.Common.Constants;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,10 +16,12 @@ namespace Dentistry.Admin.Controllers
         private readonly UserService _userService;
         private readonly RoleService _roleService;
         private readonly IConfiguration _configuration;
+        private readonly LoggerRepository _loggerRepository;
 
-        public UserController(UserService userService, RoleService roleService,
+        public UserController(UserService userService, RoleService roleService, LoggerRepository loggerRepository,
             IConfiguration configuration)
         {
+            _loggerRepository = loggerRepository;
             _configuration = configuration;
             _userService = userService;
             _roleService = roleService;
@@ -156,18 +159,25 @@ namespace Dentistry.Admin.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var result = await _userService.RoleAssign(request.Id, request);
-
-            if (result.IsSuccessed)
+            try
             {
-                TempData["result"] = "Cập nhật quyền thành công";
-                return RedirectToAction("Index");
+                var result = await _userService.RoleAssign(request.Id, request);
+
+                if (result.IsSuccessed)
+                {
+                    TempData["result"] = "Cập nhật quyền thành công";
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("", result.Message);
+                var roleAssignRequest = await GetRoleAssignRequest(request.Id);
+
+                return View(roleAssignRequest);
+            } catch (Exception ex)
+            {
+                _loggerRepository.QueueLog(ex.Message);
+                return View();
             }
-
-            ModelState.AddModelError("", result.Message);
-            var roleAssignRequest = await GetRoleAssignRequest(request.Id);
-
-            return View(roleAssignRequest);
         }
 
         private async Task<RoleAssignRequest> GetRoleAssignRequest(Guid id)
@@ -181,6 +191,7 @@ namespace Dentistry.Admin.Controllers
                 {
                     Id = role.Id.ToString(),
                     Name = role.Name,
+                    NormalizedName = role.NormalizedName,
                     Selected = userObj.ResultObj.Roles.Contains(role.Name)
                 });
             }

@@ -49,5 +49,14 @@
 </div>
 <div class="sb-sidenav-footer">
     <div class="small">Logged in as:</div>
-    Start Bootstrap
+    @{
+        if (string.IsNullOrEmpty(Model.CurrentUser.DisplayName))
+        {
+            @Model.CurrentUser.Email
+        }
+        else
+        {
+            @Model.CurrentUser.DisplayName
+        }
+    }
 </div>
