@@ -12,7 +12,7 @@ builder.Services.AddDbContext<DentistryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpContextAccessor();
 
 // add resource validator
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");

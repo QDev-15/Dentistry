@@ -1,4 +1,4 @@
-html {
+﻿html {
     font-size: 12px;
     font-family: "Roboto","Arial",sans-serif;
 }
@@ -124,22 +124,38 @@ i.bi-telephone-inbound, i.fa-phone {
     background: url(./assets/img/bg_book.jpg) no-repeat top left;
     background-size: cover;
 }
+.section {
+    background-color: #fffffe;
+}
 /**
     actor list
 */
 /* Actor list styling */
-.actor-list-header {
+.section-category {
+}
+.section-title {
     padding: 15px;
     font-size: 30px;
     font-weight: bold;
     color: #EEA616;
+}
+.section-sub {
+    font-size: 16px;
+    color: ActiveBorder;
+    padding: 15px;
+    margin: 0 50px;
+    text-align: center;
 }
 .actor-list .image a {
     position: relative;
     display: block;
     transition: all 0.3s ease; /* Smooth transition for hover effect */
 }
-
+.actor-list .actor-item {
+    max-width: 250px;
+    padding: 15px 0;
+    margin: 0 30px;
+}
     .actor-list .image a::after {
         content: "";
         position: absolute;
@@ -185,3 +201,148 @@ i.bi-telephone-inbound, i.fa-phone {
 .actor-list .actor-item:hover .info .title a {
     color: rgb(233 174 55 / 97%) /* Change text color to red on hover */
 }
+
+/** Contactt ----------------------------------------------------------------------------- */
+/* Row and Column */
+.section-contact
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+}
+
+.section-contact .col-sm-5, .section-contact .col-sm-7, .section-contact .col-xs-12 {
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.section-contact .hidden-xs {
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .section-contact .hidden-xs {
+        display: block;
+    }
+}
+
+/* Image Styling */
+.section-contact .image {
+    max-width: 100%;
+    border-radius: 10px;
+    /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+}
+
+/* Box Styling */
+.section-contact .box_wrap {
+    border-radius: 10px;
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+    padding: 20px;
+}
+
+.section-contact .box_title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #0056b3;
+    text-align: center;
+}
+
+/* Form Styling */
+.section-contact .form-group {
+    margin-bottom: 15px;
+}
+
+.section-contact .form-control {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Bo góc tròn */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-contact .form-control:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+    outline: none;
+}
+
+/* Note and Footer Styling */
+.section-contact .note {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 10px;
+    text-align: left; /* Căn trái */
+}
+
+.section-contact .btnSuccess {
+    display: flex;
+    flex-direction: row; /* Đặt các phần tử trên cùng một hàng */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: flex-start; /* Căn trái */
+    margin-top: 20px;
+    gap: 15px; /* Khoảng cách giữa các phần tử */
+}
+
+.section-contact .btn_yellow {
+    display: inline-block;
+    background: #ffcc00;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+    .section-contact .btn_yellow:hover {
+        background: #e6b800;
+        box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+    }
+
+.section-contact .open {
+    font-size: 1rem; /* Tăng kích thước chữ */
+    color: #666;
+    text-align: left;
+    line-height: 1.5;
+}
+
+    .section-contact .open span {
+        font-size: 1.2rem; /* Tăng kích thước chữ cho giờ làm việc */
+        font-weight: bold;
+        color: #0056b3;
+    }
+.section-contact .form-control {
+    width: 100%;
+    padding: 12px 15px; /* Tăng padding cho input */
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Bo góc tròn */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    height: auto;
+}
+
+    .section-contact .form-control:focus {
+        border-color: #0056b3;
+        box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+        outline: none;
+    }
+
+.section-contact select.form-control {
+    height: calc(2.5rem + 6px); /* Điều chỉnh chiều cao */
+    line-height: 1.5; /* Canh giữa text trong select */
+    padding: 0 15px; /* Padding ngang */
+    border-radius: 20px; /* Bo góc */
+    appearance: none; /* Ẩn dấu mũi tên mặc định trên một số trình duyệt */
+    background: #fff url('data:image/svg+xml;base64,<SVG_ARROW_ICON>') no-repeat right 10px center; /* Thêm icon mũi tên tuỳ chỉnh */
+    background-size: 10px;
+}
+
+    .section-contact select.form-control:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+    }
