@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Dentistry.Common\Dentistry.ViewModels.csproj" />
     <ProjectReference Include="..\Dentistry.ViewModels\Dentistry.ViewModels.csproj" />
     <ProjectReference Include="..\Dentisty.Data\Dentisty.Data.csproj" />
