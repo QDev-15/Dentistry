@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Admin", "Dentistr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Web", "Dentistry.Web\Dentistry.Web.csproj", "{5C6C5535-C768-4413-99F6-1F4EF7610401}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.ViewModels", "Dentistry.Common\Dentistry.ViewModels.csproj", "{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.ViewModels", "Dentistry.ViewModels\Dentistry.ViewModels.csproj", "{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentisty.Data", "Dentisty.Data\Dentisty.Data.csproj", "{3298184B-CD0B-4B52-BEAA-4153892C295B}"
 EndProject

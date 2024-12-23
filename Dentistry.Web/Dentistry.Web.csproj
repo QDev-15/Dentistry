@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dentistry.Admin\Dentistry.Admin.csproj" />
     <ProjectReference Include="..\Dentistry.Common\Dentistry.ViewModels.csproj" />
     <ProjectReference Include="..\Dentisty.Data\Dentisty.Data.csproj" />
   </ItemGroup>
