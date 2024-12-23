@@ -1,9 +1,12 @@
 ﻿using Dentistry.Common.Constants;
+using Dentistry.ViewModels.Common;
+using Dentisty.Data.Common;
 using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.IO;
+using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 
 namespace Dentistry.Data.Storages
@@ -11,15 +14,15 @@ namespace Dentistry.Data.Storages
     public class FileStorageService : IStorageService
     {
         private readonly string _userContentFolder;
-        private readonly string _hostAdmin;
         private readonly LoggerRepository logger;
         private readonly IConfiguration _configuration;
+        private readonly HostingConfig _config;
 
         private readonly string Content_folder = SystemConstants.USER_CONTENT_FOLDER_NAME;
 
-        public FileStorageService(IWebHostEnvironment webHostEnvironment, IConfiguration configuration, LoggerRepository loggerRepository)
+        public FileStorageService(IWebHostEnvironment webHostEnvironment, IOptions<HostingConfig> config, IConfiguration configuration, LoggerRepository loggerRepository)
         {
-
+            _config = config.Value;
             _configuration = configuration;
             logger = loggerRepository;
             _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, SystemConstants.USER_CONTENT_FOLDER_NAME);
@@ -27,7 +30,7 @@ namespace Dentistry.Data.Storages
 
         public string GetFileUrl(string fileName)
         {
-            return $"{_configuration["hostAdmin"]}/{Content_folder}/{fileName}";
+            return $"{_config.Domain}/{_config.UploadDirectory}/{fileName}";
         }
 
         public async Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
@@ -44,8 +47,8 @@ namespace Dentistry.Data.Storages
                 {
                     await mediaBinaryStream.CopyToAsync(output);
                 }
-                //using var output = new FileStream(filePath, FileMode.Create);
-                //await mediaBinaryStream.CopyToAsync(output);
+                //using var output = new filestream(filepath, filemode.create);
+                //await mediabinarystream.copytoasync(output);
             }
             catch (Exception ex)
             {
@@ -64,6 +67,52 @@ namespace Dentistry.Data.Storages
             await SaveFileAsync(file.OpenReadStream(), fileName);
             
             return fileName;
+        }
+
+        public async Task<FileUploadResult> SaveFileToHostingAsync(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                throw new ArgumentException("File không hợp lệ.");
+
+            // Kiểm tra định dạng file
+            var extension = Path.GetExtension(file.FileName).ToLower();
+            if (!_config.AllowedExtensions.Contains(extension))
+            {
+                throw new ArgumentException("Loại file không được phép.");
+            }
+
+            // Kiểm tra kích thước file
+            var maxFileSize = _config.MaxFileSizeMB * 1024 * 1024; // MB to bytes
+            if (file.Length > maxFileSize)
+            {
+                throw new ArgumentException("Kích thước file vượt quá giới hạn cho phép.");
+            }
+
+            try
+            {
+                // Đảm bảo thư mục lưu trữ tồn tại
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", _config.UploadDirectory);
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                // Đặt tên file mới để tránh trùng
+                var fileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + file.FileName;
+                var filePath = Path.Combine(uploadsFolder, fileName);
+
+                // Lưu file vào server
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+                return new FileUploadResult() { FileName = fileName, FilePath = GetFileUrl(fileName), FileSize = file.Length };
+            }
+            catch (Exception ex)
+            {
+                logger.QueueLog(ex.Message, "Upload file");
+                return null;
+            }
         }
 
         public async Task DeleteFileAsync(string fileName)

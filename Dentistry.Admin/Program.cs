@@ -1,4 +1,4 @@
-using Dentistry.Admin.Common;
+﻿using Dentistry.Admin.Common;
 using Dentistry.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
@@ -8,6 +8,7 @@ using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.System;
@@ -25,6 +26,14 @@ builder.Services.AddDbContext<DentistryDbContext>(options =>
 builder.Services.AddIdentity<AppUser, AppRole>()
 .AddEntityFrameworkStores<DentistryDbContext>()
 .AddDefaultTokenProviders();
+
+// Đăng ký HostingConfig
+// Configure app settings based on environment
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+// Tải cấu hình UploadSettings từ appsettings
+builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
 
 var issuer = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Issuer);
 var audience = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Audience);
@@ -126,6 +135,11 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+else if (app.Environment.IsProduction())
+{
+    app.UseExceptionHandler("/Home/Error");
+    Console.WriteLine("Running in Production environment.");
 }
 using (var scope = app.Services.CreateScope())
 {

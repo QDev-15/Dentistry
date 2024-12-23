@@ -24,13 +24,13 @@ namespace Dentisty.Data.Repositories
         {
             try
             {
-                var _fileName = await _storageService.SaveFileAsync(file);
+                var fileUpload = await _storageService.SaveFileToHostingAsync(file);
                 var image = new Image()
                 {
                     FileSize = file.Length,
                     Type = file.ContentType,
-                    FileName = _fileName,
-                    Path = _storageService.GetFileUrl(_fileName),
+                    FileName = fileUpload.FileName,
+                    Path = fileUpload.FilePath,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now
                 };
