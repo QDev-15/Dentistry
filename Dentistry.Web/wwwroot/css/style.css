@@ -3,152 +3,182 @@
   color: #fff;
   height: 38px;
   line-height: 38px;
-  position: relative; }
-  .box-top .item {
-    display: inline-block;
-    padding: 0 13px;
-    position: relative;
-    color: #494949; }
-    .box-top .item a {
-      color: white;
-      font-weight: bold;
-      text-decoration: none; }
-    .box-top .item span {
-      color: white;
-      font-weight: bold;
-      text-decoration: none; }
-    .box-top .item .social {
-      position: relative;
-      padding-left: 10px; }
-      .box-top .item .social a {
-        margin: 0 2px;
-        color: transparent; }
-    .box-top .item .open {
-      position: relative; }
-    .box-top .item .item-after::after {
-      content: "";
-      position: absolute;
-      width: 1px;
-      height: 12px;
-      top: 13px;
-      right: 0;
-      background-color: #fff; }
+  position: relative;
+}
+.box-top .item {
+  display: inline-block;
+  padding: 0 13px;
+  position: relative;
+  color: #494949;
+}
+.box-top .item a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+.box-top .item span {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+.box-top .open {
+  position: relative;
+}
+.box-top .item-after::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 12px;
+  top: 13px;
+  right: 0;
+  background-color: #fff;
+}
+.box-top .social {
+  position: relative;
+  padding-left: 10px;
+}
+.box-top .social a {
+  margin: 0 2px;
+  color: #fffffe;
+  text-decoration: none;
+  font-size: 17px;
+}
+.box-top .social a:hover {
+  color: #59411e;
+}
 
 .logo-brand img {
-  height: 110px; }
+  height: 110px;
+}
 
 .bg-custom {
-  background: #231f20; }
+  background: #231f20;
+}
 
 .b-divider {
-  height: 20px; }
+  height: 20px;
+}
 
 .b-divider-shadow {
   height: 30px;
   margin: 0 -20px;
   background: #f9f9f9;
-  box-shadow: inset 0px 3px 5px 0px rgba(0, 0, 0, 0.2), inset 0px 4px 0px rgba(253, 253, 253, 0.25), inset 0px 0px 5px 0px rgba(111, 111, 111, 0.2); }
+  box-shadow: inset 0px 3px 5px 0px rgba(0, 0, 0, 0.2), inset 0px 4px 0px rgba(253, 253, 253, 0.25), inset 0px 0px 5px 0px rgba(111, 111, 111, 0.2);
+}
 
 .container-fluid-chuyengia {
-  background-image: url(../scss/assets/img/bg-chuyengia.jpg); }
+  background-image: url(../assets/img/bg-chuyengia.jpg);
+}
 
 .container-fluid-footer {
   background-color: #ededed;
-  box-shadow: 0px 5px 1px 6px rgba(0, 0, 0, 0.1); }
+  box-shadow: 0px 5px 1px 6px rgba(0, 0, 0, 0.1);
+}
 
 .box_book {
-  background: url(../scss/assets/img/bg_book.jpg) no-repeat top left;
-  background-size: cover; }
+  background: url(../assets/img/bg_book.jpg) no-repeat top left;
+  background-size: cover;
+}
 
 .section {
-  background-color: #fffffe; }
-
-.section-title {
+  background-color: #fffffe;
+}
+.section .section-title {
   padding: 15px;
   font-size: 30px;
   font-weight: bold;
-  color: #eea616; }
-
-.section-sub {
+  color: #eea616;
+}
+.section .section-sub {
   font-size: 16px;
   color: activeborder;
   padding: 15px;
   margin: 0 50px;
-  text-align: center; }
+  text-align: center;
+}
 
 .actor-list .image a {
   position: relative;
   display: block;
-  transition: all 0.3s ease; }
-
+  transition: all 0.3s ease;
+}
 .actor-list .actor-item {
   max-width: 250px;
   padding: 15px 0;
-  margin: 0 30px; }
-  .actor-list .actor-item .image a::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border: 15px solid rgba(245, 245, 245, 0.54);
-    box-sizing: border-box; }
-  .actor-list .actor-item .actor-image {
-    width: 100%;
-    height: auto;
-    border-radius: 50%; }
-  .actor-list .actor-item .info {
-    padding: 15px;
-    font-size: 14px;
-    font-weight: bold; }
-    .actor-list .actor-item .info .title a {
-      color: #454545;
-      text-decoration: none;
-      transition: color 0.3s ease; }
-    .actor-list .actor-item .info:hover .image a::after {
-      border-color: #e9ae37; }
-    .actor-list .actor-item .info:hover .title a {
-      color: #e9ae37; }
+  margin: 0 30px;
+}
+.actor-list .actor-item .image a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 15px solid rgba(245, 245, 245, 0.54);
+  box-sizing: border-box;
+}
+.actor-list .actor-item .actor-image {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+.actor-list .actor-item .info {
+  padding: 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.actor-list .actor-item .info .title a {
+  color: #454545;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.actor-list .actor-item .info:hover .image a::after {
+  border-color: rgba(233, 174, 55, 0.34);
+}
+.actor-list .actor-item .info:hover .title a {
+  color: rgba(233, 174, 55, 0.97);
+}
 
 .section-contact .row {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px; }
-
+  margin: 0 -15px;
+}
 .section-contact .col-sm-5,
 .section-contact .col-sm-7,
 .section-contact .col-xs-12 {
   padding: 15px;
-  box-sizing: border-box; }
-
+  box-sizing: border-box;
+}
 .section-contact .hidden-xs {
-  display: none; }
-  @media (min-width: 576px) {
-    .section-contact .hidden-xs {
-      display: block; } }
-
+  display: none;
+}
+@media (min-width: 576px) {
+  .section-contact .hidden-xs {
+    display: block;
+  }
+}
 .section-contact .image {
   max-width: 100%;
-  border-radius: 10px; }
-
+  border-radius: 10px;
+}
 .section-contact .box_wrap {
   border-radius: 10px;
-  padding: 20px; }
-
+  padding: 20px;
+}
 .section-contact .box_title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-  color: #0056b3;
-  text-align: center; }
-
+  /*font-family: "SVN-GothamLight";*/
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #cf9a2c;
+}
 .section-contact .form-group {
-  margin-bottom: 15px; }
-
+  margin-bottom: 15px;
+}
 .section-contact .form-control {
   width: 100%;
   padding: 12px 15px;
@@ -156,51 +186,54 @@
   border: 1px solid #ccc;
   border-radius: 20px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  height: auto; }
-  .section-contact .form-control:focus {
-    border-color: #0056b3;
-    box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
-    outline: none; }
-
+  height: auto;
+}
+.section-contact .form-control:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+  outline: none;
+}
 .section-contact .note {
   font-size: 0.875rem;
   color: #666;
   margin-bottom: 10px;
-  text-align: left; }
-
+  text-align: left;
+}
 .section-contact .btnSuccess {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   margin-top: 20px;
-  gap: 15px; }
-
+  gap: 15px;
+}
 .section-contact .btn_yellow {
   display: inline-block;
   background: #ffcc00;
   color: #fff;
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-radius: 5px;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 18px;
   font-weight: bold;
   transition: background 0.3s ease;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); }
-  .section-contact .btn_yellow:hover {
-    background: #e6b800;
-    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2); }
-
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+.section-contact .btn_yellow:hover {
+  background: #e6b800;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+}
 .section-contact .open {
   font-size: 1rem;
   color: #666;
   text-align: left;
-  line-height: 1.5; }
-  .section-contact .open span {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #0056b3; }
-
+  line-height: 1.5;
+}
+.section-contact .open span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0056b3;
+}
 .section-contact select.form-control {
   height: calc(2.5rem + 6px);
   line-height: 1.5;
@@ -208,7 +241,9 @@
   border-radius: 20px;
   appearance: none;
   background: #fff url("data:image/svg+xml;base64,<SVG_ARROW_ICON>") no-repeat right 10px center;
-  background-size: 10px; }
-  .section-contact select.form-control:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 86, 179, 0.2); }
+  background-size: 10px;
+}
+.section-contact select.form-control:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+}
