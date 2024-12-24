@@ -109,7 +109,9 @@
         font-weight: bold;
     }
 
-
+    .navbar-mega .dropdown-menu.show {
+        display: block;
+    }
 
 
     /* shows the dropdown menu on hover */
@@ -138,7 +140,7 @@
     }
 
     .navbar-mega {
-        background-color: #a32600 !important;
+        background-color: #ffa242 !important;
         height: 50px !important;
     }
 

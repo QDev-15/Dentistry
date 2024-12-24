@@ -1,4 +1,75 @@
-﻿
+﻿/** =============== OnLoadPage Modal ==================*/
+
+#box_popup_tuvan {
+    /* Tùy chỉnh modal */
+    .modal-content {
+        border: 1px solid #E4BC5D;
+        background-color: #fff;
+        border-radius: 0;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-header {
+        display: none; /* Ẩn header */
+    }
+
+    .form-control {
+        border-radius: 20px;
+        border: 1px solid #E4BC5D;
+    }
+
+    .form-control:focus {
+        border-color: #E4BC5D;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .btn_submit {
+        background: #E4BC5D;
+        color: #fff;
+        border-radius: 20px;
+        border: none;
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .btn_submit:hover {
+        background: #d3a750;
+    }
+
+    .hotline {
+        text-align: center;
+        font-size: 14px;
+        color: red;
+        font-weight: bold;
+    }
+
+    .hotline a {
+        color: red;
+        text-decoration: none;
+    }
+
+    .hotline a:hover {
+        text-decoration: underline;
+    }
+
+    .text {
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .cover img {
+        display: block;
+        margin: 0 auto;
+        width: 100px;
+    }
+}
+
+/**================Box - Top =========================*/
 .box-top {
     background-color: #eea616;
     color: #fff;
@@ -78,7 +149,7 @@
 }
 
 .container-fluid-chuyengia {
-    background-image: url(..//assets/img/bg-chuyengia.jpg);
+    background-image: url(../assets/img/bg-chuyengia.jpg);
 }
 
 .container-fluid-footer {
@@ -93,7 +164,8 @@
 
 .section {
     background-color: #fffffe;
-
+    margin: 0;
+    padding: 0;
     .section-title {
         padding: 15px;
         font-size: 30px;

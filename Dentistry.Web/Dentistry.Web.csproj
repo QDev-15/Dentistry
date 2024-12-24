@@ -8,10 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="BuildWebCompiler2022" Version="1.14.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dentistry.Common\Dentistry.ViewModels.csproj" />
     <ProjectReference Include="..\Dentistry.ViewModels\Dentistry.ViewModels.csproj" />
     <ProjectReference Include="..\Dentisty.Data\Dentisty.Data.csproj" />
   </ItemGroup>
