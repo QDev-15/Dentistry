@@ -15,5 +15,13 @@
       "enabled": false // Nén file CSS sau khi biên dịch
     },
     "includePaths": [ "wwwroot/scss" ]
+
+  },
+  {
+    "inputFile": "wwwroot/plugins/carousel-01/scss/style.scss",
+    "outputFile": "wwwroot/plugins/carousel-01/css/style.css", // Đường dẫn thư mục chứa CSS đã biên dịch
+    "minify": {
+      "enabled": false // Nén file CSS sau khi biên dịch
+    }
   }
 ]

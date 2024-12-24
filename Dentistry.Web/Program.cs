@@ -11,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DentistryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
 
 // add resource validator

@@ -9058,8 +9058,6 @@
   position: relative;
   height: 650px;
   z-index: 0;
-  margin: 0;
-  padding: 0;
 }
 .carousel-container .owl-carousel.home-slider .slider-item {
   background-size: cover;

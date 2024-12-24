@@ -1,0 +1,61 @@
+﻿<!-- Nút để kích hoạt modal -->
+<button type="button" class="btn btn-primary" id="openModal" data-bs-toggle="modal" data-bs-target="#box_popup_tuvan">
+    Open Modal
+</button>
+
+<!-- Modal Bootstrap -->
+<div class="modal fade" id="box_popup_tuvan" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <button type="button" id="close_button_modalOnloadDefaul" class="btn-close position-absolute end-0 m-2" onclick="closeModal()" aria-label="Close"></button>
+            <div class="modal-body">
+                <div class="cover">
+                    <img src="https://via.placeholder.com/100" alt="Logo">
+                </div>
+                <form>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Họ tên khách hàng *" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="tel" class="form-control" placeholder="Số điện thoại *" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" placeholder="Nhu cầu tư vấn" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn_submit w-100">Hoàn thành</button>
+                </form>
+                <div class="mt-3 hotline">
+                    Hotline tư vấn: <a href="tel:19005228">1900 5228</a>
+                </div>
+                <div class="text mt-2">Đăng ký tư vấn miễn phí!</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const MODAL_KEY = "lastModalTime";
+      const ONE_HOUR = 60 * 60 * 1000;
+
+      function showModal() {
+        const modalButton = document.getElementById("openModal");
+        modalButton.click(); // Kích hoạt nút mở modal ẩn
+        localStorage.setItem(MODAL_KEY, Date.now());
+      }
+      function closeModal() {
+        const modalButton = document.getElementById("close_button_modalOnloadDefaul");
+        modalButton.click();
+      }
+
+      const lastTime = localStorage.getItem(MODAL_KEY);
+      const currentTime = Date.now();
+
+      if (!lastTime || currentTime - lastTime > ONE_HOUR) {
+        showModal();
+      }
+    });
+</script>
