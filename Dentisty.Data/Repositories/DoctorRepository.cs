@@ -49,7 +49,7 @@ namespace Dentisty.Data.Repositories
             }
             catch (Exception ex) {
                 _loggerRepository.QueueLog(ex.Message, title);
-                return null;
+                throw new Exception(ex.Message);
             }
             
         }
@@ -103,7 +103,7 @@ namespace Dentisty.Data.Repositories
             }
             catch (Exception ex) { 
                 _loggerRepository.QueueLog($"{ex.Message}", title);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
     }

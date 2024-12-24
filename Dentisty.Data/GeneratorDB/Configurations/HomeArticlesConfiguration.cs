@@ -16,7 +16,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.HasOne(x => x.BackgroundImage).WithMany(x => x.HomeArticles).HasForeignKey(x => x.BackgroundImageId).OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(x => x.Article).WithMany(x => x.HomeArticles).HasForeignKey(x => x.ArticleId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Article).WithMany(x => x.HomeArticles).HasForeignKey(x => x.ArticleId).OnDelete(DeleteBehavior.SetNull);
             
 
         }

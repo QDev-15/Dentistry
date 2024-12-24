@@ -38,7 +38,7 @@ namespace Dentisty.Data.Repositories
                 return image;
             } catch(Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
             
         }
@@ -53,7 +53,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 this._loggerRepository.QueueLog(ex.Message);
-                return false;
+                throw new Exception(ex.Message);
             }
             
         }     
@@ -70,7 +70,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 this._loggerRepository.QueueLog(ex.Message);
-                return false;
+                throw new Exception(ex.Message);
             }
            
         }
