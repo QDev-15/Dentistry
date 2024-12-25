@@ -14,6 +14,7 @@ namespace Dentisty.Data.GeneratorDB.Configurations
             builder.Property(x => x.Code).IsRequired().IsUnicode().HasMaxLength(10);
             builder.Property(x => x.PhoneNumber).IsRequired();
             builder.Property(x => x.Address).IsRequired();
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
         }
     }
 }

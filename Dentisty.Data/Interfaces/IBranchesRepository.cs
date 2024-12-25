@@ -12,5 +12,7 @@ namespace Dentisty.Data.Interfaces
     {
         Task<Branches> CreateNew(BranchesVm model);
         Task<Branches> Update(BranchesVm model);
+        Task<bool> ActiveBranches(int id);
+        Task<bool> DeActiveBranches(int id);
     }
 }

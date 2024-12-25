@@ -16,6 +16,7 @@ namespace Dentisty.Data.GeneratorDB.Entities
         public string? Code {set; get;}
         public string Address {set; get;}
         public string PhoneNumber {set; get;}
+        public bool IsActive { set; get;}
         public DateTime CreatedAt {set; get;}
         public DateTime UpdatedAt { set; get; }
         public List<Contact> Contacts {set; get;} = new List<Contact>();

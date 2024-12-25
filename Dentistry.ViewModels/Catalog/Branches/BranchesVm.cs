@@ -13,6 +13,7 @@ namespace Dentistry.ViewModels.Catalog.Branches
         public string? Code { set; get; }
         public string Address { set; get; }
         public string PhoneNumber { set; get; }
+        public bool IsActive { set; get; }
         public DateTime CreatedAt { set; get; }
         public DateTime UpdatedAt { set; get; }
     }
