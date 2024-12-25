@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Dentisty.Data\Dentisty.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shared\components\" />
+  </ItemGroup>
+
 </Project>

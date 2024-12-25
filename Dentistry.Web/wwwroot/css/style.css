@@ -3,6 +3,9 @@
 #box_popup_tuvan {
   /* Tùy chỉnh modal */
 }
+#box_popup_tuvan .modal-dialog {
+  max-width: 350px;
+}
 #box_popup_tuvan .modal-content {
   border: 1px solid #E4BC5D;
   background-color: #fff;
@@ -51,6 +54,9 @@
   text-align: center;
   font-size: 12px;
   color: #666;
+}
+#box_popup_tuvan .cover {
+  background-image: url(../assets/img/bg_cover.jpg);
 }
 #box_popup_tuvan .cover img {
   display: block;
@@ -309,4 +315,42 @@
 .section-contact select.form-control:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 86, 179, 0.2);
+}
+
+/** ====================== FOOTER ==================*/
+.footer {
+  background-color: #f7f7f7;
+  color: #333333;
+  padding-top: 40px;
+}
+.footer .footer__logo img {
+  max-width: 150px;
+  border-radius: 50px;
+}
+.footer .footer__nav a {
+  color: #333333;
+  text-decoration: none;
+  font-size: 14px;
+}
+.footer .footer__nav a:hover {
+  color: #E4BC5D;
+}
+.footer .footer__nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer .footer__nav ul li {
+  margin-bottom: 10px;
+}
+.footer .footer__bottom {
+  border-top: 1px solid #444;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  background: #e7e7e7;
+}
+.footer .social-icons a {
+  padding: 0 5px;
+  font-size: 16px;
 }

@@ -1,5 +1,5 @@
 ﻿<!-- Nút để kích hoạt modal -->
-<button type="button" class="btn btn-primary" id="openModal" data-bs-toggle="modal" data-bs-target="#box_popup_tuvan">
+<button type="button" class="btn btn-primary d-none" id="openModal" data-bs-toggle="modal" data-bs-target="#box_popup_tuvan">
     Open Modal
 </button>
 
@@ -7,11 +7,11 @@
 <div class="modal fade" id="box_popup_tuvan" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <button type="button" id="close_button_modalOnloadDefaul" class="btn-close position-absolute end-0 m-2" onclick="closeModal()" aria-label="Close"></button>
+            <div class="cover">
+                <button type="button" id="close_button_modalOnloadDefaul" class="btn-close position-absolute end-0 m-2" style="z-index: 999;" data-bs-dismiss="modal" aria-label="Close"></button>
+                <img src="~/assets/logo/logo nhiên dental clinic done-03.png" alt="Logo">
+            </div>
             <div class="modal-body">
-                <div class="cover">
-                    <img src="https://via.placeholder.com/100" alt="Logo">
-                </div>
                 <form>
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Họ tên khách hàng *" required>
