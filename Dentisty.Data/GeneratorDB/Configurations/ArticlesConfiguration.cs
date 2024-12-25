@@ -1,4 +1,5 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
+using Dentisty.Data.GeneratorDB.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -20,7 +21,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.CategoryId).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
             builder.Property(x => x.IsActive).HasDefaultValue(true);
-            builder.HasOne(x => x.Category).WithMany(x => x.Articles).HasForeignKey(x => x.CategoryId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Category).WithMany(x => x.Articles).HasForeignKey(x => x.CategoryId).IsRequired().OnDelete(DeleteBehavior.SetNull);
             builder.HasMany(x => x.Images).WithMany(x => x.Articles).UsingEntity<Dictionary<string, object>>(
                 "ArticlesImage",
             j => j
@@ -33,6 +34,11 @@ namespace Dentistry.Data.GeneratorDB.Configurations
                 .WithMany()
                 .HasForeignKey("ArticlesId")
                 .OnDelete(DeleteBehavior.Restrict));
+            builder.HasMany(x => x.Tags).WithMany(x => x.Articles).UsingEntity<Dictionary<string, object>>(
+                "ArticleTags", // Tên bảng trung gian
+                a => a.HasOne<Tags>().WithMany().HasForeignKey("TagId").OnDelete(DeleteBehavior.Restrict),
+                t => t.HasOne<Article>().WithMany().HasForeignKey("ArticleId").OnDelete(DeleteBehavior.Restrict)
+            );
 
         }
     }

@@ -44,7 +44,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 _loggerRepository.QueueLog(ex.Message, "Contact");
-                return null;
+                throw new Exception(ex.Message);
             }
             
         }
@@ -98,7 +98,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 _loggerRepository.QueueLog(ex.Message);
-                return null;
+                throw new Exception(ex.Message);
             }
         }
     }

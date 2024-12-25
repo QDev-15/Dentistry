@@ -20,7 +20,8 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Message).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
             builder.Property(x => x.IsActive).HasDefaultValue(true);
-            builder.HasOne(x => x.ProcessBy).WithMany(x => x.Missions).HasForeignKey(x => x.ProcessById).OnDelete(DeleteBehavior.Cascade).IsRequired(false);
+            builder.HasOne(x=> x.Branches).WithMany(x => x.Contacts).HasForeignKey(x => x.BranchesId).OnDelete(DeleteBehavior.SetNull).IsRequired(false);
+            builder.HasOne(x => x.ProcessBy).WithMany(x => x.Missions).HasForeignKey(x => x.ProcessById).OnDelete(DeleteBehavior.SetNull).IsRequired(false);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Catalog.Branches;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.ViewModels.Catalog.Doctors;
@@ -19,6 +20,23 @@ namespace Dentisty.Data
 {
     public static class ViewModelExtensions
     {
+        public static BranchesVm ReturnViewModel(this Branches branches)
+        {
+            if (branches == null)
+            {
+                return new BranchesVm();
+            }
+            return new BranchesVm()
+            {
+                Id = branches.Id,
+                Name = branches.Name,
+                Address = branches.Address,
+                Code = branches.Code,
+                CreatedAt = branches.CreatedAt,
+                PhoneNumber = branches.PhoneNumber,
+                UpdatedAt = branches.UpdatedAt
+            };
+        }
         public static AppSettingVm ReturnViewModel(this AppSetting item)
         {
             if (item == null)

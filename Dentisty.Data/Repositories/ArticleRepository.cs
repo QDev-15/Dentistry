@@ -78,7 +78,7 @@ namespace Dentisty.Data.Repositories
             }
             catch (Exception ex) {
                 _loggerRepository.QueueLog(ex.Message, "Create new Article");
-                return null;
+                throw new Exception(ex.Message);
             }
 
         }
@@ -107,7 +107,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 _loggerRepository.QueueLog(ex.Message);
-                return item;
+                throw new Exception(ex.Message);
             }
 
         }
@@ -139,7 +139,7 @@ namespace Dentisty.Data.Repositories
             } catch(Exception ex)
             {
                 _loggerRepository.QueueLog(ex.Message);
-                return false;
+                throw new Exception(ex.Message);
             }
             
         }
@@ -179,7 +179,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 _loggerRepository.QueueLog($"{ex.Message}", "Delete file width artId: " + artId + " fileId: " + fileId);
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 
@@ -206,7 +206,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 _loggerRepository.QueueLog($"{ex.Message}", "Delete file width artId: " + artId);
-                return false;
+                throw new Exception(ex.Message);
             }
         }
 

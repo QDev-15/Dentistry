@@ -77,7 +77,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 _loggerRepository.QueueLog(ex.Message);
-                return model;
+                throw new Exception(ex.Message);
             }
             
         }
@@ -117,12 +117,12 @@ namespace Dentisty.Data.Repositories
                     Update(category);
                     await SaveChangesAsync();
                 }
+                return model;
             }
             catch (Exception ex) { 
                 _loggerRepository.QueueLog(ex.Message);
+                throw new Exception(ex.Message);
             }
-
-            return model;
         }
 
         public async Task<bool> CheckExistsAlias(string alias, int id)

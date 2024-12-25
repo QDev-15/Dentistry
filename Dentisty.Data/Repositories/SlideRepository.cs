@@ -121,7 +121,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 _logs.QueueLog(ex.Message);
-                return new SlideVm();
+                throw new Exception(ex.Message);
             }
         }
 
@@ -143,7 +143,7 @@ namespace Dentisty.Data.Repositories
             }
             catch (Exception ex) {
                 _logs.QueueLog(ex.Message);
-                return false;
+                throw new Exception(ex.Message);
             }
             
         }

@@ -17,6 +17,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public DateTime UpdatedDate { get; set; }
         public List<Image> Images { get; set; } = new List<Image>();
         public List<HomeArticle> HomeArticles { get; set; } = new List<HomeArticle>();
+        public List<Tags> Tags { get; set; } = new List<Tags>();
 
         public Category Category { get; set; }
         public AppUser CreatedBy { set; get; }

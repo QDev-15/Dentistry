@@ -26,11 +26,10 @@ namespace Dentistry.Data.GeneratorDB.EF
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
-            modelBuilder.ApplyConfiguration(new BaseConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
-
+            modelBuilder.ApplyConfiguration(new BranchesConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
             modelBuilder.ApplyConfiguration(new LoggerConfiguration());
@@ -54,8 +53,8 @@ namespace Dentistry.Data.GeneratorDB.EF
         
 
         public DbSet<AppConfig> AppConfigs { get; set; }
-        public DbSet<Base> Bases { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Branches> Branches { get; set; }
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }    
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Image> Images { get; set; }    

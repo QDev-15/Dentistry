@@ -13,15 +13,6 @@ namespace Dentistry.Data.GeneratorDB.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AppConfig>().HasData(
-               new AppConfig() { Id = 1, Key = "hotline-hcm", Value = "19009090" },
-               new AppConfig() { Id = 2, Key = "facebook", Value = "nhien86" },
-               new AppConfig() { Id = 3, Key = "hotline-hanoi", Value = "19001010" }
-               );
-            modelBuilder.Entity<Language>().HasData(
-                new Language() { Id = 1, Code = "vi", Name = "Tiếng Việt", IsDefault = true },
-                new Language() { Id = 2, Code = "en", Name = "English", IsDefault = false });
-            // any guid
             var roleAdminId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
             var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
             var roleUserId = new Guid("8D04DCE2-945A-435D-BBA4-DF3F325983DC");
@@ -30,14 +21,14 @@ namespace Dentistry.Data.GeneratorDB.Extensions
             {
                 Id = roleAdminId,
                 Name = "admin",
-                NormalizedName = "admin",
+                NormalizedName = "ADMIN",
                 Description = "Administrator role"
             },
             new AppRole
             {
                 Id = roleUserId,
                 Name = "Nick",
-                NormalizedName = "User",
+                NormalizedName = "NICK",
                 Description = "User role"
             });
 
@@ -81,6 +72,9 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 UserId = adminId
             }, new IdentityUserRole<Guid> { 
                 RoleId = roleUserId,
+                UserId = userId  
+            }, new IdentityUserRole<Guid> { 
+                RoleId = roleAdminId,
                 UserId = userId
             });
             modelBuilder.Entity<Category>().HasData(
