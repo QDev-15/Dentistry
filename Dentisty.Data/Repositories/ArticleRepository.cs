@@ -99,7 +99,7 @@ namespace Dentisty.Data.Repositories
                     art.IsActive = item.IsActive;
                     art.UpdatedDate = DateTime.Now;
                     art.CreatedById = new Guid(_loggerRepository.GetCurrentUserId());
-                    Update(art);
+                    UpdateAsync(art);
                     await SaveChangesAsync();
                 }
                 return item;
@@ -131,7 +131,7 @@ namespace Dentisty.Data.Repositories
                     } else
                     {
                         art.IsActive = false;
-                        Update(art);
+                        UpdateAsync(art);
                         await SaveChangesAsync();
                     }
                 }
@@ -171,7 +171,7 @@ namespace Dentisty.Data.Repositories
                             art.Images.Remove(imageDel);
                         }
                     }
-                    Update(art);
+                    UpdateAsync(art);
                     await SaveChangesAsync();
                 }
                 return true;
@@ -198,7 +198,7 @@ namespace Dentisty.Data.Repositories
                             art.Images.Add(image);
                         }
                     }
-                    Update(art);
+                    UpdateAsync(art);
                     await SaveChangesAsync();
                 }
                 return true;

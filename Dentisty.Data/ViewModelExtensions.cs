@@ -7,6 +7,7 @@ using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
+using Dentistry.ViewModels.Catalog.Tags;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.GeneratorDB.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -20,6 +21,19 @@ namespace Dentisty.Data
 {
     public static class ViewModelExtensions
     {
+        public static TagsVm ReturnViewModel(this Tags item)
+        {
+            if (item == null) return new TagsVm();
+            var vm = new TagsVm()
+            {
+              Id = item.Id,
+              Name = item.Name,
+              CreatedAt = item.CreatedAt,
+              Slug = item.Slug,
+              UpdatedAt = item.UpdatedAt
+            };
+            return vm;
+        }
         public static BranchesVm ReturnViewModel(this Branches branches)
         {
             if (branches == null)

@@ -69,7 +69,7 @@ namespace Dentisty.Data.Repositories
                 {
                     var image = await _imageRepository.CreateAsync(model.ImageFile);
                     category.Image = image;
-                    Update(category);
+                    UpdateAsync(category);
                     await SaveChangesAsync();
                 }
                 return category.ReturnViewModel();
@@ -99,7 +99,7 @@ namespace Dentisty.Data.Repositories
                         category.ParentId = model.ParentId;
                     }
                     category.UpdatedDate = DateTime.Now;
-                    Update(category);
+                    UpdateAsync(category);
                     await SaveChangesAsync();
                 }
                 if (model.ImageFile != null)
@@ -109,12 +109,12 @@ namespace Dentisty.Data.Repositories
                     if (category.Image != null) {
                         await _imageRepository.DeleteFile(category.Image);
                         category.Image = null;
-                        Update(category);
+                        UpdateAsync(category);
                         await SaveChangesAsync();
                     }
                     // add new Image
                     category.Image = image;
-                    Update(category);
+                    UpdateAsync(category);
                     await SaveChangesAsync();
                 }
                 return model;

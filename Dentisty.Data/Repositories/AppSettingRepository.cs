@@ -41,7 +41,7 @@ namespace Dentisty.Data.Repositories
                 updateAppSetting.Zalo2 = appSettingVm.Zalo2;
                 updateAppSetting.Zalo3 = appSettingVm.Zalo3;
                 updateAppSetting.Zalo4 = appSettingVm.Zalo4;
-                Update(updateAppSetting);
+                UpdateAsync(updateAppSetting);
                 await SaveChangesAsync();
                 return updateAppSetting.ReturnViewModel();
             } else

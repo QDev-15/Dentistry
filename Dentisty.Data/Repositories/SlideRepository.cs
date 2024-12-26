@@ -100,7 +100,7 @@ namespace Dentisty.Data.Repositories
                     slide.Image = image;
                 }
                 // set image slide
-                Update(slide);
+                UpdateAsync(slide);
                 await SaveChangesAsync();       
                 // update imageId
                 slide.ImageId = slide.Image.Id;
@@ -109,7 +109,7 @@ namespace Dentisty.Data.Repositories
                 if (imageOld != null)
                 {
                     await _imageRepository.DeleteFile(imageOld);
-                    _imageRepository.Delete(imageOld);
+                    _imageRepository.DeleteAsync(imageOld);
                     await SaveChangesAsync();
                 }
 
@@ -133,10 +133,10 @@ namespace Dentisty.Data.Repositories
                 if (slide != null) {
                     if (slide.Image != null) { 
                         await _imageRepository.DeleteFile(slide.Image);
-                        _imageRepository.Delete(slide.Image);
+                        _imageRepository.DeleteAsync(slide.Image);
                         slide.ImageId = null;
                     }
-                    Delete(slide);
+                    DeleteAsync(slide);
                     await SaveChangesAsync();
                 }
                 return true;

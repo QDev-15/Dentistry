@@ -30,7 +30,7 @@ namespace Dentisty.Data.Repositories
                     throw new Exception("not found branches by id: " + id);
                 }
                 branch.IsActive = true;
-                Update(branch);
+                UpdateAsync(branch);
                 await SaveChangesAsync();
                 return true;
             }
@@ -40,19 +40,73 @@ namespace Dentisty.Data.Repositories
             }
         }
 
-        public Task<Branches> CreateNew(BranchesVm model)
+        public async Task<Branches> CreateNew(BranchesVm model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var newBranches = new Branches()
+                {
+                    Address = model.Address,
+                    Code = model.Code,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    IsActive = true,
+                    Name = model.Name
+                };
+                await AddAsync(newBranches);
+                await SaveChangesAsync();
+                return newBranches;
+            }
+            catch (Exception ex) {
+                _loggerRepository.QueueLog(ex.Message, "Create new Branches");
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Task<bool> DeActiveBranches(int id)
+        public async Task<bool> DeActiveBranches(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var branch = await GetByIdAsync(id);
+                if (branch != null)
+                {
+                    branch.IsActive = false;
+                    UpdateAsync(branch);
+                    await SaveChangesAsync();
+                    return true;
+                }
+                throw new Exception("Branches not found by id " + id);
+            }
+            catch (Exception ex) {
+                _loggerRepository.QueueLog(ex.Message, "DeActive Branches");
+                throw new Exception(ex.Message);
+            }
+
         }
 
-        public Task<Branches> Update(BranchesVm model)
+        public async Task<Branches> Update(BranchesVm model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var branches = await GetByIdAsync(model.Id);
+                if (branches != null) {
+                    throw new Exception("Branches not found by id " + model.Id);
+                }
+                branches.Name = model.Name;
+                branches.UpdatedAt = DateTime.UtcNow;
+                branches.Code = model.Code;
+                branches.Address = model.Address;
+                branches.IsActive = model.IsActive;
+                UpdateAsync(branches);
+                await SaveChangesAsync();
+
+
+                return branches;
+            } catch(Exception ex)
+            {
+                _loggerRepository.QueueLog(ex.Message, "Update Branchese");
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

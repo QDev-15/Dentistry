@@ -35,16 +35,16 @@ namespace Dentisty.Data.Repositories
             await _dbSet.AddAsync(entity);
         }
 
-        public void Update(T entity)
+        public void UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
         }
 
-        public void Delete(T entity)
+        public void DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
         }   
-        public void DeleteRange(IEnumerable<T> entities)
+        public void DeleteRangeAsync(IEnumerable<T> entities)
         {
             _dbSet.RemoveRange(entities);
         }
