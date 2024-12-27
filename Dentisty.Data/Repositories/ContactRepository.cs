@@ -72,7 +72,7 @@ namespace Dentisty.Data.Repositories
             {
                 contact.IsActive = false;
                 contact.ProcessById = new Guid(_loggerRepository.GetCurrentUserId());
-                Update(contact);
+                UpdateAsync(contact);
                 await SaveChangesAsync();
                 return true;    
             }
@@ -89,7 +89,7 @@ namespace Dentisty.Data.Repositories
                     contact.IsActive = vm.IsActive;
                     contact.UpdatedDate = DateTime.Now;
                     contact.ProcessById = new Guid(_loggerRepository.GetCurrentUserId());
-                    Update(contact);
+                    UpdateAsync(contact);
                     await SaveChangesAsync();
                 }
                 return vm;

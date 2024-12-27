@@ -91,11 +91,11 @@ namespace Dentisty.Data.Repositories
                         if (doctor.Avatar != null)
                         {
                             await _imageRepository.DeleteFile(img);
-                            _imageRepository.Delete(doctor.Avatar);
+                            _imageRepository.DeleteAsync(doctor.Avatar);
                         }
                         doctor.Avatar = img;
                     }
-                    Update(doctor);
+                    UpdateAsync(doctor);
                     await SaveChangesAsync();
                 }
                 return doctor.ReturnViewModel();
