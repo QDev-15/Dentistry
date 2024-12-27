@@ -17,6 +17,18 @@ namespace Dentisty.Data.Common
 {
     public static class Utilities
     {
+        private static readonly char[] Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
+        private static readonly Random Random = new Random();
+
+        public static string GenerateRandomString(int length)
+        {
+            var chars = new char[length];
+            for (int i = 0; i < length; i++)
+            {
+                chars[i] = Characters[Random.Next(Characters.Length)];
+            }
+            return new string(chars);
+        }
         public static string HashPassword(string password)
         {
             var hasher = new PasswordHasher<object>(); // Use object because it needs a class type, but it won't be used.
