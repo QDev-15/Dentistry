@@ -26,3 +26,61 @@ body {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+
+/* Tổng thể slider */
+.slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Phần item */
+.slider .item {
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slider .item.slick-active {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Phần hình ảnh */
+.slider .item .image img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Phần thông tin */
+.slider .item .info {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.slider .item .info .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.slider .item .info .position {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Điều chỉnh phần slick-dots nếu cần */
+.slick-dots li button:before {
+    font-size: 10px;
+    color: #007bff;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #0056b3;
+}
