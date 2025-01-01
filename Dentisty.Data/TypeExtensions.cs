@@ -9,10 +9,25 @@ namespace Dentisty.Data
 {
     public static class TypeExtensions
     {
+        /// <summary>
+        /// Example: abc-def-123
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static string ToSlus(this string value)
         {
             if (string.IsNullOrEmpty(value)) return value;
             return Utilities.ConvertToSlug(value);
+        }
+        /// <summary>
+        /// Example: abc_def_123
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string ToSlus_V2(this string value)
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+            return Utilities.ConvertToSlug(value).Replace('-', '_');
         }
         /// <summary>
         ///  dd/MM/yyyy - 15/09/2009
