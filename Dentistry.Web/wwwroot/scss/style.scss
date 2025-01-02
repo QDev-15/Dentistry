@@ -89,20 +89,24 @@ $main: #cf9a2c;
 
     .item {
         display: inline-block;
-        padding: 0 13px;
+        padding: 0px 15px 0 5px;
         position: relative;
         color: #494949;
+        font-size: 14px;
+        font-weight: 500;
 
         a {
             color: white;
             font-weight: bold;
             text-decoration: none;
+            padding-left: 5px;
         }
 
         span {
             color: white;
             font-weight: bold;
             text-decoration: none;
+            padding-left: 5px;
         }
     }
 
@@ -137,15 +141,41 @@ $main: #cf9a2c;
             color: #5a5a5aff;
         }
     }
-
-    
 }
 
 #search-modal {
+    .modal-dialog {
+        max-width: 1000px; /* Set max width for large screens */
+        width: 90%; /* Make it adaptive for smaller screens */
+    }
+
+    .modal-content {
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+        border-radius: 10px; /* Rounded corners */
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #search-form {
+        display: flex;
+        flex-wrap: wrap; /* Wrap for small screens */
+        gap: 10px; /* Add spacing between elements */
+        align-items: center;
+    }
+
+
+    .search-input:focus {
+        border-color: #eea616; /* Highlight border on focus */
+    }
     /* Custom styles for search input */
     .search-input {
+        flex: 1; /* Input will take up remaining space */
+        min-width: 200px; /* Ensure input doesn't get too small */
+        outline: none;
+        transition: border-color 0.3s ease;
         border-radius: 10px;
-        height: 40px;
+        height: 60px;
+        font-size: 20px;
     }
 
     .search-btn {
@@ -155,15 +185,17 @@ $main: #cf9a2c;
         transform: translateY(-50%);
         border: none;
         background: none;
-        font-size: 20px;
+        font-size: 24px;
         color: #666;
         cursor: pointer;
     }
 
     .search-btn:hover {
-        color: #007bff;
+        color: #eea616;
     }
 }
+
+
 
 .logo-brand img {
     height: 110px;
@@ -611,9 +643,9 @@ $main: #cf9a2c;
         color: black;
         font-size: 2rem;
         z-index: 10;
-        width: 35px;
+        width: 40px;
         height: 40px;
-        background: #f1bd50;
+        background: #f1bd50c0;
         border-radius: 50%;
 
         i {
@@ -630,19 +662,19 @@ $main: #cf9a2c;
     }
 
     .slick-prev:hover, .slick-next:hover {
-        background: #f1bd50;
+        background: #f1bd5096;
     }
 
     .slick-prev {
         left: 15px;
 
         i {
-            padding: 8px 9px;
+            padding: 8px 12px;
         }
     }
 
     .slick-next {
-        right: 15px;
+        right: 13px;
 
         i {
             padding: 8px 15px;

@@ -10,22 +10,21 @@ namespace Dentistry.ViewModels.Catalog.AppSettings
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string? Hotline1 { get; set; }
-        public string? Hotline2 { get; set; }
-        public string? Hotline3 { get; set; }
-        public string? Hotline4 { get; set; }
-        public string? Zalo1 { get; set; }
-        public string? Zalo2 { get; set; }
-        public string? Zalo3 { get; set; }
-        public string? Zalo4 { get; set; }
-        public string? Facebook1 { get; set; }
-        public string? Facebook2 { get; set; }
-        public string? Facebook3 { get; set; }
-        public string? Instagram1 { get; set; }
-        public string? Instagram2 { get; set; }
-        public string? Instagram3 { get; set; }
-        public string? Twitter1 { get; set; }
-        public string? Twitter2 { get; set; }
-        public string? Twitter3 { get; set; }
+        public string? HotlineHaNoi { get; set; }
+        public string? ZaloHotline { get; set; }
+        public string? Facebook { get; set; }
+        public string? Instagram { get; set; }
+        public string? Twitter { get; set; }
+        public string? Youtube { get; set; }
+        public string? StartWork { get; set; }
+        public string? EndWork { get; set; }
+        public bool ShowToolBarTop { get; set; }
+        public bool ShowContactList { get; set; }
+        public bool ShowCategoryList { get; set; }
+        public bool ShowDoctorlideList { get; set; }
+        public bool ShowArtileSlideList { get; set; }
+        public bool ShowProductList { get; set; }
+        public bool ShowNewsList { get; set; }
+        public bool ShowFeedbackList { get; set; }
     }
 }

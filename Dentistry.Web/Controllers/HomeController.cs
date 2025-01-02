@@ -22,6 +22,11 @@ namespace Dentistry.Web.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Search(string keyWord) {
+            return Json(new { success = true });
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Dentisty.Data.Common;
 using Dentisty.Data.Common.Enums;
+using Dentisty.Data.GeneratorDB.Entities;
 
 namespace Dentistry.Data.GeneratorDB.Extensions
 {
@@ -13,6 +14,11 @@ namespace Dentistry.Data.GeneratorDB.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<AppSetting>().HasData( new AppSetting()
+            {
+                Id = 1,
+                Name = "Nhiên Dentistry",
+            });
             var roleAdminId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
             var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
             var roleUserId = new Guid("8D04DCE2-945A-435D-BBA4-DF3F325983DC");

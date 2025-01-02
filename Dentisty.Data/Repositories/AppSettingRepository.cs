@@ -24,23 +24,22 @@ namespace Dentisty.Data.Repositories
         {
             var updateAppSetting = await GetByIdAsync(appSettingVm.Id);
             if (updateAppSetting != null) {
-                updateAppSetting.Hotline1 = appSettingVm.Hotline1;
-                updateAppSetting.Hotline2 = appSettingVm.Hotline2;
-                updateAppSetting.Hotline3 = appSettingVm.Hotline3;
-                updateAppSetting.Hotline4 = appSettingVm.Hotline4;
-                updateAppSetting.Facebook1 = appSettingVm.Facebook1;
-                updateAppSetting.Facebook2 = appSettingVm.Facebook2;
-                updateAppSetting.Facebook3 = appSettingVm.Facebook3;
-                updateAppSetting.Instagram1 = appSettingVm.Instagram1;
-                updateAppSetting.Instagram2 = appSettingVm.Instagram2;
-                updateAppSetting.Instagram3 = appSettingVm.Instagram3;
-                updateAppSetting.Twitter1 = appSettingVm.Twitter1;
-                updateAppSetting.Twitter2 = appSettingVm.Twitter2;
-                updateAppSetting.Twitter3 = appSettingVm.Twitter3;
-                updateAppSetting.Zalo1 = appSettingVm.Zalo1;
-                updateAppSetting.Zalo2 = appSettingVm.Zalo2;
-                updateAppSetting.Zalo3 = appSettingVm.Zalo3;
-                updateAppSetting.Zalo4 = appSettingVm.Zalo4;
+                updateAppSetting.ShowCategoryList = appSettingVm.ShowCategoryList;
+                updateAppSetting.ShowProductList = appSettingVm.ShowProductList;
+                updateAppSetting.ShowDoctorlideList = appSettingVm.ShowDoctorlideList;
+                updateAppSetting.ShowContactList = appSettingVm.ShowContactList;
+                updateAppSetting.ShowArtileSlideList = appSettingVm.ShowArtileSlideList;
+                updateAppSetting.ShowFeedbackList = appSettingVm.ShowFeedbackList;
+                updateAppSetting.ShowNewsList = appSettingVm.ShowNewsList;
+
+                updateAppSetting.Facebook  = appSettingVm.Facebook;
+                updateAppSetting.Instagram = appSettingVm.Instagram;
+                updateAppSetting.Twitter = appSettingVm.Twitter;
+                updateAppSetting.ZaloHotline = appSettingVm.ZaloHotline;
+                updateAppSetting.HotlineHaNoi = appSettingVm.HotlineHaNoi;
+                updateAppSetting.Youtube = appSettingVm.Youtube;
+                updateAppSetting.StartWork = appSettingVm.StartWork;
+                updateAppSetting.EndWork = appSettingVm.EndWork;
                 UpdateAsync(updateAppSetting);
                 await SaveChangesAsync();
                 return updateAppSetting.ReturnViewModel();

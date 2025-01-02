@@ -117,7 +117,7 @@ namespace Dentistry.Admin.Controllers
                 {
                     var image = await _imageRepository.CreateAsync(file);
                     art.Images.Add(image);
-                    _articleRepository.Update(art);
+                    _articleRepository.UpdateAsync(art);
                     await _articleRepository.SaveChangesAsync();
                     return Json(image.ReturnViewModel());
                 }
