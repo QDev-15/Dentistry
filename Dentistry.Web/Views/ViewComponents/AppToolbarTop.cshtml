@@ -22,7 +22,7 @@
                     <a href="https://www.youtube.com/channel/nhakhoanhien86" target="_blank">
                         <i class="fa fa-brands fa-youtube"></i>
                     </a>
-                    <a href="#">
+                    <a href="#" id="open-modal-btn">
                         <i class="fa fa-solid fa-magnifying-glass"></i>
                     </a>
                 </div>
@@ -31,3 +31,44 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal Search -->
+<div id="search-modal" class="modal fade" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-transparent border-0 shadow-none">
+            <div class="position-relative w-100">
+                <form id="search-form" class="d-flex">
+                    <input type="text"
+                           class="form-control search-input shadow"
+                           placeholder="Type to search..."
+                           name="search"
+                           required>
+                    <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script type="text/javascript">
+     const searchModal = new bootstrap.Modal(document.getElementById('search-modal'), {
+        keyboard: true,
+        backdrop: true
+    });
+
+    // Open modal
+    document.getElementById('open-modal-btn').addEventListener('click', () => {
+        searchModal.show();
+    });
+
+    // Handle search form submit
+    document.getElementById('search-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const query = e.target.search.value;
+        alert(`Searching for: ${query}`);
+        searchModal.hide();
+        e.target.reset();
+    });
+</script>

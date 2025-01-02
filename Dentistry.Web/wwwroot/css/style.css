@@ -111,7 +111,29 @@
   font-size: 17px;
 }
 .box-top .social a:hover {
-  color: #59411e;
+  color: #5a5a5a;
+}
+
+#search-modal {
+  /* Custom styles for search input */
+}
+#search-modal .search-input {
+  border-radius: 10px;
+  height: 40px;
+}
+#search-modal .search-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+}
+#search-modal .search-btn:hover {
+  color: #007bff;
 }
 
 .logo-brand img {
