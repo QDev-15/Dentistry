@@ -25,7 +25,7 @@
                 $('#addEditCategoryModal .modal-content').html(html);
                 $('#addEditCategoryModal').modal('show');
             },
-            error: function () {
+            error: function (err) {
                 alert('Failed to load data');
             }
         });

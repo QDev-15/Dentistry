@@ -1,4 +1,4 @@
-﻿using Dentisty.Data.Common.Enums;
+﻿using Dentistry.ViewModels.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +15,8 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string? Description { set; get; }
         public int? ImageId { set; get; }
         public bool IsActive { get; set; }
+        public bool IsParent { get; set; }
+        public CategoryPosition? Position { set; get; }
         public int Sort {  set; get; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

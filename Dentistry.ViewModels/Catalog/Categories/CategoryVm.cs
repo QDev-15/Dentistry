@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dentistry.ViewModels.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,8 @@ namespace Dentistry.ViewModels.Catalog.Categories
         public int? ImageId { set; get; }
         public Guid? UserId { set; get; }
         public bool IsActive { get; set; } = true;
-        public bool IsSub { get; set; }
+        public bool IsParent { get; set; } = false;
+        public CategoryPosition? Position { set; get; } = CategoryPosition.None;
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string Decription { set; get; }

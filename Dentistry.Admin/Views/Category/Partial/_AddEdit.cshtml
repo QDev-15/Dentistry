@@ -1,4 +1,5 @@
 ﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
 @model CategoryVmAddEdit
 @{
     Layout = null;
@@ -32,8 +33,19 @@
                 <label asp-for="@Model.item.Sort" class="form-label">Thứ tự</label>
                 <input type="number" class="form-control ps-2" asp-for="@Model.item.Sort" />
             </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.item.Position" class="form-label">Vị trí</label>
+                <select asp-for="@Model.item.Position" asp-items="@(IEnumerable<SelectListItem>)ViewBag.CategoryPositions" class="form-control">
+                    <option value="">-- Chọn vị trí --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" asp-for="@Model.item.IsParent" />
+                <label asp-for="@Model.item.IsParent">Danh mục chính</label>
+            </div>
             @{
-                if (Model.item.IsSub) {
+                if (!Model.item.IsParent) {
                     <div class="form-group">
                         <label asp-for="@Model.item.ParentId" class="form-label">Danh mục chính</label>
                         <select class="form-select" asp-for="@Model.item.ParentId">

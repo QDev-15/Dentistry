@@ -191,6 +191,8 @@ namespace Dentisty.Data
                 UpdatedDate = item.UpdatedDate,
                 CreatedDate = item.CreatedDate,
                 Decription = item.Description,
+                Position = item.Position,
+                IsParent = item.IsParent,
                 UserId = item.UserId,
                 Image = item.Image.ReturnViewModel(),
                 Parent = item.Parent != null ? new CategoryVm() { Id = item.Parent.Id, Name = item.Parent.Name, Alias = item.Parent.Alias } : null,

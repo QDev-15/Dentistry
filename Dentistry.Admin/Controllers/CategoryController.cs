@@ -1,6 +1,7 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Slide;
+using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
@@ -12,7 +13,6 @@ namespace Dentistry.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryReposiroty _categoryRepository;
-        private object mesage;
 
         public CategoryController(ICategoryReposiroty categoryRepository)
         {
@@ -28,19 +28,22 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> AddEdit(int id, string type) {
             var categoryAddEdit = new CategoryVmAddEdit();
             var parentCategories = new List<CategoryVm>();
-            if (type == "sub") // add sub category
-            {
-                categoryAddEdit.parrents = (await _categoryRepository.GetByParent()).Select(x => x.ReturnViewModel()).ToList();
-            }
+
             if (id == 0)
             {
                 categoryAddEdit.item = new CategoryVm() {};
+                categoryAddEdit.item.IsParent = type == "parent";
             } else
             {
                 categoryAddEdit.item = (await _categoryRepository.GetById(id)).ReturnViewModel();               
             }
-            categoryAddEdit.item.IsSub = type == "sub";
-            return PartialView("_Partial_Category_AddEdit", categoryAddEdit);
+            if (!categoryAddEdit.item.IsParent) // add sub category
+            {
+                categoryAddEdit.parrents = (await _categoryRepository.GetByParent()).Select(x => x.ReturnViewModel()).ToList();
+            }
+            ViewBag.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>();
+          
+            return PartialView("~/Views/Category/Partial/_AddEdit.cshtml", categoryAddEdit);
         }
         [HttpPost]
         public async Task<IActionResult> AddEdit(CategoryVmAddEdit model)
@@ -50,6 +53,7 @@ namespace Dentistry.Admin.Controllers
                 return BadRequest("Invalid data");
             }
 
+            model.item.Alias = model.item.Name.ToSlus();
             var checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Alias, model.item.Id);
             if (checkAlis)
             {

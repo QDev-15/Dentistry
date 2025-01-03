@@ -29,7 +29,7 @@ namespace Dentisty.Data.Repositories
         }
         public async Task<IEnumerable<Category>> GetByParent()
         {
-            var categories = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).Where(x => x.ParentId == null || x.ParentId == 0).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.ParentId == null || x.ParentId == 0 || x.IsParent == true).ToListAsync();
             return categories;
         }
         public async Task<IEnumerable<Category>> GetChilds()
@@ -94,6 +94,8 @@ namespace Dentisty.Data.Repositories
                     category.Alias = model.Alias;
                     category.Name = model.Name;
                     category.IsActive = model.IsActive;
+                    category.IsParent = model.IsParent;
+                    category.Position = model.Position;
                     if (category.ParentId != null)
                     {
                         category.ParentId = model.ParentId;

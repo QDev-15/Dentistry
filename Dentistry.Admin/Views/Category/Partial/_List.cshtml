@@ -1,19 +1,21 @@
 ﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
 @model List<CategoryVm>
 <div class="container-fluid p-2">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Danh mục chính</h2>
-        <button class="btn btn-primary category-add-btn" data-bs-toggle="modal" data-bs-target="#addEditCategoryModal" data-id="0">Thêm mới</button>
+        <button class="btn btn-primary category-add-btn" data-bs-toggle="modal" data-bs-target="#addEditCategoryModal" data-type="parent" data-id="0">Thêm mới</button>
     </div>
 
     <div class="table-responsive">
         <table id="categoryTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Hình ảnh</th>
+                    <th style="width: 100px;">Hình ảnh</th>
                     <th>Tên</th>
                     <th>Tên rút gọn</th>
                     <th>Thứ tự</th>
+                    <th>Vị trí</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -23,10 +25,11 @@
                 {
                     if (item.Parent == null) {
                         <tr>
-                            <td class="align-middle"><img src="@item.Image?.Path" alt="@item.Name" style="width: 100px; height: auto;" /></td>
+                            <td class="align-middle" style="width: 100px; text-align: center;"><img src="@item.Image?.Path" alt="@item.Name" style="width: 100px; height: auto; object-fit: cover;" /></td>
                             <td class="align-middle">@item.Name</td>
                             <td class="align-middle">@item.Alias</td>
                             <td class="align-middle">@item.Sort</td>
+                            <td class="align-middle">@item.Position.GetDisplayName()</td>
                             <td class="align-middle">
                                 <button class="btn btn-sm btn-warning category-edit-btn" data-bs-toggle="modal" data-bs-target="#addEditCategoryModal" data-id="@item.Id">Sửa</button>
                                 <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Xóa</button>
