@@ -2,6 +2,8 @@
 using Dentistry.ViewModels.Common;
 using Dentisty.Data.Common;
 using Dentisty.Data.Repositories;
+using Dentisty.Data.Storages;
+using FluentFTP;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +20,13 @@ namespace Dentistry.Data.Storages
         private readonly IConfiguration _configuration;
         private readonly HostingConfig _config;
 
+        private readonly FtpUploader _ftpUploader;
+
         private readonly string Content_folder = SystemConstants.USER_CONTENT_FOLDER_NAME;
 
         public FileStorageService(IWebHostEnvironment webHostEnvironment, IOptions<HostingConfig> config, IConfiguration configuration, LoggerRepository loggerRepository)
         {
+            _ftpUploader = new FtpUploader(config);
             _config = config.Value;
             _configuration = configuration;
             logger = loggerRepository;
@@ -32,7 +37,7 @@ namespace Dentistry.Data.Storages
         {
             return $"{_config.Domain}/{_config.UploadDirectory}/{fileName}";
         }
-
+       
         public async Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
         {
             try
@@ -90,23 +95,11 @@ namespace Dentistry.Data.Storages
 
             try
             {
-                // Đảm bảo thư mục lưu trữ tồn tại
-                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", _config.UploadDirectory);
-                if (!Directory.Exists(uploadsFolder))
-                {
-                    Directory.CreateDirectory(uploadsFolder);
-                }
-
-                // Đặt tên file mới để tránh trùng
                 var fileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + file.FileName;
-                var filePath = Path.Combine(uploadsFolder, fileName);
+                // Upload ảnh lên FTP và lấy URL
+                string imageUrl = _ftpUploader.UploadImage(file, _config.UploadDirectory);
 
-                // Lưu file vào server
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-                return new FileUploadResult() { FileName = fileName, FilePath = GetFileUrl(fileName), FileSize = file.Length };
+                return new FileUploadResult() { FileName = fileName, FilePath = imageUrl, FileSize = file.Length };
             }
             catch (Exception ex)
             {
