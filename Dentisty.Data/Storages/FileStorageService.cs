@@ -107,6 +107,39 @@ namespace Dentistry.Data.Storages
                 return null;
             }
         }
+        public async Task<FileUploadResult> SaveFileToHostingAsync(IFormFile file, string remoteDirectory)
+        {
+            if (file == null || file.Length == 0)
+                throw new ArgumentException("File không hợp lệ.");
+
+            // Kiểm tra định dạng file
+            var extension = Path.GetExtension(file.FileName).ToLower();
+            if (!_config.AllowedExtensions.Contains(extension))
+            {
+                throw new ArgumentException("Loại file không được phép.");
+            }
+
+            // Kiểm tra kích thước file
+            var maxFileSize = _config.MaxFileSizeMB * 1024 * 1024; // MB to bytes
+            if (file.Length > maxFileSize)
+            {
+                throw new ArgumentException("Kích thước file vượt quá giới hạn cho phép.");
+            }
+
+            try
+            {
+                var fileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + file.FileName;
+                // Upload ảnh lên FTP và lấy URL
+                string imageUrl = _ftpUploader.UploadImage(file, remoteDirectory);
+
+                return new FileUploadResult() { FileName = fileName, FilePath = imageUrl, FileSize = file.Length };
+            }
+            catch (Exception ex)
+            {
+                logger.QueueLog(ex.Message, "Upload file");
+                return null;
+            }
+        }
 
         public async Task DeleteFileAsync(string fileName)
         {

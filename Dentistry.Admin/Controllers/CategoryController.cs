@@ -53,7 +53,7 @@ namespace Dentistry.Admin.Controllers
                 return BadRequest("Invalid data");
             }
 
-            model.item.Alias = model.item.Name.ToSlus();
+            //model.item.Alias = model.item.Name.ToSlus();
             var checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Alias, model.item.Id);
             if (checkAlis)
             {

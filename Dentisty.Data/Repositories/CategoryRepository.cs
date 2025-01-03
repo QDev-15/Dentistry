@@ -1,9 +1,12 @@
-﻿using Dentistry.Data.GeneratorDB.EF;
+﻿using Dentistry.Common.Constants;
+using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Slide;
+using Dentistry.ViewModels.Enums;
 using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Numerics;
 
@@ -29,12 +32,12 @@ namespace Dentisty.Data.Repositories
         }
         public async Task<IEnumerable<Category>> GetByParent()
         {
-            var categories = await _context.Categories.Where(x => x.ParentId == null || x.ParentId == 0 || x.IsParent == true).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.IsParent == true).ToListAsync();
             return categories;
         }
         public async Task<IEnumerable<Category>> GetChilds()
         {
-            var categories = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).Where(x => x.ParentId != null && x.ParentId > 0).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.IsParent == false).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
             return categories;
         }
         public async Task<Category> GetById(int id)
@@ -47,6 +50,7 @@ namespace Dentisty.Data.Repositories
             var categories = await _context.Categories.Include(i => i.Image).Include(x=>x.Parent).Include(x=>x.Categories).ToListAsync();
             return categories;
         }
+
 
         public async Task<CategoryVm> CreateNew(CategoryVm model)
         {
@@ -67,7 +71,7 @@ namespace Dentisty.Data.Repositories
                 await SaveChangesAsync();
                 if (model.ImageFile != null)
                 {
-                    var image = await _imageRepository.CreateAsync(model.ImageFile);
+                    var image = await CreateImageAsync(model.ImageFile);
                     category.Image = image;
                     UpdateAsync(category);
                     await SaveChangesAsync();
@@ -106,7 +110,7 @@ namespace Dentisty.Data.Repositories
                 }
                 if (model.ImageFile != null)
                 {
-                    var image = await _imageRepository.CreateAsync(model.ImageFile);
+                    var image = await CreateImageAsync(model.ImageFile);
                     // delete old image
                     if (category.Image != null) {
                         await _imageRepository.DeleteFile(category.Image);
@@ -130,6 +134,25 @@ namespace Dentisty.Data.Repositories
         public async Task<bool> CheckExistsAlias(string alias, int id)
         {
             return await _context.Categories.AnyAsync(c => c.Alias == alias && c.Id != id);
+        }
+        private async Task<Image> CreateImageAsync(IFormFile formFile)
+        {
+            if (formFile == null) { return null; }
+            
+            var image = await _imageRepository.CreateAsync(formFile, SystemConstants.AppSettings.CategoryFolder);
+            return image;
+        }
+
+        public async Task<IEnumerable<Category>> GetRightMenuAsync()
+        {
+            var rightCategories = await _context.Categories.Where(x => x.Position == CategoryPosition.MenuRight).Include(x => x.Categories).ToListAsync();
+            return rightCategories;
+        }
+
+        public async Task<IEnumerable<Category>> GetLeftMenuAsync()
+        {
+            var rightCategories = await _context.Categories.Where(x => x.Position == CategoryPosition.MenuLef).Include(x => x.Categories).ToListAsync();
+            return rightCategories;
         }
     }
 }

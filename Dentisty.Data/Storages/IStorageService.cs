@@ -10,6 +10,7 @@ namespace Dentistry.Data.Storages
         Task SaveFileAsync(Stream mediaBinaryStream, string fileName);
         Task<string> SaveFileAsync(IFormFile file);
         Task<FileUploadResult> SaveFileToHostingAsync(IFormFile file);
+        Task<FileUploadResult> SaveFileToHostingAsync(IFormFile file, string remoteDirectory);
 
         Task DeleteFileAsync(string fileName);
     }

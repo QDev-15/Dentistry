@@ -42,6 +42,30 @@ namespace Dentisty.Data.Repositories
             }
             
         }
+
+        public async Task<Image> CreateAsync(IFormFile file, string directory)
+        {
+            try
+            {
+                var fileUpload = await _storageService.SaveFileToHostingAsync(file, directory);
+                var image = new Image()
+                {
+                    FileSize = file.Length,
+                    Type = file.ContentType,
+                    FileName = fileUpload.FileName,
+                    Path = fileUpload.FilePath,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now
+                };
+                await AddAsync(image);
+                return image;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<bool> DeleteFile(Image image)
         {
             try

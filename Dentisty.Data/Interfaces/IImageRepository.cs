@@ -11,11 +11,18 @@ namespace Dentisty.Data.Interfaces
     public interface IImageRepository : IRepository<Image>
     {
         /// <summary>
-        /// Create Image entiry, need call to savechage
+        /// Create Image entity, need call to savechage
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
         Task<Image> CreateAsync(IFormFile file);
+        /// <summary>
+        /// Create Image entity in directory
+        /// </summary>
+        /// <param name="file">IFormFile need to save</param>
+        /// <param name="directory">Save to folder</param>
+        /// <returns></returns>
+        Task<Image> CreateAsync(IFormFile file, string directory);
         /// <summary>
         /// Delete a file in location
         /// </summary>

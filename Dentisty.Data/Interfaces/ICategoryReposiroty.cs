@@ -13,6 +13,8 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<Category>> GetByParentId(int parentId);
         Task<IEnumerable<Category>> GetByParent();
         Task<IEnumerable<Category>> GetChilds();
+        Task<IEnumerable<Category>> GetRightMenuAsync();
+        Task<IEnumerable<Category>> GetLeftMenuAsync();
         Task<Category> GetById(int id);
         Task<CategoryVm> CreateNew(CategoryVm category);
         Task<CategoryVm> UpdateCategory(CategoryVm category);

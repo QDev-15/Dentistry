@@ -16,6 +16,10 @@ namespace Dentistry.Common.Constants
             public const string Token = "Token";
             public const string AuthToken = "AuthToken";
             public const string BaseAddress = "BaseAddress";
+            public const string CategoryFolder = "Categories";
+            public const string ArticleFolder = "Articles";
+            public const string ProductFolder = "Products";
+            public const string DoctorFolder = "Doctors";
         }
         public static class JwtTokens {
             public const string Key = "JwtTokens:Key";

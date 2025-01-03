@@ -1,15 +1,18 @@
-using Dentistry.Common.Constants;
+﻿using Dentistry.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentistry.Data.Storages;
 using Microsoft.EntityFrameworkCore;
 using Dentisty.Data.Services.System;
+using Dentisty.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DentistryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+// Tải cấu hình UploadSettings từ appsettings
+builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
 // Add services to the container.
 builder.Services.AddControllersWithViews()
     .AddRazorRuntimeCompilation();
