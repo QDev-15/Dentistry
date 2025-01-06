@@ -11,12 +11,11 @@ namespace Dentistry.ViewModels.Catalog.Slide
     {
         public int Id { set; get; }
 
-        [Required]
+        [Required(ErrorMessage = "Tên slide không được trống.")]
         [MaxLength(200)]
         public string Name { set; get; }
+        public string Caption { set; get; }
         public string SubName { set; get; }
-        [Required]
-        [MaxLength(200)]
         public string Description { set; get; }
         public string Url { set; get; }
         public Guid UserId { set; get; }

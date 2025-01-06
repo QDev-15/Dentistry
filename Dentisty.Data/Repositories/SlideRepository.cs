@@ -99,25 +99,24 @@ namespace Dentisty.Data.Repositories
                     };
                     
                     slide.Image = image;
+                    // delete oldImage
+                    if (imageOld != null)
+                    {
+                        _imageRepository.DeleteFileToHostingAsync(imageOld);
+                        _imageRepository.DeleteAsync(imageOld);
+                    }
                 }
+                slide.SortOrder = slideVm.SortOrder;
+                slide.Name = slideVm.Name;
+                slide.SubName = slideVm.SubName;
+                slide.Url = slideVm.Url;
+                slide.UpdatedDate = DateTime.Now;
+                slide.Description = slideVm.Description;
+                slide.Caption = slideVm.Caption;
                 // set image slide
                 UpdateAsync(slide);
-                await SaveChangesAsync();       
-                // update imageId
-                slide.ImageId = slide.Image.Id;
-                await SaveChangesAsync();
-                // delete oldImage
-                if (imageOld != null)
-                {
-                    await _imageRepository.DeleteFile(imageOld);
-                    _imageRepository.DeleteAsync(imageOld);
-                    await SaveChangesAsync();
-                }
-
-                // set slide id
-                slideVm.Id = slide.Id;
-                slideVm.Image.Id = slide.Image.Id;
-                return slideVm;
+                await SaveChangesAsync();   
+                return slide.ReturnViewModel();
             }
             catch (Exception ex)
             {
@@ -147,6 +146,12 @@ namespace Dentisty.Data.Repositories
                 throw new Exception(ex.Message);
             }
             
+        }
+
+        public async Task<List<SlideVm>> GetActiveSlides()
+        {
+            var slides = await _context.Slides.Where(x => x.IsActive).Include(x => x.Image).ToListAsync();
+            return slides.Select(x => x.ReturnViewModel()).OrderBy(x => x.SortOrder).ToList();
         }
     }
 }

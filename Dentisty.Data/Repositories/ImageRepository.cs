@@ -66,6 +66,21 @@ namespace Dentisty.Data.Repositories
             }
         }
 
+        public bool DeleteFileToHostingAsync(Image image)
+        {
+            try
+            {
+                if (image == null) return false;
+                _storageService.DeleteFileToHostingAsync(image.Path);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                this._loggerRepository.QueueLog(ex.Message);
+                throw new Exception(ex.Message);
+            }
+            
+        }             
         public async Task<bool> DeleteFile(Image image)
         {
             try

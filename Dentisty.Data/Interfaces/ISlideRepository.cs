@@ -12,6 +12,7 @@ namespace Dentisty.Data.Interfaces
     {
         Task<SlideVm> Create(SlideVm slideVm);
         Task<SlideVm> UpdateSlide(SlideVm slideVm);
+        Task<List<SlideVm>> GetActiveSlides();
         Task<bool> Delete(int id);
     }
 }

@@ -154,6 +154,7 @@ namespace Dentisty.Data
             {
                 Id = item.Id,
                 Name = item.Name,
+                Caption = item.Caption,
                 SubName = item.SubName,
                 Description = item.Description,
                 Image = item.Image == null ? new ImageVm() : new ImageVm()

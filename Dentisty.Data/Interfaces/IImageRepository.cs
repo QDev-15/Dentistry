@@ -35,6 +35,7 @@ namespace Dentisty.Data.Interfaces
         /// <param name="image"></param>
         /// <returns></returns>
         Task<bool> DeleteRangeFiles(List<Image> image);
+        bool DeleteFileToHostingAsync(Image image);
 
     }
 }

@@ -12,6 +12,7 @@ namespace Dentistry.Data.Storages
         Task<FileUploadResult> SaveFileToHostingAsync(IFormFile file);
         Task<FileUploadResult> SaveFileToHostingAsync(IFormFile file, string remoteDirectory);
 
+        bool DeleteFileToHostingAsync(string urlImage);
         Task DeleteFileAsync(string fileName);
     }
 }

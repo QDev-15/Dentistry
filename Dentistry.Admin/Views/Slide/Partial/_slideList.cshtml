@@ -10,10 +10,11 @@
         <thead>
             <tr>
                 <th>Hình ảnh</th>
+                <th>Tên</th>
                 <th>Tiêu đề</th>
                 <th>Tiêu đề phụ</th>
                 <th>Nội dung</th>
-                <th>Link</th>
+                <th>Thứ tự</th>
                 <th>Trạng thái</th>
                 <th></th>
             </tr>
@@ -22,11 +23,16 @@
             @foreach (var slide in Model)
             {
                 <tr>
-                    <td class="align-middle"><img src="@slide.Image?.Path" alt="@slide.Name" style="width: 100px; height: auto;" /></td>
+                    <td class="align-middle">
+                        <a href="@slide.Image?.Path" target="_blank">
+                            <img src="@slide.Image?.Path" alt="@slide.Name" style="width: 100px; height: auto;" />
+                        </a>
+                    </td>
                     <td class="align-middle">@slide.Name</td>
+                    <td class="align-middle">@slide.Caption</td>
                     <td class="align-middle">@slide.SubName</td>
                     <td class="align-middle">@slide.Description</td>
-                    <td class="align-middle">@slide.Url</td>
+                    <td class="align-middle">@slide.SortOrder</td>
                     <td class="align-middle">@(slide.IsActive ? "Active" : "Inactive")</td>
                     <td class="align-middle">
                         <div class="d-flex justify-content-center">

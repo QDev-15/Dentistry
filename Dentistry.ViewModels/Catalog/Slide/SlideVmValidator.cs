@@ -11,7 +11,6 @@ namespace Dentistry.ViewModels.Catalog.Slide
     {
         public SlideVmValidator() {
             RuleFor(x => x.Name).NotEmpty().WithMessage("Tên slide không được trống.");
-            RuleFor(x => x.Description).NotEmpty().WithMessage("Nội dung không được trống.");
         }
     }
 }

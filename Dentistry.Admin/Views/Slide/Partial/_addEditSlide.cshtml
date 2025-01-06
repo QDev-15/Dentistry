@@ -19,9 +19,14 @@
         <form asp-action="AddEdit" id="slide-add-edit" asp-controllder="Slide" enctype="multipart/form-data" method="post">
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name">Tiêu dề</label>
+                <label asp-for="Name">Tên</label>
                 <input type="text" class="form-control ps-2" id="Name" name="Name" asp-for="Name" value="@Model.Name" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Caption">Tiêu dề</label>
+                <input type="text" class="form-control ps-2" id="Caption" name="Caption" asp-for="Caption" value="@Model.Caption" />
+                <span asp-validation-for="Caption" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SubName">Tiêu đề phụ</label>
@@ -29,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description">Description</label>
-                <textarea class="form-control ps-2" id="Description" asp-for="Description" name="Description" required>@Model.Description</textarea>
+                <textarea class="form-control ps-2" id="Description" asp-for="Description" name="Description">@Model.Description</textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">

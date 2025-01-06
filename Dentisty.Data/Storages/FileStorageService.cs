@@ -149,5 +149,12 @@ namespace Dentistry.Data.Storages
                 await Task.Run(() => File.Delete(filePath));
             }
         }
+
+        public bool DeleteFileToHostingAsync(string urlImage)
+        {
+            // Xóa file từ URL
+            bool isDeleted = _ftpUploader.DeleteFileFromUrl(urlImage);
+            return isDeleted;
+        }
     }
 }
