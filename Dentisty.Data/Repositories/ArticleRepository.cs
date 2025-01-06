@@ -1,4 +1,5 @@
-﻿using Dentistry.Data.GeneratorDB.EF;
+﻿using Dentistry.Common.Constants;
+using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Common;
@@ -68,7 +69,7 @@ namespace Dentisty.Data.Repositories
                 {
                     foreach (var file in item.ImageFiles)
                     {
-                        var image = await _imageRepository.CreateAsync(file);
+                        var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Article);
                         art.Images.Add(image);
                     }
                 }
@@ -194,7 +195,7 @@ namespace Dentisty.Data.Repositories
                     {
                         foreach (var file in files)
                         {
-                            var image = await _imageRepository.CreateAsync(file);
+                            var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Article);
                             art.Images.Add(image);
                         }
                     }

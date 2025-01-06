@@ -139,7 +139,7 @@ namespace Dentisty.Data.Repositories
         {
             if (formFile == null) { return null; }
             
-            var image = await _imageRepository.CreateAsync(formFile, SystemConstants.AppSettings.CategoryFolder);
+            var image = await _imageRepository.CreateAsync(formFile, SystemConstants.Folder.Category);
             return image;
         }
 

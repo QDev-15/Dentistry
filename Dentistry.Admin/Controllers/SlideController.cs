@@ -26,10 +26,10 @@ namespace Dentistry.Admin.Controllers
         {
             if (id == 0)
             {
-                return View("_Partial_Slide_AddEdit", new SlideVm());
+                return View("~/Views/Slide/Partial/_addEditSlide.cshtml", new SlideVm());
             }
             var slide = await _slideRepository.GetByIdAsync(id);
-            return View("_Partial_Slide_AddEdit", slide.ReturnViewModel());
+            return View("~/Views/Slide/Partial/_addEditSlide.cshtml", slide.ReturnViewModel());
         }
 
         [HttpPost]
@@ -54,38 +54,10 @@ namespace Dentistry.Admin.Controllers
             return Json(new { success = true });
         }
 
-
-
-
-        //[HttpPost]
-        //[Consumes("multipart/form-data")]
-        //public async Task<IActionResult> AddEdit([FromForm] SlideVm model)
-        //{
-        //    var slide = await _slideRepository.Create(model);
-        //    return RedirectToAction("Index");
-        //}
         [HttpPost]
         public async Task<IActionResult> Delete(int id) { 
             var result = await _slideRepository.Delete(id);
             return RedirectToAction("Index");
-        }
-        [HttpPost]
-        public IActionResult Edit(int id, string name, int age)
-        {
-            //var user = _context.Users.FirstOrDefault(u => u.Id == id);
-
-            //if (user == null)
-            //{
-            //    return Json(new { success = false });
-            //}
-
-            //// Cập nhật thông tin người dùng
-            //user.Name = name;
-            //user.Age = age;
-
-            //_context.SaveChanges();
-
-            return Json(new { success = true });
         }
     }
 }

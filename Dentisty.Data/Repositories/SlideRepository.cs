@@ -1,4 +1,5 @@
-﻿using Dentistry.Data.GeneratorDB.EF;
+﻿using Dentistry.Common.Constants;
+using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.Slide;
@@ -45,7 +46,7 @@ namespace Dentisty.Data.Repositories
                 };
                 if (slideVm.ImageFile != null)
                 {
-                    var image = await _imageRepository.CreateAsync(slideVm.ImageFile);
+                    var image = await _imageRepository.CreateAsync(slideVm.ImageFile, SystemConstants.Folder.Slides);
                     // set image to slideVm
                     slideVm.Image = new ImageVm()
                     {
@@ -86,7 +87,7 @@ namespace Dentisty.Data.Repositories
                 var imageOld = slide.Image;
                 if (slideVm.ImageFile != null)
                 {
-                    var image = await _imageRepository.CreateAsync(slideVm.ImageFile);
+                    var image = await _imageRepository.CreateAsync(slideVm.ImageFile, SystemConstants.Folder.Slides);
                     // set image to slideVm
                     slideVm.Image = new ImageVm()
                     {

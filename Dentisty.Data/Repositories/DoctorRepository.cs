@@ -1,4 +1,5 @@
-﻿using Dentistry.Data.GeneratorDB.EF;
+﻿using Dentistry.Common.Constants;
+using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
@@ -40,7 +41,7 @@ namespace Dentisty.Data.Repositories
                 };
                 if (vm.formFile != null)
                 {
-                    var image = await _imageRepository.CreateAsync(vm.formFile);
+                    var image = await _imageRepository.CreateAsync(vm.formFile, SystemConstants.Folder.Doctor);
                     doctor.Avatar = image;
                 }
                 await AddAsync(doctor);
@@ -87,7 +88,7 @@ namespace Dentisty.Data.Repositories
                     doctor.Dob = vm.Dob;
                     if (vm.formFile != null)
                     {
-                        var img = await _imageRepository.CreateAsync(vm.formFile);
+                        var img = await _imageRepository.CreateAsync(vm.formFile, SystemConstants.Folder.Doctor);
                         if (doctor.Avatar != null)
                         {
                             await _imageRepository.DeleteFile(img);
