@@ -71,8 +71,8 @@ namespace Dentisty.Data.Repositories
             try
             {
                 if (image == null) return false;
-                _storageService.DeleteFileToHostingAsync(image.Path);
-                return true;
+                bool v = _storageService.DeleteFileToHostingAsync(image.Path);
+                return v;
             }
             catch (Exception ex)
             {

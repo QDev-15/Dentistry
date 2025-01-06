@@ -11,8 +11,8 @@ namespace Dentisty.Data.Interfaces
     public interface ICategoryReposiroty : IRepository<Category>
     {
         Task<IEnumerable<Category>> GetByParentId(int parentId);
-        Task<IEnumerable<Category>> GetByParent();
         Task<IEnumerable<Category>> GetChilds();
+        Task<IEnumerable<Category>> GetParents();
         Task<IEnumerable<Category>> GetRightMenuAsync();
         Task<IEnumerable<Category>> GetLeftMenuAsync();
         Task<Category> GetById(int id);

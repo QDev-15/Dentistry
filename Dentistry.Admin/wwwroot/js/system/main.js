@@ -125,23 +125,50 @@ $("#sidebarToggle").on("click", function (e) {
 window.addEventListener('load', function () {
     document.getElementById('global-spinner').style.display = 'none';
 });
-// mở Spinner khi  AJAX request
-$(document).ajaxStart(function () {
-    console.log("start spinner");
-    $("#global-spinner").show();
-});
+//// mở Spinner khi  AJAX request
+//$(document).ajaxStart(function () {
+//    console.log("start spinner");
+//    $("#global-spinner").show();
+//});
 
-// Ẩn Spinner khi tất cả AJAX request hoàn tất
-$(document).ajaxStop(function () {
-    console.log("end spinner");
-    $("#global-spinner").hide();
-});
+//// Ẩn Spinner khi tất cả AJAX request hoàn tất
+//$(document).ajaxStop(function () {
+//    console.log("end spinner");
+//    $("#global-spinner").hide();
+//});
 function showSpinner() {
     document.getElementById('global-spinner').style.display = 'flex';
 }
 
 function hideSpinner() {
     document.getElementById('global-spinner').style.display = 'none';
+}
+
+function showSpinnerFor(className) {
+    const element = document.querySelector('.' + className);
+    const spinnerOverlay = document.createElement('div');
+    spinnerOverlay.classList.add('spinner-overlay');
+
+    const spinnerHTML = `
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            `;
+    spinnerOverlay.innerHTML = spinnerHTML;
+
+    // Thêm spinner vào trong element
+    element.classList.add('spinner-container');
+    element.appendChild(spinnerOverlay);
+}
+
+function hideSpinnerFor(className) {
+    // Tìm và xóa spinner overlay
+    const element = document.querySelector('.' + className);
+    const spinnerOverlay = element.querySelector('.spinner-overlay');
+    if (spinnerOverlay) {
+        spinnerOverlay.remove();
+        element.classList.remove('spinner-container');
+    }
 }
 
 

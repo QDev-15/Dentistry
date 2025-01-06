@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Admin.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         private readonly ICategoryReposiroty _categoryRepository;
 
@@ -18,28 +18,32 @@ namespace Dentistry.Admin.Controllers
         {
             _categoryRepository = categoryRepository;
         }
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             var categories = await _categoryRepository.GetAllAsync();
             return View(categories);
         }
         [HttpGet]
-        public async Task<IActionResult> AddEdit(int id, string type) {
+        public IActionResult List()
+        {
+            return ViewComponent("CategoryList");
+        }
+        [HttpGet]
+        public async Task<IActionResult> AddEdit(int id, bool parent) {
             var categoryAddEdit = new CategoryVmAddEdit();
             var parentCategories = new List<CategoryVm>();
 
             if (id == 0)
             {
                 categoryAddEdit.item = new CategoryVm() {};
-                categoryAddEdit.item.IsParent = type == "parent";
+                categoryAddEdit.item.IsParent = parent;
             } else
             {
                 categoryAddEdit.item = (await _categoryRepository.GetById(id)).ReturnViewModel();               
             }
             if (!categoryAddEdit.item.IsParent) // add sub category
             {
-                categoryAddEdit.parrents = (await _categoryRepository.GetByParent()).Select(x => x.ReturnViewModel()).ToList();
+                categoryAddEdit.parrents = (await _categoryRepository.GetParents()).Select(x => x.ReturnViewModel()).ToList();
             }
             ViewBag.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>();
           

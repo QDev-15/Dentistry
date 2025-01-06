@@ -19,6 +19,7 @@
     <div class="add-edit-category p-3">
         <form id="addEditCategoryForm" asp-action="AddEdit" asp-controllder="Category" enctype="multipart/form-data" method="post">
             <input type="hidden" asp-for="@Model.item.Id" />
+            <input type="hidden" asp-for="@Model.item.IsParent" />
             <div class="form-group">
                 <label asp-for="@Model.item.Name" class="form-label">Tên</label>
                 <input type="text" class="form-control ps-2" asp-for="@Model.item.Name" required />
@@ -33,17 +34,24 @@
                 <label asp-for="@Model.item.Sort" class="form-label">Thứ tự</label>
                 <input type="number" class="form-control ps-2" asp-for="@Model.item.Sort" />
             </div>
-
-            <div class="form-group">
-                <label asp-for="@Model.item.Position" class="form-label">Vị trí</label>
-                <select asp-for="@Model.item.Position" asp-items="@(IEnumerable<SelectListItem>)ViewBag.CategoryPositions" class="form-control">
-                    <option value="">-- Chọn vị trí --</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="checkbox" asp-for="@Model.item.IsParent" />
-                <label asp-for="@Model.item.IsParent">Danh mục chính</label>
-            </div>
+            @{
+                if (Model.item.IsParent) {
+                    <div class="form-group">
+                        <label asp-for="@Model.item.Position" class="form-label">Vị trí</label>
+                        <select asp-for="@Model.item.Position" asp-items="@(IEnumerable<SelectListItem>)ViewBag.CategoryPositions" class="form-control">
+                            <option value="">-- Chọn vị trí --</option>
+                        </select>
+                    </div>
+                }
+             }
+            @* @{
+                if (Model.item.IsParent) {
+                    <div class="form-group disabled">
+                        <input class="disabledz" type="checkbox" asp-for="@Model.item.IsParent" />
+                        <label class="disabled" asp-for="@Model.item.IsParent">Danh mục chính</label>
+                    </div>
+                }
+            } *@
             @{
                 if (!Model.item.IsParent) {
                     <div class="form-group">

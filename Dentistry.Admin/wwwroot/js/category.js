@@ -15,10 +15,10 @@
     // handle Edit - Add button click
     $(document).on('click', '.category-edit-btn, .category-add-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
-        const type = $(this).data('type'); // Nếu không có ID, thì tạo mới
+        const parent = $(this).data('parent'); // Nếu không có ID, thì tạo mới
 
         $.ajax({
-            url: `/Category/AddEdit/${id}?type=${type}`,
+            url: `/Category/AddEdit/${id}?parent=${parent}`,
             type: 'GET',
             success: function (html) {
                 console.log("html = " + html);
@@ -44,7 +44,7 @@
             success: function (response) {
                 if (response.success) {
                     $('#addEditCategoryModal').modal('hide');
-                    location.reload(); // Hoặc cập nhật bảng
+                    reloadCategoryList(); // Hoặc cập nhật bảng
                 } else {
                     window.alert(response.message);
                 }
@@ -68,3 +68,16 @@
     });
 
 });
+
+function reloadCategoryList() {
+    $.ajax({
+        url: '/Category/List',
+        type: 'GET',
+        success: function (data) {
+            $('#category').html(data);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error reloading doctor list:", error);
+        }
+    });
+}

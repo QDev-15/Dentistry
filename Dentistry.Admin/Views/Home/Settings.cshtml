@@ -37,9 +37,7 @@
         </div>
         <!-- category -->
         <div class="tab-pane p-2 fade" id="category" role="tabpanel">
-            @{
-                Html.RenderPartial("~/Views/Category/Partial/_List.cshtml", Model.Categories);
-            }
+            @await Component.InvokeAsync("CategoryList")
         </div>
         <!-- doctor -->
         <div class="tab-pane p-2 fade" id="doctor" role="tabpanel">

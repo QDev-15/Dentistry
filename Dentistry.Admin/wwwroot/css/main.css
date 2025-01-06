@@ -73,7 +73,7 @@ body {
         opacity: 0;
     }
 }
-/** spinner */
+/** ================================= spinner All Page ======================= */
 #global-spinner {
     position: fixed;
     top: 0;
@@ -102,4 +102,40 @@ button[title="Browse links"] {
 /** Modal */
 .modal-header, .modal-footer {
     background: #ebebeb;
+}
+
+
+/** ================================== Spinner custom =======================*/
+
+/* CSS cho spinner */
+.spinner-container {
+    position: relative;
+}
+
+.spinner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Màu nền mờ */
+    z-index: 1050; /* Đảm bảo nó nằm trên cùng */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border: 0.25rem solid #ccc;
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
