@@ -145,7 +145,7 @@ function hideSpinner() {
 }
 
 function showSpinnerFor(className) {
-    const element = document.querySelector('.' + className);
+    const elements = document.querySelectorAll('.' + className);
     const spinnerOverlay = document.createElement('div');
     spinnerOverlay.classList.add('spinner-overlay');
 
@@ -157,18 +157,24 @@ function showSpinnerFor(className) {
     spinnerOverlay.innerHTML = spinnerHTML;
 
     // Thêm spinner vào trong element
-    element.classList.add('spinner-container');
-    element.appendChild(spinnerOverlay);
+    elements.forEach(element => {
+        element.classList.add('spinner-container');
+        element.appendChild(spinnerOverlay);
+    });
+    
 }
 
 function hideSpinnerFor(className) {
     // Tìm và xóa spinner overlay
-    const element = document.querySelector('.' + className);
-    const spinnerOverlay = element.querySelector('.spinner-overlay');
-    if (spinnerOverlay) {
-        spinnerOverlay.remove();
+    const elements = document.querySelectorAll('.' + className);
+    elements.forEach(element => {
+        const spinnerOverlay = element.querySelector('.spinner-overlay');
+        if (spinnerOverlay) {
+            spinnerOverlay.remove();
+        }    
         element.classList.remove('spinner-container');
-    }
+    });
+    
 }
 
 

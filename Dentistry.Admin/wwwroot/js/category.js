@@ -21,12 +21,11 @@
             url: `/Category/AddEdit/${id}?parent=${parent}`,
             type: 'GET',
             success: function (html) {
-                console.log("html = " + html);
                 $('#addEditCategoryModal .modal-content').html(html);
                 $('#addEditCategoryModal').modal('show');
             },
             error: function (err) {
-                alert('Failed to load data');
+                showError('Failed to load data');
             }
         });
     });
@@ -70,14 +69,17 @@
 });
 
 function reloadCategoryList() {
+    showSpinnerFor('table-responsive');
     $.ajax({
         url: '/Category/List',
         type: 'GET',
         success: function (data) {
             $('#category').html(data);
+            hideSpinnerFor('table-responsive');
         },
         error: function (xhr, status, error) {
             console.error("Error reloading doctor list:", error);
+            hideSpinnerFor('table-responsive');
         }
     });
 }
