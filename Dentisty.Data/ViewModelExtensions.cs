@@ -69,7 +69,13 @@ namespace Dentisty.Data
                 ShowFeedbackList = item.ShowFeedbackList,
                 ShowNewsList = item.ShowNewsList,
                 ShowProductList = item.ShowProductList,
-                ShowToolBarTop = item.ShowToolBarTop
+                ShowToolBarTop = item.ShowToolBarTop,
+                Categories = item.Categories == null ?[] : item.Categories.Split(','),
+                Doctors = item.Doctors == null ?[] : item.Doctors.Split(','),
+                Articles = item.Articles == null ?[] : item.Articles.Split(','),
+                News = item.News == null ?[] : item.News.Split(','),
+                Feedbacks = item.Feedbacks == null ?[] : item.Feedbacks.Split(','),
+                Products = item.Products == null ?[] : item.Products.Split(','),
             };
             return model;
         }

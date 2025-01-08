@@ -26,5 +26,11 @@ namespace Dentistry.ViewModels.Catalog.AppSettings
         public bool ShowProductList { get; set; }
         public bool ShowNewsList { get; set; }
         public bool ShowFeedbackList { get; set; }
+        public string[] Categories { set; get; } = [];
+        public string[] Doctors { set; get; } = [];
+        public string[] Articles { set; get; } = [];
+        public string[] News { set; get; } = [];
+        public string[] Feedbacks { set; get; } = [];
+        public string[] Products { set; get; } = [];
     }
 }
