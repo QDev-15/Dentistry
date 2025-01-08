@@ -156,5 +156,21 @@ namespace Dentisty.Data.Repositories
             var categories = await _context.Categories.Where(x => x.IsParent == false).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
             return categories;
         }
+
+        public async Task<IEnumerable<CategoryVm>> GetForSettings()
+        {
+            return await _context.Categories.Where(x => x.IsActive).Select(x => new CategoryVm() { Id = x.Id, Name = x.Name }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<CategoryVm>> GetFlatHomePage()
+        {
+            // get settings
+            var settting = (await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1)).ReturnViewModel();
+            if (settting.ShowCategoryList && settting.Categories.Length > 0) {
+                var categories = await _context.Categories.Where(x => settting.Categories.Contains(x.Id.ToString())).Take(8).Include(x => x.Image).ToListAsync();
+                return categories.Select(x => x.ReturnViewModel());
+            }
+            return new List<CategoryVm>();
+        }
     }
 }

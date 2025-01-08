@@ -223,8 +223,19 @@ main .container {
 .section-category .actor-list .actor-item {
   padding: 15px 15px;
 }
-.section-category .actor-list .actor-item .image a {
+.section-category .actor-list .actor-item .image {
   position: relative;
+  width: 100%; /* Đảm bảo ảnh full chiều rộng của div */
+  padding-top: 100%; /* Tạo tỷ lệ 1:1 cho ảnh */
+  overflow: hidden;
+  border-radius: 50%; /* Bo tròn ảnh */
+}
+.section-category .actor-list .actor-item .image a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: block;
   transition: all 0.3s ease;
 }
@@ -249,8 +260,10 @@ main .container {
 }
 .section-category .actor-list .actor-item .actor-image {
   width: 100%;
-  height: auto;
-  border-radius: 50%;
+  height: 100%;
+  object-fit: cover; /* Đảm bảo ảnh luôn bao phủ mà không méo */
+  object-position: center; /* Căn giữa ảnh */
+  border-radius: 50%; /* Bo tròn ảnh */
 }
 .section-category .actor-list .actor-item .info {
   padding: 15px;

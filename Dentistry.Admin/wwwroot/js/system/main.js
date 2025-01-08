@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿// Documents 
+$(document).ready(function () {
+    document.getElementById('infoModal').addEventListener('hidden.bs.modal', function () {
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => backdrop.remove());
+    });
+});
+
+
+// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
 // Handle back/forward navigation
@@ -11,6 +20,9 @@ window.onpopstate = function () {
 function openInfoModal() {
     // Open modal 
     const modal = new bootstrap.Modal(document.getElementById('infoModal'));
+    if (bootstrap.Modal.getInstance(modal)) {
+        bootstrap.Modal.getInstance(modal).dispose();
+    }
     modal.show();
 }
 function resetFooterBtn() {
@@ -122,9 +134,7 @@ $("#sidebarToggle").on("click", function (e) {
 });
 
 // spinner  =========================================================================
-window.addEventListener('load', function () {
-    document.getElementById('global-spinner').style.display = 'none';
-});
+
 //// mở Spinner khi  AJAX request
 //$(document).ajaxStart(function () {
 //    console.log("start spinner");

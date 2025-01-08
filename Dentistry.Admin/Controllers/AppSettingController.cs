@@ -23,8 +23,8 @@ namespace Dentistry.Admin.Controllers
             return ViewComponent("AppSettings");
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateSetting(AppSettingVm model) {
-            var result = await _appSettingRepository.Update(model);
+        public async Task<IActionResult> UpdateSetting(AppSettingDataVm model) {
+            var result = await _appSettingRepository.Update(model.Setting);
             return Json(new SuccessResult<bool>());
         }
     }

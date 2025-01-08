@@ -21,6 +21,10 @@ body {
   margin-bottom: 60px;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
 .sb-topnav a img {
     height: 40px;
 }
@@ -139,3 +143,17 @@ button[title="Browse links"] {
         transform: rotate(360deg);
     }
 }
+
+
+/** ============================= Setting App ===================*/
+.setting-cell-checkbox {
+    width: 50px !important;
+    text-align: center !important;
+}
+    .setting-cell-checkbox input {
+        cursor: pointer;
+        width: 15px; /* Chiều rộng của checkbox */
+        height: 15px; /* Chiều cao của checkbox */
+        transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
+        margin: 0 auto; /* Căn giữa trong cột */
+    }

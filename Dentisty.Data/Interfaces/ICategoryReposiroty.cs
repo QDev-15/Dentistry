@@ -13,11 +13,14 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<Category>> GetByParentId(int parentId);
         Task<IEnumerable<Category>> GetChilds();
         Task<IEnumerable<Category>> GetParents();
+        
         Task<IEnumerable<Category>> GetRightMenuAsync();
         Task<IEnumerable<Category>> GetLeftMenuAsync();
         Task<Category> GetById(int id);
         Task<CategoryVm> CreateNew(CategoryVm category);
         Task<CategoryVm> UpdateCategory(CategoryVm category);
+        Task<IEnumerable<CategoryVm>> GetForSettings();
+        Task<IEnumerable<CategoryVm>> GetFlatHomePage();
         /// <summary>
         /// If exixts return True, else return False
         /// </summary>

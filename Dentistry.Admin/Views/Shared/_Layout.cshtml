@@ -47,7 +47,7 @@
     <script src="~/js/menuSideNav.js"></script>
 </head>
 <body class="sb-nav-fixed">
-    <div id="global-spinner">
+    <div id="global-spinner" style="display: none;">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -62,7 +62,7 @@
         </div>
         <div id="layoutSidenav_content">
             
-            <main style="height: 100%; overflow: auto;">
+            <main>
                 @RenderBody()
             </main>
             <footer class="py-4 bg-light mt-auto">

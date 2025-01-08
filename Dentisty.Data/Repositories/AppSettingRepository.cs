@@ -32,6 +32,13 @@ namespace Dentisty.Data.Repositories
                 updateAppSetting.ShowFeedbackList = appSettingVm.ShowFeedbackList;
                 updateAppSetting.ShowNewsList = appSettingVm.ShowNewsList;
 
+                updateAppSetting.Categories = string.Join(",", appSettingVm.Categories);
+                updateAppSetting.Products = string.Join(",", appSettingVm.Categories);
+                updateAppSetting.Doctors = string.Join(",", appSettingVm.Categories);
+                updateAppSetting.Articles = string.Join(",", appSettingVm.Categories);
+                updateAppSetting.News = string.Join(",", appSettingVm.Categories);
+                updateAppSetting.Feedbacks = string.Join(",", appSettingVm.Categories);
+
                 updateAppSetting.Facebook  = appSettingVm.Facebook;
                 updateAppSetting.Instagram = appSettingVm.Instagram;
                 updateAppSetting.Twitter = appSettingVm.Twitter;

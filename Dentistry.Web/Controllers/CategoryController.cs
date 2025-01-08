@@ -9,7 +9,7 @@ namespace Dentistry.Web.Controllers
             return View();
         }
         [HttpGet("dich-vu/{alias}")]
-        public IActionResult Details(string alias) { 
+        public IActionResult DichVu(string alias) { 
             return View();
         }
     }
