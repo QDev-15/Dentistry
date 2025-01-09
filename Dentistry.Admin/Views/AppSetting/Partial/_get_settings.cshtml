@@ -229,30 +229,98 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
-                        <div class="form-check form-switch">
+                        <div id="setting-news-header" class="form-check form-switch">
+                            <input type="hidden" asp-for="@Model.Setting.News" id="listNewsIdsInput">
                             <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowNewsList">
                             <label class="form-check-label" asp-for="@Model.Setting.ShowNewsList">Tin tức nổi bật</label>
                         </div>
                     </div>
                 </div>
-                <div class="card-body row g-3">
-                </div>
+                @{
+                    string newsDisplay = Model.Setting.ShowNewsList ? "block" : "none";
+                    <div class="card-body row g-3 setting-news-body" style="display: @newsDisplay">
+                        <!-- Table -->
+                        <table id="newsTableList" class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="setting-news-cell-checkbox">Chọn</th>
+                                    <th>Người viết</th>
+                                    <th>Tin tức</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var news in Model.News)
+                                {
+                                    <tr>
+                                        <td class="setting-news-cell-checkbox">
+                                            @if (Model.Setting.News.Split(',').Contains(news.Id.ToString()))
+                                            {
+                                                <input type="checkbox" class="news-checkbox" data-checkbox="@news.Id" value="@news.Id" checked>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" class="news-checkbox" data-checkbox="@news.Id" value="@news.Id">
+                                            }
+
+                                        </td>
+                                        <td>@news.CreatedBy.DisplayName</td>
+                                        <td>@news.Title</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         </div>
-
+        
         @* Sản phẩm *@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
-                        <div class="form-check form-switch">
+                        <div id="setting-product-header" class="form-check form-switch">
+                            <input type="hidden" asp-for="@Model.Setting.Products" id="listProductIdsInput">
                             <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowProductList">
                             <label class="form-check-label" asp-for="@Model.Setting.ShowProductList">Danh mục sản phẩm</label>
                         </div>
                     </div>
                 </div>
-                <div class="card-body row g-3">
-                </div>
+                @{
+                    string productDisplay = Model.Setting.ShowProductList ? "block" : "none";
+                    <div class="card-body row g-3 setting-product-body" style="display: @newsDisplay">
+                        <!-- Table -->
+                        <table id="productTableList" class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="setting-product-cell-checkbox">Chọn</th>
+                                    <th>Người viết</th>
+                                    <th>Tin tức</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var product in Model.Products)
+                                {
+                                    <tr>
+                                        <td class="setting-product-cell-checkbox">
+                                            @if (Model.Setting.Products.Split(',').Contains(product.Id.ToString()))
+                                            {
+                                                <input type="checkbox" class="product-checkbox" data-checkbox="@product.Id" value="@product.Id" checked>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" class="product-checkbox" data-checkbox="@product.Id" value="@product.Id">
+                                            }
+
+                                        </td>
+                                        <td>@product.CreatedBy.DisplayName</td>
+                                        <td>@product.Title</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         </div>
 

@@ -224,6 +224,7 @@ namespace Dentisty.Data
                 IsActive = item.IsActive,
                 IsDraft = item.IsDraft,
                 Title = item.Title,
+                Type = item.Type,
                 UpdatedDate = item.UpdatedDate
             };
 

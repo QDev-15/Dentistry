@@ -1,6 +1,8 @@
-﻿using Dentistry.ViewModels.Catalog.Articles;
+﻿using Dentistry.Common.Constants;
+using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Slide;
+using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
@@ -34,7 +36,7 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> List()
         {
             var articles = await _articleRepository.GetAllAsync();
-            return PartialView("_Partial_Article_list", articles.Select(x => x.ReturnViewModel()).ToList());
+            return PartialView("~/Views/Articles/Partial/_list.cshtml", articles.Select(x => x.ReturnViewModel()).ToList());
         }
         [HttpGet]
         public async Task<IActionResult> AddEdit(int id)
@@ -60,7 +62,8 @@ namespace Dentistry.Admin.Controllers
                 model.Item = artVm.ReturnViewModel();
             }
             model.Categories = (await _categoryReposiroty.GetChilds()).Select(x=> x.ReturnViewModel()).ToList();
-            return PartialView("_Partial_Article_AddEdit", model);
+            ViewBag.ArticleTypes = EnumExtensions.ToSelectList<ArtisleType>();
+            return PartialView("~/Views/Articles/Partial/_addEdit.cshtml", model);
         }
         [HttpPost]
         public async Task<IActionResult> AddEdit(ArticleVmAddEdit model)
@@ -115,7 +118,7 @@ namespace Dentistry.Admin.Controllers
                 var art = await _articleRepository.GetByIdAsync(id);
                 if (art != null)
                 {
-                    var image = await _imageRepository.CreateAsync(file);
+                    var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Article);
                     art.Images.Add(image);
                     _articleRepository.UpdateAsync(art);
                     await _articleRepository.SaveChangesAsync();
