@@ -21,7 +21,7 @@ namespace Dentisty.Data.GeneratorDB.Entities
         public bool ShowToolBarTop { get; set; } = true;
         public bool ShowContactList { get; set; } = true;
         public bool ShowCategoryList { get; set; } = true;
-        public bool ShowDoctorlideList { get; set; } = true;
+        public bool ShowDoctorSlideList { get; set; } = true;
         public bool ShowArtileSlideList { get; set; } = true;
         public bool ShowProductList { get; set; } = true;
         public bool ShowNewsList { get; set; } = true;

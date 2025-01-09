@@ -11,8 +11,10 @@ namespace Dentisty.Data.Interfaces
     public interface IDoctorRepository : IRepository<Doctor>
     {
         Task<IEnumerable<Doctor>> GetAll();
+        
         Task<Doctor> GetById(int id);
         Task<DoctorVm> Create(DoctorVm doctor);
         Task<DoctorVm> Update(DoctorVm doctor);
+        Task<IEnumerable<DoctorVm>> GetDoctorForAppSettings();
     }
 }

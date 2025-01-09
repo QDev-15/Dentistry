@@ -26,18 +26,18 @@ namespace Dentisty.Data.Repositories
             if (updateAppSetting != null) {
                 updateAppSetting.ShowCategoryList = appSettingVm.ShowCategoryList;
                 updateAppSetting.ShowProductList = appSettingVm.ShowProductList;
-                updateAppSetting.ShowDoctorlideList = appSettingVm.ShowDoctorlideList;
+                updateAppSetting.ShowDoctorSlideList = appSettingVm.ShowDoctorSlideList;
                 updateAppSetting.ShowContactList = appSettingVm.ShowContactList;
                 updateAppSetting.ShowArtileSlideList = appSettingVm.ShowArtileSlideList;
                 updateAppSetting.ShowFeedbackList = appSettingVm.ShowFeedbackList;
                 updateAppSetting.ShowNewsList = appSettingVm.ShowNewsList;
 
                 updateAppSetting.Categories = string.Join(",", appSettingVm.Categories);
-                updateAppSetting.Products = string.Join(",", appSettingVm.Categories);
-                updateAppSetting.Doctors = string.Join(",", appSettingVm.Categories);
-                updateAppSetting.Articles = string.Join(",", appSettingVm.Categories);
-                updateAppSetting.News = string.Join(",", appSettingVm.Categories);
-                updateAppSetting.Feedbacks = string.Join(",", appSettingVm.Categories);
+                updateAppSetting.Products = string.Join(",", appSettingVm.Products);
+                updateAppSetting.Doctors = string.Join(",", appSettingVm.Doctors);
+                updateAppSetting.Articles = string.Join(",", appSettingVm.Articles);
+                updateAppSetting.News = string.Join(",", appSettingVm.News);
+                updateAppSetting.Feedbacks = string.Join(",", appSettingVm.Feedbacks);
 
                 updateAppSetting.Facebook  = appSettingVm.Facebook;
                 updateAppSetting.Instagram = appSettingVm.Instagram;
@@ -50,10 +50,6 @@ namespace Dentisty.Data.Repositories
                 UpdateAsync(updateAppSetting);
                 await SaveChangesAsync();
                 return updateAppSetting.ReturnViewModel();
-            } else
-            {
-                await AddAsync(new AppSetting() { Name = "Nhiên Dentisty" });
-                await SaveChangesAsync();
             }
             return appSettingVm;
         }

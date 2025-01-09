@@ -64,18 +64,18 @@ namespace Dentisty.Data
                 ZaloHotline = item.ZaloHotline,
                 ShowCategoryList = item.ShowCategoryList,
                 ShowArtileSlideList = item.ShowArtileSlideList,
-                ShowDoctorlideList = item.ShowDoctorlideList,
+                ShowDoctorSlideList = item.ShowDoctorSlideList,
                 ShowContactList = item.ShowContactList,
                 ShowFeedbackList = item.ShowFeedbackList,
                 ShowNewsList = item.ShowNewsList,
                 ShowProductList = item.ShowProductList,
                 ShowToolBarTop = item.ShowToolBarTop,
-                Categories = item.Categories == null ?[] : item.Categories.Split(','),
-                Doctors = item.Doctors == null ?[] : item.Doctors.Split(','),
-                Articles = item.Articles == null ?[] : item.Articles.Split(','),
-                News = item.News == null ?[] : item.News.Split(','),
-                Feedbacks = item.Feedbacks == null ?[] : item.Feedbacks.Split(','),
-                Products = item.Products == null ?[] : item.Products.Split(','),
+                Categories = item.Categories ?? "",
+                Doctors = item.Doctors ?? "",
+                Articles = item.Articles ?? "",
+                News = item.News ?? "",
+                Feedbacks = item.Feedbacks ?? "",
+                Products = item.Products ?? ""
             };
             return model;
         }

@@ -3,6 +3,7 @@ using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Common;
+using Dentistry.ViewModels.Enums;
 using Dentisty.Data.Common;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
@@ -59,6 +60,7 @@ namespace Dentisty.Data.Repositories
                     CategoryId = item.CategoryId,
                     CreatedById = _loggerRepository.GetCurrentUserGuidId(),
                     Description = item.Description,
+                    Type = item.Type,
                     IsActive = true,
                     IsDraft = item.IsDraft,
                     Title = item.Title,
@@ -95,6 +97,7 @@ namespace Dentisty.Data.Repositories
                     art.IsDraft = false;
                     art.CategoryId = item.CategoryId;
                     art.Title = item.Title;
+                    art.Type = item.Type;
                     art.Alias = await GenerateAlias(item);
                     art.Description = item.Description;
                     art.IsActive = item.IsActive;
@@ -227,6 +230,26 @@ namespace Dentisty.Data.Repositories
             }
 
             return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<ArticleVm>> GetArticleForSetting()
+        {
+            return await _context.Articles.Where(x => x.Type == ArtisleType.Article && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ArticleVm>> GetNewsForSetting()
+        {
+            return await _context.Articles.Where(x => x.Type == ArtisleType.News && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ArticleVm>> GetProductForSetting()
+        {
+            return await _context.Articles.Where(x => x.Type == ArtisleType.Products && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ArticleVm>> GetFeedBackForSetting()
+        {
+            return await _context.Articles.Where(x => x.Type == ArtisleType.FeedBack && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
         }
     }
 }

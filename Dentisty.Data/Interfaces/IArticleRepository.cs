@@ -13,6 +13,10 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<Article>> GetByPagingAsync(ArticleVmPagingRequest request);
         Task<ArticleVm> CreateNew(ArticleVm item);
         Task<ArticleVm> UpdateArticle(ArticleVm item);
+        Task<IEnumerable<ArticleVm>> GetArticleForSetting();
+        Task<IEnumerable<ArticleVm>> GetNewsForSetting();
+        Task<IEnumerable<ArticleVm>> GetProductForSetting();
+        Task<IEnumerable<ArticleVm>> GetFeedBackForSetting();
         Task<bool> DeleteArticle(int id);
         /// <summary>
         /// If exixts return True, else return False

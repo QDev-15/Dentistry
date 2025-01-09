@@ -75,6 +75,11 @@ namespace Dentisty.Data.Repositories
             return await _context.Doctors.Include(x => x.Avatar).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<IEnumerable<DoctorVm>> GetDoctorForAppSettings()
+        {
+            return await _context.Doctors.Select(x => x.ReturnViewModel()).ToListAsync();
+        }
+
         public async Task<DoctorVm> Update(DoctorVm vm)
         {
             try

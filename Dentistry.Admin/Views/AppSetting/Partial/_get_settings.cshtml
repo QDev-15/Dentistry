@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-       
+
         <!-- Social Group -->
         <div class="col-12">
             <div class="card">
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        
+
         @* Liên hệ *@
         <div class="col-12">
             <div class="card">
@@ -92,7 +92,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body row g-3 setting-categories-body">
+                @{
+                    string categoryDisplay = Model.Setting.ShowCategoryList ? "block" : "none";
+                    <div class="card-body row g-3 setting-categories-body" style="display: @categoryDisplay">
                     <!-- Table -->
                     <table id="categoryTableList" class="table table-striped table-hover table-bordered">
                         <thead>
@@ -106,12 +108,12 @@
                             {
                                 <tr>
                                     <td class="setting-cell-checkbox">
-                                        @if (Model.Setting.Categories.Contains(category.Id.ToString())) {
+                                        @if (Model.Setting.Categories.Split(',').Contains(category.Id.ToString())) {
                                             <input type="checkbox" class="category-checkbox" data-checkbox="@category.Id" value="@category.Id" checked>
                                         } else {                                             
                                             <input type="checkbox" class="category-checkbox" data-checkbox="@category.Id" value="@category.Id">
                                         }
-                                        
+
                                     </td>
                                     <td>@category.Name</td>
                                 </tr>
@@ -119,21 +121,56 @@
                         </tbody>
                     </table>
                 </div>
+                }
             </div>
         </div>
-        @* Bác sĩ nổi bật *@
+
+
+        @* Bác sĩ *@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowDoctorlideList">
-                            <label class="form-check-label" asp-for="@Model.Setting.ShowDoctorlideList">Bác sĩ nổi bật</label>
+                        <div id="setting-doctor-header" class="form-check form-switch">
+                            <input type="hidden" asp-for="@Model.Setting.Doctors" id="listDoctorIdsInput">
+                            <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowDoctorSlideList">
+                            <label class="form-check-label" asp-for="@Model.Setting.ShowDoctorSlideList">Slide bác sĩ</label>
                         </div>
                     </div>
                 </div>
-                <div class="card-body row g-3">
-                </div>
+                @{
+                    string doctorDisplay = Model.Setting.ShowDoctorSlideList ? "block" : "none";
+                    <div class="card-body row g-3 setting-doctors-body" style="display: @doctorDisplay">
+                        <!-- Table -->
+                        <table id="doctorTableList" class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="setting-doctor-cell-checkbox">Chọn</th>
+                                    <th>Tên bác sĩ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var doctor in Model.Doctors)
+                                {
+                                    <tr>
+                                        <td class="setting-doctor-cell-checkbox">
+                                            @if (Model.Setting.Doctors.Split(',').Contains(doctor.Id.ToString()))
+                                            {
+                                                <input type="checkbox" class="doctor-checkbox" data-checkbox="@doctor.Id" value="@doctor.Id" checked>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" class="doctor-checkbox" data-checkbox="@doctor.Id" value="@doctor.Id">
+                                            }
+
+                                        </td>
+                                        <td>@doctor.Name</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         </div>
 
@@ -142,14 +179,48 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
-                        <div class="form-check form-switch">
+                        <div id="setting-article-header" class="form-check form-switch">
+                            <input type="hidden" asp-for="@Model.Setting.Articles" id="listArticleIdsInput">
                             <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowArtileSlideList">
-                            <label class="form-check-label" asp-for="@Model.Setting.ShowArtileSlideList">Bài viết nổi bật</label>
+                            <label class="form-check-label" asp-for="@Model.Setting.ShowArtileSlideList">Slide bài viết nổi bật</label>
                         </div>
                     </div>
                 </div>
-                <div class="card-body row g-3">
-                </div>
+                @{
+                    string articleDisplay = Model.Setting.ShowArtileSlideList ? "block" : "none";
+                    <div class="card-body row g-3 setting-articles-body" style="display: @articleDisplay">
+                        <!-- Table -->
+                        <table id="articleTableList" class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="setting-article-cell-checkbox">Chọn</th>
+                                    <th>Người viết</th>
+                                    <th>Tên bài viết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var article in Model.Articles)
+                                {
+                                    <tr>
+                                        <td class="setting-article-cell-checkbox">
+                                            @if (Model.Setting.Articles.Split(',').Contains(article.Id.ToString()))
+                                            {
+                                                <input type="checkbox" class="article-checkbox" data-checkbox="@article.Id" value="@article.Id" checked>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" class="article-checkbox" data-checkbox="@article.Id" value="@article.Id">
+                                            }
+
+                                        </td>
+                                        <td>@article.CreatedBy.DisplayName</td>
+                                        <td>@article.Title</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
             </div>
         </div>
 

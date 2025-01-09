@@ -1,6 +1,6 @@
 ﻿@charset "UTF-8";
 main .container {
-  min-height: 500px;
+  /*min-height: 500px;*/
 }
 
 /** =============== OnLoadPage Modal ==================*/

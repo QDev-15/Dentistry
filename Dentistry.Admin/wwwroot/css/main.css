@@ -157,3 +157,27 @@ button[title="Browse links"] {
         transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
         margin: 0 auto; /* Căn giữa trong cột */
     }
+
+.setting-doctor-cell-checkbox {
+    width: 50px !important;
+    text-align: center !important;
+}
+    .setting-doctor-cell-checkbox input {
+        cursor: pointer;
+        width: 15px; /* Chiều rộng của checkbox */
+        height: 15px; /* Chiều cao của checkbox */
+        transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
+        margin: 0 auto; /* Căn giữa trong cột */
+    }
+
+.setting-article-cell-checkbox {
+    width: 50px !important;
+    text-align: center !important;
+}
+    .setting-article-cell-checkbox input {
+        cursor: pointer;
+        width: 15px; /* Chiều rộng của checkbox */
+        height: 15px; /* Chiều cao của checkbox */
+        transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
+        margin: 0 auto; /* Căn giữa trong cột */
+    }

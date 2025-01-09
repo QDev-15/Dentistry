@@ -167,7 +167,8 @@ namespace Dentisty.Data.Repositories
             // get settings
             var settting = (await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1)).ReturnViewModel();
             if (settting.ShowCategoryList && settting.Categories.Length > 0) {
-                var categories = await _context.Categories.Where(x => settting.Categories.Contains(x.Id.ToString())).Take(8).Include(x => x.Image).ToListAsync();
+                var categoryIds = settting.Categories.Split(',');
+                var categories = await _context.Categories.Where(x => categoryIds.Contains(x.Id.ToString())).Take(8).Include(x => x.Image).ToListAsync();
                 return categories.Select(x => x.ReturnViewModel());
             }
             return new List<CategoryVm>();
