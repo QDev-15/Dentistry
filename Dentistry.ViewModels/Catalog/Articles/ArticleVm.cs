@@ -1,4 +1,5 @@
 ﻿using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Enums;
 using Dentistry.ViewModels.System.Users;
 using Microsoft.AspNetCore.Http;
 
@@ -11,6 +12,7 @@ namespace Dentistry.ViewModels.Catalog.Articles
         public string Alias { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public ArtisleType Type { get; set; }
         public bool IsActive { get; set; }
         public bool IsDraft { get; set; } = false;
         public Guid CreatedById { get; set; }

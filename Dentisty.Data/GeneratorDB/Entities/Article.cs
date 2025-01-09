@@ -1,4 +1,5 @@
-﻿using Dentisty.Data.Common.Enums;
+﻿using Dentistry.ViewModels.Enums;
+using Dentisty.Data.Common.Enums;
 using Dentisty.Data.GeneratorDB.Entities;
 
 namespace Dentistry.Data.GeneratorDB.Entities
@@ -9,6 +10,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string Alias { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public ArtisleType Type { get; set; }
         public bool IsActive { get; set; }
         public bool IsDraft { get; set; }
         public Guid CreatedById { get; set; }
