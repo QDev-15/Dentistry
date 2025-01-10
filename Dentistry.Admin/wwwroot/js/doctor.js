@@ -1,4 +1,11 @@
 ﻿$(document).ready(function () {
+    $('#doctorTable').DataTable({
+        autoWidth: false,
+        paging: true,
+        searching: true,
+        ordering: true,
+        pageLength: 5
+    });
 
     // open model edit-add
     $(document).on('click', '.add-btn, .edit-btn', function () {

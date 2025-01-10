@@ -11,7 +11,7 @@
         <table id="doctorTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Avatar</th>
+                    <th class="avatar-doctor">Avatar</th>
                     <th>Tên</th>
                     <th>Vị trí</th>
                     <th>Ngày sinh</th>
@@ -23,7 +23,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="align-middle"><img src="@item.Avatar?.Path" alt="@item.Name" style="width: 100px; height: 100px; border-radius: 50%" /></td>
+                        <td class="align-middle avatar-doctor"><img src="@item.Avatar?.Path" alt="@item.Name" style="width: 100px; height: 100px; border-radius: 50%" /></td>
                         <td class="align-middle">@item.Name</td>
                         <td class="align-middle">@item.Position</td>
                         <td class="align-middle">@item.Dob</td>
@@ -46,16 +46,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    // Initialize DataTable
-    $('#doctorTable').DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        pageLength: 5
-    });
-</script>
 
 
 

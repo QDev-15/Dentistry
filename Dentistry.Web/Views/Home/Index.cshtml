@@ -1,23 +1,25 @@
-﻿@{
+﻿@using Dentistry.ViewModels.Catalog.AppSettings
+@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="container-fluid carousel-container section section-carousel">
-    @await Component.InvokeAsync("HomeSlideMain")
-</div>
-@* <div class="b-divider-shadow"></div> *@
-
-<div class="container-fluid py-4 mt-5 mb-5 section section-category">
-    @await Component.InvokeAsync("HomeCategory")
-</div>
-
-<div class="section section-slide-doctor-articles">
-    @await Component.InvokeAsync("HomeSlideDoctor")
-</div>
-
-<div class="section section-slide-service-articles">
-    @await Component.InvokeAsync("HomeSlideService")
-</div>
-
+@model AppSettingVm
+@{
+    <div class="container-fluid carousel-container section section-carousel">
+        @await Component.InvokeAsync("HomeSlideMain")
+    </div>
+    @* <div class="b-divider-shadow"></div> *@
+    var categoryDisplay = Model.ShowCategoryList ? "block" : "none";
+    <div class="container-fluid py-4 mt-5 mb-5 section section-category" style="display: @categoryDisplay">
+        @await Component.InvokeAsync("HomeCategory")
+    </div>
+    var categoryDoctor = Model.ShowDoctorSlideList ? "block" : "none";
+    <div class="section section-slide-doctor-articles" style="display: @categoryDoctor">
+        @await Component.InvokeAsync("HomeSlideDoctor")
+    </div>
+    var categorySlideService = Model.ShowArtileSlideList ? "block" : "none";
+    <div class="section section-slide-service-articles" style="display: @categorySlideService">
+        @await Component.InvokeAsync("HomeSlideService")
+    </div>
+}
 
 

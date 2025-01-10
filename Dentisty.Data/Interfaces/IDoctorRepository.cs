@@ -16,5 +16,6 @@ namespace Dentisty.Data.Interfaces
         Task<DoctorVm> Create(DoctorVm doctor);
         Task<DoctorVm> Update(DoctorVm doctor);
         Task<IEnumerable<DoctorVm>> GetDoctorForAppSettings();
+        Task<IEnumerable<DoctorVm>> GetDoctorForApplication();
     }
 }

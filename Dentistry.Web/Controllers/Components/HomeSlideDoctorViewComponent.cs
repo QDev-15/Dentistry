@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Web.Controllers.Components
 {
     public class HomeSlideDoctorViewComponent : ViewComponent
     {
-        public HomeSlideDoctorViewComponent() { 
+        private readonly IDoctorRepository _doctorRepository;
+        public HomeSlideDoctorViewComponent(IDoctorRepository doctorRepository) { 
+            _doctorRepository = doctorRepository;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("~/Views/ViewComponents/HomeSlideDoctor.cshtml");
+            var docs = await _doctorRepository.GetDoctorForApplication();
+            return View("~/Views/ViewComponents/HomeSlideDoctor.cshtml", docs);
         }
     }
     

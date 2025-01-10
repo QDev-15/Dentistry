@@ -201,6 +201,28 @@ main .container {
   background-size: cover;
 }
 
+.btn_yellow {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 30px;
+  color: #FFF;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-family: "SVN-GothamBold";
+  border-radius: 20px;
+  background: #cf9a2c;
+  transition: all 0.3s;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.btn_yellow:hover {
+  color: white;
+}
+
 .section {
   background-color: #fffffe;
   margin: 0;
@@ -383,13 +405,13 @@ main .container {
 
 .section-slide-doctor-articles {
   padding: 15px 0;
-  background: #fffaf3;
+  background: url("../assets/img/bg-chuyengia.jpg") no-repeat center center #fffdf7;
 }
 .section-slide-doctor-articles .title {
   text-align: center;
   color: #cf9a2c;
-  font-weight: bold;
-  font-size: 32px;
+  font-weight: 400;
+  font-size: 28px;
   text-transform: uppercase;
 }
 .section-slide-doctor-articles .title a {
@@ -400,33 +422,79 @@ main .container {
   text-align: center;
   font-size: 16px;
   line-height: 24px;
-  padding: 20px 0;
+  padding: 15px 0;
   width: 880px;
   max-width: 100%;
   margin: 0 auto;
   color: #232323;
 }
-.section-slide-doctor-articles .carousel-item {
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item {
   position: relative;
-  height: 400px;
+  height: 500px;
+  padding-bottom: 35px;
   background-size: cover;
   background-position: center;
 }
-.section-slide-doctor-articles .carousel-caption {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 20px;
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-image {
+  flex: 1;
+  text-align: center;
+  padding: 15px;
+}
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-image img {
+  max-width: 100%;
+  max-height: 300px;
   border-radius: 10px;
+  height: 300px;
+  width: 400px;
+  /*box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);*/
+}
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text {
+  flex: 1;
+  padding-top: 30px;
+  height: 100%;
+  color: #cf9a2c;
+}
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text h5 {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text h6 {
+  font-size: 1rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-style: italic;
+  color: #898989;
+  padding-left: 5px;
+}
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text .carousel-text-description {
+  width: 100%;
+  height: 250px;
+}
+.section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text .carousel-text-description p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.section-slide-doctor-articles .carousel-indicators li {
+  width: 12px; /* Kích thước hình tròn */
+  height: 12px;
+  border-radius: 50%; /* Làm tròn thành hình tròn */
+  border: 1px solid transparent; /* Viền */
+  outline: 1px solid #cf9a2c;
+  background-color: transparent; /* Nền trong suốt */
+}
+.section-slide-doctor-articles .carousel-indicators .active {
+  background-color: #cf9a2c; /* Màu nền khi active */
+  outline: 1px solid #cf9a2c; /* Viền ngoài */
 }
 .section-slide-doctor-articles .carousel-indicators li::marker {
   content: none !important;
-}
-.section-slide-doctor-articles .carousel-caption h5 {
-  font-size: 1.8rem;
-  color: #fff;
-}
-.section-slide-doctor-articles .carousel-caption p {
-  font-size: 1rem;
-  color: #f0f0f0;
 }
 .section-slide-doctor-articles .slide-list {
   display: flex;
@@ -435,15 +503,17 @@ main .container {
   margin-top: 20px;
 }
 .section-slide-doctor-articles .slider {
-  max-height: 250px;
+  max-height: 300px;
 }
 .section-slide-doctor-articles .slider .slick-track {
-  max-height: 250px;
+  max-height: 300px;
+  height: 300px;
+  /*width: 350px !important;*/
 }
 .section-slide-doctor-articles .slide-item {
-  max-width: 300px;
-  min-width: 300px;
-  height: 250px;
+  max-width: 350px;
+  min-width: 350px;
+  height: 300px;
   /*border-radius: 5px;*/
   cursor: pointer;
   transition: all 0.3s ease;
@@ -454,6 +524,7 @@ main .container {
 }
 .section-slide-doctor-articles .slide-item .slide-item-content img {
   max-height: 200px;
+  height: 200px;
   width: 100%;
   border-radius: 20px 20px 0 0;
 }
@@ -483,44 +554,6 @@ main .container {
 }
 .section-slide-doctor-articles .slide-item.active .slide-item-footer .title {
   color: white;
-}
-.section-slide-doctor-articles .carousel-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-.section-slide-doctor-articles .carousel-image {
-  flex: 1;
-  text-align: center;
-  padding: 15px;
-}
-.section-slide-doctor-articles .carousel-image img {
-  max-width: 100%;
-  max-height: 300px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-.section-slide-doctor-articles .carousel-text {
-  flex: 1;
-  padding: 20px;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: 10px;
-  margin-left: 15px;
-}
-.section-slide-doctor-articles .carousel-text h5 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-.section-slide-doctor-articles .carousel-text h6 {
-  font-size: 1.2rem;
-  font-weight: normal;
-  margin-bottom: 15px;
-}
-.section-slide-doctor-articles .carousel-text p {
-  font-size: 1rem;
-  line-height: 1.5;
 }
 
 .section-slide-service-articles {

@@ -3,6 +3,7 @@ using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,11 @@ namespace Dentisty.Data.Repositories
         public AppSettingRepository(DentistryDbContext context) : base(context)
         {
             _dbContext = context;
+        }
+
+        public async Task<AppSettingVm> GetById(int id)
+        {
+            return (await _dbContext.AppSettings.FirstOrDefaultAsync(x => x.Id == id)).ReturnViewModel();
         }
 
         public async Task<AppSettingVm> Update(AppSettingVm appSettingVm)

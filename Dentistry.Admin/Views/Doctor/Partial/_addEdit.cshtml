@@ -19,8 +19,8 @@
     <form id="addDoctorForm" asp-action="AddEdit" asp-controller="Doctor" method="post" class="needs-validation" validate>
         <input type="hidden" asp-for="@Model.Id" />
         <div class="mb-3">
-            <label asp-for="@Model.Name" class="form-label">Bác sĩ</label>
-            <input type="text" class="form-control" asp-for="@Model.Name" placeholder="Nhập tên bác sĩ" required>
+            <label asp-for="@Model.Name" class="form-label">Tên</label>
+            <input type="text" class="form-control" asp-for="@Model.Name" placeholder="Nhập tên đầy đủ" required>
             <span asp-validation-for="@Model.Name" class="text-danger"></span>
         </div>
         <div class="mb-3">
@@ -86,21 +86,20 @@
         $('.input-group-text').click(function () {
             $('#datepicker').datepicker('show');
         });
-        document.getElementById('item_formFile').addEventListener('change', function (event) {
-            const file = event.target.files[0]; // Lấy file đầu tiên từ input
-            const previewContainer = document.getElementById("doctor-preview-container");
-            const imagePreview = document.getElementById("doctor-preview-imagePreview");
-            debugger;
+        $('#item_formFile').on('change', function (event) {
+            const file = this.files[0]; // Lấy file đầu tiên từ input
+            const $previewContainer = $('#doctor-preview-container');
+            const $imagePreview = $('#doctor-preview-imagePreview');
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     // Gán đường dẫn ảnh vào thẻ <img>
-                    imagePreview.src = e.target.result;
-                    previewContainer.style.display = "block"; // Hiện ảnh
+                    $imagePreview.attr('src', e.target.result);
+                    $previewContainer.show(); // Hiện ảnh
                 };
                 reader.readAsDataURL(file); // Đọc file dưới dạng URL
             } else {
-                previewContainer.style.display = "none"; // Ẩn ảnh nếu không có file
+                $previewContainer.hide(); // Ẩn ảnh nếu không có file
             }
         });
     });

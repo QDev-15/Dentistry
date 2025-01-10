@@ -1,6 +1,7 @@
 ﻿
 
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dentistry.ViewModels.Catalog.Doctors
 {
@@ -10,6 +11,7 @@ namespace Dentistry.ViewModels.Catalog.Doctors
         public string Name { get; set; }
         public string Profile { get; set; }
         public string Description { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập ngày sinh.")]
         public DateTime Dob { get; set; }
         public string Position { get; set; }
         public string PositionExtent { get; set; }

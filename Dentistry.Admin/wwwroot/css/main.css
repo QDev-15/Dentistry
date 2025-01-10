@@ -146,6 +146,9 @@ button[title="Browse links"] {
 
 
 /** ============================= Setting App ===================*/
+.avatar-doctor {
+    width: 120px !important;
+}
 .setting-cell-checkbox {
     width: 50px !important;
     text-align: center !important;
@@ -157,6 +160,7 @@ button[title="Browse links"] {
         transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
         margin: 0 auto; /* Căn giữa trong cột */
     }
+
 
 .setting-doctor-cell-checkbox {
     width: 50px !important;

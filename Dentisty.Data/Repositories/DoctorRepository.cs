@@ -75,6 +75,18 @@ namespace Dentisty.Data.Repositories
             return await _context.Doctors.Include(x => x.Avatar).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<IEnumerable<DoctorVm>> GetDoctorForApplication()
+        {
+            var setting = await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1);
+            if (setting == null)
+            {
+                return Enumerable.Empty<DoctorVm>();
+            }
+            string[] ids = setting.Doctors!.Split(',');
+            var docs = await _context.Doctors.Where(x => ids.Contains(x.Id.ToString())).Include(x => x.Avatar).Select(x => x.ReturnViewModel()).ToListAsync();
+            return docs;
+        }
+
         public async Task<IEnumerable<DoctorVm>> GetDoctorForAppSettings()
         {
             return await _context.Doctors.Select(x => x.ReturnViewModel()).ToListAsync();

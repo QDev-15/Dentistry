@@ -11,5 +11,6 @@ namespace Dentisty.Data.Interfaces
     public interface IAppSettingRepository : IRepository<AppSetting>
     {
         Task<AppSettingVm> Update(AppSettingVm appSettingVm);
+        Task<AppSettingVm> GetById(int id);
     }
 }

@@ -1,4 +1,5 @@
 using Dentistry.Web.Models;
+using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,18 @@ namespace Dentistry.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IAppSettingRepository _appSettingRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAppSettingRepository appSettingRepository)
         {
+            _appSettingRepository = appSettingRepository;
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var appSetting = await _appSettingRepository.GetById(1);
+            return View(appSetting);
         }
 
         public IActionResult Privacy()
