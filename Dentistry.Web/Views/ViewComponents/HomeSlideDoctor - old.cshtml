@@ -12,43 +12,29 @@
     <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
         <!-- Chỉ báo (DOT) -->
         <ol class="carousel-indicators">
-            @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
-            {
-                if (index == 0)
-                {
-                    <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="@index" class="active"></li>
-                }
-                else
-                {
-                    <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="@index"></li>
-                }
-            }
+            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2"></li>
+            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="3"></li>
+            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="4"></li>
         </ol>
         <!-- Nội dung các slide -->
         <div class="carousel-inner">
-            @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
-            {
-                string active = index == 0 ? "active" : "";
-                <div class="carousel-item @active" style="background-image: url('');">
-                    <div class="carousel-content container">
-                        <!-- Phần ảnh -->
-                        <div class="carousel-image">
-                            <img src="@item.Avatar.Path" alt="@item.Name">
-                        </div>
-                        <!-- Phần text -->
-                        <div class="carousel-text">
-                            <h5>@item.Name</h5>
-                            <h6>@item.Position</h6>
-                            <div class="carousel-text-description">
-                                <p>@item.Description</p>
-                            </div>
-                            <a href="/@item.Name" class="btn_yellow">Xem thêm</a>
-                        </div>
+            <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800');">
+                <div class="carousel-content container">
+                    <!-- Phần ảnh -->
+                    <div class="carousel-image">
+                        <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Phong Cảnh Núi Non">
+                    </div>
+                    <!-- Phần text -->
+                    <div class="carousel-text">
+                        <h5>Phong Cảnh Núi Non</h5>
+                        <h6>Subtitle: Khám phá thiên nhiên</h6>
+                        <p>Khám phá vẻ đẹp thiên nhiên hùng vĩ của những dãy núi cao, tận hưởng không gian yên bình và trong lành.</p>
                     </div>
                 </div>
-            }
-
-            @* <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800');">
+            </div>
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800');">
                 <div class="carousel-content container">
                     <!-- Phần ảnh -->
                     <div class="carousel-image">
@@ -103,27 +89,14 @@
                         <p>Cảm nhận hơi thở của thiên nhiên, hòa mình giữa khu rừng xanh ngát và tận hưởng bầu không khí tươi mát.</p>
                     </div>
                 </div>
-            </div> *@
+            </div>
         </div>
     </div>
 </div>
 <div class="container-fluid p-0">
     <!-- Danh sách bài viết -->
     <div class="container slider">
-        @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
-        {
-            string activeFooter = index == 0 ? "active" : "";
-            <div class="slide-item slide-item-0 @activeFooter">
-                <div class="slide-item-content">
-                    <img src="@item.Avatar.Path" alt="@item.Name">
-                    <div class="slide-item-footer">
-                        <div class="title">@item.Name</div>
-                        <div class="sub-title">@item.Position</div>
-                    </div>
-                </div>
-            </div>
-        }
-        @* <div class="slide-item slide-item-0 active">
+        <div class="slide-item slide-item-0 active">
             <div class="slide-item-content">
                 <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Đinh Đình Đức">
                 <div class="slide-item-footer">
@@ -167,11 +140,13 @@
                     <div class="sub-title">CEO Win Smile</div>
                 </div>
             </div>
-        </div> *@
+        </div>
     </div>
 </div>
 
 <script src="~/js/home-slide-doctor.js"></script>
+
+
 
 
 

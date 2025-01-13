@@ -34,12 +34,17 @@ let mouseEndX = 0;
 // Cập nhật trạng thái active của danh sách bài viết
 function updateSlideList(activeIndex) {
     const items = document.querySelectorAll('.slide-item');
+    var itemActive = null;
     items.forEach((item) => {
         item.classList.remove('active'); // Loại bỏ class 'active' khỏi tất cả items
         if (item.classList.contains('slide-item-' + activeIndex)) { // Kiểm tra class
             item.classList.add('active'); // Thêm class 'active' vào item phù hợp
+            itemActive = item;
         }
     });
+    
+    
+    console.log('update slider');
 }
 
 // Lắng nghe sự kiện chuyển slide

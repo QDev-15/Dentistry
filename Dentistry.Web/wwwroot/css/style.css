@@ -512,7 +512,7 @@ main .container {
 }
 .section-slide-doctor-articles .slide-item {
   max-width: 350px;
-  min-width: 350px;
+  /*min-width: 350px;*/
   height: 300px;
   /*border-radius: 5px;*/
   cursor: pointer;
