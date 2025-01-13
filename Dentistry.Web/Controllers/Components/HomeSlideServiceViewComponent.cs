@@ -1,14 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dentistry.ViewModels.Enums;
+using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Web.Controllers.Components
 {
     public class HomeSlideServiceViewComponent : ViewComponent
     {
-        public HomeSlideServiceViewComponent() { 
+        private readonly IArticleRepository _articleRepository;
+        public HomeSlideServiceViewComponent(IArticleRepository articleRepository) {
+            _articleRepository = articleRepository;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("~/Views/ViewComponents/HomeSlideService.cshtml");
+            var articles = await _articleRepository.GetForApplication(ArtisleType.Article);
+            return View("~/Views/ViewComponents/HomeSlideService.cshtml", articles);
         }
     }
     

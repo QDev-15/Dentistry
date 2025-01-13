@@ -6,7 +6,7 @@
         slidesToScroll: 1,
         arrows: true, // Enable next/prev buttons
         dots: false,   // Show navigation dots
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 3000, // Auto-slide every 3 seconds
         prevArrow: '<button type="button" class="slick-prev"><i class="fa-solid fa-angle-left"></i></i></button>',
         nextArrow: '<button type="button" class="slick-next"><i class="fa-solid fa-angle-right"></i></i></button>',

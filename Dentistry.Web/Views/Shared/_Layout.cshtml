@@ -24,9 +24,6 @@
     @* Script Lib *@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
 </head>
 <body>
     @await Component.InvokeAsync("AppToolbarTop")
@@ -41,11 +38,15 @@
     
     @await Component.InvokeAsync("AppContact")
     @{
-        Html.RenderPartial("_footer"); 
+        Html.RenderPartial("_footer");
     }
 
     @await Component.InvokeAsync("OnLoadPageModal")
 
+    @* Script Lib *@
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

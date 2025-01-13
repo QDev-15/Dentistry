@@ -112,6 +112,7 @@ namespace Dentisty.Data
                 Avatar = item.Avatar.ReturnViewModel(),
                 Dob = item.Dob,
                 Name = item.Name,
+                Alias = item.Alias,
                 Position = item.Position,
                 PositionExtent = item.PositionExtent,
                 Profile = item.Profile

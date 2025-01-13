@@ -1,55 +1,32 @@
-﻿<div class="container">
+﻿@using Dentistry.ViewModels.Catalog.Articles
+@model List<ArticleVm>
+@{
+    Model.AddRange(Model);
+    Model.AddRange(Model);
+    Model.AddRange(Model);
+    Model.AddRange(Model);
+    Model.AddRange(Model);
+    Model.AddRange(Model);
+}
+
+<div class="container">
+    <h2 class="title">
+        <a href="javascript:void()" title="Tin tức chính">Các dịch vụ thế mạnh tại nha khoa Nhiên</a>
+    </h2>
+    <p class="doctor-dec">Chúng tôi luôn chú trọng quan tâm đến vấn đề sức khỏe và thẩm mỹ của khách hàng trước khi quyết định sử dụng dịch vụ của Nhiên.</p>
     <div class="slider-service">
-        <div class="slide-item">
-            <div class="content" alt="Đinh Đình Đức" style="background-image: url('https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400');">
-                <div class="action">
-                    <span>Xem thêm</span>
+        @foreach (var item in Model)
+        {
+            var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
+            <div class="slide-item">
+                <div class="content" alt="@item.Title" style="background-image: url('@imgPath');">
+                    <a asp-controller="Article" asp-action="Articles" asp-route-alias="@item.Alias" class="action">
+                        <span>Xem thêm</span>
+                    </a>
                 </div>
             </div>
-            <div class="slide-item-footer">
-                <div class="title">Đinh Đình A</div>
-            </div>
-        </div>
-        <div class="slide-item">
-            <div class="content" alt="Đinh Đình Đức" style="background-image: url('https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400');">
-                <div class="action">
-                    <span>Xem thêm</span>
-                </div>
-            </div>
-            <div class="slide-item-footer">
-                <div class="title">Hứa Thị B</div>
-            </div>
-        </div>
-        <div class="slide-item">
-            <div class="content" alt="Đinh Đình Đức" style="background-image: url('https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400');">
-                <div class="action">
-                    <span>Xem thêm</span>
-                </div>
-            </div>
-            <div class="slide-item-footer">
-                <div class="title">Nguyễn Thị Thu C</div>
-            </div>
-        </div>
-        <div class="slide-item">
-            <div class="content" alt="Đinh Đình Đức" style="background-image: url('https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400');">
-                <div class="action">
-                    <span>Xem thêm</span>
-                </div>
-            </div>
-            <div class="slide-item-footer">
-                <div class="title">Phùng Văn D</div>
-            </div>
-        </div>
-        <div class="slide-item">
-            <div class="content" alt="Đinh Đình Đức" style="background-image: url('https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400');">
-                <div class="action">
-                    <span>Xem thêm</span>
-                </div>
-            </div>
-            <div class="slide-item-footer">
-                <div class="title">Bùi Bích E</div>
-            </div>
-        </div>
+        }
+        
     </div>
 </div>
 

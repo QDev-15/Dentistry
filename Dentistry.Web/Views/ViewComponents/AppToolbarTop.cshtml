@@ -68,24 +68,26 @@
 
 <!-- JavaScript -->
 <script type="text/javascript">
-     const searchModal = new bootstrap.Modal(document.getElementById('search-modal'), {
-        keyboard: true,
-        backdrop: true
-    });
-    document.getElementById('search-modal').addEventListener('shown.bs.modal', function () {
-        document.getElementById('search-input').focus();
-    });
-    // Open modal
-    document.getElementById('open-modal-btn').addEventListener('click', () => {
-        searchModal.show();
-    });
+    $(document).ready(function () {
+         const searchModal = new bootstrap.Modal(document.getElementById('search-modal'), {
+            keyboard: true,
+            backdrop: true
+        });
+        document.getElementById('search-modal').addEventListener('shown.bs.modal', function () {
+            document.getElementById('search-input').focus();
+        });
+        // Open modal
+        document.getElementById('open-modal-btn').addEventListener('click', () => {
+            searchModal.show();
+        });
 
-    // Handle search form submit
-    document.getElementById('search-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const query = e.target.search.value;
-        alert(`Searching for: ${query}`);
-        searchModal.hide();
-        e.target.reset();
+        // Handle search form submit
+        document.getElementById('search-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const query = e.target.search.value;
+            alert(`Searching for: ${query}`);
+            searchModal.hide();
+            e.target.reset();
+        });
     });
 </script>

@@ -11,6 +11,7 @@ namespace Dentisty.Data.GeneratorDB.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Alias { get; set; }
         public string? Profile { get; set; }
         public string? Description { get; set; }
         public DateTime Dob {  get; set; }

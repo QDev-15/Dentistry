@@ -33,6 +33,7 @@ namespace Dentisty.Data.Repositories
                 var doctor = new Doctor()
                 {
                     Name = vm.Name,
+                    Alias = vm.Alias,
                     Description = vm.Description,
                     Dob = vm.Dob,
                     Position = vm.Position,
@@ -54,7 +55,10 @@ namespace Dentisty.Data.Repositories
             }
             
         }
-
+        public async Task<bool> CheckExistsAlias(string alias, int id)
+        {
+            return await _context.Categories.AnyAsync(c => c.Alias == alias && c.Id != id);
+        }
         /// <summary>
         /// Include avatar
         /// </summary>
@@ -101,6 +105,7 @@ namespace Dentisty.Data.Repositories
                     doctor.Position = vm.Position;
                     doctor.PositionExtent = vm.PositionExtent;
                     doctor.Name = vm.Name;
+                    doctor.Alias = vm.Alias;
                     doctor.Description = vm.Description;
                     doctor.Dob = vm.Dob;
                     if (vm.formFile != null)

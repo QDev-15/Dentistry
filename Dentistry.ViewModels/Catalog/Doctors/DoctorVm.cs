@@ -9,6 +9,7 @@ namespace Dentistry.ViewModels.Catalog.Doctors
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Alias { get; set; }
         public string Profile { get; set; }
         public string Description { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập ngày sinh.")]

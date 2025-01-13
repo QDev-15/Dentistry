@@ -10,13 +10,14 @@ main {
 #box_popup_tuvan {
     /* Tùy chỉnh modal */
     .modal-dialog {
-        max-width: 350px;
+        max-width: 400px;
     }
 
     .modal-content {
-        border: 1px solid #E4BC5D;
+        border: none;
         background-color: #fff;
         border-radius: 0;
+        height: 500px;
     }
 
     .modal-body {
@@ -27,9 +28,14 @@ main {
         display: none; /* Ẩn header */
     }
 
+    input.form-control {
+        height: 45px;
+    }
+
     .form-control {
         border-radius: 20px;
         border: 1px solid #E4BC5D;
+        font-size: 1.2rem;
     }
 
     .form-control:focus {
@@ -43,7 +49,7 @@ main {
         color: #fff;
         border-radius: 20px;
         border: none;
-        font-size: 16px;
+        font-size: 1.3rem;
         padding: 10px;
     }
 
@@ -53,7 +59,7 @@ main {
 
     .hotline {
         text-align: center;
-        font-size: 14px;
+        font-size: 1.5rem;
         color: red;
         font-weight: bold;
     }
@@ -69,7 +75,7 @@ main {
 
     .text {
         text-align: center;
-        font-size: 12px;
+        font-size: 1.2rem;
         color: #666;
     }
 
@@ -465,7 +471,7 @@ main {
 }
 
 .section-slide-doctor-articles {
-    padding: 15px 0;
+    padding: 50px 0;
     background: url("../assets/img/bg-chuyengia.jpg") no-repeat center center #fffdf7;
 
     .title {
@@ -593,7 +599,7 @@ main {
 
     .slide-item {
         max-width: 350px;
-        /*min-width: 350px;*/
+        min-width: 350px;
         height: 300px;
         /*border-radius: 5px;*/
         cursor: pointer;
@@ -602,7 +608,7 @@ main {
         .slide-item-content {
             margin: 10px;
             border-radius: 20px;
-
+            border: 1px solid #ccc;
             img {
                 max-height: 200px;
                 height: 200px;
@@ -612,8 +618,6 @@ main {
 
             .slide-item-footer {
                 border-radius: 0 0 20px 20px;
-                border: 1px solid #ccc;
-                border-top: none;
                 padding: 10px 15px;
                 background: #f7f7f7;
                 height: 75px;
@@ -649,44 +653,88 @@ main {
 }
 
 .section-slide-service-articles {
-    padding: 10px 0;
+    padding: 100px 0;
+
+    .title {
+        text-align: center;
+        color: $main;
+        font-weight: 400;
+        font-size: 28px;
+        text-transform: uppercase;
+
+        a {
+            color: $main;
+            text-decoration: unset;
+        }
+    }
+
+    .doctor-dec {
+        text-align: center;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 20px 0;
+        width: 880px;
+        max-width: 100%;
+        margin: 0 auto;
+        color: #232323;
+    }
 
     .slider-service {
         position: relative;
         width: 100%;
         margin: 0 auto;
+        padding: 50px 0;
     }
 
     .slide-item {
         max-width: 300px; /* Width of each item */
         padding: 0 10px;
+        margin: 0 10px;
         box-sizing: border-box;
     }
 
     .slide-item .content {
         width: 100%;
-        min-height: 160px;
+        min-height: 260px;
         border-radius: 20px;
+        background-size: cover;
+        display: flex;
 
         .action {
             width: 100%;
             min-height: 160px;
             border-radius: 20px;
+            position: relative;
+
+            span {
+                opacity: 0;
+                transition: all 0.15s ease-in-out 0s;
+                z-index: 1;
+                position: absolute;
+                width: 120px;
+                height: 40px;
+                line-height: 36px;
+                text-align: center;
+                text-transform: uppercase;
+                color: #FFF;
+                font-size: 16px;
+                border: 1px solid #FFF;
+                border-radius: 30px;
+                top: 50%;
+                left: 50%;
+                margin-top: -15px;
+                margin-left: -58px;
+                font-weight: bold;
+            }
         }
-    }
 
-    .slide-item-footer {
-        text-align: center;
-        padding: 5px;
-    }
+        .action:hover span {
+            opacity: 1;
+        }
 
-    .title {
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
-
-    .sub-title {
-        font-size: 1rem;
+        .action:hover {
+            background: rgba(207, 154, 44, 0.55);
+        }
     }
     /* Slick Navigation Arrow styling */
 

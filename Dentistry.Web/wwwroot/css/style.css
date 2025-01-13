@@ -8,12 +8,13 @@ main .container {
   /* Tùy chỉnh modal */
 }
 #box_popup_tuvan .modal-dialog {
-  max-width: 350px;
+  max-width: 400px;
 }
 #box_popup_tuvan .modal-content {
-  border: 1px solid #E4BC5D;
+  border: none;
   background-color: #fff;
   border-radius: 0;
+  height: 500px;
 }
 #box_popup_tuvan .modal-body {
   padding: 20px;
@@ -21,9 +22,13 @@ main .container {
 #box_popup_tuvan .modal-header {
   display: none; /* Ẩn header */
 }
+#box_popup_tuvan input.form-control {
+  height: 45px;
+}
 #box_popup_tuvan .form-control {
   border-radius: 20px;
   border: 1px solid #E4BC5D;
+  font-size: 1.2rem;
 }
 #box_popup_tuvan .form-control:focus {
   border-color: #E4BC5D;
@@ -35,7 +40,7 @@ main .container {
   color: #fff;
   border-radius: 20px;
   border: none;
-  font-size: 16px;
+  font-size: 1.3rem;
   padding: 10px;
 }
 #box_popup_tuvan .btn_submit:hover {
@@ -43,7 +48,7 @@ main .container {
 }
 #box_popup_tuvan .hotline {
   text-align: center;
-  font-size: 14px;
+  font-size: 1.5rem;
   color: red;
   font-weight: bold;
 }
@@ -56,7 +61,7 @@ main .container {
 }
 #box_popup_tuvan .text {
   text-align: center;
-  font-size: 12px;
+  font-size: 1.2rem;
   color: #666;
 }
 #box_popup_tuvan .cover {
@@ -404,7 +409,7 @@ main .container {
 }
 
 .section-slide-doctor-articles {
-  padding: 15px 0;
+  padding: 50px 0;
   background: url("../assets/img/bg-chuyengia.jpg") no-repeat center center #fffdf7;
 }
 .section-slide-doctor-articles .title {
@@ -512,7 +517,7 @@ main .container {
 }
 .section-slide-doctor-articles .slide-item {
   max-width: 350px;
-  /*min-width: 350px;*/
+  min-width: 350px;
   height: 300px;
   /*border-radius: 5px;*/
   cursor: pointer;
@@ -521,6 +526,7 @@ main .container {
 .section-slide-doctor-articles .slide-item .slide-item-content {
   margin: 10px;
   border-radius: 20px;
+  border: 1px solid #ccc;
 }
 .section-slide-doctor-articles .slide-item .slide-item-content img {
   max-height: 200px;
@@ -530,8 +536,6 @@ main .container {
 }
 .section-slide-doctor-articles .slide-item .slide-item-content .slide-item-footer {
   border-radius: 0 0 20px 20px;
-  border: 1px solid #ccc;
-  border-top: none;
   padding: 10px 15px;
   background: #f7f7f7;
   height: 75px;
@@ -557,40 +561,81 @@ main .container {
 }
 
 .section-slide-service-articles {
-  padding: 10px 0;
+  padding: 100px 0;
   /* Slick Navigation Arrow styling */
   /* Responsive adjustments */
+}
+.section-slide-service-articles .title {
+  text-align: center;
+  color: #cf9a2c;
+  font-weight: 400;
+  font-size: 28px;
+  text-transform: uppercase;
+}
+.section-slide-service-articles .title a {
+  color: #cf9a2c;
+  text-decoration: unset;
+}
+.section-slide-service-articles .doctor-dec {
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 20px 0;
+  width: 880px;
+  max-width: 100%;
+  margin: 0 auto;
+  color: #232323;
 }
 .section-slide-service-articles .slider-service {
   position: relative;
   width: 100%;
   margin: 0 auto;
+  padding: 50px 0;
 }
 .section-slide-service-articles .slide-item {
   max-width: 300px; /* Width of each item */
   padding: 0 10px;
+  margin: 0 10px;
   box-sizing: border-box;
 }
 .section-slide-service-articles .slide-item .content {
   width: 100%;
-  min-height: 160px;
+  min-height: 260px;
   border-radius: 20px;
+  background-size: cover;
+  display: flex;
 }
 .section-slide-service-articles .slide-item .content .action {
   width: 100%;
   min-height: 160px;
   border-radius: 20px;
+  position: relative;
 }
-.section-slide-service-articles .slide-item-footer {
+.section-slide-service-articles .slide-item .content .action span {
+  opacity: 0;
+  transition: all 0.15s ease-in-out 0s;
+  z-index: 1;
+  position: absolute;
+  width: 120px;
+  height: 40px;
+  line-height: 36px;
   text-align: center;
-  padding: 5px;
-}
-.section-slide-service-articles .title {
-  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #FFF;
+  font-size: 16px;
+  border: 1px solid #FFF;
+  border-radius: 30px;
+  top: 50%;
+  left: 50%;
+  margin-top: -15px;
+  margin-left: -58px;
   font-weight: bold;
 }
-.section-slide-service-articles .sub-title {
-  font-size: 1rem;
+.section-slide-service-articles .slide-item .content .action:hover span {
+  opacity: 1;
+}
+.section-slide-service-articles .slide-item .content .action:hover {
+  background: rgba(207, 154, 44, 0.55);
 }
 .section-slide-service-articles .slick-prev, .section-slide-service-articles .slick-next {
   color: black;

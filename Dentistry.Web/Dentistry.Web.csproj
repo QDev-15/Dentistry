@@ -17,14 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Contact\Partials\" />
     <Folder Include="Views\Shared\components\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Views\ViewComponents\HomeSlideDoctor - old.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
 </Project>

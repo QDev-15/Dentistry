@@ -14,7 +14,7 @@ namespace Dentistry.Web.Controllers.Components
         public IViewComponentResult Invoke()
         {
             var result = new ContactVm();
-            return View("~/Views/Contact/Partials/_onLoadPageModal.cshtml", result);
+            return View("~/Views/ViewComponents/_onLoadPageModal.cshtml", result);
         }
     }
 }

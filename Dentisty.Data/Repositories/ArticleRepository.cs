@@ -33,10 +33,6 @@ namespace Dentisty.Data.Repositories
         {
             return await _context.Articles.AnyAsync(a => a.Alias == articleVm.Alias && a.Id != articleVm.Id);
         }
-        public async Task<bool> CheckExistsAlias(Article item)
-        {
-            return await _context.Articles.AnyAsync(a => a.Alias == item.Alias && a.Id != item.Id);
-        }
         public async Task<Article> GetByAliasAsync(string alias)
         {
             return await _context.Articles.Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).FirstOrDefaultAsync(a => a.Alias == alias);
@@ -250,6 +246,36 @@ namespace Dentisty.Data.Repositories
         public async Task<IEnumerable<ArticleVm>> GetFeedBackForSetting()
         {
             return await _context.Articles.Where(x => x.Type == ArtisleType.FeedBack && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ArticleVm>> GetForApplication(ArtisleType type)
+        {
+            var appSetting = await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1);
+            string[] ids = [];
+            if (appSetting !=null)
+            {
+                switch(type)
+                {
+                    case ArtisleType.Article:
+                        ids = appSetting.Articles!.Split(',');
+                    break;
+                    case ArtisleType.News:
+                        ids = appSetting.Articles!.Split(',');
+                    break;
+                    case ArtisleType.FeedBack:
+                        ids = appSetting.Articles!.Split(',');
+                    break;
+                    case ArtisleType.Products:
+                        ids = appSetting.Articles!.Split(',');
+                    break; 
+                    default:
+                        ids = [];
+                        break;
+                }
+                var articles = await _context.Articles.Where(x => x.Type == type && ids.Contains(x.Id.ToString()) && x.IsActive).Include(x => x.Images).Select(x => x.ReturnViewModel()).ToListAsync();
+                return articles;
+            }
+            return new List<ArticleVm>();
         }
     }
 }
