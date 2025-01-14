@@ -207,9 +207,14 @@ main {
 }
 
 
-
+#navbarSupportedContent {
+    ul {
+        width: 100%;
+    }
+}
 .logo-brand img {
     height: 110px;
+    margin: 0 20px;
 }
 
 .bg-custom {

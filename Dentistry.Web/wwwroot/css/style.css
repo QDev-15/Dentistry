@@ -173,8 +173,13 @@ main .container {
   color: #eea616;
 }
 
+#navbarSupportedContent ul {
+  width: 100%;
+}
+
 .logo-brand img {
   height: 110px;
+  margin: 0 20px;
 }
 
 .bg-custom {
