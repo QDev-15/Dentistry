@@ -149,39 +149,20 @@ button[title="Browse links"] {
 .avatar-doctor {
     width: 120px !important;
 }
-.setting-cell-checkbox {
+.setting-category-cell-checkbox, .setting-doctor-cell-checkbox, .setting-article-cell-checkbox,
+.setting-news-cell-checkbox, .setting-product-cell-checkbox, .setting-feedback-cell-checkbox {
     width: 50px !important;
     text-align: center !important;
 }
-    .setting-cell-checkbox input {
+    .setting-category-cell-checkbox input, .setting-doctor-cell-checkbox input, .setting-article-cell-checkbox input,
+    .setting-news-cell-checkbox input, .setting-product-cell-checkbox input, .setting-feedback-cell-checkbox input {
         cursor: pointer;
         width: 15px; /* Chiều rộng của checkbox */
         height: 15px; /* Chiều cao của checkbox */
         transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
         margin: 0 auto; /* Căn giữa trong cột */
     }
-
-
-.setting-doctor-cell-checkbox {
-    width: 50px !important;
-    text-align: center !important;
+.setting-actor-cell {
+    width: 250px;
 }
-    .setting-doctor-cell-checkbox input {
-        cursor: pointer;
-        width: 15px; /* Chiều rộng của checkbox */
-        height: 15px; /* Chiều cao của checkbox */
-        transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
-        margin: 0 auto; /* Căn giữa trong cột */
-    }
 
-.setting-article-cell-checkbox {
-    width: 50px !important;
-    text-align: center !important;
-}
-    .setting-article-cell-checkbox input {
-        cursor: pointer;
-        width: 15px; /* Chiều rộng của checkbox */
-        height: 15px; /* Chiều cao của checkbox */
-        transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
-        margin: 0 auto; /* Căn giữa trong cột */
-    }

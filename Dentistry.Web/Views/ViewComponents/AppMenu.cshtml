@@ -17,7 +17,7 @@
         </button> *@
 
         <div class="collapse navbar-collapse d-flex justify-content-between d-none d-lg-block" id="navbarSupportedContent">
-            <ul class="navbar-nav d-flex justify-content-between">
+            <ul class="navbar-nav d-flex justify-content-evenly">
                 @foreach (var (item, index) in Model.LeftMenu.Select((item, index) => (item, index)))
                 {
                     if (item.ChildCategories.Any())
@@ -54,7 +54,7 @@
                     {
                         <li class="nav-item nav-li-0">
                             <a class="nav-link" role="button" asp-area="" asp-controller="Category" asp-action="DichVu" asp-route-alias="@item.Alias">
-                                <span>
+                                <span class="title">
                                     @item.Name
                                 </span>
                             </a>
@@ -65,7 +65,7 @@
             <a class="navbar-brand logo-brand justify-content-sm-center m-0 d-none d-lg-block" asp-area="" asp-controller="Home" asp-action="index">
                 <img src="~/assets/logo/LOGO NHIEN DENTAL CLINIC.png" />
             </a>
-            <ul class="navbar-nav d-flex justify-content-between">
+            <ul class="navbar-nav d-flex justify-content-evenly">
                 @foreach (var (item, index) in Model.RightMenu.Select((item, index) => (item, index)))
                 {
                     if (item.ChildCategories.Any())
@@ -102,7 +102,7 @@
                     {
                         <li class="nav-item nav-li-0">
                             <a class="nav-link" role="button" asp-area="" asp-controller="Category" asp-action="DichVu" asp-route-alias="@item.Alias">
-                                <span>
+                                <span class="title">
                                     @item.Name
                                 </span>
                             </a>

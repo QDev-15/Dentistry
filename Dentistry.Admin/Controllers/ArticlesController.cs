@@ -61,7 +61,7 @@ namespace Dentistry.Admin.Controllers
                 var artVm = await _articleRepository.GetByIdAsync(id);
                 model.Item = artVm.ReturnViewModel();
             }
-            model.Categories = (await _categoryReposiroty.GetChilds()).Select(x=> x.ReturnViewModel()).ToList();
+            model.Categories = (await _categoryReposiroty.GetForSettings()).ToList();
             ViewBag.ArticleTypes = EnumExtensions.ToSelectList<ArtisleType>();
             return PartialView("~/Views/Articles/Partial/_addEdit.cshtml", model);
         }

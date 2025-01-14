@@ -1,4 +1,8 @@
 ﻿@charset "UTF-8";
+a, p, span {
+  color: #333333;
+}
+
 main .container {
   /*min-height: 500px;*/
 }
@@ -188,6 +192,16 @@ main .container {
 
 .b-divider {
   height: 20px;
+}
+
+.box_title {
+  text-align: center !important;
+  color: #cf9a2c !important;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 28px !important;
+  text-transform: uppercase;
+  text-decoration: unset;
 }
 
 .b-divider-shadow {
@@ -476,7 +490,7 @@ main .container {
   font-weight: 400;
 }
 .section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text h6 {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: normal;
   text-transform: uppercase;
   font-style: italic;
@@ -488,7 +502,7 @@ main .container {
   height: 250px;
 }
 .section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text .carousel-text-description p {
-  font-size: 1rem;
+  font-size: 1.2rem;
   line-height: 1.5;
 }
 .section-slide-doctor-articles .carousel-indicators li {
@@ -569,17 +583,6 @@ main .container {
   padding: 100px 0;
   /* Slick Navigation Arrow styling */
   /* Responsive adjustments */
-}
-.section-slide-service-articles .title {
-  text-align: center;
-  color: #cf9a2c;
-  font-weight: 400;
-  font-size: 28px;
-  text-transform: uppercase;
-}
-.section-slide-service-articles .title a {
-  color: #cf9a2c;
-  text-decoration: unset;
 }
 .section-slide-service-articles .doctor-dec {
   text-align: center;
@@ -685,6 +688,132 @@ main .container {
   .section-slide-service-articles .slide-item {
     width: 200px; /* Adjust for small screens */
   }
+}
+
+.section-news {
+  padding: 50px 0;
+  background: rgb(247, 247, 247);
+}
+.section-news .box_content .item .image {
+  background-size: cover;
+  border-radius: 20px;
+  background-color: #e5c864;
+}
+.section-news .box_content .item .image a {
+  display: FLEX;
+  aspect-ratio: 1;
+  position: relative;
+}
+.section-news .box_content .item .image span {
+  opacity: 0;
+  transition: all 0.15s ease-in-out 0s;
+  z-index: 1;
+  position: absolute;
+  width: 116px;
+  height: 30px;
+  line-height: 28px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #FFF;
+  font-size: 14px;
+  font-family: "SVN-GothamMedium";
+  border: 1px solid #FFF;
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  margin-top: -15px;
+  margin-left: -58px;
+}
+.section-news .box_content .item .image:hover a {
+  background: rgba(207, 154, 44, 0.55);
+  border-radius: 20px;
+}
+.section-news .box_content .item .image:hover span {
+  opacity: 1;
+}
+.section-news .box_content .title {
+  font-weight: bold;
+  padding: 15px 0;
+}
+.section-news .box_content .title a {
+  color: #cf9a2c;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.section-news .box_content .title:hover a {
+  color: #333333;
+}
+.section-news .box_content .desc {
+  font-size: 16px;
+  font-style: italic;
+  text-align: justify;
+}
+.section-news .control {
+  padding-top: 50px;
+}
+
+.section-feedback {
+  padding: 50px 0;
+  background: #fff;
+}
+.section-feedback .box_content .item .image {
+  background-size: cover;
+  border-radius: 20px;
+  background-color: #e5c864;
+}
+.section-feedback .box_content .item .image a {
+  display: FLEX;
+  aspect-ratio: 1;
+  position: relative;
+}
+.section-feedback .box_content .item .image span {
+  opacity: 0;
+  transition: all 0.15s ease-in-out 0s;
+  z-index: 1;
+  position: absolute;
+  width: 116px;
+  height: 30px;
+  line-height: 28px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #FFF;
+  font-size: 14px;
+  font-family: "SVN-GothamMedium";
+  border: 1px solid #FFF;
+  border-radius: 15px;
+  top: 50%;
+  left: 50%;
+  margin-top: -15px;
+  margin-left: -58px;
+}
+.section-feedback .box_content .item .image:hover a {
+  background: rgba(207, 154, 44, 0.55);
+  border-radius: 20px;
+}
+.section-feedback .box_content .item .image:hover span {
+  opacity: 1;
+}
+.section-feedback .box_content .title {
+  font-weight: bold;
+  padding: 15px 0;
+}
+.section-feedback .box_content .title a {
+  color: #cf9a2c;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.section-feedback .box_content .title:hover a {
+  color: #333333;
+}
+.section-feedback .box_content .desc {
+  font-size: 16px;
+  font-style: italic;
+  text-align: justify;
+}
+.section-feedback .control {
+  padding-top: 50px;
 }
 
 /** ====================== FOOTER ==================*/

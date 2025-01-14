@@ -1,5 +1,36 @@
-﻿@*
+﻿@using Dentistry.ViewModels.Catalog.Articles
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model List<ArticleVm>
 @{
 }
+<div class="container">
+    <div class="box_title">
+        Tin tức về Nha Khoa Nhiên
+    </div>
+    <div class="box_desc"></div>
+    <div class="box_content">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
+                <div class="col-sm-4 col-6">
+                    <div class="item pt-5">
+                        <div class="image" style="background: url('@imgPath')">
+                            <a href="/tin-tuc/@item.Alias" title="@item.Title">
+                                <span>Xem thêm</span>
+                            </a>
+                        </div>
+                        <div class="info pt-5">
+                            <h3 class="title"><a href="/tin-tuc/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
+                            <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+    <div class="control d-flex justify-content-center"><a href="/tin-tuc" class="btn_yellow">Xem tất cả</a></div>
+</div>

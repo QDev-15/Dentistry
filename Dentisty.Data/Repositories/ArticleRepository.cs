@@ -260,13 +260,13 @@ namespace Dentisty.Data.Repositories
                         ids = appSetting.Articles!.Split(',');
                     break;
                     case ArtisleType.News:
-                        ids = appSetting.Articles!.Split(',');
+                        ids = appSetting.News!.Split(',');
                     break;
                     case ArtisleType.FeedBack:
-                        ids = appSetting.Articles!.Split(',');
+                        ids = appSetting.Feedbacks!.Split(',');
                     break;
                     case ArtisleType.Products:
-                        ids = appSetting.Articles!.Split(',');
+                        ids = appSetting.Products!.Split(',');
                     break; 
                     default:
                         ids = [];

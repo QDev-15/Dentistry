@@ -30,8 +30,8 @@
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        console.log(currentScroll);
-        if (currentScroll > 190) {
+        //console.log(currentScroll);
+        if (currentScroll > 390) {
             // Scrolling down - hide the navbar
             navbar.classList.add('sticky-top');
             setTimeout(() => {

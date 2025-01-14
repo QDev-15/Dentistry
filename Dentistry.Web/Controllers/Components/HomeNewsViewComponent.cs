@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Web.Controllers.Components
 {
     public class HomeNewsViewComponent : ViewComponent
     {
-        public HomeNewsViewComponent() { 
+        private readonly IArticleRepository _articleRepository;
+        public HomeNewsViewComponent(IArticleRepository articleRepository) {
+            _articleRepository = articleRepository;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("~/Views/ViewComponents/HomeNews.cshtml");
+            var news = await _articleRepository.GetForApplication(ViewModels.Enums.ArtisleType.News);
+            return View("~/Views/ViewComponents/HomeNews.cshtml", news.Take(3).ToList());
         }
     }
     

@@ -20,6 +20,14 @@
     <div class="section section-slide-service-articles" style="display: @categorySlideService">
         @await Component.InvokeAsync("HomeSlideService")
     </div>
+    var news = Model.ShowNewsList ? "block" : "none";
+    <div class="section section-news" style="display: @news">
+        @await Component.InvokeAsync("HomeNews")
+    </div>
+    var review = Model.ShowFeedbackList ? "block" : "none";
+    <div class="section section-feedback" style="display: @review">
+        @await Component.InvokeAsync("HomeReview")
+    </div>
 }
 
 

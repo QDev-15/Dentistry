@@ -159,7 +159,7 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<CategoryVm>> GetForSettings()
         {
-            return await _context.Categories.Where(x => x.IsActive).Select(x => new CategoryVm() { Id = x.Id, Name = x.Name }).ToListAsync();
+            return await _context.Categories.Where(x => x.IsActive).OrderBy(x => x.IsParent).Select(x => new CategoryVm() { Id = x.Id, Name = x.Name }).ToListAsync();
         }
 
         public async Task<IEnumerable<CategoryVm>> GetFlatHomePage()
