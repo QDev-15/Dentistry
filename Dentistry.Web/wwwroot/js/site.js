@@ -6,11 +6,11 @@
         const modalButton = document.getElementById("openModal");
         modalButton.click(); // Kích hoạt nút mở modal ẩn
         localStorage.setItem(MODAL_KEY, Date.now());
+        $("#openFeedbackModal").hide();
     }
-    function closeModal() {
-        const modalButton = document.getElementById("close_button_modalOnloadDefaul");
-        modalButton.click();
-    }
+    $("#close_button_modalOnloadDefaul").on("click", function () {
+        $("#openFeedbackModal").show();
+    });
 
     const lastTime = localStorage.getItem(MODAL_KEY);
     const currentTime = Date.now();
@@ -18,4 +18,10 @@
     if (!lastTime || currentTime - lastTime > ONE_HOUR) {
         showModal();
     }
+
+    // Hiển thị modal
+    $("#openFeedbackModal").on("click", function () {
+        showModal();
+    });
+
 });

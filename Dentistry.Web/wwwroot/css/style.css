@@ -3,8 +3,8 @@ a, p, span {
   color: #333333;
 }
 
-main .container {
-  /*min-height: 500px;*/
+.container-main main {
+  min-height: 500px;
 }
 
 /** =============== OnLoadPage Modal ==================*/
@@ -77,7 +77,44 @@ main .container {
   width: 100px;
 }
 
-/**================Box - Top =========================*/
+/** =============== Box - Đăng ký tư vấn ===============*/
+#popup_tuvan .btn_popup {
+  position: fixed;
+  top: 30%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background: #cf9a2c;
+  height: auto;
+  width: 45px;
+  border-radius: 10px 0 0 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 0;
+}
+#popup_tuvan .btn_popup span {
+  text-transform: uppercase;
+  color: white !important;
+  writing-mode: vertical-rl; /* Hiển thị văn bản theo chiều dọc */
+  transform: rotate(180deg); /* Đảo hướng văn bản */
+  font-size: 16px;
+}
+#popup_tuvan .btn_popup i {
+  color: white !important;
+  font-size: 24px; /* Kích thước biểu tượng */
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+#popup_tuvan .btn_popup:hover {
+  background: rgba(207, 154, 44, 0.6549019608);
+}
+
+/**================ Start bar - Top =========================*/
 .box-top {
   background-color: #eea616;
   color: #fff;
@@ -821,6 +858,9 @@ main .container {
   background-color: #f5f5f5;
   color: #333333;
   padding-top: 40px;
+}
+.footer .container {
+  min-height: 500px !important;
 }
 .footer .footer__logo img {
   max-width: 150px;

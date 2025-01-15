@@ -2,6 +2,7 @@
 using Dentistry.ViewModels.Catalog.Branches;
 using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,14 @@ namespace Dentisty.Data.Repositories
             _loggerRepository = loggerRepository;   
         }
 
-        public async Task<bool> ActiveBranches(int id)
+        public async Task<BranchesVm> GetById(int id)
+        {
+            var branches = await _dbContext.Branches.FirstOrDefaultAsync(x => x.Id == id);
+            return branches.ReturnViewModel();
+        }
+
+
+        public async Task<bool> Active(int id, bool active)
         {
             try
             {
@@ -29,7 +37,7 @@ namespace Dentisty.Data.Repositories
                 {
                     throw new Exception("not found branches by id: " + id);
                 }
-                branch.IsActive = true;
+                branch.IsActive = active;
                 UpdateAsync(branch);
                 await SaveChangesAsync();
                 return true;
@@ -47,6 +55,7 @@ namespace Dentisty.Data.Repositories
                 var newBranches = new Branches()
                 {
                     Address = model.Address,
+                    PhoneNumber = model.PhoneNumber,
                     Code = model.Code,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
@@ -63,25 +72,10 @@ namespace Dentisty.Data.Repositories
             }
         }
 
-        public async Task<bool> DeActiveBranches(int id)
+        public async Task<IEnumerable<BranchesVm>> GetAll()
         {
-            try
-            {
-                var branch = await GetByIdAsync(id);
-                if (branch != null)
-                {
-                    branch.IsActive = false;
-                    UpdateAsync(branch);
-                    await SaveChangesAsync();
-                    return true;
-                }
-                throw new Exception("Branches not found by id " + id);
-            }
-            catch (Exception ex) {
-                _loggerRepository.QueueLog(ex.Message, "DeActive Branches");
-                throw new Exception(ex.Message);
-            }
-
+            var branches = await _dbContext.Branches.OrderBy(x => x.IsActive).Select(x => x.ReturnViewModel()).ToListAsync();
+            return branches;
         }
 
         public async Task<Branches> Update(BranchesVm model)
@@ -89,9 +83,10 @@ namespace Dentisty.Data.Repositories
             try
             {
                 var branches = await GetByIdAsync(model.Id);
-                if (branches != null) {
+                if (branches == null) {
                     throw new Exception("Branches not found by id " + model.Id);
                 }
+                branches.PhoneNumber = model.PhoneNumber;
                 branches.Name = model.Name;
                 branches.UpdatedAt = DateTime.UtcNow;
                 branches.Code = model.Code;
@@ -107,6 +102,12 @@ namespace Dentisty.Data.Repositories
                 _loggerRepository.QueueLog(ex.Message, "Update Branchese");
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<IEnumerable<BranchesVm>> GetActive()
+        {
+            var branches = await _dbContext.Branches.Where(x => x.IsActive).ToListAsync();
+            return branches.Select(x => x.ReturnViewModel()).ToList();
         }
     }
 }

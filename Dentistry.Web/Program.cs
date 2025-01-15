@@ -38,6 +38,7 @@ builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
 
 builder.Services.AddScoped<LoggerRepository>();
 builder.Services.AddHostedService<LoggerBackgroundService>();

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Dentistry.ViewModels.Catalog.Categories
 {
-    public class ArticleVmValidator :  AbstractValidator<CategoryVm>
+    public class CategoryVmValidator :  AbstractValidator<CategoryVm>
     {
-        public ArticleVmValidator() {
+        public CategoryVmValidator() {
             RuleFor(x => x.Name).NotEmpty().WithMessage("Tên không được trống.");
             RuleFor(x => x.Alias).NotEmpty().WithMessage("Tên rút gọn không được trống");
         }

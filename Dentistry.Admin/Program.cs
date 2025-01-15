@@ -4,6 +4,8 @@ using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;
 using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Catalog.Branches;
+using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
@@ -93,8 +95,10 @@ builder.Services.AddControllersWithViews(options =>
         fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<SlideVmValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<ArticleVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<CategoryVmValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<ContactVmValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<DoctorVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<BranchesVmValidator>();
         fv.DisableDataAnnotationsValidation = true;
     });
 
@@ -117,6 +121,7 @@ builder.Services.AddScoped<IStorageService, FileStorageService>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
 
 

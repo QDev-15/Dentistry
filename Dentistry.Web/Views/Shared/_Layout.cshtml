@@ -37,10 +37,7 @@
 
     
     @await Component.InvokeAsync("AppContact")
-    @{
-        Html.RenderPartial("_footer");
-    }
-
+    @await Component.InvokeAsync("AppFooter")
     @await Component.InvokeAsync("OnLoadPageModal")
 
     @* Script Lib *@
