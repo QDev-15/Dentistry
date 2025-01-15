@@ -1,151 +1,143 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slick Slider Example</title>
-    
-    <!-- Link to Slick CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-    
+    <title>Modal Trượt Từ Bên Phải</title>
     <style>
-        .container {
-            width: 100%;
+        /* Định dạng popup */
+        .popup {
+            position: fixed;
+            right: 0;
+            bottom: 20px;
+            z-index: 1000;
         }
 
-        .slider {
-            position: relative;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .slide-item {
-            width: 300px; /* Width of each item */
-            box-sizing: border-box;
-        }
-
-        .slide-item img {
-            width: 100%;
-            height: auto;
-        }
-
-        .slide-item-footer {
-            position: absolute;
-            bottom: 10px;
-            left: 20px;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px;
-        }
-
-        .title {
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .sub-title {
-            font-size: 1rem;
-        }
-
-        /* Slick Navigation Arrow styling */
-        .slick-prev, .slick-next {
-            color: black;
-            font-size: 2rem;
-            z-index: 10;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .slide-item {
-                width: 250px; /* Slightly smaller for tablets and mobile */
+            .popup button {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 5px 0 0 5px;
+                cursor: pointer;
+                font-size: 16px;
             }
+
+        /* Modal trượt từ bên phải */
+        .modal {
+            position: fixed;
+            top: 0;
+            right: -400px; /* Ẩn ngoài màn hình */
+            height: 100%;
+            width: 400px;
+            background-color: #fff;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: right 0.3s ease-in-out;
         }
 
-        @media (max-width: 480px) {
-            .slide-item {
-                width: 200px; /* Adjust for small screens */
+            .modal.active {
+                right: 0; /* Hiển thị modal */
             }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
+
+            .modal-header .close {
+                font-size: 20px;
+                cursor: pointer;
+                color: #aaa;
+            }
+
+                .modal-header .close:hover {
+                    color: #000;
+                }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            form button:hover {
+                background-color: #218838;
+            }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="slider">
-        <div class="slide-item">
-            <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Đinh Đình Đức">
-            <div class="slide-item-footer">
-                <div class="title">Đinh Đình A</div>
-                <div class="sub-title">Bác sĩ Implant &amp; Bệnh lý</div>
-            </div>
-        </div>
-        <div class="slide-item">
-            <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Hứa Thị Xuân">
-            <div class="slide-item-footer">
-                <div class="title">Hứa Thị B</div>
-                <div class="sub-title">Bác sĩ Niềng răng</div>
-            </div>
-        </div>
-        <div class="slide-item">
-            <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Nguyễn Thị Thu Hiền">
-            <div class="slide-item-footer">
-                <div class="title">Nguyễn Thị Thu C</div>
-                <div class="sub-title">Bác sĩ Thẩm mỹ răng sứ</div>
-            </div>
-        </div>
-        <div class="slide-item">
-            <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Phùng Văn Thuận">
-            <div class="slide-item-footer">
-                <div class="title">Phùng Văn D</div>
-                <div class="sub-title">Bác sĩ Niềng răng</div>
-            </div>
-        </div>
-        <div class="slide-item">
-            <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Bùi Bích Uyên">
-            <div class="slide-item-footer">
-                <div class="title">Bùi Bích E</div>
-                <div class="sub-title">CEO Win Smile</div>
-            </div>
-        </div>
+    <!-- Popup -->
+    <div class="popup" id="feedbackPopup">
+        <button id="openModal">Feedback</button>
     </div>
-</div>
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Slick JS -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- Modal -->
+    <div class="modal" id="feedbackModal">
+        <div class="modal-header">
+            <h2>Phản hồi</h2>
+            <span class="close" id="closeModal">&times;</span>
+        </div>
+        <form id="feedbackForm">
+            <label for="name">Tên:</label>
+            <input type="text" id="name" name="name" required>
 
-<script>
-    $(document).ready(function(){
-        // Initialize Slick Slider
-        $('.slider').slick({
-            infinite: true,
-            slidesToShow: 3,  // Adjust the number of slides shown based on screen size
-            slidesToScroll: 1,
-            arrows: true, // Enable next/prev buttons
-            dots: true,   // Show navigation dots
-            autoplay: true,
-            autoplaySpeed: 3000, // Auto-slide every 3 seconds
-            prevArrow: '<button type="button" class="slick-prev">❮</button>',
-            nextArrow: '<button type="button" class="slick-next">❯</button>',
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 2,
-                    }
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 1,  // Show 1 slide on mobile screens
-                    }
-                }
-            ]
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Tin nhắn:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Gửi</button>
+        </form>
+    </div>
+
+    <script>
+        // Lấy các phần tử cần dùng
+        const openModalBtn = document.getElementById('openModal');
+        const feedbackModal = document.getElementById('feedbackModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const feedbackForm = document.getElementById('feedbackForm');
+
+        // Hiển thị modal với hiệu ứng trượt
+        openModalBtn.addEventListener('click', () => {
+            feedbackModal.classList.add('active');
         });
-    });
-</script>
 
+        // Đóng modal
+        closeModalBtn.addEventListener('click', () => {
+            feedbackModal.classList.remove('active');
+        });
+
+        // Xử lý form khi người dùng gửi
+        feedbackForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            alert('Cảm ơn bạn đã gửi phản hồi!');
+            feedbackModal.classList.remove('active');
+        });
+    </script>
 </body>
 </html>
