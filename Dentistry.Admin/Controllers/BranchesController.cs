@@ -43,28 +43,43 @@ namespace Dentistry.Admin.Controllers
                 return BadRequest("Invalid data");
             }
 
-            if (model.Id == 0)
+            try
             {
-                // Add slide logic
-                var branches = await _branchesRepository.CreateNew(model);
+                if (model.Id == 0)
+                {
+                    // Add slide logic
+                    var branches = await _branchesRepository.CreateNew(model);
+                }
+                else
+                {
+                    // Update slide logic
+                    var branches = await _branchesRepository.Update(model);
+                }
+                return Json(new SuccessResult<bool>());
             }
-            else
-            {
-                // Update slide logic
-                var branches = await _branchesRepository.Update(model);
+            catch (Exception ex) {
+                return Json(new ErrorResult<bool>(ex.Message));
             }
+            
 
-            return Json(new SuccessResult<bool>());
+            
         }   
         [HttpPost]
         public async Task<IActionResult> Activated(int id, bool active)
         {
-            var result = await _branchesRepository.Active(id, active);
-            if (!result)
+            try
             {
-                return Json(new ErrorResult<bool>());
+                var result = await _branchesRepository.Active(id, active);
+                if (!result)
+                {
+                    return Json(new ErrorResult<bool>("Cập nhật không thành công."));
+                }
+                return Json(new SuccessResult<bool>());
             }
-            return Json(new SuccessResult<bool>());
+            catch (Exception ex) { 
+                return Json(new ErrorResult<bool>(ex.Message));            
+            }
+            
         }
     }
 }

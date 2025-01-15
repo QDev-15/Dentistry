@@ -44,7 +44,7 @@ namespace Dentisty.Data.Repositories
             }
             catch (Exception ex) { 
                 _loggerRepository.QueueLog(ex.Message, "Active Branches by Id: " + id);
-                return false;            
+                throw new Exception("not found branches by id: " + id);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿// Documents 
 $(document).ready(function () {
-    document.getElementById('infoModal').addEventListener('hidden.bs.modal', function () {
+    document.addEventListener('hidden.bs.modal', function (event) {
         const backdrops = document.querySelectorAll('.modal-backdrop');
         backdrops.forEach(backdrop => backdrop.remove());
     });

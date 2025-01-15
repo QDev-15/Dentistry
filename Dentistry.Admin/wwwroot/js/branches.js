@@ -4,7 +4,8 @@
         paging: true,
         searching: true,
         ordering: true,
-        pageLength: 5
+        pageLength: 5,
+        order: [[2, 'asc']]
     });
 
     // open model edit-add
@@ -17,8 +18,11 @@
             success: function (html) {
                 $('#addEditBranchesModal .modal-content').html(html);
                 $('#addEditBranchesModal').modal('show');
+                var message = id == 0 ? "Thêm mới thành công" : "Cập nhật thành công";
+                showSuccess(message);
+                reloadBranchesList();
             },
-            error: function () {
+            error: function (error) {
                 showError('Thất bại, xin vui lòng thử lại.');
             }
         });
@@ -26,22 +30,20 @@
     // change status branches
     $(document).on('click', '.activated-btn, .deactivated-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
-        const active = $(this).data('IsActive') || false; // Nếu không có ID, thì tạo mới
+        const active = $(this).data('isactive') || false; // Nếu không có ID, thì tạo mới
         $.ajax({
             url: '/Branches/Activated',
             type: 'POST',
             data: {
-                active: active,
-                id: id
+                id: id, active: active
             },
-            processData: false,
-            contentType: false,
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             success: function (response) {
                 if (response.isSuccessed) {
-                    $('#addEditBranchesModal').modal('hide');
+                    showSuccess("Cập nhật thành công.");
                     reloadBranchesList();
                 } else {
-                    showInfo(response.message);
+                    showError(response.message);
                 }
             },
             error: function (err) {

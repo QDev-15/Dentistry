@@ -39,6 +39,7 @@ namespace Dentisty.Data
                 Name = branches.Name,
                 Address = branches.Address,
                 Code = branches.Code,
+                IsActive = branches.IsActive,
                 CreatedAt = branches.CreatedAt,
                 PhoneNumber = branches.PhoneNumber,
                 UpdatedAt = branches.UpdatedAt
