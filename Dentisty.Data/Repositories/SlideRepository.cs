@@ -60,19 +60,13 @@ namespace Dentisty.Data.Repositories
                 }
                 // set image slide
                 await AddAsync(slide);
-                await SaveChangesAsync();       
-                // update imageId
-                slide.ImageId = slide.Image.Id;
-                await SaveChangesAsync();
-                // set slide id
-                slideVm.Id = slide.Id;
-                slideVm.Image.Id = slide.Image.Id;
-                return slideVm;
+                await SaveChangesAsync();     
+                return slide.ReturnViewModel();
             }
             catch (Exception ex)
             {
                 _logs.QueueLog(ex.Message);
-                return new SlideVm();
+                throw new Exception(ex.Message);
             }
         }
         public async Task<SlideVm> UpdateSlide(SlideVm slideVm)

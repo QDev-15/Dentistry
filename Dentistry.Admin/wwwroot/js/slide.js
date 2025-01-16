@@ -6,10 +6,9 @@
         ordering: true,
         pageLength: 5
     });
-    // handle Edit - Add button click
+    // Open Edit - Add button click
     $(document).on('click', '.slide-edit-btn, .slide-add-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
-        debugger;
         $.ajax({
             url: `/Slide/AddEdit/${id}`,
             type: 'GET',
@@ -17,8 +16,8 @@
                 $('#editSlideModal .modal-content').html(html);
                 $('#editSlideModal').modal('show');
             },
-            error: function () {
-                alert('Failed to load data');
+            error: function (error) {
+                showError(error);
             }
         });
     });
@@ -34,11 +33,32 @@
             processData: false,
             contentType: false,
             success: function (response) {
-                $('#editSlideModal').modal('hide');
-                location.reload(); // Hoặc cập nhật bảng
+                if (response.isSuccessed) {
+                    $('#editSlideModal').modal('hide');
+                    loadSlideList(); // Hoặc cập nhật bảng
+                }
             },
-            error: function () {
-                alert('Failed to save changes');
+            error: function (error) {
+                showError(error);
+            }
+        });
+    });
+
+    // Delete Confirm action
+    $('#deleteSlideConfirm').on('click', function (e) {
+        e.preventDefault();
+        var id = $('#deleteId').val();
+        $.ajax({
+            url: `/Slide/Delete/${id}`,
+            type: 'Delete',
+            success: function (response) {
+                if (response.isSuccessed) {
+                    showSuccess("Xóa slide thành công");
+                    loadSlideList();
+                }
+            },
+            error: function (error) {
+                showError(error);
             }
         });
     });

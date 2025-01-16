@@ -38,7 +38,7 @@
             success: function (response) {
                 if (response.isSuccessed) {
                     $('#addEditDoctorModal').modal('hide');
-                    reloadDoctorList();
+                    loadDoctorList();
                 } else {
                     showInfo(response.message);
                 }
@@ -53,15 +53,4 @@
 
 
 
-function reloadDoctorList() {
-    $.ajax({
-        url: '/Doctor/List',
-        type: 'GET',
-        success: function (data) {
-            $('#doctor').html(data);
-        },
-        error: function (xhr, status, error) {
-            console.error("Error reloading doctor list:", error);
-        }
-    });
-}
+

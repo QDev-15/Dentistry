@@ -43,7 +43,7 @@
             success: function (response) {
                 if (response.success) {
                     $('#addEditCategoryModal').modal('hide');
-                    reloadCategoryList(); // Hoặc cập nhật bảng
+                    loadCategoryList(); // Hoặc cập nhật bảng
                 } else {
                     window.alert(response.message);
                 }
@@ -68,18 +68,3 @@
 
 });
 
-function reloadCategoryList() {
-    showSpinnerFor('table-responsive');
-    $.ajax({
-        url: '/Category/List',
-        type: 'GET',
-        success: function (data) {
-            $('#category').html(data);
-            hideSpinnerFor('table-responsive');
-        },
-        error: function (xhr, status, error) {
-            console.error("Error reloading doctor list:", error);
-            hideSpinnerFor('table-responsive');
-        }
-    });
-}

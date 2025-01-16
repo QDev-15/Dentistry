@@ -20,7 +20,7 @@
                 $('#addEditBranchesModal').modal('show');
                 var message = id == 0 ? "Thêm mới thành công" : "Cập nhật thành công";
                 showSuccess(message);
-                reloadBranchesList();
+                loadBranchesList();
             },
             error: function (error) {
                 showError('Thất bại, xin vui lòng thử lại.');
@@ -41,7 +41,7 @@
             success: function (response) {
                 if (response.isSuccessed) {
                     showSuccess("Cập nhật thành công.");
-                    reloadBranchesList();
+                    loadBranchesList();
                 } else {
                     showError(response.message);
                 }
@@ -65,7 +65,7 @@
             success: function (response) {
                 if (response.isSuccessed) {
                     $('#addEditBranchesModal').modal('hide');
-                    reloadBranchesList();
+                    loadBranchesList();
                 } else {
                     showInfo(response.message);
                 }
@@ -80,15 +80,4 @@
 
 
 
-function reloadBranchesList() {
-    $.ajax({
-        url: '/Branches/List',
-        type: 'GET',
-        success: function (data) {
-            $('#branches').html(data);
-        },
-        error: function (xhr, status, error) {
-            console.error("Error reloading branches list:", error);
-        }
-    });
-}
+

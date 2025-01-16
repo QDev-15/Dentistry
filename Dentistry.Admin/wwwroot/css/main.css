@@ -77,6 +77,18 @@ html, body {
         opacity: 0;
     }
 }
+
+/** ================================= Dialog ================================= */
+
+.modal-content {
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+    .modal-content .modal-body {
+        overflow-y: auto;
+        flex-grow: 1;
+    }
 /** ================================= spinner All Page ======================= */
 #global-spinner {
     position: fixed;

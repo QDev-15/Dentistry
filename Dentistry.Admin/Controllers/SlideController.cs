@@ -1,4 +1,5 @@
 ﻿using Dentistry.ViewModels.Catalog.Slide;
+using Dentistry.ViewModels.Common;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,12 @@ namespace Dentistry.Admin.Controllers
         }
 
         [HttpGet]
+        public IActionResult List()
+        {
+            return ViewComponent("SlideList");
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AddEdit(int id)
         {
             if (id == 0)
@@ -40,24 +47,35 @@ namespace Dentistry.Admin.Controllers
                 return BadRequest("Invalid data");
             }
 
-            if (model.Id == 0)
+            try
             {
-                // Add slide logic
-                var slide = await _slideRepository.Create(model);
+                if (model.Id == 0)
+                {
+                    // Add slide logic
+                    var slide = await _slideRepository.Create(model);
+                }
+                else
+                {
+                    // Update slide logic
+                    var slide = await _slideRepository.UpdateSlide(model);
+                }
+                return Json(new SuccessResult<bool>());
             }
-            else
-            {
-                // Update slide logic
-                var slide = await _slideRepository.UpdateSlide(model);
+            catch (Exception ex) {
+                return Json(new ErrorResult<bool>(ex.Message));
             }
-
-            return Json(new { success = true });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int id) { 
-            var result = await _slideRepository.Delete(id);
-            return RedirectToAction("Index");
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id) {
+            try
+            {
+                await _slideRepository.Delete(id);
+                return Json(new SuccessResult<bool>());
+            }
+            catch (Exception ex) {
+                return Json(new ErrorResult<bool>(ex.Message));
+            }
         }
     }
 }

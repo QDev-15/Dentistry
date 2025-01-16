@@ -12,7 +12,7 @@
                 // Hiển thị thông báo thành công
                 if (response.isSuccessed) {
                     showSuccess("Thành công.");
-                    loadData();
+                    loadSettingData();
                 }
 
             },
@@ -22,19 +22,6 @@
             },
         });
     });
-
-    function loadData() {
-        $.ajax({
-            url: `/AppSetting/GetSetting`,
-            type: 'GET',
-            success: function (html) {
-                $('#app-setting').html(html);
-            },
-            error: function () {
-                showError('Tải lại cài đặt thất bại!');
-            }
-        });
-    }
 
     function initTableList(type) {
         $('#' + type +'TableList').DataTable({

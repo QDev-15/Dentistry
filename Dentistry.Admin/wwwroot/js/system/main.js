@@ -1,10 +1,17 @@
-﻿// Documents 
+﻿const defaultClassForSpinner = "layout-main-content";
+
+
+
+
+
+// Documents 
 $(document).ready(function () {
     document.addEventListener('hidden.bs.modal', function (event) {
         const backdrops = document.querySelectorAll('.modal-backdrop');
         backdrops.forEach(backdrop => backdrop.remove());
     });
 });
+
 
 
 // Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
@@ -146,15 +153,16 @@ $("#sidebarToggle").on("click", function (e) {
 //    console.log("end spinner");
 //    $("#global-spinner").hide();
 //});
-function showSpinner() {
+function showGlobalSpinner() {
     document.getElementById('global-spinner').style.display = 'flex';
 }
 
-function hideSpinner() {
+function hideGlobalSpinner() {
     document.getElementById('global-spinner').style.display = 'none';
 }
 
 function showSpinnerFor(className) {
+    className = className ?? defaultClassForSpinner;
     const elements = document.querySelectorAll('.' + className);
     const spinnerOverlay = document.createElement('div');
     spinnerOverlay.classList.add('spinner-overlay');
@@ -173,19 +181,97 @@ function showSpinnerFor(className) {
     });
     
 }
-
 function hideSpinnerFor(className) {
+    className = className || defaultClassForSpinner;
     // Tìm và xóa spinner overlay
     const elements = document.querySelectorAll('.' + className);
     elements.forEach(element => {
         const spinnerOverlay = element.querySelector('.spinner-overlay');
         if (spinnerOverlay) {
             spinnerOverlay.remove();
-        }    
+        }
         element.classList.remove('spinner-container');
     });
-    
+
 }
+/// ======================= End Spinner =============================
+function loadSlideList() {
+    showSpinnerFor();
+    $.ajax({
+        url: '/Slide/List',
+        type: 'GET',
+        success: function (data) {
+            $('#slide-setting').html(data);
+            hideSpinnerFor();
+        },
+        error: function (xhr, status, error) {
+            showError("Error reloading doctor list:", error);
+            hideSpinnerFor();
+        }
+    });
+}
+function loadCategoryList() {
+    showSpinnerFor();
+    $.ajax({
+        url: '/Category/List',
+        type: 'GET',
+        success: function (data) {
+            $('#category-setting').html(data);
+            hideSpinnerFor();
+        },
+        error: function (xhr, status, error) {
+            showError("Error reloading doctor list:", error);
+            hideSpinnerFor();
+        }
+    });
+}
+function loadBranchesList() {
+    showSpinnerFor();
+    $.ajax({
+        url: '/Branches/List',
+        type: 'GET',
+        success: function (data) {
+            $('#branches-setting').html(data);
+            hideSpinnerFor();
+        },
+        error: function (xhr, status, error) {
+            showError("Error reloading branches list:", error);
+            hideSpinnerFor();
+        }
+    });
+}
+function loadDoctorList() {
+    showSpinnerFor();
+    $.ajax({
+        url: '/Doctor/List',
+        type: 'GET',
+        success: function (data) {
+            $('#doctor-setting').html(data);
+            hideSpinnerFor();
+        },
+        error: function (xhr, status, error) {
+            showError("Error reloading doctor list:", error);
+            hideSpinnerFor();
+        }
+    });
+}
+function loadSettingData() {
+    showSpinnerFor();
+    $.ajax({
+        url: `/AppSetting/GetSetting`,
+        type: 'GET',
+        success: function (html) {
+            $('#app-setting').html(html);
+            hideSpinnerFor();
+        },
+        error: function () {
+            showError('Tải lại cài đặt thất bại!');
+            hideSpinnerFor();
+        }
+    });
+}
+
+
 
 
 // Tiny =========================================================================
