@@ -36,6 +36,11 @@ namespace Dentisty.Data.Repositories
             var category = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).FirstOrDefaultAsync(x => x.Id == id);
             return category;
         }
+        public async Task<Category> GetByAlias(string alias)
+        {
+            var category = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ThenInclude(x => x.Image).FirstOrDefaultAsync(x => x.Alias.ToString() == alias.ToString());
+            return category;
+        }
         public new async Task<IEnumerable<Category>> GetAllAsync()
         {
             var categories = await _context.Categories.Include(i => i.Image).Include(x=>x.Parent).Include(x=>x.Categories).ToListAsync();

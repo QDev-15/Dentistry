@@ -4,7 +4,11 @@ a, p, span {
 }
 
 .container-main main {
-  min-height: 500px;
+  min-height: 1000px;
+}
+
+.modal-backdrop {
+  background-color: #a9a9a9;
 }
 
 /** =============== OnLoadPage Modal ==================*/
@@ -236,9 +240,17 @@ a, p, span {
   color: #cf9a2c !important;
   font-weight: 400;
   cursor: pointer;
-  font-size: 28px !important;
+  font-size: 30px !important;
   text-transform: uppercase;
   text-decoration: unset;
+}
+
+.box_title_sub {
+  font-size: 16px;
+  color: activeborder;
+  padding: 15px;
+  margin: 0 50px;
+  text-align: center;
 }
 
 .b-divider-shadow {
@@ -289,31 +301,65 @@ a, p, span {
   margin: 0;
   padding: 0;
 }
-.section .section-title {
-  padding: 15px;
-  font-size: 30px;
-  font-weight: bold;
-  color: #eea616;
+
+.box_breadcrumb {
+  background-color: #FFF;
+  margin-bottom: 0;
 }
-.section .section-sub {
-  font-size: 16px;
-  color: activeborder;
-  padding: 15px;
-  margin: 0 50px;
-  text-align: center;
+.box_breadcrumb .breadcrumb > li {
+  display: inline-block;
+}
+.box_breadcrumb .breadcrumb > li a {
+  color: #949494;
+}
+.box_breadcrumb .breadcrumb > li:last-child a {
+  color: #cf9a2c;
+}
+.box_breadcrumb .breadcrumb > li + li {
+  position: relative;
+  padding-left: 30px;
+}
+.box_breadcrumb .breadcrumb > li:last-child:before {
+  content: "";
+  width: 8px;
+  height: 7px;
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  background: url(../assets/img/icon_13.png) no-repeat;
+}
+.box_breadcrumb .breadcrumb {
+  background-color: #FFF;
+  margin: 10px 0;
+  padding-left: 0;
+  padding: 8px 15px;
+  list-style: none;
+  border-radius: 4px;
+}
+.box_breadcrumb .breadcrumb a {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
-.section-category .actor-list .actor-item {
+.box_categories {
+  background: #f5f5f5;
+}
+
+.categories-content {
+  padding: 50px 0;
+}
+.categories-content .actor-list .actor-item {
   padding: 15px 15px;
 }
-.section-category .actor-list .actor-item .image {
+.categories-content .actor-list .actor-item .image {
   position: relative;
   width: 100%; /* Đảm bảo ảnh full chiều rộng của div */
   padding-top: 100%; /* Tạo tỷ lệ 1:1 cho ảnh */
   overflow: hidden;
   border-radius: 50%; /* Bo tròn ảnh */
 }
-.section-category .actor-list .actor-item .image a {
+.categories-content .actor-list .actor-item .image a {
   position: absolute;
   top: 0;
   left: 0;
@@ -322,7 +368,7 @@ a, p, span {
   display: block;
   transition: all 0.3s ease;
 }
-.section-category .actor-list .actor-item .image a::after {
+.categories-content .actor-list .actor-item .image a::after {
   content: "";
   position: absolute;
   top: 0;
@@ -335,25 +381,25 @@ a, p, span {
   border: 10px solid rgba(245, 245, 245, 0.54);
   box-sizing: border-box;
 }
-.section-category .actor-list .actor-item:hover .image a::after {
+.categories-content .actor-list .actor-item:hover .image a::after {
   border-color: rgba(233, 174, 55, 0.24);
 }
-.section-category .actor-list .actor-item:hover .info .title a {
+.categories-content .actor-list .actor-item:hover .info .title a {
   color: rgba(233, 174, 55, 0.57);
 }
-.section-category .actor-list .actor-item .actor-image {
+.categories-content .actor-list .actor-item .actor-image {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Đảm bảo ảnh luôn bao phủ mà không méo */
   object-position: center; /* Căn giữa ảnh */
   border-radius: 50%; /* Bo tròn ảnh */
 }
-.section-category .actor-list .actor-item .info {
+.categories-content .actor-list .actor-item .info {
   padding: 15px;
   font-size: 14px;
   font-weight: bold;
 }
-.section-category .actor-list .actor-item .info .title a {
+.categories-content .actor-list .actor-item .info .title a {
   color: #454545;
   text-decoration: none;
   transition: color 0.3s ease;
@@ -851,6 +897,22 @@ a, p, span {
 }
 .section-feedback .control {
   padding-top: 50px;
+}
+
+.image-banner {
+  max-height: 500px; /* Chiều cao tối đa của container */
+  min-height: 300px;
+  width: 100%; /* Chiều rộng 100% container */
+  display: flex; /* Sử dụng Flexbox */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  overflow: hidden; /* Ẩn phần ảnh thừa nếu có */
+  background-color: #f0f0f0; /* Tùy chọn: Thêm màu nền nếu ảnh nhỏ hơn div */
+}
+.image-banner img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 /** ====================== FOOTER ==================*/
