@@ -3,6 +3,7 @@ using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Enums;
+using Dentistry.ViewModels.Extensions;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
@@ -62,7 +63,7 @@ namespace Dentistry.Admin.Controllers
                 model.Item = artVm.ReturnViewModel();
             }
             model.Categories = (await _categoryReposiroty.GetForSettings()).ToList();
-            ViewBag.ArticleTypes = EnumExtensions.ToSelectList<ArtisleType>();
+            ViewBag.ArticleTypes = EnumExtensions.ToSelectList<ArticleType>();
             return PartialView("~/Views/Articles/Partial/_addEdit.cshtml", model);
         }
         [HttpPost]

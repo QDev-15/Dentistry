@@ -12,7 +12,7 @@ namespace Dentistry.Web.Controllers.Components
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var articles = await _articleRepository.GetForApplication(ArtisleType.Article);
+            var articles = await _articleRepository.GetForApplication(ArticleType.Article);
             return View("~/Views/ViewComponents/HomeSlideService.cshtml", articles);
         }
     }

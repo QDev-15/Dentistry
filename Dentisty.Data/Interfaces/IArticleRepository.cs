@@ -18,7 +18,8 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<ArticleVm>> GetNewsForSetting();
         Task<IEnumerable<ArticleVm>> GetProductForSetting();
         Task<IEnumerable<ArticleVm>> GetFeedBackForSetting();
-        Task<IEnumerable<ArticleVm>> GetForApplication(ArtisleType type);
+        Task<IEnumerable<ArticleVm>> GetForApplication(ArticleType type);
+        Task<IEnumerable<ArticleVm>> GetByCategoryId(int id);
         Task<bool> DeleteArticle(int id);
         /// <summary>
         /// If exixts return True, else return False

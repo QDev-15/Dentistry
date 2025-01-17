@@ -14,7 +14,7 @@
                 <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
                     <div class="image">
                         <a asp-controller="Category" asp-action="DichVu" asp-route-alias="@item.Alias">
-                            <img src="@item.Image?.Path" alt="@item.Name" class="actor-image">
+                            <img src="@item.Image?.Path" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
                         </a>
                     </div>
                     <div class="info">

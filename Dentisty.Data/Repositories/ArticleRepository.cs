@@ -230,25 +230,25 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<ArticleVm>> GetArticleForSetting()
         {
-            return await _context.Articles.Where(x => x.Type == ArtisleType.Article && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
+            return await _context.Articles.Where(x => x.Type == ArticleType.Article && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
         }
 
         public async Task<IEnumerable<ArticleVm>> GetNewsForSetting()
         {
-            return await _context.Articles.Where(x => x.Type == ArtisleType.News && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
+            return await _context.Articles.Where(x => x.Type == ArticleType.News && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
         }
 
         public async Task<IEnumerable<ArticleVm>> GetProductForSetting()
         {
-            return await _context.Articles.Where(x => x.Type == ArtisleType.Products && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
+            return await _context.Articles.Where(x => x.Type == ArticleType.Products && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
         }
 
         public async Task<IEnumerable<ArticleVm>> GetFeedBackForSetting()
         {
-            return await _context.Articles.Where(x => x.Type == ArtisleType.FeedBack && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
+            return await _context.Articles.Where(x => x.Type == ArticleType.FeedBack && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
         }
 
-        public async Task<IEnumerable<ArticleVm>> GetForApplication(ArtisleType type)
+        public async Task<IEnumerable<ArticleVm>> GetForApplication(ArticleType type)
         {
             var appSetting = await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1);
             string[] ids = [];
@@ -256,16 +256,16 @@ namespace Dentisty.Data.Repositories
             {
                 switch(type)
                 {
-                    case ArtisleType.Article:
+                    case ArticleType.Article:
                         ids = appSetting.Articles!.Split(',');
                     break;
-                    case ArtisleType.News:
+                    case ArticleType.News:
                         ids = appSetting.News!.Split(',');
                     break;
-                    case ArtisleType.FeedBack:
+                    case ArticleType.FeedBack:
                         ids = appSetting.Feedbacks!.Split(',');
                     break;
-                    case ArtisleType.Products:
+                    case ArticleType.Products:
                         ids = appSetting.Products!.Split(',');
                     break; 
                     default:
@@ -276,6 +276,12 @@ namespace Dentisty.Data.Repositories
                 return articles;
             }
             return new List<ArticleVm>();
+        }
+
+        public async Task<IEnumerable<ArticleVm>> GetByCategoryId(int id)
+        {
+            var articles = await _context.Articles.Where(x => x.CategoryId == id).Include(x => x.Images).ToListAsync();
+            return articles.Select(x => x.ReturnViewModel());
         }
     }
 }

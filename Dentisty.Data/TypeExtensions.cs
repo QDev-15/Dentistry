@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Dentisty.Data
 {
-    public static class TypeExtensions
+    public static class TypeExtensions 
     {
         /// <summary>
         /// Example: abc-def-123

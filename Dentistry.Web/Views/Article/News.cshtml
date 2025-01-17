@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Dentistry.ViewModels.Catalog.Articles
+@using Dentistry.ViewModels.Enums
+@model ArticleDetailVm
 @{
+    ViewData["Title"] = Model.item.Title;
 }
+
+<div class="container-fluid image-banner p-0">
+    <img src="@Model.item.Images[Model.item.Images.Count - 1]?.Path" />
+</div>
+<div class="container-fluid">
+    <div class="container box_breadcrumb">
+        <ul class="breadcrumb">
+            <li><a href="/">Trang chủ</a></li>
+            <li><a href="/@Model.item.Category.Alias">@Model.item.Category.Name</a></li>
+
+            <li><a href="/tin-tuc/@Model.item.Alias" title="@Model.item.Title">@Model.item.Title</a></li>
+        </ul>
+    </div>
+</div>
+
+@* Tin tức liên quan *@
+
+<div class="container">
+    <div class="box_title py-5"> Tin tức liên quan</div>
+    <div class="box_content box_list_item">
+        <div class="row">
+            @foreach (var item in Model.items)
+            {
+                var type = item.Type.GetAliasDisplayName();
+                var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
+                <div class="col-sm-3 col-6">
+                    <div class="item pt-5">
+                        <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
+                            <a href="/@type/@item.Alias" title="@item.Title">
+                                <span>Xem thêm</span>
+                            </a>
+                        </div>
+                        <div class="info pt-5">
+                            <h3 class="title"><a href="/@type/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
+                            <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

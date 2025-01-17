@@ -36,10 +36,10 @@ namespace Dentisty.Data.Repositories
             var category = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).FirstOrDefaultAsync(x => x.Id == id);
             return category;
         }
-        public async Task<Category> GetByAlias(string alias)
+        public async Task<CategoryVm> GetByAlias(string alias)
         {
             var category = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ThenInclude(x => x.Image).FirstOrDefaultAsync(x => x.Alias.ToString() == alias.ToString());
-            return category;
+            return category.ReturnViewModel();
         }
         public new async Task<IEnumerable<Category>> GetAllAsync()
         {
@@ -57,7 +57,9 @@ namespace Dentisty.Data.Repositories
                     Alias = model.Alias,
                     Name = model.Name,
                     IsActive = model.IsActive,
+                    IsParent = model.IsParent,
                     ParentId = model.ParentId,
+                    Sort = model.Sort,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     UserId = model.UserId ?? new Guid(_loggerRepository.GetCurrentUserId()),
@@ -93,6 +95,7 @@ namespace Dentisty.Data.Repositories
                 {
                     category.Alias = model.Alias;
                     category.Name = model.Name;
+                    category.Sort = model.Sort;
                     category.IsActive = model.IsActive;
                     category.IsParent = model.IsParent;
                     category.Position = model.Position;
@@ -153,7 +156,7 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<Category>> GetParents()
         {
-            var parents = await _context.Categories.Where(x => x.IsParent == true).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
+            var parents = await _context.Categories.Where(x => x.IsParent == true || x.ParentId == null).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
             return parents;
         }
         public async Task<IEnumerable<Category>> GetChilds()

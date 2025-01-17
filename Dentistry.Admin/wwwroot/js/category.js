@@ -4,7 +4,8 @@
         paging: true,
         searching: true,
         ordering: true,
-        pageLength: 5
+        pageLength: 5,
+        order: [[3, 'asc']],
     });
     $('#subCategoryTable').DataTable({
         paging: true,

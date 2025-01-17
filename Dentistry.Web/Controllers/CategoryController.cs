@@ -1,4 +1,5 @@
-﻿using Dentisty.Data;
+﻿using Dentistry.ViewModels.Catalog.Categories;
+using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +8,11 @@ namespace Dentistry.Web.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryReposiroty _categoryReposiroty;
-        public CategoryController(ICategoryReposiroty categoryReposiroty)
+        private readonly IArticleRepository _articleRepository;
+        public CategoryController(ICategoryReposiroty categoryReposiroty, IArticleRepository articleRepository)
         {
             _categoryReposiroty = categoryReposiroty;
+            _articleRepository = articleRepository; 
         }
         public IActionResult Index()
         {
@@ -17,8 +20,10 @@ namespace Dentistry.Web.Controllers
         }
         [HttpGet("danh-muc/{alias}")]
         public async Task<IActionResult> Detail(string alias) {
-            var category = await _categoryReposiroty.GetByAlias(alias);
-            return View(category.ReturnViewModel());
+            var categoryDetailVm = new CategoryDetailVm();
+            categoryDetailVm.item = await _categoryReposiroty.GetByAlias(alias);
+            categoryDetailVm.articles = (await _articleRepository.GetByCategoryId(categoryDetailVm.item.Id)).ToList();
+            return View(categoryDetailVm);
         }
     }
 }

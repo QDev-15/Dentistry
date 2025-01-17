@@ -2,6 +2,7 @@
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Enums;
+using Dentistry.ViewModels.Extensions;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;

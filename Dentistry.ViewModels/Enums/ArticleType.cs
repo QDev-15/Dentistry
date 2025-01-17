@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Dentistry.ViewModels.Enums
 {
-    public enum ArtisleType
+    public enum ArticleType
     {
-        [Display(Name = "Bài Viết")]
+        [Display(Name = "Bài Viết", GroupName = "bai-viet")]
         Article,
-        [Display(Name = "Phản hồi")]
+        [Display(Name = "Phản hồi", GroupName = "phan-hoi")]
         FeedBack,
-        [Display(Name = "Tin tức")]
+        [Display(Name = "Tin tức", GroupName = "tin-tuc")]
         News,
-        [Display(Name = "Sản phẩm")]
+        [Display(Name = "Sản phẩm", GroupName = "san-pham")]
         Products
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dentistry.ViewModels.Enums
+namespace Dentistry.ViewModels.Extensions
 {
     public class ObjectEnum
     {

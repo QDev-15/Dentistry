@@ -1,4 +1,5 @@
-﻿using Dentisty.Data.Interfaces;
+﻿using Dentistry.ViewModels.Enums;
+using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Web.Controllers.Components
@@ -11,7 +12,7 @@ namespace Dentistry.Web.Controllers.Components
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var news = await _articleRepository.GetForApplication(ViewModels.Enums.ArtisleType.News);
+            var news = await _articleRepository.GetForApplication(ArticleType.News);
             return View("~/Views/ViewComponents/HomeNews.cshtml", news.Take(3).ToList());
         }
     }

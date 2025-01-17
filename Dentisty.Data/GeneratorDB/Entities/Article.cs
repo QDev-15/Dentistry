@@ -10,7 +10,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string Alias { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public ArtisleType Type { get; set; }
+        public ArticleType Type { get; set; }
         public bool IsActive { get; set; }
         public bool IsDraft { get; set; }
         public Guid CreatedById { get; set; }
