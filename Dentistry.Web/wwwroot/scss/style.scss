@@ -837,7 +837,9 @@ a, p, span {
 .section-slide-service-articles {
     padding: 100px 0;
 
-    
+    .slick-list {
+        margin: 0 40px;
+    }
 
     .doctor-dec {
         text-align: center;
@@ -927,6 +929,22 @@ a, p, span {
         }
     }
 
+    .slick-prev {
+        left: 0px;
+
+        i {
+            padding: 8px 12px;
+        }
+    }
+
+    .slick-next {
+        right: 0px;
+
+        i {
+            padding: 8px 15px;
+        }
+    }
+
     .slick-prev::before, .slick-next::before {
         display: none;
     }
@@ -935,20 +953,8 @@ a, p, span {
         background: #f1bd5096;
     }
 
-    .slick-prev {
-        left: 15px;
-
-        i {
-            padding: 8px 12px;
-        }
-    }
-
-    .slick-next {
-        right: 13px;
-
-        i {
-            padding: 8px 15px;
-        }
+    .slick-next:focus, .slick-prev:focus {
+        background: rgba(241, 189, 80, 0.7529411765);
     }
     /* Responsive adjustments */
     @media (max-width: 768px) {

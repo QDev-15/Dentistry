@@ -732,6 +732,9 @@ a, p, span {
   /* Slick Navigation Arrow styling */
   /* Responsive adjustments */
 }
+.section-slide-service-articles .slick-list {
+  margin: 0 40px;
+}
 .section-slide-service-articles .doctor-dec {
   text-align: center;
   font-size: 16px;
@@ -809,23 +812,26 @@ a, p, span {
   font-size: 24px;
   color: white;
 }
+.section-slide-service-articles .slick-prev {
+  left: 0px;
+}
+.section-slide-service-articles .slick-prev i {
+  padding: 8px 12px;
+}
+.section-slide-service-articles .slick-next {
+  right: 0px;
+}
+.section-slide-service-articles .slick-next i {
+  padding: 8px 15px;
+}
 .section-slide-service-articles .slick-prev::before, .section-slide-service-articles .slick-next::before {
   display: none;
 }
 .section-slide-service-articles .slick-prev:hover, .section-slide-service-articles .slick-next:hover {
   background: rgba(241, 189, 80, 0.5882352941);
 }
-.section-slide-service-articles .slick-prev {
-  left: 15px;
-}
-.section-slide-service-articles .slick-prev i {
-  padding: 8px 12px;
-}
-.section-slide-service-articles .slick-next {
-  right: 13px;
-}
-.section-slide-service-articles .slick-next i {
-  padding: 8px 15px;
+.section-slide-service-articles .slick-next:focus, .section-slide-service-articles .slick-prev:focus {
+  background: rgba(241, 189, 80, 0.7529411765);
 }
 @media (max-width: 768px) {
   .section-slide-service-articles .slide-item {
