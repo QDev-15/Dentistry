@@ -245,6 +245,15 @@ a, p, span {
   text-decoration: unset;
 }
 
+.box_article_title {
+  color: #cf9a2c !important;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 30px !important;
+  text-transform: uppercase;
+  text-decoration: unset;
+}
+
 .box_title_sub {
   font-size: 16px;
   color: activeborder;

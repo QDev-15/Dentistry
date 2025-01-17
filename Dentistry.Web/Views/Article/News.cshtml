@@ -18,7 +18,14 @@
         </ul>
     </div>
 </div>
-
+<div class="container py-3">
+    <div class="box_article_title">
+        @Model.item.Title
+    </div>
+    <div class="box_article_description">
+        @Html.Raw(Model.item.Description)
+    </div>
+</div>
 @* Tin tức liên quan *@
 
 <div class="container">
