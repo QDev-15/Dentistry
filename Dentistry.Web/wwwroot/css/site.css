@@ -29,6 +29,20 @@ body {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.input-validation-error {
+  border: 1px solid #dc3545 !important;
+}
+
+/* Tùy chỉnh cho summary lỗi */
+.validation-summary-errors {
+  color: #ff0000; /* Màu đỏ cho lỗi tổng quát */
+  background-color: #ffe6e6; /* Nền nhạt để nổi bật */
+  border: 1px solid #ff0000; /* Viền màu đỏ */
+  padding: 10px; /* Khoảng cách bên trong */
+  margin-bottom: 15px; /* Khoảng cách phía dưới */
+  border-radius: 5px; /* Bo tròn các góc */
+}
+
 /* Tổng thể slider */
 .slider {
   display: flex;

@@ -90,6 +90,7 @@
     .navbar-mega ul li.nav-li-0 a .title {
         border: 1px solid transparent; /* Đảm bảo không có dịch chuyển */
         outline: none;
+        text-align: center;
         transition: outline 0.3s ease;
         padding: 10px;
     } 

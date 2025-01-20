@@ -1,8 +1,6 @@
 ﻿
 $main: #cf9a2c;
-a, p, span {
-    color: #333333;
-}
+
 .container-main {
     main {
         min-height: 1000px;
@@ -22,7 +20,7 @@ a, p, span {
         border: none;
         background-color: #fff;
         border-radius: 0;
-        height: 500px;
+        min-height: 500px;
     }
 
     .modal-body {

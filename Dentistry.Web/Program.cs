@@ -6,6 +6,9 @@ using Dentistry.Data.Storages;
 using Microsoft.EntityFrameworkCore;
 using Dentisty.Data.Services.System;
 using Dentisty.Data.Common;
+using FluentValidation.AspNetCore;
+using Dentistry.ViewModels.Catalog.Contacts;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +18,12 @@ builder.Services.AddDbContext<DentistryDbContext>(options =>
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
 // Add services to the container.
 builder.Services.AddControllersWithViews()
-    .AddRazorRuntimeCompilation();
+    .AddRazorRuntimeCompilation()
+    .AddFluentValidation(fv =>
+    {
+        fv.RegisterValidatorsFromAssemblyContaining<ContactVmValidator>();
+        fv.DisableDataAnnotationsValidation = true;
+    });
 builder.Services.AddHttpContextAccessor();
 
 // add resource validator

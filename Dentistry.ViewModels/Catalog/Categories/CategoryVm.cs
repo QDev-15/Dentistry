@@ -18,6 +18,7 @@ namespace Dentistry.ViewModels.Catalog.Categories
         public bool IsActive { get; set; } = true;
         public bool IsParent { get; set; } = false;
         public CategoryPosition? Position { set; get; } = CategoryPosition.None;
+        public CategoryType? Type { set; get; } = CategoryType.None;
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string Decription { set; get; }

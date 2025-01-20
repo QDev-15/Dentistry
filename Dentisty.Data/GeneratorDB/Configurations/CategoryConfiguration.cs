@@ -20,6 +20,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Alias).IsRequired();
             builder.Property(x => x.Position).IsRequired().HasDefaultValue(CategoryPosition.None);
             builder.Property(x => x.Sort).IsRequired().HasDefaultValue(0);
+            builder.Property(x => x.Type).IsRequired().HasDefaultValue(CategoryType.None);
             builder.Property(x => x.IsActive).HasDefaultValue(true);
             builder.Property(x => x.IsParent).HasDefaultValue(false);
             builder.Property(x => x.ParentId).HasDefaultValue(null);

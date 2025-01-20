@@ -7,14 +7,20 @@ namespace Dentistry.Web.Controllers.Components
 {
     public class OnLoadPageModalViewComponent : ViewComponent
     {
-        public OnLoadPageModalViewComponent()
+        private readonly IAppSettingRepository _settingRepository;
+        public OnLoadPageModalViewComponent(IAppSettingRepository appSettingRepository)
         {
+            _settingRepository = appSettingRepository;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var result = new ContactVm();
-            return View("~/Views/ViewComponents/_onLoadPageModal.cshtml", result);
+            var setting = await _settingRepository.GetById(1);
+            if (setting != null) {
+                ViewData["Hotline"] = setting?.HotlineHaNoi;
+            }
+
+            return View("~/Views/ViewComponents/_onLoadPageModal.cshtml");
         }
     }
 }

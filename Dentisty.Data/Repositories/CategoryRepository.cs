@@ -59,6 +59,8 @@ namespace Dentisty.Data.Repositories
                     IsActive = model.IsActive,
                     IsParent = model.IsParent,
                     ParentId = model.ParentId,
+                    Position = model.Position,
+                    Type = model.Type,
                     Sort = model.Sort,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
@@ -99,6 +101,7 @@ namespace Dentisty.Data.Repositories
                     category.IsActive = model.IsActive;
                     category.IsParent = model.IsParent;
                     category.Position = model.Position;
+                    category.Type = model.Type;
                     if (category.ParentId != null)
                     {
                         category.ParentId = model.ParentId;

@@ -201,6 +201,7 @@ namespace Dentisty.Data
                 CreatedDate = item.CreatedDate,
                 Decription = item.Description,
                 Position = item.Position,
+                Type = item.Type,
                 IsParent = item.IsParent,
                 UserId = item.UserId,
                 Image = item.Image.ReturnViewModel(),
