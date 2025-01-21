@@ -1,16 +1,20 @@
 ﻿
 $(document).ready(function () {
     $('#contactActiveTable').DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        pageLength: 5
+        paging: true,       // Bật phân trang
+        searching: true,    // Bật tìm kiếm
+        ordering: true,     // Bật sắp xếp
+        responsive: true,   // Hỗ trợ responsive
+        pageLength: 10,     // Số item mặc định hiển thị (ví dụ: 10 dòng)
+        lengthMenu: [5, 10, 25, 50, 100], // Các tùy chọn cho số item hiển thị
     });
     $('#contactInActiveTable').DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        pageLength: 5
+        paging: true,       // Bật phân trang
+        searching: true,    // Bật tìm kiếm
+        ordering: true,     // Bật sắp xếp
+        responsive: true,   // Hỗ trợ responsive
+        pageLength: 10,     // Số item mặc định hiển thị (ví dụ: 10 dòng)
+        lengthMenu: [5, 10, 25, 50, 100], // Các tùy chọn cho số item hiển thị
     });
     $(document).on('click', '.contact-accept-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới

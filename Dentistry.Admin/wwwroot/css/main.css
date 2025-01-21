@@ -69,6 +69,9 @@ html, body {
     text-align: right;
 }
 
+#section-contact td.align-middle .btn {
+    margin: 2px;
+}
 #tabMenu {
     background: #efefed;
 }

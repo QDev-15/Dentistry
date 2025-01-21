@@ -14,7 +14,7 @@
                     <th>Điện thoại</th>
                     <th>Email</th>
                     <th>Ngày gửi</th>
-                    <th>Actions</th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,7 @@
                         <td class="align-middle">@item.PhoneNumber</td>
                         <td class="align-middle">@item.Email</td>
                         <td class="align-middle">@item.CreatedDate</td>
-                        <td class="align-middle">
+                        <td class="align-middle text-center">
                             <button class="btn btn-sm btn-warning contact-accept-btn" data-id="@item.Id">Duyệt</button>
                             <button class="btn btn-sm btn-info contact-view-btn" data-bs-toggle="modal" data-bs-target="#viewContactModal" data-id="@item.Id">Xem</button>
                         </td>
@@ -50,8 +50,9 @@
                     <th>Điện thoại</th>
                     <th>Email</th>
                     <th>Ngày gửi</th>
+                    <th>Ngày xử lý</th>
                     <th>Người xử lý</th>
-                    <th>Actions</th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,8 +64,9 @@
                         <td class="align-middle">@item.PhoneNumber</td>
                         <td class="align-middle">@item.Email</td>
                         <td class="align-middle">@item.CreatedDate</td>
+                        <td class="align-middle">@item.UpdatedDate</td>
                         <td class="align-middle">@item.ProcessBy?.DisplayName</td>
-                        <td class="align-middle">
+                        <td class="align-middle text-center">
                             <button class="btn btn-sm btn-info contact-view-btn" data-bs-toggle="modal" data-bs-target="#viewContactModal" data-id="@item.Id">Xem</button>
                         </td>
                     </tr>
