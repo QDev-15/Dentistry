@@ -9,7 +9,7 @@ namespace Dentistry.ViewModels.Enums
 {
     public enum CategoryType
     {
-        [Display(Name = "default", GroupName = "default")]
+        [Display(Name = "Chưa xác định", GroupName = "default")]
         None,
         [Display(Name = "Dịch vụ", GroupName = "dich-vu")]
         Service,

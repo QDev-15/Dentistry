@@ -10,6 +10,7 @@ namespace Dentistry.ViewModels.Catalog.Contacts
         public string Email { set; get; }
         public string PhoneNumber { set; get; }
         public string Message { set; get; }
+        public string Note { set; get; }
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

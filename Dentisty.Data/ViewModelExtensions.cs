@@ -129,10 +129,11 @@ namespace Dentisty.Data
             var vm = new ContactVm()
             {
                 CreatedDate = item.CreatedDate,
-                Email = item.Email,
+                Email = item.Email ?? "",
                 Id = item.Id,
                 IsActive = item.IsActive,
                 Message = item.Message,
+                Note = item.Note ?? "",
                 Name = item.Name,
                 PhoneNumber = item.PhoneNumber,
                 UpdatedDate = item.UpdatedDate,
@@ -162,9 +163,9 @@ namespace Dentisty.Data
             {
                 Id = item.Id,
                 Name = item.Name,
-                Caption = item.Caption,
-                SubName = item.SubName,
-                Description = item.Description,
+                Caption = item.Caption ?? "",
+                SubName = item.SubName ?? "",
+                Description = item.Description ?? "",
                 Image = item.Image == null ? new ImageVm() : new ImageVm()
                 {
                     Id = item.Image.Id,
@@ -199,7 +200,7 @@ namespace Dentisty.Data
                 ImageId = item.ImageId,
                 UpdatedDate = item.UpdatedDate,
                 CreatedDate = item.CreatedDate,
-                Decription = item.Description,
+                Decription = item.Description ?? "",
                 Position = item.Position,
                 Type = item.Type,
                 IsParent = item.IsParent,

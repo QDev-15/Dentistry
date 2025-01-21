@@ -18,6 +18,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Email).HasMaxLength(200).IsRequired(false);
             builder.Property(x => x.PhoneNumber).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Message).IsRequired();
+            builder.Property(x => x.Note).IsRequired(false);
             builder.Property(x => x.CreatedDate).IsRequired();
             builder.Property(x => x.IsActive).HasDefaultValue(true);
             builder.HasOne(x=> x.Branches).WithMany(x => x.Contacts).HasForeignKey(x => x.BranchesId).OnDelete(DeleteBehavior.SetNull).IsRequired(false);

@@ -17,7 +17,7 @@
 </div>
 <div class="modal-body">
     <div class="add-edit-category p-3">
-        <form id="addEditCategoryForm" asp-action="AddEdit" asp-controllder="Category" enctype="multipart/form-data" method="post">
+        <form id="addEditCategoryForm" asp-action="AddEdit" asp-controller="Category" enctype="multipart/form-data" method="post">
             <input type="hidden" asp-for="@Model.item.Id" />
             <input type="hidden" asp-for="@Model.item.IsParent" />
             <div class="form-group">
@@ -33,6 +33,12 @@
             <div class="form-group">
                 <label asp-for="@Model.item.Sort" class="form-label">Thứ tự</label>
                 <input type="number" class="form-control ps-2" asp-for="@Model.item.Sort" />
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.item.Type" class="form-label">Loại danh mục</label>
+                <select asp-for="@Model.item.Type" asp-items="@(IEnumerable<SelectListItem>)ViewBag.CategoryType" class="form-control">
+                    <option value="">-- Chọn loại danh mục  --</option>
+                </select>
             </div>
             @{
                 if (Model.item.IsParent) {

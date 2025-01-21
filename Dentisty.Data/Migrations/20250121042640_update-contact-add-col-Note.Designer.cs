@@ -4,6 +4,7 @@ using Dentistry.Data.GeneratorDB.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dentisty.Data.Migrations
 {
     [DbContext(typeof(DentistryDbContext))]
-    partial class DentistryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250121042640_update-contact-add-col-Note")]
+    partial class updatecontactaddcolNote
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

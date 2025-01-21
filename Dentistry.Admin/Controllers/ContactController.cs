@@ -1,5 +1,10 @@
-﻿using Dentistry.ViewModels.Common;
+﻿using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Catalog.Contacts;
+using Dentistry.ViewModels.Common;
+using Dentistry.ViewModels.Enums;
+using Dentisty.Data;
 using Dentisty.Data.Interfaces;
+using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Admin.Controllers
@@ -21,10 +26,42 @@ namespace Dentistry.Admin.Controllers
             return ViewComponent("ContactList");
         }
         [HttpGet]
+        public async Task<IActionResult> View(int id)
+        {
+            if (id == 0)
+            {
+                return Json(new ErrorResult<bool>("Không tìm thấy yêu cầu."));
+            }
+            else
+            {
+                var item = await _contactRepository.GetByIdAsync(id);
+
+                return PartialView("~/Views/Contact/Partial/_view.cshtml", item.ReturnViewModel());
+            }
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Save(ContactVm model)
+        {
+            try
+            {
+                await _contactRepository.Update(model);
+                return Json(new SuccessResult<bool>());
+            }
+            catch (Exception ex) {
+                return Json(new ErrorResult<bool>(ex.Message));
+            }
+        }
+        [HttpGet]
         public async Task<IActionResult> Process(int id) {
-            
-            await _contactRepository.Process(id);
-            return Json(new SuccessResult<bool>());
+            try
+            {
+                await _contactRepository.Process(id);
+                return Json(new SuccessResult<bool>());
+            } catch (Exception ex)
+            {
+                return Json(new ErrorResult<bool>(ex.Message));
+            }
         }
     }
 }

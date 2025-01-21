@@ -47,6 +47,7 @@ namespace Dentistry.Admin.Controllers
                 categoryAddEdit.parrents = (await _categoryRepository.GetParents()).Select(x => x.ReturnViewModel()).ToList();
             }
             ViewBag.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>();
+            ViewBag.CategoryType = EnumExtensions.ToSelectList<CategoryType>();
           
             return PartialView("~/Views/Category/Partial/_AddEdit.cshtml", categoryAddEdit);
         }

@@ -13,6 +13,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string? Email { set; get; }
         public string PhoneNumber { set; get; }
         public string Message { set; get; }
+        public string? Note { set; get; }
         public bool IsActive { get; set; }
         public Guid? ProcessById { set; get; }
         public int? BranchesId { set; get; }

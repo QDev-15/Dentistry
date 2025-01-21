@@ -31,7 +31,7 @@ namespace Dentisty.Data.Repositories
                 {
                     CreatedDate = DateTime.Now,
                     Email = vm.Email,
-                    IsActive = vm.IsActive,
+                    IsActive = true,
                     Message = vm.Message,
                     Name = vm.Name,
                     PhoneNumber = vm.PhoneNumber,
@@ -51,7 +51,7 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<Contact>> GetAll(bool isActive)
         {
-            var contacts = await _context.Contacts.Where(x => x.IsActive).Include(x => x.ProcessBy).ToListAsync();
+            var contacts = await _context.Contacts.Where(x => x.IsActive == isActive).Include(x => x.ProcessBy).ToListAsync();
             return contacts;
         }
 
@@ -67,16 +67,23 @@ namespace Dentisty.Data.Repositories
 
         public async Task<bool> Process(int id)
         {
-            var contact = await GetByIdAsync(id);
-            if (contact != null)
+            try
             {
-                contact.IsActive = false;
-                contact.ProcessById = new Guid(_loggerRepository.GetCurrentUserId());
-                UpdateAsync(contact);
-                await SaveChangesAsync();
-                return true;    
+                var contact = await GetByIdAsync(id);
+                if (contact != null)
+                {
+                    contact.IsActive = false;
+                    contact.ProcessById = new Guid(_loggerRepository.GetCurrentUserId());
+                    UpdateAsync(contact);
+                    await SaveChangesAsync();
+                    return true;
+                }
+                throw new Exception("Không tìm thấy yêu cầu. Xin vui lòng thử lại.");
+            } catch (Exception ex)
+            {
+                _loggerRepository.QueueLog(ex.Message, "Process Contact: userId = ", _loggerRepository.GetCurrentUserId());
+                throw new Exception("Lỗi không thể duyệt. Xin vui lòng thử lại sau.");
             }
-            return false;
         }
 
         public async Task<ContactVm> Update(ContactVm vm)
@@ -87,6 +94,7 @@ namespace Dentisty.Data.Repositories
                 if (contact != null)
                 {
                     contact.IsActive = vm.IsActive;
+                    contact.Note = vm.Note;
                     contact.UpdatedDate = DateTime.Now;
                     contact.ProcessById = new Guid(_loggerRepository.GetCurrentUserId());
                     UpdateAsync(contact);
@@ -98,7 +106,7 @@ namespace Dentisty.Data.Repositories
             catch (Exception ex)
             {
                 _loggerRepository.QueueLog(ex.Message);
-                throw new Exception(ex.Message);
+                throw new Exception("Lỗi cập nhât.");
             }
         }
     }
