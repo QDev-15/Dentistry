@@ -23,5 +23,7 @@ namespace Dentistry.ViewModels.Enums
         Support,
         [Display(Name = "Giới thiệu", GroupName = "gioi-thieu")]
         About,
+        [Display(Name = "Tư vấn", GroupName = "tu-van")]
+        advise,
     }
 }

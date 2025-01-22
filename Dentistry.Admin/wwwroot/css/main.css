@@ -63,7 +63,9 @@ html, body {
     padding: 15px;
 }
 
-
+#sidebarToggle {
+    margin-left: 10px;
+}
 #viewContactForm .col-name {
     padding: 5px 10px;
     text-align: right;

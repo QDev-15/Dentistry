@@ -22,13 +22,12 @@
             <input type="hidden" asp-for="@Model.item.IsParent" />
             <div class="form-group">
                 <label asp-for="@Model.item.Name" class="form-label">Tên</label>
-                <input type="text" class="form-control ps-2" asp-for="@Model.item.Name" required />
+                <input type="text" class="form-control ps-2" asp-for="@Model.item.Name" />
                 <span asp-validation-for="@Model.item.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.item.Alias" class="form-label">Tên rút gọn</label>
-                <input type="text" class="form-control ps-2" asp-for="@Model.item.Alias" required/>
-                <span asp-validation-for="@Model.item.Alias" class="text-danger"></span>
+                <input type="text" class="form-control ps-2" asp-for="@Model.item.Alias"/>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.item.Sort" class="form-label">Thứ tự</label>
@@ -36,15 +35,16 @@
             </div>
             <div class="form-group">
                 <label asp-for="@Model.item.Type" class="form-label">Loại danh mục</label>
-                <select asp-for="@Model.item.Type" asp-items="@(IEnumerable<SelectListItem>)ViewBag.CategoryType" class="form-control">
+                <select asp-for="@Model.item.Type" asp-items="@Model.CategoryType" class="form-control">
                     <option value="">-- Chọn loại danh mục  --</option>
                 </select>
+                <span asp-validation-for="@Model.item.Type" class="text-danger"></span>
             </div>
             @{
                 if (Model.item.IsParent) {
                     <div class="form-group">
                         <label asp-for="@Model.item.Position" class="form-label">Vị trí</label>
-                        <select asp-for="@Model.item.Position" asp-items="@(IEnumerable<SelectListItem>)ViewBag.CategoryPositions" class="form-control">
+                        <select asp-for="@Model.item.Position" asp-items="@Model.CategoryPositions" class="form-control">
                             <option value="">-- Chọn vị trí --</option>
                         </select>
                     </div>

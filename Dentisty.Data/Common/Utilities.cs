@@ -1,17 +1,13 @@
-﻿using Azure.Core;
-using Dentistry.Data.GeneratorDB.Entities;
+﻿using Dentistry.Data.GeneratorDB.Entities;
+using Dentistry.ViewModels.Catalog.Categories;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Globalization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Dentisty.Data.Common
 {
@@ -70,6 +66,37 @@ namespace Dentisty.Data.Common
             }
 
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
+
+
+        public static async Task<string> RenderViewToStringAsync(
+            this Controller controller, // `this` chỉ định đây là extension method
+            ICompositeViewEngine viewEngine,
+            string viewName,
+            object model)
+        {
+            controller.ViewData.Model = model;
+
+            using (var writer = new StringWriter())
+            {
+                var viewResult = viewEngine.FindView(controller.ControllerContext, viewName, false);
+                if (!viewResult.Success)
+                {
+                    throw new InvalidOperationException($"View {viewName} not found");
+                }
+
+                var viewContext = new ViewContext(
+                    controller.ControllerContext,
+                    viewResult.View,
+                    controller.ViewData,
+                    controller.TempData,
+                    writer,
+                    new HtmlHelperOptions()
+                );
+
+                await viewResult.View.RenderAsync(viewContext);
+                return writer.ToString();
+            }
         }
 
     }

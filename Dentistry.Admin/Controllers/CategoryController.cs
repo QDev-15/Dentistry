@@ -1,23 +1,30 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Slide;
+using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
 using Dentistry.ViewModels.Extensions;
 using Dentisty.Data;
+using Dentisty.Data.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace Dentistry.Admin.Controllers
 {
     public class CategoryController : BaseController
     {
         private readonly ICategoryReposiroty _categoryRepository;
+        private readonly ICompositeViewEngine _compositeViewEngine;
 
-        public CategoryController(ICategoryReposiroty categoryRepository)
+        public CategoryController(ICategoryReposiroty categoryRepository, ICompositeViewEngine viewE)
         {
             _categoryRepository = categoryRepository;
+            _compositeViewEngine = viewE;
         }
         public async Task<IActionResult> Index()
         {
@@ -46,9 +53,8 @@ namespace Dentistry.Admin.Controllers
             {
                 categoryAddEdit.parrents = (await _categoryRepository.GetParents()).Select(x => x.ReturnViewModel()).ToList();
             }
-            ViewBag.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>();
-            ViewBag.CategoryType = EnumExtensions.ToSelectList<CategoryType>();
-          
+            categoryAddEdit.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>();
+            categoryAddEdit.CategoryType = EnumExtensions.ToSelectList<CategoryType>();
             return PartialView("~/Views/Category/Partial/_AddEdit.cshtml", categoryAddEdit);
         }
         [HttpPost]
@@ -56,7 +62,16 @@ namespace Dentistry.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Invalid data");
+                string html = await this.RenderViewToStringAsync(
+                    _compositeViewEngine,
+                    "Partial/_AddEdit.cshtml",
+                    model
+                );
+                return Json(new ErrorResult<bool>()
+                {
+                    data = html,
+                    Message = "validate error"
+                });
             }
 
             //model.item.Alias = model.item.Name.ToSlus();
@@ -65,7 +80,7 @@ namespace Dentistry.Admin.Controllers
             {
                 checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Name.ToSlus(), model.item.Id);
                 if (checkAlis) {
-                    return Json(new { success = false, message = "Tên rút gọn đã tồn tại." });
+                    return Json(new ErrorResult<bool>() { Message = "Tên rút gọn đã tồn tại." });
                 }
                 model.item.Alias = model.item.Name.ToSlus();
             }
@@ -80,7 +95,7 @@ namespace Dentistry.Admin.Controllers
                 var slide = await _categoryRepository.UpdateCategory(model.item);
             }
 
-            return Json(new { success = true });
+            return Json(new SuccessResult<bool>());
         }
     }
 }

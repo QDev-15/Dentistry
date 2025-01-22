@@ -1,15 +1,12 @@
 ﻿const defaultClassForSpinner = "layout-main-content";
 
-
-
-
-
 // Documents 
 $(document).ready(function () {
     document.addEventListener('hidden.bs.modal', function (event) {
         const backdrops = document.querySelectorAll('.modal-backdrop');
         backdrops.forEach(backdrop => backdrop.remove());
     });
+
 });
 
 
@@ -18,7 +15,7 @@ $(document).ready(function () {
 // for details on configuring this project to bundle and minify static web assets.
 
 // Handle back/forward navigation
-window.onpopstate = function () {
+window.onpopstate = function () {                                                                                                                                         ``
     const url = window.location.pathname;
     $('#layoutSidenav_content main').load(url);
 };
