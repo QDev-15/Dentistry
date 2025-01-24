@@ -9,7 +9,7 @@ namespace Dentistry.ViewModels.Catalog.Categories
 {
     public class CategoryDetailVm
     {
-        public CategoryVm item { set; get; }  = new CategoryVm();
+        public CategoryVm category { set; get; }  = new CategoryVm();
         public List<ArticleVm> articles { set; get; } = new List<ArticleVm>();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

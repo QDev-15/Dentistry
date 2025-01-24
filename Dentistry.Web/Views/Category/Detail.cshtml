@@ -8,22 +8,28 @@
 
 @model CategoryDetailVm
 <div class="container-fluid image-banner p-0">
-    <img src="@Model.item.Image?.Path" />
+    <img src="@Model.category.Image?.Path" />
 </div>
 <div class="container-fluid">
     <div class="container box_breadcrumb">
         <ul class="breadcrumb">
             <li><a href="/">Trang chủ</a></li>
-            <li><a href="/danh-muc/@Model.item.Alias" title="@Model.item.Name">@Model.item.Name</a></li>
+            <li><a asp-action="Detail" asp-asp-controller="Category"
+                    asp-route-danhmuc="@Model.category.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Alias"
+                    title="@Model.category.Name">
+                    @Model.category.Name
+                </a>
+            </li>
         </ul>
     </div>
 </div>
 @{
-    if (Model.item.ChildCategories.Any()) {
+    if (Model.category.ChildCategories.Any())
+    {
         <div class="container-fluid p-0 box_categories">
             <div class="container">
                 @{
-                    Html.RenderPartial("~/Views/ViewComponents/HomeCategory.cshtml", @Model.item.ChildCategories.ToList());
+                    Html.RenderPartial("~/Views/ViewComponents/HomeCategory.cshtml", @Model.category.ChildCategories.ToList());
                 }
             </div>
         </div>
@@ -43,12 +49,20 @@
                 <div class="col-sm-3 col-6">
                     <div class="item pt-5">
                         <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
-                            <a href="/@type/@item.Alias" title="@item.Title">
+                            <a asp-action="Detail" asp-asp-controller="Category"
+                                asp-route-danhmuc="@Model.category.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Alias"
+                                title="@item.Title">
                                 <span>Xem thêm</span>
                             </a>
                         </div>
                         <div class="info pt-5">
-                            <h3 class="title"><a href="/@type/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
+                            <h3 class="title">
+                                <a asp-action="Detail" asp-asp-controller="Category"
+                                   asp-route-danhmuc="@Model.category.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Alias"
+                                   title="@item.Title">
+                                   @item.Title.LimitTo(50, "...")
+                                </a>
+                            </h3>
                             <div class="desc">@item.Description.LimitTo(200, "...")</div>
                         </div>
                     </div>

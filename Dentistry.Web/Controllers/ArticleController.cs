@@ -16,6 +16,12 @@ namespace Dentistry.Web.Controllers
         {
             return View();
         }
+        [HttpGet("tim-kiem")]
+        public async Task<IActionResult> ListArticle(string keyWord)
+        {
+            var baiviets = await _articleRepository.GetForSearch(keyWord);
+            return View(baiviets);
+        }
         [HttpGet("bai-viet/{alias}")]
         public async Task<IActionResult> Articles(string alias)
         {

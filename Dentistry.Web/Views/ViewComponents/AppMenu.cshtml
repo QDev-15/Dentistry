@@ -1,4 +1,5 @@
-﻿@model MenuView
+﻿@using Dentistry.ViewModels.Enums
+@model MenuView
 
 
 <nav class="navbar navbar-mega navbar-expand-lg navbar-toggleable-lg box-shadow navbar-light ">
@@ -23,7 +24,7 @@
                     if (item.ChildCategories.Any())
                     {
                         <li class="nav-item nav-li-0 has-child dropdown">
-                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@item.Alias">
+                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
                                 <span class="title dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @item.Name
                                 </span>
@@ -40,7 +41,7 @@
                                                 {
 
                                                     <li class="nav-item">
-                                                        <a class="nav-link" asp-area="" asp-controller="Category"  asp-action="Detail" asp-route-alias="@child.Alias">@child.Name</a>
+                                                        <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
                                                     </li>
                                                 }
                                             </ul>
@@ -53,7 +54,7 @@
                     else
                     {
                         <li class="nav-item nav-li-0">
-                            <a class="nav-link" role="button" asp-area="" asp-controller="Category"  asp-action="Detail" asp-route-alias="@item.Alias">
+                            <a class="nav-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
                                 <span class="title">
                                     @item.Name
                                 </span>
@@ -71,7 +72,7 @@
                     if (item.ChildCategories.Any())
                     {
                         <li class="nav-item nav-li-0 has-child dropdown">
-                            <a class="nav-link" asp-area="" asp-controller="Category"  asp-action="Detail" asp-route-alias="@item.Alias">
+                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
                                 <span class="title dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @item.Name
                                 </span>
@@ -88,7 +89,7 @@
                                                 {
 
                                                     <li class="nav-item">
-                                                        <a class="nav-link" asp-area="" asp-controller="Category"  asp-action="Detail" asp-route-alias="@child.Alias">@child.Name</a>
+                                                        <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
                                                     </li>
                                                 }
                                             </ul>
@@ -101,7 +102,7 @@
                     else
                     {
                         <li class="nav-item nav-li-0">
-                            <a class="nav-link" role="button" asp-area="" asp-controller="Category"  asp-action="Detail" asp-route-alias="@item.Alias">
+                            <a class="nav-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
                                 <span class="title">
                                     @item.Name
                                 </span>

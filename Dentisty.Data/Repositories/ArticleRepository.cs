@@ -283,5 +283,12 @@ namespace Dentisty.Data.Repositories
             var articles = await _context.Articles.Where(x => x.CategoryId == id).Include(x => x.Images).ToListAsync();
             return articles.Select(x => x.ReturnViewModel());
         }
+
+        public async Task<IEnumerable<ArticleVm>> GetForSearch(string keyWord)
+        {
+            if (string.IsNullOrWhiteSpace(keyWord)) return Enumerable.Empty<ArticleVm>();
+            var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).ToListAsync();
+            return articles.Select(x => x.ReturnViewModel());
+        }
     }
 }
