@@ -264,7 +264,10 @@ $main: #cf9a2c;
 .bg-custom {
     background: #231f20;
 }
-
+.desc, .carousel-text-description {
+    text-indent: 1em; /* Thụt đầu dòng tương đương 1 tab */
+    line-height: 1.6; /* Tăng khoảng cách dòng cho dễ đọc */
+}
 .b-divider {
     height: 20px;
 }
@@ -1154,6 +1157,12 @@ $main: #cf9a2c;
 
     .container {
         min-height: 500px !important;
+        display: flex;
+        flex-direction: column;
+
+        .content {
+            flex: 1;
+        }
     }
 
     .footer__logo img {
@@ -1171,10 +1180,20 @@ $main: #cf9a2c;
         color: #E4BC5D;
     }
 
-    .footer__nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
+    .footer__nav {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        div > ul {
+            padding-left: 10px;
+
+            .branches > span {
+                font-weight: bold;
+            }
+        }
     }
 
     .footer__nav ul li {

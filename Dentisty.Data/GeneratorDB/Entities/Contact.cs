@@ -17,6 +17,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public bool IsActive { get; set; }
         public Guid? ProcessById { set; get; }
         public int? BranchesId { set; get; }
+        public DateTime? TimeBook { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public AppUser ProcessBy { set; get; }

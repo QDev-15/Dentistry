@@ -12,6 +12,8 @@ namespace Dentistry.ViewModels.Catalog.Contacts
         public string Message { set; get; }
         public string Note { set; get; }
         public bool IsActive { get; set; }
+        public int? BranchesId { set; get; }
+        public DateTime? TimeBook { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public UserVm? ProcessBy {  set; get; }

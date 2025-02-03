@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Web.Controllers.Components
 {
     public class AppContactViewComponent : ViewComponent
     {
-        public AppContactViewComponent() { 
+        private readonly IBranchesRepository _branchesRepository;
+        public AppContactViewComponent(IBranchesRepository branchesRepository) {
+            _branchesRepository = branchesRepository;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View("~/Views/ViewComponents/AppContact.cshtml");
+            var branches = await _branchesRepository.GetActive();
+            return View("~/Views/ViewComponents/AppContact.cshtml", branches);
         }
     }
     

@@ -17,7 +17,7 @@
                 var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
                 <div class="col-sm-4 col-6">
                     <div class="item pt-5">
-                        <div class="image" style="background: url('@imgPath')">
+                        <div class="image" style="background: url('@imgPath') no-repeat; background-size: cover;">
                             <a href="/phan-hoi/@item.Alias" title="@item.Title">
                                 <span>Xem thêm</span>
                             </a>

@@ -1,6 +1,4 @@
-﻿using Dentisty.Data.Repositories;
-using Dentistry.ViewModels.Catalog.Categories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Dentistry.ViewModels.Catalog.Contacts;
 using Dentisty.Data.Interfaces;
 using Dentistry.ViewModels.Common;
@@ -11,12 +9,21 @@ namespace Dentistry.Web.Controllers
     public class ContactController : BaseController
     {
         private readonly IContactRepository _contactRepository;
-        public ContactController(IContactRepository contactRepository, ICompositeViewEngine viewEngine):base(viewEngine) { 
+        private readonly IBranchesRepository _branchesRepository;
+        public ContactController(IContactRepository contactRepository, IBranchesRepository branchesRepository, ICompositeViewEngine viewEngine):base(viewEngine) { 
             _contactRepository = contactRepository; 
+            _branchesRepository = branchesRepository;
         }
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LoadBookForm()
+        {
+            var branches = await _branchesRepository.GetActive();
+            return View("~/Views/Contact/Partials/BookForm.cshtml", branches);
         }
 
         [HttpPost]

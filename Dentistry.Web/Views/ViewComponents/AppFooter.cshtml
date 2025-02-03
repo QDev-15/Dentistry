@@ -3,9 +3,9 @@
 
 <footer class="footer">
     <div class="container">
-        <div class="row">
+        <div class="row content">
             <!-- Logo -->
-            <div class="col-12 col-md-4 order-1 order-md-0 mb-3 mb-md-0 text-center text-md-start">
+            <div class="col-12 col-md-4 order-1 order-md-0 mb-3 mb-md-0 d-flex justify-content-center align-items-center">
                 <a href="/" class="footer__logo">
                     <img src="~/assets/logo/LOGO NHIÊN DENTAL CLINIC DONE-01.jpg" alt="Logo">
                 </a>
@@ -14,19 +14,19 @@
             <!-- Navigation -->
             <div class="col-12 col-md-8 order-2">
                 <div class="row footer__nav">
-                    <div class="col-md-4">
+                    <div class="col-md-4 p-3">
                         <h5 class="mb-3">Hotline</h5>
                         <ul>
-                            <li>Hà Nội: <a href="tel:@Model.setting.HotlineHaNoi">@Model.setting.HotlineHaNoi</a></li>
+                            <li> <span>Hà Nội: <a href="tel:@Model.setting.HotlineHaNoi">@Model.setting.HotlineHaNoi</a></span></li>
                         </ul>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 p-3">
                         <h5 class="mb-3">Hệ Thống Nha Khoa</h5>
                         <ul>
                             @foreach (var item in Model.branches)
                             {
                                 <li class="branches">
-                                    @item.Name
+                                    <span>@item.Name</span>
                                     <ul>
                                         <li class="branches-address">Địa chỉ: @item.Address</li>
                                         <li class="branches-phone" >Điện thoại: @item.PhoneNumber</li>
@@ -35,7 +35,7 @@
                             }
                         </ul>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 p-3">
                         <h5 class="mb-3">Follow us</h5>
                         <div class="social-icons">
                             @if (!string.IsNullOrEmpty(Model.setting.Instagram))

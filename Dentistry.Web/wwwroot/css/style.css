@@ -227,6 +227,11 @@
   background: #231f20;
 }
 
+.desc, .carousel-text-description {
+  text-indent: 1em; /* Thụt đầu dòng tương đương 1 tab */
+  line-height: 1.6; /* Tăng khoảng cách dòng cho dễ đọc */
+}
+
 .b-divider {
   height: 20px;
 }
@@ -990,6 +995,11 @@
 }
 .footer .container {
   min-height: 500px !important;
+  display: flex;
+  flex-direction: column;
+}
+.footer .container .content {
+  flex: 1;
 }
 .footer .footer__logo img {
   max-width: 150px;
@@ -1007,6 +1017,12 @@
   list-style: none;
   padding: 0;
   margin: 0;
+}
+.footer .footer__nav div > ul {
+  padding-left: 10px;
+}
+.footer .footer__nav div > ul .branches > span {
+  font-weight: bold;
 }
 .footer .footer__nav ul li {
   margin-bottom: 10px;
