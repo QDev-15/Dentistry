@@ -17,6 +17,23 @@
                     <td class="col-name">Tên:</td>
                     <td class="col-des">@Model.Name</td>
                 </tr>
+                @{
+                    if (Model.TimeBook == null) {
+                        <tr>
+                            <td class="col-name">Yêu cầu:</td>
+                            <td class="col-des">Tư vấn</td>
+                        </tr>
+                    } else {
+                        <tr>
+                            <td class="col-name">Yêu cầu:</td>
+                            <td class="col-des">Đặt lịch khám</td>
+                        </tr>
+                        <tr>
+                            <td class="col-name">Cơ sở khám:</td>
+                            <td class="col-des">@Model.Branch.Name</td>
+                        </tr>
+                    }
+                }
                 <tr>
                     <td class="col-name">Điện thoại:</td>
                     <td class="col-des">@Model.PhoneNumber</td>

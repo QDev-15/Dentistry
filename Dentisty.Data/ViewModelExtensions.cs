@@ -133,6 +133,8 @@ namespace Dentisty.Data
                 Id = item.Id,
                 IsActive = item.IsActive,
                 Message = item.Message,
+                TimeBook = item.TimeBook,
+                Branch = item.Branches.ReturnViewModel(),
                 Note = item.Note ?? "",
                 Name = item.Name,
                 PhoneNumber = item.PhoneNumber,

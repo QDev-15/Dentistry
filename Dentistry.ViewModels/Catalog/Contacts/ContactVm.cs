@@ -1,4 +1,5 @@
 ﻿
+using Dentistry.ViewModels.Catalog.Branches;
 using Dentistry.ViewModels.System.Users;
 
 namespace Dentistry.ViewModels.Catalog.Contacts
@@ -12,6 +13,7 @@ namespace Dentistry.ViewModels.Catalog.Contacts
         public string Message { set; get; }
         public string Note { set; get; }
         public bool IsActive { get; set; }
+        public BranchesVm Branch { set; get; }
         public int? BranchesId { set; get; }
         public DateTime? TimeBook { get; set; }
         public DateTime CreatedDate { get; set; }

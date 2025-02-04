@@ -11,6 +11,7 @@
             <thead>
                 <tr>
                     <th>Tên</th>
+                    <th>Đặt lịch/Tư vấn</th>
                     <th>Điện thoại</th>
                     <th>Email</th>
                     <th>Ngày gửi</th>
@@ -23,6 +24,16 @@
                 {
                     <tr>
                         <td class="align-middle">@item.Name</td>
+                        <td class="align-middle">
+                            @{
+                                if (item.TimeBook == null)
+                                {
+                                    <span>"Tư vấn"</span>
+                                } else {
+                                    <span>"Đặt lịch khám"</span>
+                                }
+                            }
+                        </td>
                         <td class="align-middle">@item.PhoneNumber</td>
                         <td class="align-middle">@item.Email</td>
                         <td class="align-middle">@item.CreatedDate</td>
@@ -47,6 +58,7 @@
             <thead>
                 <tr>
                     <th>Tên</th>
+                    <th>Đặt lịch/Tư vấn</th>
                     <th>Điện thoại</th>
                     <th>Email</th>
                     <th>Ngày gửi</th>
@@ -61,6 +73,18 @@
                 {
                     <tr>
                         <td class="align-middle">@item.Name</td>
+                        <td class="align-middle">
+                            @{
+                                if (item.TimeBook == null)
+                                {
+                                    <span>"Tư vấn"</span>
+                                }
+                                else
+                                {
+                                    <span>"Đặt lịch khám"</span>
+                                }
+                            }
+                        </td>
                         <td class="align-middle">@item.PhoneNumber</td>
                         <td class="align-middle">@item.Email</td>
                         <td class="align-middle">@item.CreatedDate</td>

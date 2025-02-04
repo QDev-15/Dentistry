@@ -53,18 +53,18 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<Contact>> GetAll(bool isActive)
         {
-            var contacts = await _context.Contacts.Where(x => x.IsActive == isActive).Include(x => x.ProcessBy).ToListAsync();
+            var contacts = await _context.Contacts.Where(x => x.IsActive == isActive).Include(x => x.ProcessBy).Include(x => x.Branches).ToListAsync();
             return contacts;
         }
 
         public async Task<IEnumerable<Contact>> GetByEmail(string email)
         {
-            return await _context.Contacts.Where(x => x.Email == email).ToListAsync();
+            return await _context.Contacts.Where(x => x.Email == email).Include(x => x.ProcessBy).Include(x => x.Branches).ToListAsync();
         }
 
         public async Task<IEnumerable<Contact>> GetByPhone(string phone)
         {
-            return await _context.Contacts.Where(x => x.PhoneNumber == phone).ToListAsync();
+            return await _context.Contacts.Where(x => x.PhoneNumber == phone).Include(x => x.ProcessBy).Include(x => x.Branches).ToListAsync();
         }
 
         public async Task<bool> Process(int id)
