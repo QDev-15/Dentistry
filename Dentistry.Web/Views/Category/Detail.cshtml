@@ -36,39 +36,44 @@
 
     }
 }
+<div class="container-fluid p-0 pt-5 pb-5">
+    <div class="container">
+        @Html.Raw(Model.category.Decription)
+    </div>
+</div>
+@* Bài viết liên quan *@
 
-@* Tin tức liên quan *@
-
-<div class="container">
-    <div class="box_content box_list_item">
-        <div class="row">
-            @foreach (var item in Model.articles)
-            {
-                var type = item.Type.GetAliasDisplayName();
-                var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
-                <div class="col-sm-3 col-6">
-                    <div class="item pt-5">
-                        <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
-                            <a asp-action="Detail" asp-asp-controller="Category"
-                                asp-route-danhmuc="@Model.category.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Alias"
-                                title="@item.Title">
-                                <span>Xem thêm</span>
-                            </a>
-                        </div>
-                        <div class="info pt-5">
-                            <h3 class="title">
-                                <a asp-action="Detail" asp-asp-controller="Category"
-                                   asp-route-danhmuc="@Model.category.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Alias"
-                                   title="@item.Title">
-                                   @item.Title.LimitTo(50, "...")
+<div class="container-fluid p-0 pb-5" style="background: #fbfbfb;">
+    <div class="container">
+        <div class="box_title py-5"> Bài viết liên quan</div>
+        <div class="box_content box_list_item">
+            <div class="row">
+                @foreach (var item in Model.articles)
+                {
+                    var type = item.Type.GetAliasDisplayName();
+                    var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
+                    <div class="col-sm-3 col-6">
+                        <div class="item pt-5">
+                            <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
+                                <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias"
+                                    title="@item.Title">
+                                    <span>Xem thêm</span>
                                 </a>
-                            </h3>
-                            <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                            </div>
+                            <div class="info pt-5">
+                                <h3 class="title">
+                                    <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias"
+                                       title="@item.Title">
+                                       @item.Title.LimitTo(50, "...")
+                                    </a>
+                                </h3>
+                                <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
 
+            </div>
         </div>
     </div>
 </div>

@@ -22,17 +22,45 @@ namespace Dentistry.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> LoadBookForm()
         {
+            BookFormVm vm = new BookFormVm();
             var branches = await _branchesRepository.GetActive();
-            return View("~/Views/Contact/Partials/BookForm.cshtml", branches);
+            vm.branches = branches.ToList();
+            return PartialView("~/Views/Contact/Partials/BookForm.cshtml", vm);
         }
 
         [HttpPost]
+        public async Task<IActionResult> Book(BookFormVm model)
+        {
+            try
+            {
+                if (!ModelState.IsValid || model == null)
+                {
+                    var branches = await _branchesRepository.GetActive();
+                    model.branches = branches.ToList();
+                    // Render HTML từ PartialView và trả về trong JSON
+                    var partialViewHtml = await RenderViewToStringAsync("Partials/BookForm", model);
+                    return Json(new ErrorResult<string>
+                    {
+                        data = partialViewHtml,
+                        Message = "Validation failed"
+                    });
+                }
+
+
+                var contact = await _contactRepository.Create(model.contact);
+                return Json(new SuccessResult<bool>());
+            }
+            catch (Exception ex) { 
+                return Json(new ErrorResult<bool> { Message = ex.Message });
+            }
+        }
+           [HttpPost]
         public async Task<IActionResult> AddMessage(ContactVm model)
         {
             if (!ModelState.IsValid)
             {
                 // Render HTML từ PartialView và trả về trong JSON
-                var partialViewHtml = await RenderViewToStringAsync("Views/Contact/Partials/AddMessage.cshtml", model);
+                var partialViewHtml = await RenderViewToStringAsync("Partials/AddMessage", model);
                 return Json(new ErrorResult<string>
                 {
                     data = partialViewHtml,

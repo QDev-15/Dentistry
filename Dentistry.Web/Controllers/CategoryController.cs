@@ -28,18 +28,18 @@ namespace Dentistry.Web.Controllers
             CategoryType categoryType = CategoryType.None;
 
             switch (danhmuc)
-            {
+            {   
                 case var _ when danhmuc == CategoryType.About.GetAliasDisplayName(): // Giới thiệu
                     categoryType = CategoryType.About;
                     break; 
                 case var _ when danhmuc == CategoryType.advise.GetAliasDisplayName(): // Tư vấn
-                    categoryType |= CategoryType.advise;
+                    categoryType = CategoryType.advise;
                     break; 
                 case var _ when danhmuc == CategoryType.FeedBack.GetAliasDisplayName(): // Phản hồi
-                    categoryType &= ~CategoryType.FeedBack;
+                    categoryType = CategoryType.FeedBack;
                     break; 
                 case var _ when danhmuc == CategoryType.News.GetAliasDisplayName(): // Tin tức
-                    categoryType ^= CategoryType.News;
+                    categoryType = CategoryType.News;
                     break; 
                 case var _ when danhmuc == CategoryType.Products.GetAliasDisplayName(): // sản phẩm
                     categoryType = CategoryType.Products;

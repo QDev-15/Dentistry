@@ -32,35 +32,5 @@ namespace Dentistry.Web.Controllers
             baivietDetail.items = baiviets.Where(x => x.Id != baiviet.Id).ToList();
             return View(baivietDetail);
         }     
-        [HttpGet("tin-tuc/{alias}")]
-        public async Task<IActionResult> NewsAsync(string alias)
-        {
-            var tintucDetail = new ArticleDetailVm();
-            var tintuc = await _articleRepository.GetByAliasAsync(alias);
-            var tintucs = await _articleRepository.GetForApplication(ArticleType.News);
-            tintucDetail.item = tintuc.ReturnViewModel();
-            tintucDetail.items = tintucs.Where(x => x.Id != tintuc.Id).ToList();
-            return View(tintucDetail);
-        }    
-        [HttpGet("phan-hoi/{alias}")]
-        public async Task<IActionResult> FeedBack(string alias)
-        {
-            var phanhoiDetail = new ArticleDetailVm();
-            var phanhoi = await _articleRepository.GetByAliasAsync(alias);
-            var phanhois = await _articleRepository.GetForApplication(ArticleType.FeedBack);
-            phanhoiDetail.item = phanhoi.ReturnViewModel();
-            phanhoiDetail.items = phanhois.Where(x => x.Id != phanhoi.Id).ToList();
-            return View(phanhoiDetail);
-        }    
-        [HttpGet("san-pham/{alias}")]
-        public async Task<IActionResult> Product(string alias)
-        {
-            var sanphamDetail = new ArticleDetailVm();
-            var sanpham = await _articleRepository.GetByAliasAsync(alias);
-            var sanphams = await _articleRepository.GetForApplication(ArticleType.Products);
-            sanphamDetail.item = sanpham.ReturnViewModel();
-            sanphamDetail.items = sanphams.Where(x => x.Id != sanpham.Id).ToList();
-            return View(sanphamDetail);
-        }
     }
 }

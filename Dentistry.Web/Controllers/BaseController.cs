@@ -20,7 +20,7 @@ namespace Dentistry.Web.Controllers
 
             using (var writer = new StringWriter())
             {
-                var viewResult = _viewEngine.FindView(ControllerContext, "Partials/AddMessage", false);
+                var viewResult = _viewEngine.FindView(ControllerContext, viewName, false);
                 if (!viewResult.Success)
                 {
                     throw new InvalidOperationException($"View {viewName} not found");

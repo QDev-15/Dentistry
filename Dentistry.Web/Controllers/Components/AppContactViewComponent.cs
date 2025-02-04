@@ -1,4 +1,5 @@
-﻿using Dentisty.Data.Interfaces;
+﻿using Dentistry.ViewModels.Catalog.Contacts;
+using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Web.Controllers.Components
@@ -11,8 +12,10 @@ namespace Dentistry.Web.Controllers.Components
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            BookFormVm vm = new BookFormVm();
             var branches = await _branchesRepository.GetActive();
-            return View("~/Views/ViewComponents/AppContact.cshtml", branches);
+            vm.branches = branches.ToList();
+            return View("~/Views/ViewComponents/AppContact.cshtml", vm);
         }
     }
     

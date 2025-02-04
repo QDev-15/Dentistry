@@ -22,6 +22,7 @@ builder.Services.AddControllersWithViews()
     .AddFluentValidation(fv =>
     {
         fv.RegisterValidatorsFromAssemblyContaining<ContactVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<BookFormVmValidator>();
         fv.DisableDataAnnotationsValidation = true;
     });
 builder.Services.AddHttpContextAccessor();

@@ -32,8 +32,10 @@ namespace Dentisty.Data.Repositories
                     CreatedDate = DateTime.Now,
                     Email = vm.Email,
                     IsActive = true,
-                    Message = vm.Message,
+                    Message = vm.TimeBook == null ? vm.Message : "Đặt lịch khám",
                     Name = vm.Name,
+                    TimeBook = vm.TimeBook,
+                    BranchesId = vm.BranchesId,
                     PhoneNumber = vm.PhoneNumber,
                     UpdatedDate = DateTime.Now,
                 };

@@ -294,16 +294,30 @@
   color: #FFF;
   text-transform: uppercase;
   font-size: 16px;
-  font-family: "SVN-GothamBold";
+  /*font-family: "SVN-GothamBold";*/
   border-radius: 20px;
   background: #cf9a2c;
   transition: all 0.3s;
   text-decoration: none;
   font-weight: bold;
+  border: none;
 }
 
 .btn_yellow:hover {
   color: white;
+}
+
+.input-group-datetimepicker {
+  position: relative;
+}
+.input-group-datetimepicker .input-group-text {
+  cursor: pointer;
+  position: absolute;
+  top: 0%;
+  right: 0px;
+  height: 100%;
+  width: 35px;
+  border-radius: 0 20px 20px 0;
 }
 
 .section {
@@ -315,6 +329,7 @@
 .box_breadcrumb {
   background-color: #FFF;
   margin-bottom: 0;
+  border-bottom: 1px solid #f9e5cf;
 }
 .box_breadcrumb .breadcrumb > li {
   display: inline-block;
@@ -540,7 +555,7 @@
   display: inline-block;
   background: #ffcc00;
   color: #fff;
-  padding: 5px 20px;
+  padding: 0px 20px;
   border-radius: 5px;
   text-decoration: none;
   font-size: 18px;

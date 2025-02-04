@@ -16,8 +16,13 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="form-group" id="datetimepicker">
-                <input type="text" asp-for="contact.TimeBook" class="form-control" placeholder="Ngày đặt lịch *">
+            <div class="form-group">
+                <div class="input-group-datetimepicker">
+                    <input type="text" asp-for="contact.TimeBook" class="form-control" placeholder="Ngày đặt lịch *">
+                    <span class="input-group-text" id="calendarIcon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </span>
+                </div>
                 <span asp-validation-for="contact.TimeBook" class="text-danger"></span>
             </div>
         </div>
@@ -32,12 +37,13 @@
                         }
                     }
                 </select>
+                <span asp-validation-for="contact.BranchesId" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-12">
             <div class="note">* Thông tin của bạn sẽ được bảo mật!</div>
             <div class="btnSuccess">
-                <a href="javascript:;" onclick="javascript:formRegister('frmBook');" class="btn_yellow submit">Đặt lịch</a>
+                <button type="submit" class="btn_yellow submit">Đặt lịch</button>
                 <span class="open">
                     Giờ làm việc: <br>
                     <span>8h00 đến 20h00</span>
@@ -47,30 +53,4 @@
     </div>
 </form>
 
-<script src="~/js/add_contact.js"></script>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        new tempusDominus.TempusDominus(document.getElementById('datetimepicker'), {
-            display: {
-                components: {
-                    calendar: true,
-                    date: true,
-                    month: true,
-                    year: true,
-                    decades: true,
-                    clock: true,
-                    hours: true,
-                    minutes: true,
-                    seconds: false
-                }
-            },
-            localization: {
-                locale: 'vi',  // Ngôn ngữ tiếng Việt
-                format: 'dd/MM/yyyy HH:mm'  // Định dạng ngày giờ
-            },
-            useCurrent: true  // Tự động chọn thời gian hiện tại
-        });
-    });
-</script>
+<script src="~/js/book_contact.js"></script>
