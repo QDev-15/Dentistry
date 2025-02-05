@@ -3,6 +3,49 @@
 @{
     Layout = null;
 }
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:last-child {
+        border-bottom: none;
+    }
+
+    td {
+        padding: 12px 20px;
+    }
+
+    .col-name {
+        background-color: #f1f1f1;
+        font-weight: bold;
+        width: 30%;
+        color: #333;
+    }
+
+    .col-des {
+        color: #555;
+    }
+
+    tr:nth-child(even) .col-des {
+        background-color: #fafafa;
+    }
+
+    tr:hover {
+        background-color: #f0f8ff;
+    }
+</style>
 <div class="modal-header">
     <h5 class="modal-title">Yêu cầu: @Model.Name</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -20,12 +63,12 @@
                 @{
                     if (Model.TimeBook == null) {
                         <tr>
-                            <td class="col-name">Yêu cầu:</td>
+                            <td class="col-name">Loại Yêu cầu:</td>
                             <td class="col-des">Tư vấn</td>
                         </tr>
                     } else {
                         <tr>
-                            <td class="col-name">Yêu cầu:</td>
+                            <td class="col-name">Loại Yêu cầu:</td>
                             <td class="col-des">Đặt lịch khám</td>
                         </tr>
                         <tr>
@@ -42,10 +85,14 @@
                     <td class="col-name">Email:</td>
                     <td class="col-des">@Model.Email</td>
                 </tr>
-                <tr>
-                    <td class="col-name">Tin nhắn:</td>
-                    <td class="col-des">@Model.Message</td>
-                </tr>
+                @{
+                    if (Model.TimeBook == null) {
+                        <tr>
+                            <td class="col-name">Nội dung:</td>
+                            <td class="col-des">@Model.Message</td>
+                        </tr>
+                    }
+                }
                 @if (!Model.IsActive) { 
                     <tr>
                         <td class="col-name">Ghi chú:</td>

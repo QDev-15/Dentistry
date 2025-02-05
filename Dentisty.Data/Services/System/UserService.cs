@@ -100,9 +100,9 @@ namespace Dentisty.Data.Services.System
 
             //3. Paging
             int totalRow = await query.CountAsync();
-
-            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
-                .Take(request.PageSize)
+            var userdata = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize).ToListAsync();
+            var data = userdata
                 .Select(x => new UserVm()
                 {
                     Email = x.Email!,
@@ -110,9 +110,17 @@ namespace Dentisty.Data.Services.System
                     UserName = x.UserName!,
                     FirstName = x.FirstName,
                     Id = x.Id.ToString(),
-                    LastName = x.LastName
-                }).ToListAsync();
+                    LastName = x.LastName,
 
+                }).ToList();
+
+            if (data.Any())
+            {
+                foreach (var item in data)
+                {
+                    item.Roles = await _userManager.GetRolesAsync(userdata.FirstOrDefault(x => x.Id.ToString() == item.Id));
+                }
+            }
             //4. Select and projection
             var pagedResult = new PagedResult<UserVm>()
             {
@@ -131,23 +139,30 @@ namespace Dentisty.Data.Services.System
             {
                 return new ErrorResult<bool>("Tài khoản đã tồn tại");
             }
-            if (await _userManager.FindByEmailAsync(request.Email) != null)
-            {
-                return new ErrorResult<bool>("Emai đã tồn tại");
-            }
+            //if (await _userManager.FindByEmailAsync(request.Email) != null)
+            //{
+            //    return new ErrorResult<bool>("Emai đã tồn tại");
+            //}
 
             user = new AppUser()
             {
                 Dob = request.Dob,
                 Email = request.Email,
+                IsActive = true,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
                 PhoneNumber = request.PhoneNumber
-            };
+            }; 
+            
             var result = await _userManager.CreateAsync(user, request.Password);
+
             if (result.Succeeded)
             {
+                if (!await _userManager.IsInRoleAsync(user, "user"))
+                {
+                    await _userManager.AddToRoleAsync(user, "user");
+                }
                 return new SuccessResult<bool>();
             }
             return new ErrorResult<bool>("Đăng ký không thành công")
