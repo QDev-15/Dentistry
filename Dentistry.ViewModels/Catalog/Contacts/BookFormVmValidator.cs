@@ -16,7 +16,8 @@ namespace Dentistry.ViewModels.Catalog.Contacts
             RuleFor(x => x.contact.Name)
                 .NotEmpty()
                 .WithMessage("Tên không được trống.")
-                .WithMessage("Tên chỉ được chứa chữ cái và khoảng trắng.");
+                .Matches(@"^[A-Za-zÀ-Ỵà-ỵ](?=(?:.*[A-Za-zÀ-Ỵà-ỵ]){1,})[A-Za-zÀ-Ỵà-ỵ\s]*$")
+                .WithMessage("Tên ít nhất 2 chữ cái, bắt đầu bằng chữ cái và chỉ được chứa chữ cái và khoảng trắng.");
 
             // PhoneNumber is required and must match a valid pattern
             RuleFor(x => x.contact.PhoneNumber)

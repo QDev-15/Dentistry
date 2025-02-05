@@ -23,10 +23,33 @@
         </ul>
     </div>
 </div>
+@* Category detail *@
+<div class="container-fluid p-0 pt-5 pb-5">
+    <div class="container main-detail">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.category.Name</h2>
+        <div class="flex items-center text-gray-500 text-sm mb-4">
+            <span><i class="fas fa-calendar-alt"></i> Ngày đăng: @Model.category.CreatedDate.ToString("dd/MM/yyyy")</span>
+            
+            @if (Model.category.Type != CategoryType.None) {
+                <span class="mx-2">|</span>
+                <span><i class="fas fa-tag"></i> Thể loại: @Model.category.Type.GetDisplayName()</span>
+            }
+            else if (Model.category.Parent != null && Model.category.Parent.Type != CategoryType.None) {
+                <span class="mx-2">|</span>
+                <span><i class="fas fa-tag"></i> Thể loại: @Model.category.Parent.Type.GetDisplayName()</span>
+            }
+        </div>
+        <div class="box_article_description">
+            @Html.Raw(Model.category.Decription)
+        </div>
+        @Html.Raw(Model.category.Decription)
+    </div>
+</div>
+@* Category list *@
 @{
     if (Model.category.ChildCategories.Any())
     {
-        <div class="container-fluid p-0 box_categories">
+        <div class="container-fluid p-0 pt-5 pb-5 box_categories">
             <div class="container">
                 @{
                     Html.RenderPartial("~/Views/ViewComponents/HomeCategory.cshtml", @Model.category.ChildCategories.ToList());
@@ -36,14 +59,10 @@
 
     }
 }
-<div class="container-fluid p-0 pt-5 pb-5">
-    <div class="container">
-        @Html.Raw(Model.category.Decription)
-    </div>
-</div>
 @* Bài viết liên quan *@
-
-<div class="container-fluid p-0 pb-5" style="background: #fbfbfb;">
+@{
+    if (Model.articles.Count > 0) {
+        <div class="container-fluid p-0 pb-5" style="background: #fbfbfb;">
     <div class="container">
         <div class="box_title py-5"> Bài viết liên quan</div>
         <div class="box_content box_list_item">
@@ -77,3 +96,5 @@
         </div>
     </div>
 </div>
+    }
+}

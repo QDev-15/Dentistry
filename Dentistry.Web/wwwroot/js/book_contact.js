@@ -7,7 +7,7 @@ $(document).ready(function () {
                 date: true,
                 month: true,
                 year: true,
-                clock: true,
+                clock: false,
                 hours: true,
                 minutes: true,
                 seconds: false
@@ -15,9 +15,13 @@ $(document).ready(function () {
         },
         localization: {
             locale: 'vi',
-            format: 'dd/MM/yyyy HH:mm'
+            format: 'dd/MM/yyyy'
         },
-        useCurrent: true
+        useCurrent: true,
+        restrictions: {
+            minDate: new Date(),
+            maxDate: new Date(new Date().setDate(new Date().getDate() + 365))  // Giới hạn đến 365 ngày sau
+        }
     });
 
     // Khi click vào icon lịch, mở DateTimePicker
@@ -61,7 +65,7 @@ $(document).ready(function () {
                     }
                 } else {
                     form[0].reset();
-                    alert("Gửi thông tin thành công!");
+                    showSuccess("Gửi thông tin thành công!");
                 }
             },
             error: function (err) {

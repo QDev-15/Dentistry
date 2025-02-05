@@ -40,12 +40,12 @@
                         <div class="social-icons">
                             @if (!string.IsNullOrEmpty(Model.setting.Instagram))
                             {
-                                <a href="@Model.setting.Instagram" target="_blank" aria-label="Instagram">
+                                <a href="@Model.setting.Instagram" class="social-icon instagram" target="_blank" aria-label="Instagram">
                                     <i class="fab fa-instagram"></i>
                                 </a>
                             }
                             @if (!string.IsNullOrEmpty(Model.setting.Facebook)) {
-                                <a href="@Model.setting.Facebook" target="_blank" aria-label="Facebook">
+                                <a href="@Model.setting.Facebook" class="social-icon facebook" target="_blank" aria-label="Facebook">
                                     <i class="fab fa-facebook"></i>
                                 </a>
                             }
@@ -55,7 +55,7 @@
                                 </a>
                             }
                             @if (!string.IsNullOrEmpty(Model.setting.Youtube)) {
-                                <a href="@Model.setting.Youtube" target="_blank" aria-label="Youtube">
+                                <a href="@Model.setting.Youtube" class="social-icon youtube" target="_blank" aria-label="Youtube">
                                     <i class="fab fa-youtube"></i>
                                 </a>
                             }

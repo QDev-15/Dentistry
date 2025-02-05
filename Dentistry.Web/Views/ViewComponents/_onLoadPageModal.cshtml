@@ -19,26 +19,6 @@
                         Html.RenderPartial("~/Views/Contact/partials/AddMessage.cshtml", new ContactVm());
                     }
                 </div>
-                @* <form id="addContactMessage" asp-action="AddMessage" asp-controller="Contact" method="post">
-                    <div class="mb-3">
-                        <input type="text" asp-for="Name" class="form-control" placeholder="Họ tên *">
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <input type="tel" asp-for="PhoneNumber" class="form-control" placeholder="Số điện thoại *">
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <input type="email" asp-for="Email" class="form-control" placeholder="Email">
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <textarea class="form-control" asp-for="Message" placeholder="Nhu cầu tư vấn" rows="3"></textarea>
-                        <span asp-validation-for="Message" class="text-danger"></span>
-                    </div>
-                    
-                </form>
-                <button type="submit" form="addContactMessage" class="btn_submit w-100">Hoàn thành</button> *@
                 <div class="mt-3 hotline">
                     Hotline tư vấn: <a href="tel:@ViewData["Hotline"]">@ViewData["Hotline"]</a>
                 </div>
@@ -52,6 +32,25 @@
     <div class="btn_popup" id="openFeedbackModal">
         <span>Đăng ký tư vấn</span>
         <i class="fa-solid fa-clipboard-list"></i>
+    </div>
+</div>
+
+<!-- Info Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header infoModal-header">
+                <h5 class="modal-title" id="infoModalLabel">Thông báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="message-content">
+                Thông báo.
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="infoModal-close" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" id="infoModal-confirm" data-bs-dismiss="modal" class="btn btn-warning">Xác nhận</button>
+            </div>
+        </div>
     </div>
 </div>
 <script src="~/js/onload-page.js"></script>

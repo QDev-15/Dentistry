@@ -18,13 +18,20 @@
         </ul>
     </div>
 </div>
-<div class="container py-3">
-    <div class="box_article_title">
-        @Model.item.Title
-    </div>
-    <div class="box_article_description">
-        @Html.Raw(Model.item.Description)
-    </div>
+<div class="container py-3 main-detail">
+    <article class="bg-white rounded-2xl shadow-md p-6 mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.item.Title</h2>
+        <div class="flex items-center text-gray-500 text-sm mb-4">
+            <span><i class="fas fa-user"></i> Tác giả: @Model.item.CreatedBy.DisplayName</span>
+            <span class="mx-2">|</span>
+            <span><i class="fas fa-calendar-alt"></i> Ngày đăng: @Model.item.CreatedDate.ToString("dd/MM/yyyy")</span>
+            <span class="mx-2">|</span>
+            <span><i class="fas fa-tag"></i> Thể loại: @Model.item.Type.GetDisplayName()</span>
+        </div>
+        <div class="box_article_description">
+            @Html.Raw(Model.item.Description)
+        </div>
+    </article>    
 </div>
 @* Bài viết liên quan *@
 @{

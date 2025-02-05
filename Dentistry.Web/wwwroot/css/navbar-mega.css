@@ -170,7 +170,8 @@
 /** =============== Side bar ==============================*/
 #sideBarMenuModal .modal-dialog {
     height: 100%;
-    width: 500px;
+    max-width: 400px;
+    min-width: 300px;
     margin: 0;
     top: -1px;
     position: absolute;
