@@ -72,7 +72,21 @@ namespace Dentisty.Data.Repositories
         }
         public string? GetClientIpAddress()
         {
-            return _httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+                return null;
+
+            // Kiểm tra xem có header X-Forwarded-For không
+            string? forwardedHeader = httpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+
+            if (!string.IsNullOrEmpty(forwardedHeader))
+            {
+                // Nếu có nhiều địa chỉ IP (qua nhiều proxy), lấy IP đầu tiên
+                return forwardedHeader.Split(',').FirstOrDefault()?.Trim();
+            }
+
+            // Nếu không có proxy, lấy trực tiếp từ RemoteIpAddress
+            return httpContext.Connection.RemoteIpAddress?.ToString();
         }
 
         public async Task Add(string Message, string? Title)
