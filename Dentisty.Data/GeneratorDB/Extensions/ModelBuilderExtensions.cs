@@ -33,8 +33,8 @@ namespace Dentistry.Data.GeneratorDB.Extensions
             new AppRole
             {
                 Id = roleUserId,
-                Name = "Nick",
-                NormalizedName = "NICK",
+                Name = "user",
+                NormalizedName = "USER",
                 Description = "User role"
             });
 
@@ -44,7 +44,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
             {
                 Id = adminId,
                 UserName = "admin",
-                NormalizedUserName = "admin",
+                NormalizedUserName = "ADMIN",
                 Email = "nguyenquynhvp.ictu@gmail.com",
                 NormalizedEmail = "nguyenquynhvp.ictu@gmail.com",
                 EmailConfirmed = true,
@@ -58,7 +58,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
             new AppUser
             {
                 Id = userId,
-                UserName = "User Default",
+                UserName = "userdefault",
                 NormalizedUserName = "Nick QN",
                 Email = "quynhvpit@outlook.com",
                 NormalizedEmail = "quynhvpit@outlook.com",

@@ -34,9 +34,9 @@ namespace Dentistry.Admin.Controllers
             }
             else
             {
-                var item = await _contactRepository.GetByIdAsync(id);
+                var item = await _contactRepository.GetById(id);
 
-                return PartialView("~/Views/Contact/Partial/_view.cshtml", item.ReturnViewModel());
+                return PartialView("~/Views/Contact/Partial/_view.cshtml", item);
             }
 
         }

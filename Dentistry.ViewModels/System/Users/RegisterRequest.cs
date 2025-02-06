@@ -17,6 +17,8 @@ namespace Dentistry.ViewModels.System.Users
         [DataType(DataType.Date)]
         public DateTime Dob { get; set; }
 
+        [Display(Name = "Quyền")]
+        public string role { get; set; }
         [Display(Name = "Hòm thư")]
         public string Email { get; set; }
 
