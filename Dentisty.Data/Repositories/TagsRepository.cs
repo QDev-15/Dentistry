@@ -94,5 +94,13 @@ namespace Dentisty.Data.Repositories
                 throw new Exception("Update faild");
             }
         }
+        public async Task<bool> Delete(int id)
+        {
+
+            var delete = await GetById(id);
+            DeleteAsync(delete);
+            await SaveChangesAsync();
+            return true;
+        }
     }
 }

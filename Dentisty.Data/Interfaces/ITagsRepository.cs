@@ -15,5 +15,6 @@ namespace Dentisty.Data.Interfaces
         Task<Tags> GetByName(string name);
         Task<Tags> Create(TagsVm item);
         Task<Tags> Update(TagsVm item);
+        Task<bool> Delete(int id);
     }
 }

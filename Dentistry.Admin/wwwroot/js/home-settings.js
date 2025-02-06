@@ -35,6 +35,9 @@ function loadContentSelectedTab(tabId) {
             break;
         case 'app-setting':
             loadSettingData();
+            break; 
+        case 'tags-setting':
+            loadTagsList();
             break;
         default:
             break;
