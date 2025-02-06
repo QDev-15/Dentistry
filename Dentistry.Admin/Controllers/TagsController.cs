@@ -8,7 +8,7 @@ using Dentisty.Data;
 
 namespace Dentistry.Admin.Controllers
 {
-    public class TagsController : Controller
+    public class TagsController : BaseController
     {
         private readonly ITagsRepository _tagsRepository;
         public TagsController(ITagsRepository tagsRepository)

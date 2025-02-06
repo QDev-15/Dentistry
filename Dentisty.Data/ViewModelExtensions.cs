@@ -6,6 +6,7 @@ using Dentistry.ViewModels.Catalog.Branches;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.ViewModels.Catalog.Doctors;
+using Dentistry.ViewModels.Catalog.Logger;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Catalog.Tags;
 using Dentistry.ViewModels.System.Users;
@@ -15,6 +16,21 @@ namespace Dentisty.Data
 {
     public static class ViewModelExtensions
     {
+        public static LoggerVm ReturnViewModel(this Logger item)
+        {
+            if (item == null) { return new LoggerVm(); }
+
+            var vm = new LoggerVm()
+            {
+                Id = item.Id,
+                Body = item.Body,
+                CreatedDate = item.CreatedDate,
+                IdAddress = item.IdAddress,
+                Title = item.Title,
+                UserId = item.UserId
+            };
+            return vm;
+        }
         public static TagsVm ReturnViewModel(this Tags item)
         {
             if (item == null) return new TagsVm();

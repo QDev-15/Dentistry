@@ -33,8 +33,7 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 // Đăng ký HostingConfig
 // Configure app settings based on environment
 builder.Configuration
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 // Tải cấu hình UploadSettings từ appsettings
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
 
@@ -125,6 +124,7 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
+builder.Services.AddScoped<ITagsRepository, TagsRepository>();
 
 
 
@@ -137,14 +137,13 @@ builder.Services.AddScoped<RoleService>();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
+    app.UseExceptionHandler("/Home/Error"); // Xử lý lỗi cho Production
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
-    Console.WriteLine("Running in Production environment.");
+    app.UseDeveloperExceptionPage(); // Hiển thị lỗi chi tiết khi ở Development Mode
 }
 using (var scope = app.Services.CreateScope())
 {

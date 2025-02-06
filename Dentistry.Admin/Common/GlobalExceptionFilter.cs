@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Dentisty.Data.Repositories;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Dentistry.Admin.Common
 {
@@ -17,7 +19,9 @@ namespace Dentistry.Admin.Common
 
         public void OnException(ExceptionContext context)
         {
-            _loggerRepository.QueueLog(context.Exception.Message);
+            var declaringType = MethodBase.GetCurrentMethod()?.DeclaringType;
+            string className = declaringType.FullName ?? "Unknown";
+            _loggerRepository.QueueLog(context.Exception.Message, className + ".cs");
             _logger.LogError(context.Exception, "Unhandled exception occurred.");
             context.Result = new ViewResult { ViewName = "Error" }; // Friendly error page
             context.ExceptionHandled = true;

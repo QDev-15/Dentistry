@@ -1,0 +1,82 @@
+﻿@using Dentistry.ViewModels.Catalog.Logger
+@model LoggerVm
+@{
+    Layout = null;
+}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+        tr:last-child {
+            border-bottom: none;
+        }
+
+    td {
+        padding: 12px 20px;
+    }
+
+    .col-name {
+        background-color: #f1f1f1;
+        font-weight: bold;
+        width: 30%;
+        color: #333;
+    }
+
+    .col-des {
+        color: #555;
+    }
+
+    tr:nth-child(even) .col-des {
+        background-color: #fafafa;
+    }
+
+    tr:hover {
+        background-color: #f0f8ff;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="p-3">
+        <form>
+            <table>
+                <tr>
+                    <td class="col-name">Title:</td>
+                    <td class="col-des">@Model.Title</td>
+                </tr>
+                <tr>
+                    <td class="col-name">User Id:</td>
+                    <td class="col-des">@Model.UserId</td>
+                </tr>
+                <tr>
+                    <td class="col-name">Date:</td>
+                    <td class="col-des">@Model.CreatedDate</td>
+                </tr>
+                <tr>
+                    <td class="col-name">Address:</td>
+                    <td class="col-des">@Model.IdAddress</td>
+                </tr>
+                <tr>
+                    <td class="col-name">Body:</td>
+                    <td class="col-des">@Model.Body</td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<div class="modal-footer  d-flex justify-content-center">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+</div>

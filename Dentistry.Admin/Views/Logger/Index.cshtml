@@ -1,0 +1,29 @@
+﻿@using Dentistry.ViewModels.Catalog.Logger
+@model List<LoggerVm>
+
+<div class="container-fluid p-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Logs</h2>
+    </div>
+
+    <div class="table-responsive">
+        <table id="loggerTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Body</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<!-- Add Logger Modal -->
+<div class="modal fade" id="addEditLoggerModal" tabindex="-1" aria-labelledby="addEditLoggerModallLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content"></div>
+    </div>
+</div>
+
+<script src="~/js/logger.js"></script>
