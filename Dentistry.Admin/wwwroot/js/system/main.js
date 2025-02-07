@@ -6,7 +6,7 @@ $(document).ready(function () {
         const backdrops = document.querySelectorAll('.modal-backdrop');
         backdrops.forEach(backdrop => backdrop.remove());
     });
-
+    popstateUpdate();
 });
 
 
@@ -15,11 +15,20 @@ $(document).ready(function () {
 // for details on configuring this project to bundle and minify static web assets.
 
 // Handle back/forward navigation
-window.onpopstate = function () {                                                                                                                                         ``
+window.addEventListener('popstate', function (event) {
     const url = window.location.pathname;
     $('#layoutSidenav_content main').load(url);
-};
+    popstateUpdate();
+});
 
+function popstateUpdate() {
+    const url = window.location.pathname;
+    $("#left-menu a.nav-link").removeClass("active");
+    $("#left-menu a.nav-link").each(function () {
+        var linkUrl = $(this).attr("href")?.toLowerCase();
+        $(this).toggleClass("active", linkUrl && url.toLowerCase().indexOf(linkUrl) >= 0);
+    });
+}
 
 function openInfoModal() {
     // Open modal 

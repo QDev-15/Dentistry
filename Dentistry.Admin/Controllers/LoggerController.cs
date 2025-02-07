@@ -24,6 +24,7 @@ namespace Dentistry.Admin.Controllers
             return Json(new
             {
                 recordsTotal = result.Total,
+                recordsFiltered = result.Total,
                 data = result.Items
             });
         }

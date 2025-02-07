@@ -91,7 +91,6 @@ html, body {
 /** ================================= Dialog ================================= */
 
 .modal-content {
-    max-height: 90vh;
     display: flex;
     flex-direction: column;
 }
@@ -188,3 +187,8 @@ button[title="Browse links"] {
     width: 250px;
 }
 
+/** ================================= Table =============================*/
+.dataTables_filter .form-control {
+    border: 1px solid #ced4da !important;
+    border-radius: 6px !important;
+}

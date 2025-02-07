@@ -8,11 +8,8 @@
 
     .form-container {
         width: 50%;
-        margin: 50px auto;
-        background: white;
-        padding: 20px;
+        padding: 5px;
         border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .form-control {
@@ -27,19 +24,32 @@
         .btn-add:hover {
             background-color: #218838;
         }
+
+    .tag-action {
+        width: 80px;
+        text-align: center;
+    }
 </style>
 <div class="container-fluid p-2">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Tags</h2>
         <button class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#addEditTagsModal" data-id="0">Thêm mới</button>
+        @* <div class="form-container">
+            <div class="input-group">
+                <input type="text" class="form-control" id="itemAddTagInput" placeholder="Tag...">
+                <button type="button" class="btn btn-success btn-add-tag">
+                    <i class="fas fa-plus"></i> Add Tag
+                </button>
+            </div>
+        </div> *@
     </div>
-
+    
     <div class="table-responsive">
         <table id="tagsTable" class="table table-striped">
             <thead>
                 <tr>
                     <th>Tên</th>
-                    <th>Actions</th>
+                    <th class="tag-action">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,7 +58,7 @@
                 {
                     <tr>
                         <td class="align-middle">@item.Name</td>
-                        <td class="align-middle">
+                        <td class="align-middle tag-action">
                             <button class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#addEditTagsModal" data-id="@item.Id">Sửa</button>
                             <button class="btn btn-sm btn-danger delete-btn" onclick="deleteTags(@item.Id)">Xóa</button>
                         </td>
@@ -57,23 +67,14 @@
             </tbody>
         </table>
     </div>
-    <div class="form-container">
-        <form id="addForm">
-            <div class="input-group">
-                <input type="text" class="form-control" id="itemInput" placeholder="Nhập nội dung..." required>
-                <button type="submit" class="btn btn-success btn-add">
-                    <i class="fas fa-plus"></i> Thêm mới
-                </button>
-            </div>
-        </form>
-    </div>
+    
 
 </div>
 
 
 <!-- Add Tags Modal -->
 <div class="modal fade" id="addEditTagsModal" tabindex="-1" aria-labelledby="addEditTagsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
+    <div class="modal-dialog">
         <div class="modal-content">
         </div>
     </div>
@@ -81,18 +82,4 @@
 
 
 
-
-<script>
-    document.getElementById("addForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        const inputValue = document.getElementById("itemInput").value;
-        if (inputValue.trim() !== "") {
-            alert("Đã thêm: " + inputValue);
-            document.getElementById("itemInput").value = ""; // Reset input
-        }
-    });
-</script>
-
-
-
-<script src="~/js/tags.js"></script>
+<script type="text/javascript" src="~/js/tags.js"></script>

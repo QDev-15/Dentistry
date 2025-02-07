@@ -27,7 +27,7 @@ namespace Dentisty.Data.Repositories
             var logs = _context.Loggers.AsQueryable();
             if (!string.IsNullOrEmpty(request.keySearch))
             {
-                logs = logs.Where(x => x.Title.Contains(request.keySearch.Trim()) || x.Body.Contains(request.keySearch.Trim()));
+                logs = logs.Where(x => x.Body.Contains(request.keySearch.Trim()));
             }
 
             // Xác định cột cần sắp xếp

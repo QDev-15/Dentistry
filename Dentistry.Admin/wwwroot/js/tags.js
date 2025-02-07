@@ -23,20 +23,21 @@
             }
         });
     });
+
     // submit modal
     $('#addEditTagsModal').on('submit', 'form', function (e) {
         e.preventDefault();
+        debugger;
         const formData = new FormData(this);
 
         $.ajax({
-            url: '/Tags/AddEdit',
+            url: '/Tags/AddEditTag',
             type: 'POST',
             data: formData,
             processData: false,
             contentType: false,
             success: function (response) {
                 if (response.isSuccessed) {
-                    $('#addEditTagsModal').modal('hide');
                     loadTagsList();
                 } else {
                     showInfo(response.message);
@@ -47,9 +48,33 @@
             }
         });
     });
+
+
+
 });
 
-
+function deleteT(id) {
+    $.ajax({
+        url: `/Tags/Delete/${id}`,
+        type: 'Delete',
+        success: function (result) {
+            console.log("result delete: ", result);
+            loadTagsList();
+        },
+        error: function (err) {
+            console.log("result error: ", err);
+        }
+    });
+}
+function deleteTags(id) {
+    showConfirm("Xác nhận xóa", "Xác nhận").then(function (resp) {
+        if (resp == true) {
+            deleteT(id);
+        };
+    }, function (err) {
+        alter(err)
+    });
+}
 
 
 

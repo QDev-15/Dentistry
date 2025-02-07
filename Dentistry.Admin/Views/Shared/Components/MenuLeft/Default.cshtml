@@ -1,6 +1,6 @@
 ﻿@model MenuLeftViewModel
 
-<div class="sb-sidenav-menu">
+<div class="sb-sidenav-menu" id="left-menu">
     <div class="nav">
         <div class="sb-sidenav-menu-heading">Quảng lý Trang chủ</div>
         <a class="nav-link" asp-controller="Home" asp-action="Settings">
@@ -22,24 +22,24 @@
             </div>
             Người dùng
         </a>
-        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDanhMuc" aria-expanded="true" aria-controls="collapseDanhMuc">
+        <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapseDanhMuc" aria-expanded="true" aria-controls="collapseDanhMuc">
             <div class="sb-nav-link-icon">
-                <i class="fa-brands fa-ubuntu"></i>
+                <i class="fas fa-cogs"></i>
             </div>
             Quản lý chung
             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
         </a>
-        <div class="collapse" id="collapseDanhMuc" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+        <div class="collapse show" id="collapseDanhMuc" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
             <nav class="sb-sidenav-menu-nested nav">
                 <a class="nav-link" asp-controller="Access" asp-action="Index">
                     <div class="sb-nav-link-icon">
-                        <i class="fa-brands fa-accessible-icon"></i>
+                        <i class="fa-solid fa-network-wired"></i>
                     </div>
                     Lượng truy cập
                 </a>
                 <a class="nav-link" asp-controller="Logger" asp-action="Index">
                     <div class="sb-nav-link-icon">
-                        <i class="fa-brands fa-accessible-icon"></i>
+                        <i class="fas fa-bug"></i>
                     </div>
                     Logger
                 </a>

@@ -1,6 +1,15 @@
 ﻿@using Dentistry.ViewModels.Catalog.Logger
 @model List<LoggerVm>
 
+    <style>
+        .log-date {
+            min-width: 140px;
+        }
+        .log-action {
+            width: 60px;
+            text-align: center;
+        }
+    </style>
 <div class="container-fluid p-2">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Logs</h2>
@@ -10,9 +19,9 @@
         <table id="loggerTable" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Body</th>
-                    <th>Date</th>
-                    <th>Actions</th>
+                    <th class="log-body">Body</th>
+                    <th class="log-date">Date</th>
+                    <th class="log-action">Actions</th>
                 </tr>
             </thead>
         </table>
