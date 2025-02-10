@@ -74,6 +74,13 @@
                     <td class="col-name">Body:</td>
                     <td class="col-des">@Model.Body</td>
                 </tr>
+                <tr>
+                    <td colspan="2">
+                        <button class="search-chatgpt-btn" data-query="@Model.Body">
+                            ChatGPT
+                        </button>
+                    </td>
+                </tr>
             </table>
         </form>
     </div>
@@ -81,3 +88,13 @@
 <div class="modal-footer  d-flex justify-content-center">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
 </div>
+
+<script>
+    document.querySelectorAll(".search-chatgpt-btn").forEach(button => {
+        button.addEventListener("click", function() {
+            let query = encodeURIComponent(this.getAttribute("data-query"));
+            let chatGPTUrl = `https://chat.openai.com/?q=${query}`;
+            window.open(chatGPTUrl, "_blank");
+        });
+    });
+</script>
