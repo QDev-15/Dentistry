@@ -65,6 +65,17 @@ namespace Dentistry.Admin.Controllers
 
             return Redirect(viewModel.ReturnUrl);
         }
-        
+
+        [HttpPost]
+        public IActionResult SetUserTimeZone([FromBody] TimeZoneRequest request)
+        {
+            HttpContext.Session.SetString("UserTimeZone", request.TimeZone);
+            return Ok();
+        }
+
+    }
+    public class TimeZoneRequest
+    {
+        public string TimeZone { get; set; }
     }
 }

@@ -28,9 +28,11 @@ namespace Dentistry.Admin.Controllers
                 data = result.Items
             });
         }
-        public IActionResult Detail()
+        [HttpGet]
+        public IActionResult Detail(string id)
         {
-            return View();
+            var log = _loggerRepository.GetById(id);
+            return PartialView("~/Views/Logger/Detail.cshtml", log);
         }
     }
 }

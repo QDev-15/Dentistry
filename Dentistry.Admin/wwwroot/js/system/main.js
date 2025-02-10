@@ -1,5 +1,13 @@
 ﻿const defaultClassForSpinner = "layout-main-content";
+document.addEventListener("DOMContentLoaded", function () {
+    var userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+    fetch('/Home/SetUserTimeZone', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ timeZone: userTimeZone })
+    });
+});
 // Documents 
 $(document).ready(function () {
     document.addEventListener('hidden.bs.modal', function (event) {

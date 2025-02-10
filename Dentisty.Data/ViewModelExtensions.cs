@@ -11,6 +11,7 @@ using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Catalog.Tags;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.GeneratorDB.Entities;
+using Newtonsoft.Json;
 
 namespace Dentisty.Data
 {
@@ -247,6 +248,8 @@ namespace Dentisty.Data
                 IsDraft = item.IsDraft,
                 Title = item.Title,
                 Type = item.Type,
+                Tags = item.Tags.Select(x => x.ReturnViewModel()).ToList(),
+                TagsJson = JsonConvert.SerializeObject(item.Tags),
                 UpdatedDate = item.UpdatedDate
             };
 

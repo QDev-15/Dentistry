@@ -1,4 +1,5 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Dentisty.Data.GeneratorDB.Entities
         public DateTime UpdatedAt { get; set; }
 
         // Navigation property
+        [JsonIgnore]
         public List<Article> Articles { get; set; } = new List<Article>();
     }
 }

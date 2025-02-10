@@ -1,4 +1,5 @@
 ﻿using Dentisty.Data.Common;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,17 @@ namespace Dentisty.Data
 {
     public static class TypeExtensions 
     {
+        public static DateTime ConvertUtcToLocal(this DateTime value, IHttpContextAccessor httpContextAccessor)
+        {
+            var context = httpContextAccessor.HttpContext;
+
+            if (context == null) return value; // Nếu không có HttpContext, trả về UTC
+
+            var timeZoneId = context.Items["UserTimeZone"]?.ToString() ?? "UTC";
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
+
+            return TimeZoneInfo.ConvertTimeFromUtc(value, timeZone);
+        }
         /// <summary>
         /// Example: abc-def-123
         /// </summary>

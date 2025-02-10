@@ -1,5 +1,54 @@
 ﻿$(document).ready(function () {
-       
+    let tags = [];
+
+    getTags();
+    function getTags() {
+        // Load tags từ input ẩn nếu có
+        let existingTags = $('#TagsJson').val();
+        if (existingTags) {
+            tags = JSON.parse(existingTags);
+        }
+    }
+    function renderTags() {
+        $('#tagList').empty();
+        tags.forEach((tag, index) => {
+            $('#tagList').append(`
+                <span class="tag-item">
+                    ${tag.Name} <span class="remove-tag" data-tagid="${tag.Id}" data-index="${index}">×</span>
+                </span>
+            `);
+        });
+
+        // Cập nhật input ẩn
+        $('#TagsJson').val(JSON.stringify(tags));
+    }
+
+    $(document).on('click', '#addTagBtn', function () {
+        getTags();
+        let tagInput = $('#tagInput').val().trim();
+        if (tagInput) {
+            tags.push({ id: 0, name: tagInput }); // Id = 0, server sẽ tự gán ID khi lưu
+            renderTags();
+            $('#tagInput').val('');
+        }
+    });
+
+    $(document).on('keypress', '#tagInput', function (e) {
+        if (e.which === 13) { // Nhấn Enter
+            e.preventDefault();
+            $('#addTagBtn').click();
+        }
+    });
+
+    $(document).on('click', '.remove-tag', function () {
+        getTags();
+        let index = $(this).data('index');
+        tags.splice(index, 1);
+        renderTags();
+    });
+
+    renderTags(); // Render danh sách ban đầu
+
 
     // Open modal add-edit
     $(document).on('click', '.add-btn, .edit-btn', function () {
@@ -55,6 +104,10 @@
 
     
 });
+
+
+
+
 function deleteArt(id) {
     $.ajax({
         url: `/Articles/Delete/${id}`,

@@ -58,7 +58,7 @@
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
 
         $.ajax({
-            url: `/Logger/View/${id}`,
+            url: `/Logger/Detail/${id}`,
             type: 'GET',
             success: function (html) {
                 $('#addEditLoggerModal .modal-content').html(html);

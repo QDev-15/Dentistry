@@ -60,7 +60,17 @@ namespace Dentisty.Data.Repositories
             var result = new LoggerResult();
             result.Total = logs.Count();
             result.Items = logs.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize).Select(x => x.ReturnViewModel()).ToList();
+            foreach (var item in result.Items)
+            {
+                item.CreatedDate = item.CreatedDate.ConvertUtcToLocal(_httpContextAccessor);
+            }
             return result;
+        }
+        public LoggerVm GetById(string id)
+        {
+            var log = _context.Loggers.FirstOrDefault(x => x.Id.ToString() == id).ReturnViewModel();
+            log.CreatedDate = log.CreatedDate.ConvertUtcToLocal(_httpContextAccessor);
+            return log;
         }
         public string GetCurrentUserId()
         {
