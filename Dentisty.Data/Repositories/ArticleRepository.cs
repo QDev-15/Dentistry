@@ -20,13 +20,11 @@ namespace Dentisty.Data.Repositories
 {
     public class ArticleRepository : Repository<Article>, IArticleRepository
     {
-        private readonly ITagsRepository _tagsRepository;
         private readonly LoggerRepository _loggerRepository;
         private readonly IImageRepository _imageRepository;
         private readonly DentistryDbContext _context;
-        public ArticleRepository(DentistryDbContext context, LoggerRepository loggerRepository, IImageRepository imageRepository, ITagsRepository tagsRepository) : base(context)
+        public ArticleRepository(DentistryDbContext context, LoggerRepository loggerRepository, IImageRepository imageRepository) : base(context)
         {
-            _tagsRepository = tagsRepository;
             _imageRepository = imageRepository;
             _context = context;
             _loggerRepository = loggerRepository;
@@ -38,15 +36,15 @@ namespace Dentisty.Data.Repositories
         }
         public async Task<Article> GetByAliasAsync(string alias)
         {
-            return await _context.Articles.Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).Include(x => x.Tags).FirstOrDefaultAsync(a => a.Alias == alias);
+            return await _context.Articles.Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).FirstOrDefaultAsync(a => a.Alias == alias);
         }
         public async Task<Article> GetByIdAsync(int id)
         {
-            return await _context.Articles.Include(x=>x.CreatedBy).Include(x=>x.Category).Include(x=>x.Images).Include(x=>x.Tags).FirstAsync(a => a.Id == id);
+            return await _context.Articles.Include(x=>x.CreatedBy).Include(x=>x.Category).Include(x=>x.Images).FirstAsync(a => a.Id == id);
         }
         public async Task<IEnumerable<Article>> GetAllAsync()
         {
-            return await _context.Articles.Where(x => x.IsActive == true).Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).Include(x => x.Tags).ToListAsync();
+            return await _context.Articles.Where(x => x.IsActive == true).Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).ToListAsync();
         }
 
         public async Task<ArticleVm> CreateNew(ArticleVm item)
@@ -63,30 +61,11 @@ namespace Dentisty.Data.Repositories
                     IsActive = true,
                     IsDraft = item.IsDraft,
                     Title = item.Title,
+                    Tags = item.Tags,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now
                 };
-                if (item.Tags.Any())
-                {
-                    foreach (var tag in item.Tags)
-                    {
-                        if (tag.Id > 0)
-                        {
-                            art.Tags.Add(await _tagsRepository.GetById(tag.Id));
-                        }
-                        else
-                        {
-                            art.Tags.Add(new Tags()
-                            {
-                                Id = tag.Id,
-                                CreatedAt = DateTime.Now,
-                                UpdatedAt = DateTime.Now,
-                                Name = tag.Name.ToSlus_V2()
-                            });
-                        }
-
-                    }
-                }
+                
                 if (item.ImageFiles != null && item.ImageFiles.Any())
                 {
                     foreach (var file in item.ImageFiles)
@@ -124,31 +103,8 @@ namespace Dentisty.Data.Repositories
                     art.IsActive = item.IsActive;
                     art.UpdatedDate = DateTime.Now;
                     art.CreatedById = new Guid(_loggerRepository.GetCurrentUserId());
-
-                    if (art.Tags.Any())
-                    {
-                        art.Tags.Clear();
-                    }
-                    if (item.Tags.Any())
-                    {
-                        foreach (var tag in item.Tags)
-                        {
-                            if (tag.Id > 0)
-                            {
-                                art.Tags.Add(await _tagsRepository.GetById(tag.Id));
-                            } else
-                            {
-                                art.Tags.Add(new Tags()
-                                {
-                                    Id = tag.Id,
-                                    CreatedAt = DateTime.Now,
-                                    UpdatedAt = DateTime.Now,
-                                    Name = tag.Name.ToSlus_V2()
-                                });
-                            }
-                            
-                        }
-                    }
+                    art.Tags = item.Tags;
+                    
                     UpdateAsync(art);
                     await SaveChangesAsync();
                 }

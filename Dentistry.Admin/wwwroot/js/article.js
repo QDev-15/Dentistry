@@ -1,53 +1,45 @@
-﻿$(document).ready(function () {
-    let tags = [];
-
-    getTags();
-    function getTags() {
-        // Load tags từ input ẩn nếu có
-        let existingTags = $('#TagsJson').val();
-        if (existingTags) {
-            tags = JSON.parse(existingTags);
-        }
-    }
+﻿
+$(document).ready(function () {
+    let tagsHidden = $("#tagsHidden");
+    let tags = tagsHidden.val() ? tagsHidden.val().split(",") : [];
+    let tagContainer = $("#tagContainer");
     function renderTags() {
-        $('#tagList').empty();
+        tags = tagsHidden.val() ? tagsHidden.val().split(",") : [];
+        tagContainer.html(""); // Xóa nội dung cũ
+
         tags.forEach((tag, index) => {
-            $('#tagList').append(`
+            tagContainer.append(`
                 <span class="tag-item">
-                    ${tag.Name} <span class="remove-tag" data-tagid="${tag.Id}" data-index="${index}">×</span>
+                    ${tag} 
+                    <button type="button" class="tag-remove" data-index="${index}">&times;</button>
                 </span>
             `);
         });
 
-        // Cập nhật input ẩn
-        $('#TagsJson').val(JSON.stringify(tags));
+        tagContainer.append('<input type="text" class="tag-input" id="tagInput" placeholder="Nhập tag và nhấn Enter">');
+        $("#tagsHidden").val(tags.join(",")); // Cập nhật giá trị input ẩn
     }
 
-    $(document).on('click', '#addTagBtn', function () {
-        getTags();
-        let tagInput = $('#tagInput').val().trim();
-        if (tagInput) {
-            tags.push({ id: 0, name: tagInput }); // Id = 0, server sẽ tự gán ID khi lưu
-            renderTags();
-            $('#tagInput').val('');
-        }
-    });
-
-    $(document).on('keypress', '#tagInput', function (e) {
-        if (e.which === 13) { // Nhấn Enter
+    // Xử lý khi nhấn Enter để thêm tag
+    $(document).on("keypress", "#tagInput", function (e) {
+        if (e.which === 13 || e.which === 44) {
             e.preventDefault();
-            $('#addTagBtn').click();
+            let newTag = $(this).val().trim();
+            if (newTag && !tags.includes(newTag)) {
+                tags.push(newTag);
+                $(this).val(""); // Xóa input sau khi thêm
+                renderTags();
+            }
         }
     });
 
-    $(document).on('click', '.remove-tag', function () {
-        getTags();
-        let index = $(this).data('index');
+    // Xử lý khi nhấn nút xóa tag
+    $(document).on("click", ".tag-remove", function () {
+        let index = $(this).data("index");
         tags.splice(index, 1);
         renderTags();
     });
 
-    renderTags(); // Render danh sách ban đầu
 
 
     // Open modal add-edit
@@ -61,6 +53,11 @@
                 $('#addEditArticleModal .modal-content').html(html);
                 $('#addEditArticleModal').modal('show');
                 initTiny("Item_Description");
+                setTimeout(function () {
+                    renderTags(); // Gọi khi load trang
+                }, 1000);
+                
+
             },
             error: function () {
                 showError('Tải bài biết thất bại.');

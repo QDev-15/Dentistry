@@ -269,21 +269,6 @@ function loadDoctorList() {
         }
     });
 } 
-function loadTagsList() {
-    showSpinnerFor();
-    $.ajax({
-        url: '/Tags/List',
-        type: 'GET',
-        success: function (data) {
-            $('#tags-setting').html(data);
-            hideSpinnerFor();
-        },
-        error: function (xhr, status, error) {
-            showError("Error reloading doctor list:", error);
-            hideSpinnerFor();
-        }
-    });
-}
 function loadSettingData() {
     showSpinnerFor();
     $.ajax({

@@ -18,6 +18,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.Title).IsRequired();
             builder.Property(x => x.Alias).IsUnicode().IsRequired();
             builder.Property(x => x.Type).IsRequired();
+            builder.Property(x => x.Tags).IsRequired(false);
             builder.Property(x => x.CreatedById).IsRequired();
             builder.Property(x => x.CategoryId).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
@@ -35,12 +36,6 @@ namespace Dentistry.Data.GeneratorDB.Configurations
                 .WithMany()
                 .HasForeignKey("ArticlesId")
                 .OnDelete(DeleteBehavior.Restrict));
-            builder.HasMany(x => x.Tags).WithMany(x => x.Articles).UsingEntity<Dictionary<string, object>>(
-                "ArticleTags", // Tên bảng trung gian
-                a => a.HasOne<Tags>().WithMany().HasForeignKey("TagId").OnDelete(DeleteBehavior.Restrict),
-                t => t.HasOne<Article>().WithMany().HasForeignKey("ArticleId").OnDelete(DeleteBehavior.Restrict)
-            );
-
         }
     }
 }

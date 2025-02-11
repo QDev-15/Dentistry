@@ -1,16 +1,10 @@
 ﻿using Dentistry.Common.Constants;
 using Dentistry.ViewModels.Catalog.Articles;
-using Dentistry.ViewModels.Catalog.Categories;
-using Dentistry.ViewModels.Catalog.Slide;
-using Dentistry.ViewModels.Catalog.Tags;
 using Dentistry.ViewModels.Enums;
-using Dentistry.ViewModels.Extensions;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
-using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -87,18 +81,7 @@ namespace Dentistry.Admin.Controllers
                     return Json(new { success = false, message = "Tiêu đề đã tồn tại, xin vui lòng chọn lại tiêu đề." });
                 }
             }
-            if (!string.IsNullOrEmpty(model.Item.TagsJson))
-            {
-                try
-                {
-                    model.Item.Tags = JsonConvert.DeserializeObject<List<TagsVm>>(model.Item.TagsJson) ?? new List<TagsVm>();
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("TagsJson", "Lỗi khi parse danh sách Tags");
-                    return View(model);
-                }
-            }
+            
             if (model.Item.Id == 0)
             {
                 // Add slide logic

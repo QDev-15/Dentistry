@@ -8,7 +8,6 @@ using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Logger;
 using Dentistry.ViewModels.Catalog.Slide;
-using Dentistry.ViewModels.Catalog.Tags;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.GeneratorDB.Entities;
 using Newtonsoft.Json;
@@ -29,18 +28,6 @@ namespace Dentisty.Data
                 IdAddress = item.IdAddress,
                 Title = item.Title,
                 UserId = item.UserId
-            };
-            return vm;
-        }
-        public static TagsVm ReturnViewModel(this Tags item)
-        {
-            if (item == null) return new TagsVm();
-            var vm = new TagsVm()
-            {
-              Id = item.Id,
-              Name = item.Name,
-              CreatedAt = item.CreatedAt,
-              UpdatedAt = item.UpdatedAt
             };
             return vm;
         }
@@ -248,8 +235,7 @@ namespace Dentisty.Data
                 IsDraft = item.IsDraft,
                 Title = item.Title,
                 Type = item.Type,
-                Tags = item.Tags.Select(x => x.ReturnViewModel()).ToList(),
-                TagsJson = JsonConvert.SerializeObject(item.Tags),
+                Tags = item.Tags,
                 UpdatedDate = item.UpdatedDate
             };
 

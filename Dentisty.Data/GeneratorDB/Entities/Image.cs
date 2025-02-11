@@ -16,7 +16,6 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public List<Category> Categories { get; set; }
 
         public List<Article> Articles { get; set; } = new List<Article>();
-        public List<HomeArticle> HomeArticles { get; set; } = new List<HomeArticle>();
         public List<Slide> Slides { get; set; } = new List<Slide>();
     }
 }

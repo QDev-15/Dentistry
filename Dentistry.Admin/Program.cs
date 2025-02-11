@@ -9,7 +9,6 @@ using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
-using Dentistry.ViewModels.Catalog.Tags;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data;
 using Dentisty.Data.Common;
@@ -99,7 +98,6 @@ builder.Services.AddControllersWithViews(options =>
         fv.RegisterValidatorsFromAssemblyContaining<CategoryVmValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<ContactVmValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<DoctorVmValidator>();
-        fv.RegisterValidatorsFromAssemblyContaining<TagsVmValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<BranchesVmValidator>();
         fv.DisableDataAnnotationsValidation = true;
     });
@@ -128,7 +126,6 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
-builder.Services.AddScoped<ITagsRepository, TagsRepository>();
 
 
 
