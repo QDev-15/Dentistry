@@ -1,5 +1,26 @@
 ﻿const defaultClassForSpinner = "layout-main-content";
+
+/*** =============== CHECK DOM loading and END LOADING =======================*/
+const domStage = {
+    running: false,
+    method: null
+}
+
+/** +============================================================================= */
+
+
 document.addEventListener("DOMContentLoaded", function () {
+    // Observer để kiểm tra khi DOM thay đổi
+    let observer = new MutationObserver((mutations, observerInstance) => {
+        if (domStage.method) {
+            domStage.method();
+        }
+        domStage.running = false;
+        domStage.method = null;
+    });
+    // Quan sát toàn bộ trang, kể cả các phần tử thêm vào sau
+    observer.observe(document.body, { childList: true, subtree: true });
+
     var userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     fetch('/Home/SetUserTimeZone', {
@@ -34,7 +55,9 @@ function popstateUpdate() {
     $("#left-menu a.nav-link").removeClass("active");
     $("#left-menu a.nav-link").each(function () {
         var linkUrl = $(this).attr("href")?.toLowerCase();
-        $(this).toggleClass("active", linkUrl && url.toLowerCase().indexOf(linkUrl) >= 0);
+        if (linkUrl == url || (linkUrl != url && linkUrl != '/' && url != '/')) {
+            $(this).toggleClass("active", linkUrl && url.toLowerCase().indexOf(linkUrl) >= 0);
+        }
     });
 }
 

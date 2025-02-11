@@ -3,8 +3,13 @@ $(document).ready(function () {
     let tagsHidden = $("#tagsHidden");
     let tags = tagsHidden.val() ? tagsHidden.val().split(",") : [];
     let tagContainer = $("#tagContainer");
-    function renderTags() {
+    function init() {
+        tagContainer = $("#tagContainer");
+        tagsHidden = $("#tagsHidden");
         tags = tagsHidden.val() ? tagsHidden.val().split(",") : [];
+        renderTags();
+    }
+    function renderTags() {
         tagContainer.html(""); // Xóa nội dung cũ
 
         tags.forEach((tag, index) => {
@@ -29,6 +34,7 @@ $(document).ready(function () {
                 tags.push(newTag);
                 $(this).val(""); // Xóa input sau khi thêm
                 renderTags();
+                $("#tagInput").focus();
             }
         }
     });
@@ -40,8 +46,6 @@ $(document).ready(function () {
         renderTags();
     });
 
-
-
     // Open modal add-edit
     $(document).on('click', '.add-btn, .edit-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
@@ -50,14 +54,11 @@ $(document).ready(function () {
             url: `/Articles/AddEdit/${id}`,
             type: 'GET',
             success: function (html) {
+                domStage.method = init;
                 $('#addEditArticleModal .modal-content').html(html);
                 $('#addEditArticleModal').modal('show');
                 initTiny("Item_Description");
-                setTimeout(function () {
-                    renderTags(); // Gọi khi load trang
-                }, 1000);
                 
-
             },
             error: function () {
                 showError('Tải bài biết thất bại.');
