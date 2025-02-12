@@ -7,18 +7,24 @@
 }
 
 @model CategoryDetailVm
-<div class="container-fluid image-banner p-0">
-    <img src="@Model.category.Image?.Path" />
+<div class="container-fluid justify-content-center image-banner p-0">
+    <img src="@Model.category.Image?.Path" loading="lazy" />
 </div>
 <div class="container-fluid">
     <div class="container box_breadcrumb">
         <ul class="breadcrumb">
             <li><a href="/">Trang chủ</a></li>
-            <li><a asp-action="Detail" asp-asp-controller="Category"
-                    asp-route-danhmuc="@Model.category.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Alias"
-                    title="@Model.category.Name">
-                    @Model.category.Name
-                </a>
+            @if (Model.category.Parent != null) {
+                <li>
+                    <a asp-action="Detail" asp-asp-controller="Category"
+                       asp-route-danhmuc="@Model.category.Parent.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Parent.Alias"
+                       title="@Model.category.Parent.Name">
+                        @Model.category.Parent.Name
+                    </a>
+                </li>
+            }
+            <li>
+                @Model.category.Name
             </li>
         </ul>
     </div>

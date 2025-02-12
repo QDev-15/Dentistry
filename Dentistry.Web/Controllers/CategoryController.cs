@@ -20,43 +20,78 @@ namespace Dentistry.Web.Controllers
         {
             return View();
         }
+        [HttpGet("/{alias}")]
+        public async Task<IActionResult> DetailAlias(string alias)
+        {
+            var categoryDetailVm = await getCategoryDetail(alias, null);
 
+            // SEO ==================
+            if (categoryDetailVm.category.Id > 0)
+            {
+                ViewData["Title"] = categoryDetailVm.category.Name;
+                ViewData["Description"] = $"Đọc ngay danh mục '{categoryDetailVm.category.Name}' để hiểu hơn về {categoryDetailVm.category.Alias}";
+                ViewData["Keywords"] = categoryDetailVm.category.Alias;
+            }
+            return View("Detail", categoryDetailVm);
+        }
         [HttpGet("{danhmuc}/{alias}")]
         public async Task<IActionResult> Detail(string danhmuc, string alias)
         {
+            if (danhmuc == alias)
+            {
+                return Redirect($"/{alias}");
+            }
+            var categoryDetailVm = await getCategoryDetail(alias, danhmuc);
+
+            // SEO ==================
+            if (categoryDetailVm.category.Id > 0)
+            {
+                ViewData["Title"] = categoryDetailVm.category.Name;
+                ViewData["Description"] = $"Đọc ngay danh mục '{categoryDetailVm.category.Name}' để hiểu hơn về {categoryDetailVm.category.Alias}";
+                ViewData["Keywords"] = categoryDetailVm.category.Alias;
+            }
+            return View("Detail", categoryDetailVm);
+        }
+
+        private async Task<CategoryDetailVm> getCategoryDetail(string alias, string? danhmuc)
+        {
+            if (danhmuc == null)
+            {
+                danhmuc = alias;
+            }
             var categoryDetailVm = new CategoryDetailVm();
             CategoryType categoryType = CategoryType.None;
 
             switch (danhmuc)
-            {   
+            {
                 case var _ when danhmuc == CategoryType.About.GetAliasDisplayName(): // Giới thiệu
                     categoryType = CategoryType.About;
-                    break; 
+                    break;
                 case var _ when danhmuc == CategoryType.advise.GetAliasDisplayName(): // Tư vấn
                     categoryType = CategoryType.advise;
-                    break; 
+                    break;
                 case var _ when danhmuc == CategoryType.FeedBack.GetAliasDisplayName(): // Phản hồi
                     categoryType = CategoryType.FeedBack;
-                    break; 
+                    break;
                 case var _ when danhmuc == CategoryType.News.GetAliasDisplayName(): // Tin tức
                     categoryType = CategoryType.News;
-                    break; 
+                    break;
                 case var _ when danhmuc == CategoryType.Products.GetAliasDisplayName(): // sản phẩm
                     categoryType = CategoryType.Products;
-                    break;                                                                    
+                    break;
                 case var _ when danhmuc == CategoryType.Service.GetAliasDisplayName(): // dịch vụ
                     categoryType = CategoryType.Service;
-                    break;                                                                    
+                    break;
                 case var _ when danhmuc == CategoryType.Support.GetAliasDisplayName(): // Hỗ trợ
                     categoryType = CategoryType.Support;
-                    break;                                                                    
+                    break;
                 default:
                     break;
             }
-            if (categoryType == CategoryType.None) return View(categoryDetailVm);
+            if (categoryType == CategoryType.None) return categoryDetailVm;
             categoryDetailVm.category = await _categoryReposiroty.GetByAlias(alias);
             categoryDetailVm.articles = (await _articleRepository.GetByCategoryId(categoryDetailVm.category.Id)).ToList();
-            return View(categoryDetailVm);
+            return categoryDetailVm;
         }
     }
 }

@@ -19,7 +19,8 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<ArticleVm>> GetProductForSetting();
         Task<IEnumerable<ArticleVm>> GetFeedBackForSetting();
         Task<IEnumerable<ArticleVm>> GetForApplication(ArticleType type);
-        Task<IEnumerable<ArticleVm>> GetForSearch(string keyWord);
+        Task<List<ArticleVm>> GetForSearch(string keyWord);
+        Task<List<ArticleVm>> SiteMap();
         Task<IEnumerable<ArticleVm>> GetByCategoryId(int id);
         Task<bool> DeleteArticle(int id);
         /// <summary>
@@ -31,5 +32,6 @@ namespace Dentisty.Data.Interfaces
         Task<string> GenerateAlias(ArticleVm item);
         Task<bool> DeleteFile(int artId, int fileId);
         Task<bool> AddFile(int artId, IEnumerable<IFormFile> file);
+
     }
 }

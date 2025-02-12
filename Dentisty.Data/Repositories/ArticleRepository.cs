@@ -290,11 +290,16 @@ namespace Dentisty.Data.Repositories
             return articles.Select(x => x.ReturnViewModel());
         }
 
-        public async Task<IEnumerable<ArticleVm>> GetForSearch(string keyWord)
+        public async Task<List<ArticleVm>> GetForSearch(string keyWord)
         {
-            if (string.IsNullOrWhiteSpace(keyWord)) return Enumerable.Empty<ArticleVm>();
+            if (string.IsNullOrWhiteSpace(keyWord)) return new List<ArticleVm>();
             var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).ToListAsync();
-            return articles.Select(x => x.ReturnViewModel());
+            return articles.Select(x => x.ReturnViewModel()).ToList();
+        }
+        public async Task<List<ArticleVm>> SiteMap()
+        {
+            var arts = await _context.Articles.Select(a => new ArticleVm() { Alias = a.Alias, UpdatedDate = a.UpdatedDate }).ToListAsync();
+            return arts.ToList();
         }
     }
 }

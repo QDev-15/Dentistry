@@ -1175,7 +1175,20 @@ $main: #cf9a2c;
         padding-top: 50px;
     }
 }
-
+.image-banner1 {
+    max-height: 500px; /* Chiều cao tối đa của container */
+    min-height: 500px;
+    position: relative;
+    width: 100%; /* Chiều rộng 100% container */
+    overflow: hidden; /* Ẩn phần ảnh thừa nếu có */
+    background-color: #f0f0f0; /* Tùy chọn: Thêm màu nền nếu ảnh nhỏ hơn div */
+    img {
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
 .image-banner {
     max-height: 500px; /* Chiều cao tối đa của container */
     min-height: 300px;

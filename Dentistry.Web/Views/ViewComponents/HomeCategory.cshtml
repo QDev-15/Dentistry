@@ -14,7 +14,7 @@
                 <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
                     <div class="image">
                         <a asp-controller="Category" asp-action="DichVu" asp-route-alias="@item.Alias">
-                            <img src="@item.Image?.Path" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
+                            <img src="@item.Image?.Path" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
                         </a>
                     </div>
                     <div class="info">
@@ -27,83 +27,6 @@
                 </div>
             }
             
-            @* <!-- Actor 2 -->
-            <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
-                <div class="image">
-                    <a href="#">
-                        <img src="assets/img/ngo-lan-huong.jpg" alt="Actor 2" class="actor-image">
-                    </a>
-                </div>
-                <div class="info">
-                    <h3 class="title"><a href="#" title="Dán sứ Veneer Emax">Dán sứ Veneer Emax</a></h3>
-                </div>
-            </div>
-            <!-- Actor 3 -->
-            <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
-                <div class="image">
-                    <a href="#">
-                        <img src="assets/img/ngo-lan-huong.jpg" alt="Actor 3" class="actor-image">
-                    </a>
-                </div>
-                <div class="info">
-                    <h3 class="title"><a href="#" title="Dán sứ Veneer Emax">Dán sứ Veneer Emax</a></h3>
-                </div>
-            </div>
-            <!-- Actor 4 -->
-            <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
-                <div class="image">
-                    <a href="#">
-                        <img src="assets/img/ngo-lan-huong.jpg" alt="Actor 4" class="actor-image">
-                    </a>
-                </div>
-                <div class="info">
-                    <h3 class="title"><a href="#" title="Dán sứ Veneer Emax">Dán sứ Veneer Emax</a></h3>
-                </div>
-            </div>
-            <!-- Actor 5 -->
-            <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
-                <div class="image">
-                    <a href="#">
-                        <img src="assets/img/ngo-lan-huong.jpg" alt="Actor 5" class="actor-image">
-                    </a>
-                </div>
-                <div class="info">
-                    <h3 class="title"><a href="#" title="Dán sứ Veneer Emax">Dán sứ Veneer Emax</a></h3>
-                </div>
-            </div>
-            <!-- Actor 6 -->
-            <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
-                <div class="image">
-                    <a href="#">
-                        <img src="assets/img/ngo-lan-huong.jpg" alt="Actor 6" class="actor-image">
-                    </a>
-                </div>
-                <div class="info">
-                    <h3 class="title"><a href="#" title="Dán sứ Veneer Emax">Dán sứ Veneer Emax</a></h3>
-                </div>
-            </div>
-            <!-- Actor 7 -->
-            <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
-                <div class="image">
-                    <a href="#">
-                        <img src="assets/img/ngo-lan-huong.jpg" alt="Actor 7" class="actor-image">
-                    </a>
-                </div>
-                <div class="info">
-                    <h3 class="title"><a href="#" title="Dán sứ Veneer Emax">Dán sứ Veneer Emax</a></h3>
-                </div>
-            </div>
-            <!-- Actor 8 -->
-            <div class="col-6 col-sm-4 col-md-3 text-center actor-item">
-                <div class="image">
-                    <a href="#">
-                        <img src="assets/img/ngo-lan-huong.jpg" alt="Actor 8" class="actor-image">
-                    </a>
-                </div>
-                <div class="info">
-                    <h3 class="title"><a href="#" title="Dán sứ Veneer Emax">Dán sứ Veneer Emax</a></h3>
-                </div>
-            </div> *@
         </div>
     </div>
 </div>
