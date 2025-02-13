@@ -365,14 +365,20 @@
 .box_breadcrumb .breadcrumb > li a {
   color: #949494;
 }
-.box_breadcrumb .breadcrumb > li:last-child a {
+.box_breadcrumb .breadcrumb > li:last-child {
   color: #cf9a2c;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: -3px;
+}
+.box_breadcrumb .breadcrumb > li:last-child:before {
+  top: 13px;
 }
 .box_breadcrumb .breadcrumb > li + li {
   position: relative;
   padding-left: 30px;
 }
-.box_breadcrumb .breadcrumb > li:last-child:before {
+.box_breadcrumb .breadcrumb > li + li:before {
   content: "";
   width: 8px;
   height: 7px;

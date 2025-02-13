@@ -19,15 +19,20 @@ namespace Dentistry.Web.Controllers
         public async Task<IActionResult> Sitemap()
         {
             List<ArticleVm> articles = await _articleRepository.SiteMap();
-            var urlset = new XElement("urlset", new XAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9"));
+
+            XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
+            var urlset = new XElement(ns + "urlset");
 
             foreach (var article in articles)
             {
-                urlset.Add(new XElement("url",
-                    new XElement("loc", $"{Request.Scheme}://{Request.Host}/bai-viet/{article.Alias}"),
-                    new XElement("lastmod", article.UpdatedDate.ToString("yyyy-MM-dd"))
-                ));
+                var urlElement = new XElement(ns + "url",
+                    new XElement(ns + "loc", $"{Request.Scheme}://{Request.Host}/bai-viet/{article.Alias}"),
+                    new XElement(ns + "lastmod", article.UpdatedDate.ToString("yyyy-MM-dd"))
+                );
+                urlset.Add(urlElement);
             }
+
+            
 
             var sitemap = new XDocument(urlset);
             return Content(sitemap.ToString(), "application/xml", Encoding.UTF8);

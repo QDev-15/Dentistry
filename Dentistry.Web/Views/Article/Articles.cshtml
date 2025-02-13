@@ -12,9 +12,26 @@
     <div class="container box_breadcrumb">
         <ul class="breadcrumb">
             <li><a href="/">Trang chủ</a></li>
-            <li><a href="/@Model.item.Category.Alias">@Model.item.Category.Name</a></li>
-
-            <li><a href="/bai-viet/@Model.item.Alias" title="@Model.item.Title">@Model.item.Title</a></li>
+            @if (Model.item.Category.Parent != null)
+            {
+                <li>
+                    <a asp-action="Detail" asp-asp-controller="Category"
+                       asp-route-danhmuc="@Model.item.Category.Parent.Type.GetAliasDisplayName()" asp-route-alias="@Model.item.Category.Parent.Alias"
+                       title="@Model.item.Category.Parent.Name">
+                        @Model.item.Category.Parent.Name
+                    </a>
+                </li>
+            }
+            <li>
+                <a asp-action="Detail" asp-asp-controller="Category"
+                   asp-route-danhmuc="@Model.item.Category.Type.GetAliasDisplayName()" asp-route-alias="@Model.item.Category.Alias"
+                   title="@Model.item.Category.Name">
+                    @Model.item.Category.Name
+                </a>
+            </li>
+            <li>
+                @Model.item.Title
+            </li>
         </ul>
     </div>
 </div>
