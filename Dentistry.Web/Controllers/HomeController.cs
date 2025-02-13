@@ -1,8 +1,12 @@
 ﻿using Dentistry.Common.Constants;
+using Dentistry.Data.GeneratorDB.Entities;
+using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Catalog.Home;
 using Dentistry.Web.Models;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 
 namespace Dentistry.Web.Controllers
@@ -12,12 +16,15 @@ namespace Dentistry.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IAppSettingRepository _appSettingRepository;
         private readonly IArticleRepository _articleRepository;
+        private readonly IMemoryCache _memoryCache;
 
-        public HomeController(ILogger<HomeController> logger, IAppSettingRepository appSettingRepository, IArticleRepository articleRepository)
+        public HomeController(ILogger<HomeController> logger, IAppSettingRepository appSettingRepository,
+            IArticleRepository articleRepository, IMemoryCache memoryCache)
         {
             _appSettingRepository = appSettingRepository;
             _logger = logger;
-            _articleRepository = articleRepository; 
+            _articleRepository = articleRepository;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IActionResult> Index()
@@ -33,14 +40,42 @@ namespace Dentistry.Web.Controllers
         [HttpPost("tim-kiem")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Search(string keyWord) {
+            // Lấy dữ liệu từ cache (nếu có)
+            if (!_memoryCache.TryGetValue("ArtsHotNews", out List<ArticleVm> artsHotNews))
+            {
+                artsHotNews = await _articleRepository.GetArticleNew();
+
+                // Lưu vào cache trong 10 phút
+                var cacheOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+                    SlidingExpiration = TimeSpan.FromMinutes(5),
+                    PostEvictionCallbacks =
+                    {
+                        new PostEvictionCallbackRegistration
+                        {
+                            EvictionCallback = (key, value, reason, state) =>
+                            {
+                                Console.WriteLine($"Cache '{key}' bị xóa do: {reason}");
+                            }
+                        }
+                    }
+                };
+                _memoryCache.Set("ArtsHotNews", artsHotNews, cacheOptions);
+            }
             var arts = await _articleRepository.GetForSearch(keyWord);
+            SearchVm model = new SearchVm()
+            {
+                Items = arts,
+                HotNews = artsHotNews
+            };
             if (arts != null && arts.Any())
             {
                 ViewData["Title"] = SystemConstants.ApplicationTitle;
                 ViewData["Description"] = $"Đọc ngay bài viết '{arts[0].Title}' để hiểu hơn về {arts[0].Tags}";
                 ViewData["Keywords"] = keyWord ?? SystemConstants.ApplicationTitle;
             }
-            return View(arts);
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

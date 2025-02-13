@@ -295,6 +295,11 @@ namespace Dentisty.Data.Repositories
             if (string.IsNullOrWhiteSpace(keyWord)) return new List<ArticleVm>();
             var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).ToListAsync();
             return articles.Select(x => x.ReturnViewModel()).ToList();
+        }  
+        public async Task<List<ArticleVm>> GetArticleNew()
+        {
+            var articles = await _context.Articles.OrderBy(x => x.CreatedDate).Take(10).ToListAsync();
+            return articles.Select(x => x.ReturnViewModel()).ToList();
         }
         public async Task<List<ArticleVm>> SiteMap()
         {

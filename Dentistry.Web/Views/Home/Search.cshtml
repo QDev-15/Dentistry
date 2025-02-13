@@ -1,12 +1,57 @@
 ﻿@using Dentistry.ViewModels.Catalog.Articles
+@using Dentistry.ViewModels.Catalog.Home
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 
-@model List<ArticleVm>
+@model SearchVm
 
+    <style>
+    /* Container tổng */
+    .search-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 5px 10px;
+        max-width: 350px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Input tìm kiếm */
+    .search-input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        padding: 8px;
+        background: transparent;
+    }
+
+        /* Khi focus vào input */
+        .search-input:focus {
+            outline: none;
+        }
+
+    /* Nút tìm kiếm */
+    .search-btn {
+        border: none;
+        background: none;
+        color: #555;
+        font-size: 18px;
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
+    }
+
+        /* Hiệu ứng hover */
+        .search-btn:hover {
+            color: #000;
+        }
+    </style>
 <div class="container-fluid">
     <div class="container box_breadcrumb">
         <ul class="breadcrumb">
@@ -18,13 +63,80 @@
     </div>
 </div>
 <div class="container-fluid">
-    <div class="container">
-        <div class="row">
+    <div class="container search-page-content py-4">
+        <div class="box_title">
+            Kết quả tìm kiếm
+        </div>
+        <div class="row py-3">
             <div class="col-12 col-md-8">
-                <div class="p-3 bg-primary text-white">Cột lớn (8 cột khi MD, full khi nhỏ)</div>
+                <div class="search-results">
+                    <div class="search-item">
+                        <img src="https://winsmile.vn/public/files/upload/default/images/255973460-112650448004279-7133401913410483825-n.jpg" alt="Ảnh bài viết">
+                        <div class="search-content">
+                            <h3>Tiêu đề bài viết</h3>
+                            <p>Nội dung ngắn của bài viết này để mô tả sơ lược về nội dung chính...</p>
+                            <div class="search-meta">
+                                <span>Chuyên mục: Công nghệ</span>
+                                <span>Ngày: 12/02/2025</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-item">
+                        <img src="https://winsmile.vn/public/files/upload/default/images/255973460-112650448004279-7133401913410483825-n.jpg" alt="Ảnh bài viết">
+                        <div class="search-content">
+                            <h3>Tiêu đề bài viết</h3>
+                            <p>Nội dung ngắn của bài viết này để mô tả sơ lược về nội dung chính...</p>
+                            <div class="search-meta">
+                                <span>Chuyên mục: Công nghệ</span>
+                                <span>Ngày: 12/02/2025</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-item">
+                        <img src="https://winsmile.vn/public/files/upload/default/images/255973460-112650448004279-7133401913410483825-n.jpg" alt="Ảnh bài viết">
+                        <div class="search-content">
+                            <h3>Tiêu đề bài viết</h3>
+                            <p>Nội dung ngắn của bài viết này để mô tả sơ lược về nội dung chính...</p>
+                            <div class="search-meta">
+                                <span>Chuyên mục: Công nghệ</span>
+                                <span>Ngày: 12/02/2025</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-item">
+                        <img src="https://winsmile.vn/public/files/upload/default/images/255973460-112650448004279-7133401913410483825-n.jpg" alt="Ảnh bài viết">
+                        <div class="search-content">
+                            <h3>Tiêu đề bài viết</h3>
+                            <p>Nội dung ngắn của bài viết này để mô tả sơ lược về nội dung chính...</p>
+                            <div class="search-meta">
+                                <span>Chuyên mục: Công nghệ</span>
+                                <span>Ngày: 12/02/2025</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Lặp lại search-item cho nhiều bài viết -->
+                </div>
+
+                <div class="pagination-custom">
+                    <a href="#" class="disabled">Trước</a>
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <span>...</span>
+                    <a href="#">99</a>
+                    <a href="#">Sau</a>
+                </div>
             </div>
-            <div class="col-12 col-md-4">
-                <div class="p-3 bg-secondary text-white">Cột nhỏ (4 cột khi MD, full khi nhỏ)</div>
+            <div class="col-12 col-md-4 flex-column d-none d-md-flex">
+                <form id="search-form" asp-action="Search" asp-controller="Home" method="post" class="d-flex py-0 pb-3">
+                    @Html.AntiForgeryToken()
+                    <input type="text" name="keyWord" id="search-input"
+                           class="form-control search-input shadow"
+                           placeholder="Tìm kiếm..." />
+                    <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+                <div class="box_title_v1">Chủ đề mới nhất</div>
             </div>
         </div>
     </div>

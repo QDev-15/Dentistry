@@ -26,7 +26,7 @@ builder.Services.AddControllersWithViews()
         fv.DisableDataAnnotationsValidation = true;
     });
 builder.Services.AddHttpContextAccessor();
-
+builder.Services.AddMemoryCache();
 // add resource validator
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
