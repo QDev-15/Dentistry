@@ -134,7 +134,8 @@ builder.Services.AddHostedService<LoggerBackgroundService>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RoleService>();
-
+// Đăng ký SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -162,7 +163,11 @@ app.UseMiddleware<TimeZoneMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<SignalRHub>("/singnalRHub"); // Định tuyến Hub
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

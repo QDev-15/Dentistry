@@ -78,6 +78,12 @@ namespace Dentistry.Web.Controllers
             return View(model);
         }
 
+        // Phương thức để xóa cache khi nhận tín hiệu từ SignalR
+        public void InvalidateCache()
+        {
+            _memoryCache.Remove("ArtsHotNews");
+            Console.WriteLine("Cache đã bị xóa do tín hiệu từ Admin!");
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

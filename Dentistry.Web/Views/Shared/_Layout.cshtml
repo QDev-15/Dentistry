@@ -39,6 +39,22 @@
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-NWMV5QHJ');</script>
     <!-- End Google Tag Manager -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        var hostAdmin = "https://localhost:7226"
+        // var hostAdmin = "https://nhienadmin.quynhvpit.io.vn"
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl(hostAdmin) // URL của Admin
+            .build();
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        connection.on("InvalidateCache", function () {
+            console.log("Cache đã bị xóa do dữ liệu thay đổi!");
+            location.reload(); // Tải lại trang để cập nhật dữ liệu mới
+        });
+    </script>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
