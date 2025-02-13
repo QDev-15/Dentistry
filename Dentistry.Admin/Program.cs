@@ -134,6 +134,17 @@ builder.Services.AddHostedService<LoggerBackgroundService>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RoleService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7278") // Cho phép website kết nối     // https://nhien.quynhvpit.io.vn
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // Cần thiết cho SignalR
+        });
+});
 // Đăng ký SignalR
 builder.Services.AddSignalR();
 
@@ -163,10 +174,12 @@ app.UseMiddleware<TimeZoneMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Kích hoạt CORS
+app.UseCors("AllowSpecificOrigins");
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapHub<SignalRHub>("/singnalRHub"); // Định tuyến Hub
+    endpoints.MapHub<SignalRHub>("/signalRHub"); // Định tuyến Hub
 });
 app.MapControllerRoute(
     name: "default",

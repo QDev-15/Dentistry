@@ -37,9 +37,8 @@ namespace Dentistry.Web.Controllers
         {
             return View();
         }
-        [HttpPost("tim-kiem")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Search(string keyWord) {
+        [HttpGet("tim-kiem")]
+        public async Task<IActionResult> Search(string keyWord, int page = 1) {
             // Lấy dữ liệu từ cache (nếu có)
             if (!_memoryCache.TryGetValue("ArtsHotNews", out List<ArticleVm> artsHotNews))
             {

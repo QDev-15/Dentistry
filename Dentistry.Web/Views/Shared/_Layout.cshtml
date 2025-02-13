@@ -42,13 +42,13 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
     <script>
-        var hostAdmin = "https://localhost:7226"
-        // var hostAdmin = "https://nhienadmin.quynhvpit.io.vn"
+        var hostAdmin = "https://localhost:7226/signalRHub"
+        // var hostAdmin = "https://nhienadmin.quynhvpit.io.vn/signalRHub"
         const connection = new signalR.HubConnectionBuilder()
             .withUrl(hostAdmin) // URL của Admin
             .build();
 
-        connection.start().catch(err => console.error(err.toString()));
+        connection.start().catch(err => console.error("signalR Error = " + err.toString()));
 
         connection.on("InvalidateCache", function () {
             console.log("Cache đã bị xóa do dữ liệu thay đổi!");

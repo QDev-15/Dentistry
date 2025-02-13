@@ -8,50 +8,6 @@
 
 @model SearchVm
 
-<style>
-    /* Container tổng */
-    .search-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 5px 10px;
-    max-width: 350px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Input tìm kiếm */
-    .search-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    padding: 8px;
-    background: transparent;
-    }
-
-    /* Khi focus vào input */
-    .search-input:focus {
-    outline: none;
-    }
-
-    /* Nút tìm kiếm */
-    .search-btn {
-    border: none;
-    background: none;
-    color: #555;
-    font-size: 18px;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
-    }
-
-    /* Hiệu ứng hover */
-    .search-btn:hover {
-    color: #000;
-    }
-</style>
 <div class="container-fluid">
     <div class="container box_breadcrumb">
         <ul class="breadcrumb">
@@ -68,22 +24,24 @@
             Kết quả tìm kiếm
         </div>
         <div class="row py-3">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-8 search-result-content">
                 <div class="search-results">
                     @foreach (var item in Model.Items)
                     {
                         string pathImageArt = "";
                         if (item.Images.Any())
                         {
-                            pathImageArt = item.Images.FirstOrDefault().Path;
+                            pathImageArt = item.Images[item.Images.Count - 1].Path;
                         }
                         <div class="search-item">
                             <img src="@pathImageArt" alt="Ảnh bài viết">
                             <div class="search-content">
-                                <h3>@item.Title</h3>
+                                <h3>
+                                    <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
+                                </h3>
                                 <p>@item.Description.LimitTo(200, "...")</p>
                                 <div class="search-meta">
-                                    <span>Chuyên mục: @item.Category?.Name</span>
+                                    <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
                                     <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
                                 </div>
                             </div>
@@ -103,11 +61,10 @@
                     <a href="#">Sau</a>
                 </div>
             </div>
-            <div class="col-12 col-md-4 flex-column d-none d-md-flex">
-                <form id="search-form" asp-action="Search" asp-controller="Home" method="post" class="d-flex py-0 pb-3">
-                    @Html.AntiForgeryToken()
+            <div class="col-12 col-md-4 search-hotnew flex-column d-none d-md-flex">
+                <form id="search-form" asp-action="Search" asp-controller="Home" method="get" class="d-flex py-0 pb-3">
                     <input type="text" name="keyWord" id="search-input"
-                    class="form-control search-input shadow"
+                           class="form-control search-input shadow" @Context.Request.Query["keyWord"]
                     placeholder="Tìm kiếm..." />
                     <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
@@ -118,7 +75,7 @@
                         string pathImage = "";
                         if (item.Images.Any())
                         {
-                            pathImage = item.Images.FirstOrDefault().Path;
+                            pathImage = item.Images[item.Images.Count - 1].Path;
                         }
                         <div class="item">
                             <div class="image">
@@ -128,7 +85,7 @@
                             </div>
                             <div class="info">
                                 <h2 class="title">
-                                    <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
+                                    <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title.LimitTo(200, "...")</a>
                                 </h2>
                             </div>
                         </div>

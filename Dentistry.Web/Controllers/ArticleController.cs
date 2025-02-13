@@ -18,12 +18,6 @@ namespace Dentistry.Web.Controllers
         {
             return View();
         }
-        [HttpGet("tim-kiem")]
-        public async Task<IActionResult> ListArticle(string keyWord)
-        {
-            
-            return View();
-        }
         [HttpGet("bai-viet/{alias}")]
         public async Task<IActionResult> Articles(string alias)
         {

@@ -31,7 +31,7 @@
 }
 
 #backToTop:hover {
-  background-color: rgba(233, 177, 60, 0.8588235294);
+  background-color: #e9b13c;
   transform: scale(1.1);
 }
 
@@ -245,24 +245,24 @@
 .search-page-content .box_title {
   text-align: left !important;
 }
-.search-page-content .search-results {
+.search-page-content .search-result-content .search-results {
   min-height: 500px;
   background: #fff;
   padding-bottom: 10px;
   border-bottom: 2px solid #e9b13c;
 }
-.search-page-content .search-item {
+.search-page-content .search-result-content .search-item {
   display: flex;
   align-items: stretch;
   padding: 15px 0;
 }
-.search-page-content .search-item img {
+.search-page-content .search-result-content .search-item img {
   width: 190px;
   height: 160px;
   object-fit: fill;
   border-radius: 15px;
 }
-.search-page-content .search-content {
+.search-page-content .search-result-content .search-content {
   flex-grow: 1;
   margin-left: 15px;
   display: flex;
@@ -271,29 +271,38 @@
   padding-bottom: 10px;
   border-bottom: 1px #c1c1c1 dotted;
 }
-.search-page-content .search-content h3 {
+.search-page-content .search-result-content .search-content h3 a {
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 5px;
   color: #e9b13c;
   text-transform: uppercase;
+  text-decoration: unset;
 }
-.search-page-content .search-content p {
+.search-page-content .search-result-content .search-content p {
   font-size: 14px;
   margin-bottom: auto;
   flex-grow: 1;
 }
-.search-page-content .search-meta {
+.search-page-content .search-result-content .search-meta {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
   color: #777;
 }
-.search-page-content .pagination-custom {
+.search-page-content .search-result-content .search-meta span {
+  font-weight: 500;
+}
+.search-page-content .search-result-content .search-meta a {
+  text-decoration: unset;
+  color: #e9b13c;
+  font-weight: 500;
+}
+.search-page-content .search-result-content .pagination-custom {
   text-align: right;
   margin-top: 10px;
 }
-.search-page-content .pagination-custom a {
+.search-page-content .search-result-content .pagination-custom a {
   display: inline-block;
   padding: 8px 12px;
   margin: 0 5px;
@@ -304,14 +313,88 @@
   font-size: 14px;
   font-weight: 500;
 }
-.search-page-content .pagination-custom a:hover {
+.search-page-content .search-result-content .pagination-custom a:hover {
   background: #cf9a2c;
   color: #fff;
 }
-.search-page-content .pagination-custom .disabled {
+.search-page-content .search-result-content .pagination-custom .disabled {
   color: #e9b13c;
   background: #e9ecef;
   pointer-events: none;
+}
+.search-page-content .search-hotnew form {
+  /* Input tìm kiếm */
+  /* Khi focus vào input */
+  /* Nút tìm kiếm */
+  /* Hiệu ứng hover */
+}
+.search-page-content .search-hotnew form .search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 8px;
+  background: transparent;
+}
+.search-page-content .search-hotnew form .search-input:focus {
+  outline: none;
+}
+.search-page-content .search-hotnew form .search-btn {
+  border: none;
+  background: none;
+  color: #555;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+.search-page-content .search-hotnew form .search-btn:hover {
+  color: #000;
+}
+.search-page-content .search-hotnew .box_right_content .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  align-items: stretch;
+}
+.search-page-content .search-hotnew .box_right_content .item .image {
+  width: 120px;
+  height: 90px;
+  background-color: #f0f0f0; /* Màu nền khi ảnh lỗi */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  border-radius: 20px;
+}
+.search-page-content .search-hotnew .box_right_content .item .image a {
+  height: 100%;
+  width: 100%;
+}
+.search-page-content .search-hotnew .box_right_content .item .image img {
+  width: 100%;
+  height: 100%;
+}
+.search-page-content .search-hotnew .box_right_content .item .image img:not([src]) {
+  visibility: hidden; /* Ẩn ảnh nếu không có src */
+}
+.search-page-content .search-hotnew .box_right_content .info {
+  flex: 1; /* Chiếm phần còn lại của hàng */
+  display: flex;
+  flex-direction: column;
+}
+.search-page-content .search-hotnew .box_right_content .info .title {
+  margin-bottom: 10px;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+}
+.search-page-content .search-hotnew .box_right_content .info .title a {
+  text-decoration: none;
+  color: #cf9a2c;
+  transition: all 0.15s ease-in-out 0s;
 }
 
 #navbarSupportedContent ul {

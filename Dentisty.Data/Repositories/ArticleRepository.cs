@@ -292,7 +292,7 @@ namespace Dentisty.Data.Repositories
 
         public async Task<List<ArticleVm>> GetForSearch(string keyWord)
         {
-            if (string.IsNullOrWhiteSpace(keyWord)) return new List<ArticleVm>();
+            keyWord = keyWord ?? "";
             var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).Include(x => x.Category).Include(x=> x.Images).ToListAsync();
             return articles.Select(x => x.ReturnViewModel()).ToList();
         }  
