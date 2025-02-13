@@ -15,7 +15,7 @@
             @if (Model.item.Category.Parent != null)
             {
                 <li>
-                    <a asp-action="Detail" asp-asp-controller="Category"
+                    <a asp-action="Detail" asp-controller="Category"
                        asp-route-danhmuc="@Model.item.Category.Parent.Type.GetAliasDisplayName()" asp-route-alias="@Model.item.Category.Parent.Alias"
                        title="@Model.item.Category.Parent.Name">
                         @Model.item.Category.Parent.Name
@@ -23,7 +23,7 @@
                 </li>
             }
             <li>
-                <a asp-action="Detail" asp-asp-controller="Category"
+                <a asp-action="Detail" asp-controller="Category"
                    asp-route-danhmuc="@Model.item.Category.Type.GetAliasDisplayName()" asp-route-alias="@Model.item.Category.Alias"
                    title="@Model.item.Category.Name">
                     @Model.item.Category.Name

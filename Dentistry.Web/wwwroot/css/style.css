@@ -1065,6 +1065,57 @@
 .footer .container .content {
   flex: 1;
 }
+.footer .footer__nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer .footer__nav .footer_title {
+  color: #cf9a2c !important;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 18px !important;
+  text-transform: uppercase;
+  text-decoration: unset;
+}
+.footer .footer__nav .footer_hotline ul li {
+  font-size: 24px;
+  font-weight: 500;
+}
+.footer .footer__nav .footer_hotline a {
+  text-decoration: unset;
+  color: #333 !important;
+  font-size: 22px !important;
+}
+.footer .footer__nav .footer_address {
+  font-size: 14px;
+  line-height: 24px;
+}
+.footer .footer__nav .footer_address .branches {
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.footer .footer__nav .footer_address .branches-address {
+  /*text-transform: uppercase;*/
+}
+.footer .footer__nav .footer_address .branches-address span {
+  color: #cf9a2c;
+  font-weight: 500;
+  transition: all 0.15s ease-in-out 0s;
+}
+.footer .footer__nav .footer_address .branches-phone {
+  /*text-transform: uppercase;*/
+}
+.footer .footer__nav .footer_address .branches-phone span {
+  color: #404040;
+  font-weight: bold;
+  transition: all 0.15s ease-in-out 0s;
+}
+.footer .footer__nav .footer_follow .social-icons a {
+  padding: 0 5px;
+  font-size: 22px;
+}
 .footer .footer__logo {
   border-radius: 50px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
@@ -1073,38 +1124,12 @@
   max-width: 150px;
   border-radius: 50px;
 }
-.footer .footer__nav a {
-  /*color: #333333;*/
-  text-decoration: none;
-  font-size: 14px;
-}
-.footer .footer__nav a:hover {
-  color: #E4BC5D;
-}
-.footer .footer__nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.footer .footer__nav div > ul {
-  padding-left: 10px;
-}
-.footer .footer__nav div > ul .branches > span {
-  font-weight: bold;
-}
-.footer .footer__nav ul li {
-  margin-bottom: 10px;
-}
 .footer .footer__bottom {
   border-top: 1px solid #cbcbcb;
   padding: 20px;
   text-align: center;
   font-size: 14px;
   background: #f5f5f5;
-}
-.footer .social-icons a {
-  padding: 0 5px;
-  font-size: 22px;
 }
 
 .social-icons {
