@@ -21,9 +21,10 @@
         $.ajax({
             url: `/Category/AddEdit/${id}?parent=${parent}`,
             type: 'GET',
-            success: function (html) {
-                $('#addEditCategoryModal .modal-content').html(html);
+            success: function (data) {
+                $('#addEditCategoryModal .modal-content').html(data);
                 $('#addEditCategoryModal').modal('show');
+                
             },
             error: function (err) {
                 showError('Failed to load data');

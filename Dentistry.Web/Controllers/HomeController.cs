@@ -62,16 +62,23 @@ namespace Dentistry.Web.Controllers
                 };
                 _memoryCache.Set("ArtsHotNews", artsHotNews, cacheOptions);
             }
-            var arts = await _articleRepository.GetForSearch(keyWord);
+            var result = await _articleRepository.GetForSearch(keyWord, page);
+            ViewData["keyWord"] = keyWord;
+            ViewData["TotalPages"] = result.PageCount;
+            ViewData["CurrentPage"] = page;
             SearchVm model = new SearchVm()
             {
-                Items = arts,
+                Items = result.Items,
                 HotNews = artsHotNews
             };
-            if (arts != null && arts.Any())
+            // add seo
+            if (result.Items != null && result.Items.Any())
             {
+                string titles = string.Join(", ", result.Items.Select(x => x.Title).ToList());
+                string tags = string.Join(",", result.Items.Select(x => x.Tags).ToList());
+                tags = string.Join(", ", tags.Split(",").Distinct());
                 ViewData["Title"] = SystemConstants.ApplicationTitle;
-                ViewData["Description"] = $"Đọc ngay bài viết '{arts[0].Title}' để hiểu hơn về {arts[0].Tags}";
+                ViewData["Description"] = $"Đọc ngay bài viết '{titles}' để hiểu hơn về {tags}";
                 ViewData["Keywords"] = keyWord ?? SystemConstants.ApplicationTitle;
             }
             return View(model);

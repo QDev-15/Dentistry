@@ -21,11 +21,15 @@
 <div class="container-fluid">
     <div class="container search-page-content py-4">
         <div class="box_title">
-            Kết quả tìm kiếm
+            Kết quả tìm kiếm <span>"@ViewData["keyWord"]"</span>
         </div>
         <div class="row py-3">
             <div class="col-12 col-md-8 search-result-content">
                 <div class="search-results">
+                    @if (Model.Items.Count == 0)
+                    {
+                        <span class="not-result-found">Có 0 kết quả được tìm thấy.</span>
+                    }
                     @foreach (var item in Model.Items)
                     {
                         string pathImageArt = "";
@@ -51,14 +55,62 @@
                 </div>
 
                 <div class="pagination-custom">
-                    <a href="#" class="disabled">Trước</a>
-                    <a href="#">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <span>...</span>
-                    <a href="#">99</a>
-                    <a href="#">Sau</a>
+                    @{
+                        int totalPages = (int)ViewData["TotalPages"];
+                        int currentPage = (int)ViewData["CurrentPage"];
+                        string keyWord = ViewData["keyWord"] as string ?? "";
+                        if (totalPages > 1) {
+                            <a href="@Url.Action("Search", new { keyWord = keyWord, page = currentPage - 1 })"
+                               class="first @(currentPage == 1 ? "disabled" : "")">Trước</a>
+
+                            @if (totalPages <= 10)
+                            {
+                                @for (int i = 1; i <= totalPages; i++)
+                                {
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = i })"
+                                       class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                                }
+                            }
+                            else
+                            {
+                                if (currentPage <= 4)
+                                {
+                                    @for (int i = 1; i <= 4; i++)
+                                    {
+                                        <a href="@Url.Action("Search", new { keyWord = keyWord, page = i })"
+                                           class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                                    }
+                                    <span>...</span>
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = totalPages })" class="page-number">@totalPages</a>
+                                }
+                                else if (currentPage >= totalPages - 3)
+                                {
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = 1 })" class="page-number">1</a>
+                                    <span>...</span>
+                                    @for (int i = totalPages - 3; i <= totalPages; i++)
+                                    {
+                                        <a href="@Url.Action("Search", new { keyWord = keyWord, page = i })"
+                                           class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = 1 })" class="page-number">1</a>
+                                    <span>...</span>
+                                    @for (int i = currentPage - 1; i <= currentPage + 1; i++)
+                                    {
+                                        <a href="@Url.Action("Search", new { keyWord = keyWord, page = i })"
+                                           class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                                    }
+                                    <span>...</span>
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = totalPages })" class="page-number">@totalPages</a>
+                                }
+                            }
+
+                            <a href="@Url.Action("Search", new { keyWord = keyWord, page = currentPage + 1 })"
+                               class="last @(currentPage == (int)ViewData["TotalPages"] ? "disabled" : "")">Sau</a>
+                        }
+                    }
                 </div>
             </div>
             <div class="col-12 col-md-4 search-hotnew flex-column d-none d-md-flex">

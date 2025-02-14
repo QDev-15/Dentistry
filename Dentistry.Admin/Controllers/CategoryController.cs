@@ -53,8 +53,20 @@ namespace Dentistry.Admin.Controllers
             {
                 categoryAddEdit.parrents = (await _categoryRepository.GetParents()).Select(x => x.ReturnViewModel()).ToList();
             }
+            var categoryTypes = await _categoryRepository.GetCategoryParentTypes();
+            var listCategoryTypes = EnumExtensions.ToSelectList<CategoryType>();
+            var existsCategorys = categoryTypes.Select(x => (int)x);
+            if (categoryAddEdit.item != null)
+            {
+                existsCategorys = existsCategorys.Where(x => x != (int)categoryAddEdit.item.Type).ToList();
+            }
+            if (parent)
+            {
+                listCategoryTypes = listCategoryTypes.Where(x => x.Value != "0" && !existsCategorys.Contains(int.Parse(x.Value))).ToList();
+
+            }
             categoryAddEdit.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>();
-            categoryAddEdit.CategoryType = EnumExtensions.ToSelectList<CategoryType>();
+            categoryAddEdit.CategoryType = listCategoryTypes;
             return PartialView("~/Views/Category/Partial/_AddEdit.cshtml", categoryAddEdit);
         }
         [HttpPost]

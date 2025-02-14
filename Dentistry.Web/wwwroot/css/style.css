@@ -19,7 +19,7 @@
   bottom: 20px;
   right: 20px;
   display: none;
-  background-color: #e9b13c;
+  background-color: rgb(233, 177, 60);
   color: white;
   border: none;
   padding: 0px;
@@ -31,7 +31,7 @@
 }
 
 #backToTop:hover {
-  background-color: #e9b13c;
+  background-color: rgb(233, 177, 60);
   transform: scale(1.1);
 }
 
@@ -112,7 +112,7 @@
   right: 0;
   transform: translateY(-50%);
   z-index: 1000;
-  background: #e9b13c;
+  background: rgb(233, 177, 60);
   height: auto;
   width: 45px;
   border-radius: 10px 0 0 10px;
@@ -139,7 +139,7 @@
   margin-top: 10px;
 }
 #popup_tuvan .btn_popup:hover {
-  background: rgba(233, 177, 60, 0.6549019608);
+  background: rgba(233, 177, 60, 0.5);
 }
 
 /**================ Start bar - Top =========================*/
@@ -245,11 +245,19 @@
 .search-page-content .box_title {
   text-align: left !important;
 }
+.search-page-content .box_title span {
+  text-transform: none;
+}
 .search-page-content .search-result-content .search-results {
   min-height: 500px;
   background: #fff;
   padding-bottom: 10px;
-  border-bottom: 2px solid #e9b13c;
+  border-bottom: 2px solid rgb(233, 177, 60);
+}
+.search-page-content .search-result-content .not-result-found {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
 }
 .search-page-content .search-result-content .search-item {
   display: flex;
@@ -275,7 +283,7 @@
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 5px;
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   text-transform: uppercase;
   text-decoration: unset;
 }
@@ -295,32 +303,46 @@
 }
 .search-page-content .search-result-content .search-meta a {
   text-decoration: unset;
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   font-weight: 500;
 }
 .search-page-content .search-result-content .pagination-custom {
   text-align: right;
   margin-top: 10px;
 }
+.search-page-content .search-result-content .pagination-custom .disabled {
+  color: rgb(233, 177, 60);
+  background: #e9ecef;
+  pointer-events: none;
+}
+.search-page-content .search-result-content .pagination-custom .first, .search-page-content .search-result-content .pagination-custom .last {
+  margin: 0 5px;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+.search-page-content .search-result-content .pagination-custom .page-number {
+  padding: 2px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  text-align: center;
+}
+.search-page-content .search-result-content .pagination-custom span {
+  margin: 0 10px;
+  letter-spacing: 5px;
+  font-weight: bold;
+}
 .search-page-content .search-result-content .pagination-custom a {
   display: inline-block;
-  padding: 8px 12px;
-  margin: 0 5px;
   text-decoration: none;
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   background: #f8f9fa;
-  border-radius: 4px;
   font-size: 14px;
   font-weight: 500;
 }
-.search-page-content .search-result-content .pagination-custom a:hover {
+.search-page-content .search-result-content .pagination-custom a:hover, .search-page-content .search-result-content .pagination-custom .active {
   background: #cf9a2c;
   color: #fff;
-}
-.search-page-content .search-result-content .pagination-custom .disabled {
-  color: #e9b13c;
-  background: #e9ecef;
-  pointer-events: none;
 }
 .search-page-content .search-hotnew form {
   /* Input tìm kiếm */
@@ -421,7 +443,7 @@
 
 .box_title {
   text-align: center !important;
-  color: #e9b13c !important;
+  color: rgb(233, 177, 60) !important;
   font-weight: 400;
   cursor: pointer;
   font-size: 30px !important;
@@ -430,7 +452,7 @@
 }
 
 .box_title_v1 {
-  color: #e9b13c !important;
+  color: rgb(233, 177, 60) !important;
   font-weight: 400;
   cursor: pointer;
   font-size: 22px !important;
@@ -439,7 +461,7 @@
 }
 
 .box_article_title {
-  color: #e9b13c !important;
+  color: rgb(233, 177, 60) !important;
   font-weight: 400;
   cursor: pointer;
   font-size: 30px !important;
@@ -488,7 +510,7 @@
   font-size: 16px;
   /*font-family: "SVN-GothamBold";*/
   border-radius: 20px;
-  background: #e9b13c;
+  background: rgb(233, 177, 60);
   transition: all 0.3s;
   text-decoration: none;
   font-weight: bold;
@@ -530,7 +552,7 @@
   color: #949494;
 }
 .box_breadcrumb .breadcrumb > li:last-child {
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   font-size: 18px;
   font-weight: 400;
   margin-top: -3px;
@@ -670,7 +692,7 @@
   padding: 15px 0;
 }
 .box_list_item .title a {
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   text-decoration: none;
   text-transform: uppercase;
   font-size: 16px;
@@ -684,16 +706,18 @@
   text-align: justify;
 }
 
+.section-contact {
+  /*        .col-md-5,
+          .col-md-7,
+          .col-xs-12 {
+              padding: 15px;
+              box-sizing: border-box;
+          }*/
+}
 .section-contact .row {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -15px;
-}
-.section-contact .col-sm-5,
-.section-contact .col-sm-7,
-.section-contact .col-xs-12 {
-  padding: 15px;
-  box-sizing: border-box;
 }
 .section-contact .hidden-xs {
   display: none;
@@ -706,6 +730,7 @@
 .section-contact .image {
   max-width: 100%;
   border-radius: 10px;
+  margin-top: 50px;
 }
 .section-contact .box_wrap {
   border-radius: 10px;
@@ -716,7 +741,7 @@
   text-align: center;
   font-size: 32px;
   margin-bottom: 20px;
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
 }
 .section-contact .form-group {
   margin-bottom: 15px;
@@ -795,13 +820,13 @@
 }
 .section-slide-doctor-articles .title {
   text-align: center;
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   font-weight: 400;
   font-size: 28px;
   text-transform: uppercase;
 }
 .section-slide-doctor-articles .title a {
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   text-decoration: unset;
 }
 .section-slide-doctor-articles .doctor-dec {
@@ -844,7 +869,7 @@
   flex: 1;
   padding-top: 30px;
   height: 100%;
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
 }
 .section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text h5 {
   font-size: 1.8rem;
@@ -872,12 +897,12 @@
   height: 12px;
   border-radius: 50%; /* Làm tròn thành hình tròn */
   border: 1px solid transparent; /* Viền */
-  outline: 1px solid #e9b13c;
+  outline: 1px solid rgb(233, 177, 60);
   background-color: transparent; /* Nền trong suốt */
 }
 .section-slide-doctor-articles .carousel-indicators .active {
-  background-color: #e9b13c; /* Màu nền khi active */
-  outline: 1px solid #e9b13c; /* Viền ngoài */
+  background-color: rgb(233, 177, 60); /* Màu nền khi active */
+  outline: 1px solid rgb(233, 177, 60); /* Viền ngoài */
 }
 .section-slide-doctor-articles .carousel-indicators li::marker {
   content: none !important;
@@ -1104,7 +1129,7 @@
   padding: 15px 0;
 }
 .section-news .box_content .title a {
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   text-decoration: none;
   text-transform: uppercase;
   font-size: 16px;
@@ -1167,7 +1192,7 @@
   padding: 15px 0;
 }
 .section-feedback .box_list_item .title a {
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   text-decoration: none;
   text-transform: uppercase;
   font-size: 16px;
@@ -1235,7 +1260,7 @@
   margin: 0;
 }
 .footer .footer__nav .footer_title {
-  color: #e9b13c !important;
+  color: rgb(233, 177, 60) !important;
   font-weight: 500;
   cursor: pointer;
   font-size: 18px !important;
@@ -1264,7 +1289,7 @@
   /*text-transform: uppercase;*/
 }
 .footer .footer__nav .footer_address .branches-address span {
-  color: #e9b13c;
+  color: rgb(233, 177, 60);
   font-weight: 500;
   transition: all 0.15s ease-in-out 0s;
 }

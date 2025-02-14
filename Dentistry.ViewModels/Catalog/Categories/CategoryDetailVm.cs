@@ -11,5 +11,6 @@ namespace Dentistry.ViewModels.Catalog.Categories
     {
         public CategoryVm category { set; get; }  = new CategoryVm();
         public List<ArticleVm> articles { set; get; } = new List<ArticleVm>();
+        public List<ArticleVm> hotNews { set; get; } = new List<ArticleVm>();
     }
 }

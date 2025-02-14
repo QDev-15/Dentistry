@@ -1,5 +1,6 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
 using Microsoft.AspNetCore.Http;
 using System.Numerics;
@@ -19,7 +20,7 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<ArticleVm>> GetProductForSetting();
         Task<IEnumerable<ArticleVm>> GetFeedBackForSetting();
         Task<IEnumerable<ArticleVm>> GetForApplication(ArticleType type);
-        Task<List<ArticleVm>> GetForSearch(string keyWord);
+        Task<PagedResult<ArticleVm>> GetForSearch(string keyWord, int pageIndex);
         Task<List<ArticleVm>> GetArticleNew();
         Task<List<ArticleVm>> SiteMap();
         Task<IEnumerable<ArticleVm>> GetByCategoryId(int id);

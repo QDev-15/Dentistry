@@ -3,106 +3,111 @@
 @model CategoryVmAddEdit
 @{
     Layout = null;
+    List<SelectListItem> danhmucs = (List<SelectListItem>)Model.CategoryType;
 }
 <div class="modal-header">
-    @if (Model.item.Id == 0)
-    {
-        <h5 class="modal-title">Thêm mới danh mục</h5>
-    }
-    else
-    {
-        <h5 class="modal-title">Cập nhật danh mục</h5>
+    @{
+        string sunf = Model.item.IsParent ? "chính" : "phụ";
+        if (Model.item.Id == 0)
+        {
+            <h5 class="modal-title">Thêm mới danh mục @sunf</h5>
+        }
+        else
+        {
+            <h5 class="modal-title">Cập nhật danh mục @sunf</h5>
+        }
     }
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
     <div class="add-edit-category p-3">
-        <form id="addEditCategoryForm" asp-action="AddEdit" asp-controller="Category" enctype="multipart/form-data" method="post">
-            <input type="hidden" asp-for="@Model.item.Id" />
-            <input type="hidden" asp-for="@Model.item.IsParent" />
-            <div class="form-group">
-                <label asp-for="@Model.item.Name" class="form-label">Tên</label>
-                <input type="text" class="form-control ps-2" asp-for="@Model.item.Name" />
-                <span asp-validation-for="@Model.item.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.item.Alias" class="form-label">Tên rút gọn</label>
-                <input type="text" class="form-control ps-2" asp-for="@Model.item.Alias"/>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.item.Sort" class="form-label">Thứ tự</label>
-                <input type="number" class="form-control ps-2" asp-for="@Model.item.Sort" />
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.item.Type" class="form-label">Loại danh mục</label>
-                <select asp-for="@Model.item.Type" asp-items="@Model.CategoryType" class="form-control">
-                    <option value="">-- Chọn loại danh mục  --</option>
-                </select>
-                <span asp-validation-for="@Model.item.Type" class="text-danger"></span>
-            </div>
-            @{
-                if (Model.item.IsParent) {
-                    <div class="form-group">
-                        <label asp-for="@Model.item.Position" class="form-label">Vị trí</label>
-                        <select asp-for="@Model.item.Position" asp-items="@Model.CategoryPositions" class="form-control">
-                            <option value="">-- Chọn vị trí --</option>
-                        </select>
-                    </div>
-                }
-             }
-            @* @{
-                if (Model.item.IsParent) {
-                    <div class="form-group disabled">
-                        <input class="disabledz" type="checkbox" asp-for="@Model.item.IsParent" />
-                        <label class="disabled" asp-for="@Model.item.IsParent">Danh mục chính</label>
-                    </div>
-                }
-            } *@
-            @{
-                if (!Model.item.IsParent) {
-                    <div class="form-group">
-                        <label asp-for="@Model.item.ParentId" class="form-label">Danh mục chính</label>
-                        <select class="form-select" asp-for="@Model.item.ParentId">
-                            @foreach (var item in Model.parrents)
-                            {
-                                <option value="@item.Id">@item.Name</option>
-                            }
-                        </select>
-                    </div>
-                }
-            }
-            <div class="form-group">
-                <label asp-for="item.ImageFile">Upload Image</label>
-                <input asp-for="item.ImageFile" type="file" class="form-control ps-2" accept="image/*" />
+        @if (danhmucs.Any()) {
+            <form id="addEditCategoryForm" asp-action="AddEdit" asp-controller="Category" enctype="multipart/form-data" method="post">
+                <input type="hidden" asp-for="@Model.item.Id" />
+                <input type="hidden" asp-for="@Model.item.IsParent" />
+                <div class="form-group">
+                    <label asp-for="@Model.item.Name" class="form-label">Tên</label>
+                    <input type="text" class="form-control ps-2" asp-for="@Model.item.Name" />
+                    <span asp-validation-for="@Model.item.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.item.Alias" class="form-label">Tên rút gọn</label>
+                    <input type="text" class="form-control ps-2" asp-for="@Model.item.Alias"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.item.Sort" class="form-label">Thứ tự</label>
+                    <input type="number" class="form-control ps-2" asp-for="@Model.item.Sort" />
+                </div>
 
-            </div>
-            @{
-                if (string.IsNullOrEmpty(Model.item.Image?.Path))
-                {
-                    <div id="preview-container" style="display: none">
-                        <label>Image Preview:</label>
-                        <img id="imagePreview" src="@Model.item.Image?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
-                    </div>
+                @{
+                    if (Model.item.IsParent) {
+                        <div class="form-group">
+                            <label asp-for="@Model.item.Type" class="form-label">Loại danh mục</label>
+                            <select asp-for="@Model.item.Type" asp-items="@Model.CategoryType" class="form-control">
+                            </select>
+                            <span asp-validation-for="@Model.item.Type" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.item.Position" class="form-label">Vị trí</label>
+                            <select asp-for="@Model.item.Position" asp-items="@Model.CategoryPositions" class="form-control">
+                                <option value="">-- Chọn vị trí --</option>
+                            </select>
+                        </div>
+                    }
                 }
-                else
-                {
-                    <div id="preview-container" style="display: block">
-                        <label class="me-2">Image Preview:</label>
-                        <img id="imagePreview" src="@Model.item.Image?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
-                    </div>
+                @{
+                    if (!Model.item.IsParent) {
+                        <div class="form-group">
+                            <label asp-for="@Model.item.ParentId" class="form-label">Danh mục chính</label>
+                            <select class="form-select" asp-for="@Model.item.ParentId">
+                                @foreach (var item in Model.parrents)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    }
                 }
-            }
+                <div class="form-group">
+                    <label asp-for="item.ImageFile">Upload Image</label>
+                    <input asp-for="item.ImageFile" type="file" class="form-control ps-2" accept="image/*" />
 
-            <div class="form-group">
-                <input type="checkbox" asp-for="@Model.item.IsActive" />
-                <label asp-for="@Model.item.IsActive">IsActive</label>
-            </div>
-        </form>
+                </div>
+                @{
+                    if (string.IsNullOrEmpty(Model.item.Image?.Path))
+                    {
+                        <div id="preview-container" style="display: none">
+                            <label>Image Preview:</label>
+                            <img id="imagePreview" src="@Model.item.Image?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="preview-container" style="display: block">
+                            <label class="me-2">Image Preview:</label>
+                            <img id="imagePreview" src="@Model.item.Image?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
+                        </div>
+                    }
+                }
+
+                <div class="form-group">
+                    <input type="checkbox" asp-for="@Model.item.IsActive" />
+                    <label asp-for="@Model.item.IsActive">IsActive</label>
+                </div>
+            </form>
+        } else
+        {
+            <span class="modal-title">Danh mục chính đã đạt giới hạn</span>
+        }
     </div>
 </div>
 <div class="modal-footer  d-flex justify-content-center">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-    <button type="submit" form="addEditCategoryForm" class="btn btn-primary">Lưu</button>
+    @if (danhmucs.Any())
+    {
+        <button type="submit" form="addEditCategoryForm" class="btn btn-primary">Lưu</button>
+    }
+    
 </div>
 <script>
     $(document).ready(function () {

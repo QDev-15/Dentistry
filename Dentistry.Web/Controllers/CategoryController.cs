@@ -1,8 +1,10 @@
-﻿using Dentistry.ViewModels.Catalog.Categories;
+﻿using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
 
 namespace Dentistry.Web.Controllers
@@ -11,10 +13,12 @@ namespace Dentistry.Web.Controllers
     {
         private readonly ICategoryReposiroty _categoryReposiroty;
         private readonly IArticleRepository _articleRepository;
-        public CategoryController(ICategoryReposiroty categoryReposiroty, IArticleRepository articleRepository)
+        private readonly IMemoryCache _memoryCache;
+        public CategoryController(ICategoryReposiroty categoryReposiroty, IArticleRepository articleRepository, IMemoryCache memoryCache)
         {
             _categoryReposiroty = categoryReposiroty;
-            _articleRepository = articleRepository; 
+            _articleRepository = articleRepository;
+            _memoryCache = memoryCache;
         }
         public IActionResult Index()
         {
@@ -89,8 +93,32 @@ namespace Dentistry.Web.Controllers
                     break;
             }
             if (categoryType == CategoryType.None) return categoryDetailVm;
+
+            if (!_memoryCache.TryGetValue("ArtsHotNews", out List<ArticleVm> artsHotNews))
+            {
+                artsHotNews = await _articleRepository.GetArticleNew();
+
+                // Lưu vào cache trong 10 phút
+                var cacheOptions = new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10),
+                    SlidingExpiration = TimeSpan.FromMinutes(5),
+                    PostEvictionCallbacks =
+                    {
+                        new PostEvictionCallbackRegistration
+                        {
+                            EvictionCallback = (key, value, reason, state) =>
+                            {
+                                Console.WriteLine($"Cache '{key}' bị xóa do: {reason}");
+                            }
+                        }
+                    }
+                };
+                _memoryCache.Set("ArtsHotNews", artsHotNews, cacheOptions);
+            }
             categoryDetailVm.category = await _categoryReposiroty.GetByAlias(alias);
             categoryDetailVm.articles = (await _articleRepository.GetByCategoryId(categoryDetailVm.category.Id)).ToList();
+            categoryDetailVm.hotNews = artsHotNews;
             return categoryDetailVm;
         }
     }

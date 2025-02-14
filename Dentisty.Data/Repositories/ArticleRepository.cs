@@ -290,11 +290,23 @@ namespace Dentisty.Data.Repositories
             return articles.Select(x => x.ReturnViewModel());
         }
 
-        public async Task<List<ArticleVm>> GetForSearch(string keyWord)
+        public async Task<PagedResult<ArticleVm>> GetForSearch(string keyWord, int pageIndex)
         {
             keyWord = keyWord ?? "";
-            var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).Include(x => x.Category).Include(x=> x.Images).ToListAsync();
-            return articles.Select(x => x.ReturnViewModel()).ToList();
+            pageIndex = pageIndex <= 0 ? 1 : pageIndex;
+            int pageSize = 10;
+            int skip = (pageIndex - 1) * pageSize;
+
+            var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).Include(x => x.Category).Include(x=> x.Images).Skip(skip).Take(pageSize).ToListAsync();
+            var count = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).CountAsync();
+            var result = new PagedResult<ArticleVm>()
+            {
+                Items = articles.Select(x => x.ReturnViewModel()).ToList(),
+                PageIndex = pageIndex,
+                PageSize = 10,
+                TotalRecords = count
+            };
+            return result;
         }  
         public async Task<List<ArticleVm>> GetArticleNew()
         {

@@ -66,7 +66,11 @@ namespace Dentisty.Data.Repositories
                     UpdatedDate = DateTime.Now,
                     UserId = model.UserId ?? new Guid(_loggerRepository.GetCurrentUserId()),
                 };
-
+                if (!model.IsParent)
+                {
+                    category.Parent = await _context.Categories.Where(x => x.Id == model.ParentId).FirstOrDefaultAsync();
+                    category.Type = category.Parent.Type;
+                }
                 await AddAsync(category);
                 await SaveChangesAsync();
                 if (model.ImageFile != null)
@@ -157,6 +161,11 @@ namespace Dentisty.Data.Repositories
             return rightCategories;
         }
 
+        public async Task<IEnumerable<CategoryType>> GetCategoryParentTypes()
+        {
+            var categorys = await _context.Categories.Where(x => x.IsParent == true).Select(x => x.Type ?? CategoryType.None).Distinct().ToListAsync();
+            return categorys;
+        }
         public async Task<IEnumerable<Category>> GetParents()
         {
             var parents = await _context.Categories.Where(x => x.IsParent == true || x.ParentId == null).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
