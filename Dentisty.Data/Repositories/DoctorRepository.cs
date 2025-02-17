@@ -129,5 +129,18 @@ namespace Dentisty.Data.Repositories
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<DoctorVm> GetByAlias(string alias)
+        {
+            try
+            {
+                var doctor = await _context.Doctors.FirstOrDefaultAsync(x => x.Alias.ToLower() == alias.ToLower());
+                return doctor!.ReturnViewModel();
+            } catch(Exception ex)
+            {
+                _loggerRepository.QueueLog(ex.Message, "Doctor - GetByAlias: " + alias);
+                throw new Exception("Server đang bận. Làm ơn thử lại");
+            }
+        }
     }
 }

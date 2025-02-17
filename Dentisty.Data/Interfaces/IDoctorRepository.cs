@@ -13,6 +13,7 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<Doctor>> GetAll();
         
         Task<Doctor> GetById(int id);
+        Task<DoctorVm> GetByAlias(string alias);
         Task<DoctorVm> Create(DoctorVm doctor);
         Task<DoctorVm> Update(DoctorVm doctor);
         Task<IEnumerable<DoctorVm>> GetDoctorForAppSettings();

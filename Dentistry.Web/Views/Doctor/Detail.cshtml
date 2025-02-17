@@ -1,0 +1,68 @@
+﻿@using Dentistry.ViewModels.Catalog.Doctors
+@using Dentistry.ViewModels.Enums
+@model DoctorDetailVm
+@{
+    ViewData["Title"] = Model.Doctor.Name;
+}
+
+<div class="container-fluid image-banner p-0">
+    @if (Model.Doctor.Avatar != null)
+    {
+        <img src="@Model.Doctor.Avatar.Path" loading="lazy" />
+    } else
+    {
+        <img src="/assets/img/no-image.jpg" loading="lazy" />
+    }
+    
+</div>
+<div class="container-fluid">
+    <div class="container box_breadcrumb">
+        <ul class="breadcrumb">
+            <li><a href="/">Trang chủ</a></li>
+            <li>
+                @Model.Doctor.Name
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container py-3 main-detail">
+    <article class="bg-white rounded-2xl shadow-md p-6 mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.Doctor.Name</h2>
+        <div class="flex items-center text-gray-500 text-sm mb-4">
+            <span><i class="fas fa-user"></i> Vị trí: @Model.Doctor.Position</span>
+        </div>
+        <div class="box_article_description">
+            @Html.Raw(Model.Doctor.Description)
+        </div>
+    </article>
+</div>
+@* Bài viết liên quan *@
+@{
+    if (Model.Doctors.Count > 0)
+    {
+        <div class="container">
+            <div class="box_title py-5"> Bài viết liên quan</div>
+            <div class="box_content box_list_item">
+                <div class="row">
+                    @foreach (var item in Model.Doctors)
+                    {
+                        var imgPath = item.Avatar != null ? item.Avatar.Path : "";
+                        <div class="col-sm-3 col-6">
+                            <div class="item pt-5">
+                                <div class="image" style="background-image: url('@imgPath')">
+                                    <a href="/bac-si/@item.Alias" title="@item.Name">
+                                        <span>Xem thêm</span>
+                                    </a>
+                                </div>
+                                <div class="info pt-5">
+                                    <h3 class="title"><a href="/bac-si/@item.Alias" title="@item.Name">@item.Name</a></h3>
+                                    <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
