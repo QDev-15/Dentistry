@@ -1112,141 +1112,170 @@ $black50: rgba(0, 0, 0, 0.5);
         ////////////////////////////
     }
 
-    .section-slide-service-articles {
-        padding: 100px 0;
+.section-slide-service-articles {
+    padding: 100px 0;
 
-        .slick-list {
-            margin: 0 40px;
+    .slick-list {
+        margin: 0 40px;
+    }
+
+    .doctor-dec {
+        text-align: center;
+        font-size: 16px;
+        line-height: 24px;
+        padding: 20px 0;
+        width: 880px;
+        max-width: 100%;
+        margin: 0 auto;
+        color: #232323;
+    }
+
+    .slider-service {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        padding: 50px 0;
+    }
+
+    .slide-item {
+        max-width: 300px; /* Width of each item */
+        padding: 0 10px;
+        margin: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .slide-item .content {
+        width: 100%;
+        min-height: 260px;
+        border-radius: 20px;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+
+        .slide-item-span {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 90px;
+            padding: 15px;
+            background: #7b7b7b8a;
+
+            a {
+                text-transform: capitalize;
+                color: $main;
+                text-shadow: 0px 1px 1px rgb(255 255 255 / 50%);
+                font-size: 1.2rem;
+                line-height: 1.5;
+                text-decoration: none;
+            }
         }
 
-        .doctor-dec {
-            text-align: center;
-            font-size: 16px;
-            line-height: 24px;
-            padding: 20px 0;
-            width: 880px;
-            max-width: 100%;
-            margin: 0 auto;
-            color: #232323;
+        .slide-item-span:hover {
+            transition: all 0.15s ease-in-out 0s;
+            background: #372c2c8a;
+            cursor: pointer;
         }
 
-        .slider-service {
-            position: relative;
+        .action {
             width: 100%;
-            margin: 0 auto;
-            padding: 50px 0;
-        }
+            height: 100%;
+            min-height: 160px;
+            position: absolute;
 
-        .slide-item {
-            max-width: 300px; /* Width of each item */
-            padding: 0 10px;
-            margin: 0 10px;
-            box-sizing: border-box;
-        }
-
-        .slide-item .content {
-            width: 100%;
-            min-height: 260px;
-            border-radius: 20px;
-            background-size: cover;
-            display: flex;
-
-            .action {
-                width: 100%;
-                min-height: 160px;
-                border-radius: 20px;
-                position: relative;
-
-                span {
-                    opacity: 0;
-                    transition: all 0.15s ease-in-out 0s;
-                    z-index: 1;
-                    position: absolute;
-                    width: 120px;
-                    height: 40px;
-                    line-height: 36px;
-                    text-align: center;
-                    text-transform: uppercase;
-                    color: #FFF;
-                    font-size: 16px;
-                    border: 1px solid #FFF;
-                    border-radius: 30px;
-                    top: 50%;
-                    left: 50%;
-                    margin-top: -15px;
-                    margin-left: -58px;
-                    font-weight: bold;
-                }
-            }
-
-            .action:hover span {
-                opacity: 1;
-            }
-
-            .action:hover {
-                background: rgba(207, 154, 44, 0.55);
-            }
-        }
-        /* Slick Navigation Arrow styling */
-
-        .slick-prev, .slick-next {
-            color: black;
-            font-size: 2rem;
-            z-index: 10;
-            width: 40px;
-            height: 40px;
-            background: #f1bd50c0;
-            border-radius: 50%;
-
-            i {
+            span {
+                opacity: 0;
+                transition: all 0.15s ease-in-out 0s;
+                z-index: 1;
                 position: absolute;
-                left: 0;
-                top: 0;
-                font-size: 24px;
-                color: white;
+                width: 120px;
+                height: 40px;
+                line-height: 36px;
+                text-align: center;
+                text-transform: uppercase;
+                color: #FFF;
+                font-size: 16px;
+                border: 1px solid #FFF;
+                border-radius: 30px;
+                top: 50%;
+                left: 50%;
+                margin-top: -15px;
+                margin-left: -58px;
+                font-weight: bold;
             }
         }
 
-        .slick-prev {
-            left: 0px;
-
-            i {
-                padding: 8px 12px;
-            }
+        .action:hover span {
+            opacity: 1;
         }
 
-        .slick-next {
-            right: 0px;
-
-            i {
-                padding: 8px 15px;
-            }
-        }
-
-        .slick-prev::before, .slick-next::before {
-            display: none;
-        }
-
-        .slick-prev:hover, .slick-next:hover {
-            background: #f1bd5096;
-        }
-
-        .slick-next:focus, .slick-prev:focus {
-            background: rgba(241, 189, 80, 0.7529411765);
-        }
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .slide-item {
-                width: 250px; /* Slightly smaller for tablets and mobile */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .slide-item {
-                width: 200px; /* Adjust for small screens */
-            }
+        .action:hover {
+            background: rgba(207, 154, 44, 0.55);
+            z-index: 1;
         }
     }
+    /* Slick Navigation Arrow styling */
+
+    .slick-prev, .slick-next {
+        color: black;
+        font-size: 2rem;
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        background: #f1bd50c0;
+        border-radius: 50%;
+
+        i {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 24px;
+            color: white;
+        }
+    }
+
+    .slick-prev {
+        left: 0px;
+
+        i {
+            padding: 8px 12px;
+        }
+    }
+
+    .slick-next {
+        right: 0px;
+
+        i {
+            padding: 8px 15px;
+        }
+    }
+
+    .slick-prev::before, .slick-next::before {
+        display: none;
+    }
+
+    .slick-prev:hover, .slick-next:hover {
+        background: #f1bd5096;
+    }
+
+    .slick-next:focus, .slick-prev:focus {
+        background: rgba(241, 189, 80, 0.7529411765);
+    }
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .slide-item {
+            width: 250px; /* Slightly smaller for tablets and mobile */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .slide-item {
+            width: 200px; /* Adjust for small screens */
+        }
+    }
+}
 
     .section-news {
         padding: 50px 0;

@@ -23,6 +23,11 @@
                     <a asp-controller="Article" asp-action="Articles" asp-route-alias="@item.Alias" class="action">
                         <span>Xem thêm</span>
                     </a>
+                    <span class="slide-item-span">
+                        <a asp-controller="Article" asp-action="Articles" asp-route-alias="@item.Alias" class="action">
+                            @item.Title.LimitTo(100, "...")
+                        </a>
+                    </span>
                 </div>
             </div>
         }
