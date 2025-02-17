@@ -1,8 +1,8 @@
 ﻿@using Dentistry.ViewModels.Catalog.Doctors
 @model List<DoctorVm>
-@{
+@* @{
     Model.AddRange(Model);
-}
+} *@
 
 <div class="container">
     <h2 class="title">
@@ -32,7 +32,9 @@
                     <div class="carousel-content container">
                         <!-- Phần ảnh -->
                         <div class="carousel-image">
-                            <img src="@item.Avatar.Path" loading="lazy" alt="@item.Name">
+                            <a asp-action="Detail" asp-controller="Doctor" asp-route-alias="@item.Alias">
+                                <img src="@item.Avatar.Path" loading="lazy" alt="@item.Name">
+                            </a>
                         </div>
                         <!-- Phần text -->
                         <div class="carousel-text">
@@ -41,7 +43,8 @@
                             <div class="carousel-text-description">
                                 <p>@item.Description</p>
                             </div>
-                            <a href="/@item.Name" class="btn_yellow">Xem thêm</a>
+
+                            <a asp-action="Detail" asp-controller="Doctor" asp-route-alias="@item.Alias" class="btn_yellow">Xem thêm</a>
                         </div>
                     </div>
                 </div>
