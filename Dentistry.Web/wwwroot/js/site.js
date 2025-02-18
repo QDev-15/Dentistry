@@ -42,7 +42,52 @@
     });
 });
 
+//Resize Screen
+function getBootstrapBreakpoint(width) {
+    width = width | window.innerWidth;
+    if (width < 576) return "xs";      // Extra small
+    if (width < 768) return "sm";      // Small
+    if (width < 992) return "md";      // Medium
+    if (width < 1200) return "lg";     // Large
+    if (width < 1400) return "xl";     // Extra large
+    return "xxl";                      // Extra extra large
+}
 
+function showScreenSize() {
+    const width = window.innerWidth;
+    const breakpoint = getBootstrapBreakpoint(width);
+    console.log(`Width: ${width}px - Bootstrap: ${breakpoint}`);
+}
+
+// Gọi lần đầu tiên khi trang load
+window.addEventListener("load", showScreenSize);
+window.addEventListener("resize", showScreenSize);
+
+//End Resize Screen
+
+
+// Cookie
+             function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + value + "; path=/" + expires;
+}
+
+function getCookie(name) {
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length);
+    }
+    return null;
+}
+
+// End Cookie
 
 function openInfoModal() {
     // Open modal 

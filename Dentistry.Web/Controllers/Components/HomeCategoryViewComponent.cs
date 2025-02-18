@@ -12,7 +12,7 @@ namespace Dentistry.Web.Controllers.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var categories = await _categoryReposiroty.GetFlatHomePage();
-            return View("~/Views/ViewComponents/HomeCategory.cshtml", categories.ToList());
+            return View("~/Views/ViewComponents/HomeCategory.cshtml", categories.Take(4).ToList());
         }
     }
     

@@ -29,6 +29,8 @@
     <article class="bg-white rounded-2xl shadow-md p-6 mb-8">
         <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.Doctor.Name</h2>
         <div class="flex items-center text-gray-500 text-sm mb-4">
+            <span><i class="fas fa-calendar-alt"></i> Ngày sinh: @Model.Doctor.Dob.ToString("dd/MM/yyyy")</span>
+            <span class="mx-2">|</span>
             <span><i class="fas fa-user"></i> Vị trí: @Model.Doctor.Position</span>
         </div>
         <div class="box_article_description">
