@@ -1,5 +1,11 @@
 ﻿@using Dentistry.ViewModels.Catalog.Slide
 @model List<SlideVm>
+@{
+    while(Model.Count < 3)
+    {
+        Model.AddRange(Model);
+    }
+}
 
 
 <div class="container-fluid home-slider owl-carousel">

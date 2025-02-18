@@ -7,6 +7,7 @@ using System.Text;
 using Dentisty.Data.Common;
 using Dentisty.Data.Common.Enums;
 using Dentisty.Data.GeneratorDB.Entities;
+using Dentistry.ViewModels.Enums;
 
 namespace Dentistry.Data.GeneratorDB.Extensions
 {
@@ -19,10 +20,9 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 Id = 1,
                 Name = "Nhiên Dentistry",
             });
-            var roleAdminId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
             var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
+            var roleAdminId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");
             var roleUserId = new Guid("8D04DCE2-945A-435D-BBA4-DF3F325983DC");
-            var userId = new Guid("69BD714F-9576-45CA-B5B7-F00649BE00DE");
             modelBuilder.Entity<AppRole>().HasData(new AppRole
             {
                 Id = roleAdminId,
@@ -45,43 +45,22 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 Id = adminId,
                 UserName = "admin",
                 NormalizedUserName = "ADMIN",
-                Email = "nguyenquynhvp.ictu@gmail.com",
-                NormalizedEmail = "nguyenquynhvp.ictu@gmail.com",
+                Email = "nhienadmin@gmail.com",
+                NormalizedEmail = "nhienadmin@gmail.com",
                 EmailConfirmed = true,
+                IsActive = true,
                 PasswordHash = hasher.HashPassword(null, "Admin@1234"),
                 SecurityStamp = string.Empty,
-                FirstName = "Quynh",
-                LastName = "Nguyen",
-                DisplayName = "Nguyễn Hữu Quỳnh",
+                FirstName = "Nhiên",
+                LastName = "Admin",
+                DisplayName = "Nhiên",
                 Dob = new DateTime(1990, 01, 31)
-            },
-            new AppUser
-            {
-                Id = userId,
-                UserName = "userdefault",
-                NormalizedUserName = "Nick QN",
-                Email = "quynhvpit@outlook.com",
-                NormalizedEmail = "quynhvpit@outlook.com",
-                EmailConfirmed = true,
-                PasswordHash = hasher.HashPassword(null, "User@1234"),
-                SecurityStamp = string.Empty,
-                FirstName = "Nick",
-                LastName = "Qaury",
-                DisplayName = "Nick Qaury Normal",
-                Dob = new DateTime(1995, 01, 01),
-                
             });
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
             {
                 RoleId = roleAdminId,
                 UserId = adminId
-            }, new IdentityUserRole<Guid> { 
-                RoleId = roleUserId,
-                UserId = userId  
-            }, new IdentityUserRole<Guid> { 
-                RoleId = roleAdminId,
-                UserId = userId
             });
             modelBuilder.Entity<Category>().HasData(
                 new Category()
@@ -90,9 +69,11 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     ParentId = null,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
-                    Name = "Răng Sứ",
-                    Alias = "rang-su",
+                    Name = "Dịch vụ",
+                    Alias = "dich-vu",
                     Sort = 1,
+                    Position = CategoryPosition.MenuLef,
+                    Type = CategoryType.Service,
                     UserId = adminId,
                 },
                 new Category()
@@ -101,9 +82,11 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     ParentId = null,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
-                    Name = "Niềng Răng",
-                    Alias = "nieng-rang",
+                    Name = "Sản phẩm",
+                    Alias = "san-pham",
                     Sort = 2,
+                    Position = CategoryPosition.MenuLef,
+                    Type = CategoryType.Products,
                     UserId= adminId,   
                 },
                 new Category()
@@ -112,9 +95,11 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     ParentId = null,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
-                    Name = "Bệnh lý",
-                    Alias = "benh-ly",
+                    Name = "Kiến thức",
+                    Alias = "kien-thuc",
                     Sort = 3,
+                    Position = CategoryPosition.MenuLef,
+                    Type = CategoryType.advise,
                     UserId= adminId,   
                 },
                 new Category()
@@ -123,9 +108,11 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     ParentId = null,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
-                    Name = "Giới thiệu",
-                    Alias = "gioi-thieu",
+                    Name = "Tin tức",
+                    Alias = "tin-tuc",
                     Sort = 4,
+                    Position = CategoryPosition.MenuRight,
+                    Type  = CategoryType.News,
                     UserId= adminId,   },
                 new Category()
                 {
@@ -133,37 +120,40 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                     ParentId = null,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
+                    Name = "Tư vấn",
+                    Alias = "tu-van",
+                    Sort = 5,
+                    Position = CategoryPosition.MenuRight,
+                    Type = CategoryType.advise,
+                    UserId = adminId,
+                },
+                new Category()
+                {
+                    Id = 6,
+                    ParentId = null,
+                    IsActive = true,
+                    CreatedDate = DateTime.Now,
                     Name = "Liên hệ",
                     Alias = "lien-he",
-                    Sort  = 5,
+                    Position = CategoryPosition.MenuRight,
+                    Type = CategoryType.Support,
+                    Sort  = 6,
                     UserId= adminId,
                 },
                  new Category()
                  {
-                     Id = 6,
-                     ParentId = 1,
+                     Id = 7,
+                     ParentId = null,
                      IsActive = true,
                      CreatedDate = DateTime.Now,
-                     Name = "Tiêu chí răng sứ",
-                     Alias = "tieu-chi-rang-su",
-                     Sort = 6,
+                     Name = "Giới thiệu",
+                     Alias = "gioi-thieu",
+                     Position = CategoryPosition.MenuRight,
+                     Type = CategoryType.About,
+                     Sort = 7,
                      UserId = adminId,
                      
                  }
-
-            );
-              
-            modelBuilder.Entity<Article>().HasData(
-                new Article()
-                {
-                    Id = 1,
-                    Alias = "bai-viet-test",
-                    Title = "Sự phát triển của răng sứ",
-                    CreatedDate = DateTime.Now,
-                    Description = "Bài viết test.",
-                    CategoryId = 1,
-                    CreatedById = adminId,
-                }
             );
         }
     }

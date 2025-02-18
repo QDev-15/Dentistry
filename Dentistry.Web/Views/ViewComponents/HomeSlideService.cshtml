@@ -1,13 +1,11 @@
 ﻿@using Dentistry.ViewModels.Catalog.Articles
 @model List<ArticleVm>
-@* @{
-    Model.AddRange(Model);
-    Model.AddRange(Model);
-    Model.AddRange(Model);
-    Model.AddRange(Model);
-    Model.AddRange(Model);
-    Model.AddRange(Model);
-} *@
+@{
+    while (Model.Count < 6)
+    {
+        Model.AddRange(Model);
+    }
+}
 
 <div class="container">
     <div class="box_title">
