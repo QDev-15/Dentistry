@@ -184,43 +184,22 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0e55acbc-c5bf-4c3d-8dbf-a102f3b1bc24",
-                            DisplayName = "Nguyễn Hữu Quỳnh",
+                            ConcurrencyStamp = "e5f6fe88-3cc6-4688-81c0-a6dd4c939948",
+                            DisplayName = "Nhiên",
                             Dob = new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "nguyenquynhvp.ictu@gmail.com",
+                            Email = "nhienadmin@gmail.com",
                             EmailConfirmed = true,
-                            FirstName = "Quynh",
-                            IsActive = false,
-                            LastName = "Nguyen",
+                            FirstName = "Nhiên",
+                            IsActive = true,
+                            LastName = "Admin",
                             LockoutEnabled = false,
-                            NormalizedEmail = "nguyenquynhvp.ictu@gmail.com",
+                            NormalizedEmail = "nhienadmin@gmail.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAENFX7B6VP58ccCtkNN/OwwgvrohyD10viXOYE6Q79nAdrTybnyM7eyFA9f4cidGFmw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHDZAdqnaNjr4+jp0SjYQYecOOQ83NmtQTHcDDHMlDx1PfUVZ5yNWHwJ6BLYquAg9g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
                             UserName = "admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("69bd714f-9576-45ca-b5b7-f00649be00de"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "4669fbb6-7229-4b14-9837-7553f27c32c7",
-                            DisplayName = "Nick Qaury Normal",
-                            Dob = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "quynhvpit@outlook.com",
-                            EmailConfirmed = true,
-                            FirstName = "Nick",
-                            IsActive = false,
-                            LastName = "Qaury",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "quynhvpit@outlook.com",
-                            NormalizedUserName = "Nick QN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEWd8GSwxDxh9pzZtAMex8sOmkPpBPHlVwVBdOId8GZBF6TyYxJUeb5DK1UMXbAsJA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "userdefault"
                         });
                 });
 
@@ -278,22 +257,6 @@ namespace Dentisty.Data.Migrations
                     b.HasIndex("CreatedById");
 
                     b.ToTable("Articles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Alias = "bai-viet-test",
-                            CategoryId = 1,
-                            CreatedById = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
-                            CreatedDate = new DateTime(2025, 2, 10, 23, 12, 45, 309, DateTimeKind.Local).AddTicks(8504),
-                            Description = "Bài viết test.",
-                            IsActive = false,
-                            IsDraft = false,
-                            Title = "Sự phát triển của răng sứ",
-                            Type = 0,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Category", b =>
@@ -369,73 +332,98 @@ namespace Dentisty.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Alias = "rang-su",
-                            CreatedDate = new DateTime(2025, 2, 10, 23, 12, 45, 309, DateTimeKind.Local).AddTicks(8376),
+                            Alias = "dich-vu",
+                            CreatedDate = new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6106),
                             IsActive = true,
                             IsParent = false,
-                            Name = "Răng Sứ",
+                            Name = "Dịch vụ",
+                            Position = 1,
                             Sort = 1,
+                            Type = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 2,
-                            Alias = "nieng-rang",
-                            CreatedDate = new DateTime(2025, 2, 10, 23, 12, 45, 309, DateTimeKind.Local).AddTicks(8397),
+                            Alias = "san-pham",
+                            CreatedDate = new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6125),
                             IsActive = true,
                             IsParent = false,
-                            Name = "Niềng Răng",
+                            Name = "Sản phẩm",
+                            Position = 1,
                             Sort = 2,
+                            Type = 4,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 3,
-                            Alias = "benh-ly",
-                            CreatedDate = new DateTime(2025, 2, 10, 23, 12, 45, 309, DateTimeKind.Local).AddTicks(8400),
+                            Alias = "kien-thuc",
+                            CreatedDate = new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6128),
                             IsActive = true,
                             IsParent = false,
-                            Name = "Bệnh lý",
+                            Name = "Kiến thức",
+                            Position = 1,
                             Sort = 3,
+                            Type = 7,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 4,
-                            Alias = "gioi-thieu",
-                            CreatedDate = new DateTime(2025, 2, 10, 23, 12, 45, 309, DateTimeKind.Local).AddTicks(8403),
+                            Alias = "tin-tuc",
+                            CreatedDate = new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6130),
                             IsActive = true,
                             IsParent = false,
-                            Name = "Giới thiệu",
+                            Name = "Tin tức",
+                            Position = 2,
                             Sort = 4,
+                            Type = 3,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 5,
-                            Alias = "lien-he",
-                            CreatedDate = new DateTime(2025, 2, 10, 23, 12, 45, 309, DateTimeKind.Local).AddTicks(8405),
+                            Alias = "tu-van",
+                            CreatedDate = new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6133),
                             IsActive = true,
                             IsParent = false,
-                            Name = "Liên hệ",
+                            Name = "Tư vấn",
+                            Position = 2,
                             Sort = 5,
+                            Type = 7,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 6,
-                            Alias = "tieu-chi-rang-su",
-                            CreatedDate = new DateTime(2025, 2, 10, 23, 12, 45, 309, DateTimeKind.Local).AddTicks(8407),
+                            Alias = "lien-he",
+                            CreatedDate = new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6135),
                             IsActive = true,
                             IsParent = false,
-                            Name = "Tiêu chí răng sứ",
-                            ParentId = 1,
+                            Name = "Liên hệ",
+                            Position = 2,
                             Sort = 6,
+                            Type = 5,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Alias = "gioi-thieu",
+                            CreatedDate = new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6137),
+                            IsActive = true,
+                            IsParent = false,
+                            Name = "Giới thiệu",
+                            Position = 2,
+                            Sort = 7,
+                            Type = 6,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         });
@@ -959,16 +947,6 @@ namespace Dentisty.Data.Migrations
                         new
                         {
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
-                            RoleId = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc")
-                        },
-                        new
-                        {
-                            UserId = new Guid("69bd714f-9576-45ca-b5b7-f00649be00de"),
-                            RoleId = new Guid("8d04dce2-945a-435d-bba4-df3f325983dc")
-                        },
-                        new
-                        {
-                            UserId = new Guid("69bd714f-9576-45ca-b5b7-f00649be00de"),
                             RoleId = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc")
                         });
                 });

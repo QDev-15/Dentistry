@@ -58,6 +58,41 @@ namespace Dentisty.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppSettings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HotlineHaNoi = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ZaloHotline = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Facebook = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Instagram = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Twitter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Youtube = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartWork = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EndWork = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShowToolBarTop = table.Column<bool>(type: "bit", nullable: false),
+                    ShowContactList = table.Column<bool>(type: "bit", nullable: false),
+                    ShowCategoryList = table.Column<bool>(type: "bit", nullable: false),
+                    ShowDoctorSlideList = table.Column<bool>(type: "bit", nullable: false),
+                    ShowArtileSlideList = table.Column<bool>(type: "bit", nullable: false),
+                    ShowProductList = table.Column<bool>(type: "bit", nullable: false),
+                    ShowNewsList = table.Column<bool>(type: "bit", nullable: false),
+                    ShowFeedbackList = table.Column<bool>(type: "bit", nullable: false),
+                    Categories = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Doctors = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Products = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Articles = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    News = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Feedbacks = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppSettings", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppUserClaims",
                 columns: table => new
                 {
@@ -113,41 +148,22 @@ namespace Dentisty.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bases",
+                name: "Branches",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Map = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Bases", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Contacts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                    table.PrimaryKey("PK_Branches", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -233,7 +249,33 @@ namespace Dentisty.Data.Migrations
                         column: x => x.AvatarId,
                         principalTable: "Images",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Doctors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Alias = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Profile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Dob = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PositionExtent = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Doctors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Doctors_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -246,7 +288,13 @@ namespace Dentisty.Data.Migrations
                     Alias = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ParentId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageId = table.Column<int>(type: "int", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    IsParent = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    Position = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Type = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Sort = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -263,6 +311,46 @@ namespace Dentisty.Data.Migrations
                         column: x => x.ParentId,
                         principalTable: "Categories",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Categories_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    ProcessById = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    BranchesId = table.Column<int>(type: "int", nullable: true),
+                    TimeBook = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contacts_AppUsers_ProcessById",
+                        column: x => x.ProcessById,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_Contacts_Branches_BranchesId",
+                        column: x => x.BranchesId,
+                        principalTable: "Branches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -271,9 +359,11 @@ namespace Dentisty.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Caption = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    SubName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
@@ -304,13 +394,16 @@ namespace Dentisty.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Alias = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedById = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -385,101 +478,43 @@ namespace Dentisty.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "HomeArticles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BackgroundImageId = table.Column<int>(type: "int", nullable: false),
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
-                    ThemeStyle = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HomeArticles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_HomeArticles_Articles_ArticleId",
-                        column: x => x.ArticleId,
-                        principalTable: "Articles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_HomeArticles_Images_BackgroundImageId",
-                        column: x => x.BackgroundImageId,
-                        principalTable: "Images",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AppConfigs",
-                columns: new[] { "Id", "Key", "Value" },
-                values: new object[,]
-                {
-                    { 1, "hotline-hcm", "19009090" },
-                    { 2, "facebook", "nhien86" },
-                    { 3, "hotline-hanoi", "19001010" }
-                });
-
             migrationBuilder.InsertData(
                 table: "AppRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("8d04dce2-945a-435d-bba4-df3f325983dc"), null, "User role", "Nick", "User" },
-                    { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), null, "Administrator role", "admin", "admin" }
+                    { new Guid("8d04dce2-945a-435d-bba4-df3f325983dc"), null, "User role", "user", "USER" },
+                    { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), null, "Administrator role", "admin", "ADMIN" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "AppSettings",
+                columns: new[] { "Id", "Articles", "Categories", "Doctors", "EndWork", "Facebook", "Feedbacks", "HotlineHaNoi", "Instagram", "Name", "News", "Products", "ShowArtileSlideList", "ShowCategoryList", "ShowContactList", "ShowDoctorSlideList", "ShowFeedbackList", "ShowNewsList", "ShowProductList", "ShowToolBarTop", "StartWork", "Twitter", "Youtube", "ZaloHotline" },
+                values: new object[] { 1, null, null, null, null, null, null, null, null, "Nhiên Dentistry", null, null, true, true, true, true, true, true, true, true, null, null, null, null });
 
             migrationBuilder.InsertData(
                 table: "AppUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { new Guid("8d04dce2-945a-435d-bba4-df3f325983dc"), new Guid("69bd714f-9576-45ca-b5b7-f00649be00de") }
-                });
+                values: new object[] { new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") });
 
             migrationBuilder.InsertData(
                 table: "AppUsers",
-                columns: new[] { "Id", "AccessFailedCount", "AvatarId", "ConcurrencyStamp", "DisplayName", "Dob", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, null, "aafea5d5-955a-4eca-853f-99f6d51489a2", "Nguyễn Hữu Quỳnh", new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "nguyenquynhvp.ictu@gmail.com", true, "Quynh", "Nguyen", false, null, "nguyenquynhvp.ictu@gmail.com", "admin", "AQAAAAIAAYagAAAAEIgt7g+UHBYI2MQ0C0j3xL6fXoVd+X27I7xhfr/RPDxoj7T11U7VOUF19Q1IP1IGog==", null, false, "", false, "admin" },
-                    { new Guid("69bd714f-9576-45ca-b5b7-f00649be00de"), 0, null, "4e08b75e-9857-4384-bca3-4d2ab107452d", "Nick Qaury Normal", new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "quynhvpit@outlook.com", true, "Nick", "Qaury", false, null, "quynhvpit@outlook.com", "Nick QN", "AQAAAAIAAYagAAAAEMfCIw7xgUWridHba2hIBcbN4Tbyru1PMh67a0YxYW27G+btXmW651iuIigP787cow==", null, false, "", false, "User Default" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Languages",
-                columns: new[] { "Id", "Code", "IsDefault", "Name" },
-                values: new object[,]
-                {
-                    { 1, "vi", true, "Tiếng Việt" },
-                    { 2, "en", false, "English" }
-                });
+                columns: new[] { "Id", "AccessFailedCount", "AvatarId", "ConcurrencyStamp", "DisplayName", "Dob", "Email", "EmailConfirmed", "FirstName", "IsActive", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), 0, null, "e5f6fe88-3cc6-4688-81c0-a6dd4c939948", "Nhiên", new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "nhienadmin@gmail.com", true, "Nhiên", true, "Admin", false, null, "nhienadmin@gmail.com", "ADMIN", "AQAAAAIAAYagAAAAEHDZAdqnaNjr4+jp0SjYQYecOOQ83NmtQTHcDDHMlDx1PfUVZ5yNWHwJ6BLYquAg9g==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Alias", "CreatedDate", "IsActive", "Name", "ParentId", "UpdatedDate", "UserId" },
+                columns: new[] { "Id", "Alias", "CreatedDate", "Description", "ImageId", "IsActive", "Name", "ParentId", "Position", "Sort", "Type", "UpdatedDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "rang-su", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4424), true, "Răng Sứ", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { 2, "nieng-rang", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4439), true, "Niềng Răng", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { 3, "benh-ly", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4441), true, "Bệnh lý", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { 4, "gioi-thieu", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4442), true, "Giới thiệu", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
-                    { 5, "lien-he", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4444), true, "Liên hệ", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") }
+                    { 1, "dich-vu", new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6106), null, null, true, "Dịch vụ", null, 1, 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 2, "san-pham", new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6125), null, null, true, "Sản phẩm", null, 1, 2, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 3, "kien-thuc", new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6128), null, null, true, "Kiến thức", null, 1, 3, 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 4, "tin-tuc", new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6130), null, null, true, "Tin tức", null, 2, 4, 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 5, "tu-van", new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6133), null, null, true, "Tư vấn", null, 2, 5, 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 6, "lien-he", new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6135), null, null, true, "Liên hệ", null, 2, 6, 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") },
+                    { 7, "gioi-thieu", new DateTime(2025, 2, 18, 15, 48, 15, 89, DateTimeKind.Local).AddTicks(6137), null, null, true, "Giới thiệu", null, 2, 7, 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Articles",
-                columns: new[] { "Id", "Alias", "CategoryId", "CreatedById", "CreatedDate", "Description", "Title", "UpdatedDate" },
-                values: new object[] { 1, "bai-viet-test", 1, new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"), new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4485), "Bài viết test.", "Sự phát triển của răng sứ", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Alias", "CreatedDate", "IsActive", "Name", "ParentId", "UpdatedDate", "UserId" },
-                values: new object[] { 6, "tieu-chi-rang-su", new DateTime(2024, 12, 10, 16, 16, 25, 586, DateTimeKind.Local).AddTicks(4445), true, "Tiêu chí răng sứ", 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("69bd714f-9576-45ba-b5b7-f00649be00de") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUsers_AvatarId",
@@ -502,6 +537,11 @@ namespace Dentisty.Data.Migrations
                 column: "ImagesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_ImageId",
+                table: "Categories",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentId",
                 table: "Categories",
                 column: "ParentId");
@@ -522,14 +562,19 @@ namespace Dentisty.Data.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HomeArticles_ArticleId",
-                table: "HomeArticles",
-                column: "ArticleId");
+                name: "IX_Contacts_BranchesId",
+                table: "Contacts",
+                column: "BranchesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_HomeArticles_BackgroundImageId",
-                table: "HomeArticles",
-                column: "BackgroundImageId");
+                name: "IX_Contacts_ProcessById",
+                table: "Contacts",
+                column: "ProcessById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Doctors_ImageId",
+                table: "Doctors",
+                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Slides_ImageId",
@@ -555,6 +600,9 @@ namespace Dentisty.Data.Migrations
                 name: "AppRoles");
 
             migrationBuilder.DropTable(
+                name: "AppSettings");
+
+            migrationBuilder.DropTable(
                 name: "AppUserClaims");
 
             migrationBuilder.DropTable(
@@ -570,16 +618,13 @@ namespace Dentisty.Data.Migrations
                 name: "ArticlesImage");
 
             migrationBuilder.DropTable(
-                name: "Bases");
-
-            migrationBuilder.DropTable(
                 name: "CategoryTranslations");
 
             migrationBuilder.DropTable(
                 name: "Contacts");
 
             migrationBuilder.DropTable(
-                name: "HomeArticles");
+                name: "Doctors");
 
             migrationBuilder.DropTable(
                 name: "Loggers");
@@ -588,10 +633,13 @@ namespace Dentisty.Data.Migrations
                 name: "Slides");
 
             migrationBuilder.DropTable(
+                name: "Articles");
+
+            migrationBuilder.DropTable(
                 name: "Languages");
 
             migrationBuilder.DropTable(
-                name: "Articles");
+                name: "Branches");
 
             migrationBuilder.DropTable(
                 name: "Categories");

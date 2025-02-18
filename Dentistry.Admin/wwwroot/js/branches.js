@@ -9,7 +9,7 @@
     });
 
     // open model edit-add
-    $(document).on('click', '.add-btn, .edit-btn', function () {
+    $(document).on('click', '.add-branch-btn, .edit-branch-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
 
         $.ajax({
@@ -18,9 +18,6 @@
             success: function (html) {
                 $('#addEditBranchesModal .modal-content').html(html);
                 $('#addEditBranchesModal').modal('show');
-                var message = id == 0 ? "Thêm mới thành công" : "Cập nhật thành công";
-                showSuccess(message);
-                loadBranchesList();
             },
             error: function (error) {
                 showError('Thất bại, xin vui lòng thử lại.');
