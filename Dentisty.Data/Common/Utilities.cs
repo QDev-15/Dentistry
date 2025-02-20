@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System.Globalization;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -96,6 +97,48 @@ namespace Dentisty.Data.Common
 
                 await viewResult.View.RenderAsync(viewContext);
                 return writer.ToString();
+            }
+        }
+        /// <summary>
+        /// Get Ip Location on Internet
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> GetInternetIpAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                return await client.GetStringAsync("https://api64.ipify.org");
+            }
+        }
+        /// <summary>
+        /// Get Ip Location on Local
+        /// </summary>
+        /// <returns></returns>
+        public static string GetInternerIp()
+        {
+            string hostName = Dns.GetHostName(); // Lấy tên máy
+            string localIp = Dns.GetHostAddresses(hostName)
+                                .FirstOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)?
+                                .ToString();
+            return localIp ?? "Không thể xác định IP";
+        }
+        public static async Task<string> GetIpAddress()
+        {
+            try
+            {
+                // Thử lấy IP public
+                using (HttpClient client = new HttpClient())
+                {
+
+                    //var ip = await client.GetStringAsync("https://api64.ipify.org"); // ipv6
+                    var ip = await client.GetStringAsync("https://api.ipify.org"); // ipv4
+                    return ip;
+                }
+            }
+            catch
+            {
+                // Nếu thất bại (không có internet), lấy IP nội bộ
+                return GetInternerIp();
             }
         }
 

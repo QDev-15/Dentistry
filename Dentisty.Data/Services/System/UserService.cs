@@ -218,5 +218,17 @@ namespace Dentisty.Data.Services.System
             }
             return new ErrorResult<bool>("Cập nhật không thành công");
         }
+        public async Task<Result<bool>> UpdateIpTimeZone(Guid id, string ip, string timezone)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.IdLogin = ip;
+            user.TimeZone = timezone;
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return new SuccessResult<bool>();
+            }
+            return new ErrorResult<bool>("Cập nhật không thành công");
+        }
     }
 }

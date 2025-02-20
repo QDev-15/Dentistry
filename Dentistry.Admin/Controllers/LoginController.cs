@@ -1,5 +1,6 @@
 ﻿using Dentistry.Common.Constants;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Common;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Authentication;
@@ -41,6 +42,7 @@ namespace Dentistry.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(request);
 
+            request.IpAddress = await Utilities.GetIpAddress();
             var result = await _userService.Authencate(request);
             if (result.ResultObj == null)
             {
@@ -53,6 +55,7 @@ namespace Dentistry.Admin.Controllers
                 ExpiresUtc = DateTimeOffset.UtcNow.AddDays(10),
                 IsPersistent = request.RememberMe
             };
+            var userId = userPrincipal.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             // Lưu token vào cookie hoặc trả về trong response
             HttpContext.Response.Cookies.Append(SystemConstants.AppSettings.Token, result.ResultObj, new CookieOptions
             {
@@ -67,6 +70,7 @@ namespace Dentistry.Admin.Controllers
                         userPrincipal,
                         authProperties);
 
+            await _userService.UpdateIpTimeZone(new Guid(userId), request.IpAddress, request.TimeZone);
             _logs.QueueLog("login done");
             return RedirectToAction("Index", "Home");
         }

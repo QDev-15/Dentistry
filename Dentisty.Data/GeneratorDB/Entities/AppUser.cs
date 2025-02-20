@@ -12,6 +12,8 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public string LastName { get; set; } = string.Empty;
         public string DisplayName { get; set; } = string.Empty;
         public bool IsActive { get; set; }
+        public string? TimeZone { set; get; }
+        public string? IdLogin { set; get; }
 
         public DateTime Dob { get; set; }
         public int? AvatarId { get; set; }

@@ -258,30 +258,31 @@ namespace Dentisty.Data.Repositories
         {
             var appSetting = await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1);
             string[] ids = [];
-            if (appSetting !=null)
+            if (appSetting ==null || string.IsNullOrEmpty(appSetting.Articles))
             {
-                switch(type)
-                {
-                    case ArticleType.Article:
-                        ids = appSetting.Articles!.Split(',');
-                    break;
-                    case ArticleType.News:
-                        ids = appSetting.News!.Split(',');
-                    break;
-                    case ArticleType.FeedBack:
-                        ids = appSetting.Feedbacks!.Split(',');
-                    break;
-                    case ArticleType.Products:
-                        ids = appSetting.Products!.Split(',');
-                    break; 
-                    default:
-                        ids = [];
-                        break;
-                }
-                var articles = await _context.Articles.Where(x => x.Type == type && ids.Contains(x.Id.ToString()) && x.IsActive).Include(x => x.Images).Select(x => x.ReturnViewModel()).ToListAsync();
-                return articles;
+                return new List<ArticleVm>();
             }
-            return new List<ArticleVm>();
+            switch (type)
+            {
+                case ArticleType.Article:
+                    ids = appSetting.Articles!.Split(',');
+                    break;
+                case ArticleType.News:
+                    ids = appSetting.News!.Split(',');
+                    break;
+                case ArticleType.FeedBack:
+                    ids = appSetting.Feedbacks!.Split(',');
+                    break;
+                case ArticleType.Products:
+                    ids = appSetting.Products!.Split(',');
+                    break;
+                default:
+                    ids = [];
+                    break;
+            }
+            var articles = await _context.Articles.Where(x => x.Type == type && ids.Contains(x.Id.ToString()) && x.IsActive).Include(x => x.Images).Select(x => x.ReturnViewModel()).ToListAsync();
+            return articles;
+            
         }
 
         public async Task<IEnumerable<ArticleVm>> GetByCategoryId(int id)

@@ -82,9 +82,9 @@ namespace Dentisty.Data.Repositories
         public async Task<IEnumerable<DoctorVm>> GetDoctorForApplication()
         {
             var setting = await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1);
-            if (setting == null)
+            if (setting == null || string.IsNullOrEmpty(setting.Doctors))
             {
-                return Enumerable.Empty<DoctorVm>();
+                return new List<DoctorVm>();
             }
             string[] ids = setting.Doctors!.Split(',');
             var docs = await _context.Doctors.Where(x => ids.Contains(x.Id.ToString())).Include(x => x.Avatar).Select(x => x.ReturnViewModel()).ToListAsync();

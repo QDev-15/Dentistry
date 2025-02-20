@@ -28,7 +28,7 @@
                                 <div class="card-body">
                                     <form asp-action="Index" asp-controller="Login" method="post" class="needs-validation" novalidate>
                                         <div asp-validation-summary="All" class="text-danger"></div>
-
+                                        <input type="hidden" asp-for="TimeZone" id="login-timezone"/>
                                         <div class="form-group">
                                             <label asp-for="UserName" class="small mb-1">Tài khoản</label>
                                             <input asp-for="UserName" class="form-control py-4" type="text" placeholder="Nhập tài khoản" />
@@ -78,5 +78,6 @@
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js" crossorigin="anonymous"></script>
     <script src="~/lib/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/js/login.js"></script>
 </body>
 </html>

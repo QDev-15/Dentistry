@@ -100,6 +100,8 @@ namespace Dentisty.Data
                 LastName = item.LastName,
                 PhoneNumber = item.PhoneNumber,
                 UserName = item.UserName,
+                IdLogin = item.IdLogin ?? "",
+                TimeZone = item.TimeZone,
                 Avatar = item.Avatar.ReturnViewModel()
             };
             return vm;

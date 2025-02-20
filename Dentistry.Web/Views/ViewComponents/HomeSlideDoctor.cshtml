@@ -1,7 +1,7 @@
 ﻿@using Dentistry.ViewModels.Catalog.Doctors
 @model List<DoctorVm>
 @{
-    while (Model.Count < 6)
+    while (Model.Count > 0 && Model.Count < 6)
     {
         Model.AddRange(Model);
     }

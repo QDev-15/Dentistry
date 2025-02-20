@@ -29,6 +29,8 @@ namespace Dentistry.ViewModels.System.Users
 
         [Display(Name = "Ngày sinh")]
         public DateTime Dob { get; set; }
+        public string TimeZone { set; get; }
+        public string IdLogin { set; get; }
         public ImageVm Avatar { get; set; }
         public IFormFile ImageFile { get; set; }
 

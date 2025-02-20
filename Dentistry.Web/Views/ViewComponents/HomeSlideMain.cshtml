@@ -1,7 +1,7 @@
 ﻿@using Dentistry.ViewModels.Catalog.Slide
 @model List<SlideVm>
 @{
-    while(Model.Count < 3)
+    while (Model.Count > 0 && Model.Count < 3)
     {
         Model.AddRange(Model);
     }
