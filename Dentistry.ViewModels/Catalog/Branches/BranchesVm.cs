@@ -16,5 +16,9 @@ namespace Dentistry.ViewModels.Catalog.Branches
         public bool IsActive { set; get; }
         public DateTime CreatedAt { set; get; }
         public DateTime UpdatedAt { set; get; }
+
+        public string GetDisplayHtml() {
+            return Name + "</br> " + Address + " | <span style=\"font-weight: bold;\">" + PhoneNumber + "</span>";
+        }
     }
 }
