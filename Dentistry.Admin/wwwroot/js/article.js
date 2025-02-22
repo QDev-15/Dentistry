@@ -29,7 +29,7 @@ $(document).ready(function () {
     $(document).on("keypress", "#tagInput", function (e) {
         if (e.which === 13 || e.which === 44) {
             e.preventDefault();
-            let newTag = $(this).val().trim();
+            let newTag = $("#tagInput").val().trim();
             if (newTag && !tags.includes(newTag)) {
                 tags.push(newTag);
                 $(this).val(""); // Xóa input sau khi thêm

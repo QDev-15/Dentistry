@@ -1,10 +1,9 @@
 ﻿
 // Khi tải trang, kiểm tra query string và đặt tab được chọn
 $(document).ready(function () {
-    listenerEvent();
     setActiveTab();
 });
-
+listenerEvent();
 function listenerEvent() {
     // select tab setting
     const tabSettingTabMenu = document.getElementById("tabSettingMenu");

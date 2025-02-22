@@ -29,5 +29,6 @@ namespace Dentisty.Data.Interfaces
         /// <param name="alias"></param>
         /// <returns></returns>
         Task<bool> CheckExistsAlias(string alias, int id);
+        Task<bool> DeleteAsync(int id);
     }
 }

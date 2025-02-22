@@ -21,7 +21,7 @@ namespace Dentistry.ViewModels.Catalog.Categories
         public CategoryType? Type { set; get; } = CategoryType.None;
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public string Decription { set; get; }
+        public string Description { set; get; }
         public IFormFile ImageFile { set; get; }
         public ImageVm Image {  set; get; }
         public CategoryVm? Parent { get; set; }

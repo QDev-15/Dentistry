@@ -208,7 +208,7 @@ namespace Dentisty.Data
                 ImageId = item.ImageId,
                 UpdatedDate = item.UpdatedDate,
                 CreatedDate = item.CreatedDate,
-                Decription = item.Description ?? "",
+                Description = item.Description ?? "",
                 Position = item.Position,
                 Type = item.Type,
                 IsParent = item.IsParent,

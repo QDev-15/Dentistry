@@ -1,6 +1,11 @@
 ﻿@using Dentistry.ViewModels.Catalog.Contacts
 @model ContactVm
-
+<style>
+    .btn_submit {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+</style>
 <form id="addContactMessage" novalidate>
     <div class="mb-3">
         <input type="text" asp-for="Name" class="form-control" placeholder="Họ tên *">
@@ -18,7 +23,7 @@
         <textarea class="form-control" asp-for="Message" placeholder="Nội dung *" rows="3"></textarea>
         <span asp-validation-for="Message" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn_submit w-100">Hoàn thành</button>
+    <button type="submit" class="btn_submit w-100">Đăng ký tư vấn miễn phí!</button>
 </form>
 
 

@@ -18,6 +18,7 @@ namespace Dentistry.Common.Constants
             public const string Article = "Articles";
             public const string Product = "Products";
             public const string Doctor = "Doctors";
+            public const string Tinys = "Tinys";
         }
         public class AppSettings
         {

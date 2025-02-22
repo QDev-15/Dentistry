@@ -54,8 +54,11 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.tox-notification--error {
+    display: none !important;
+}
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
-  display: block;
+    display: block;
 }
 
 body {

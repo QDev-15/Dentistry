@@ -1251,19 +1251,23 @@
 }
 
 .image-banner {
-  max-height: 500px; /* Chiều cao tối đa của container */
-  min-height: 300px;
+  height: 300px;
   width: 100%; /* Chiều rộng 100% container */
   display: flex; /* Sử dụng Flexbox */
   justify-content: center; /* Căn giữa theo chiều ngang */
   align-items: center; /* Căn giữa theo chiều dọc */
   overflow: hidden; /* Ẩn phần ảnh thừa nếu có */
   background-color: #f0f0f0; /* Tùy chọn: Thêm màu nền nếu ảnh nhỏ hơn div */
+  display: none;
 }
 .image-banner img {
   height: 100%;
   width: 100%;
   object-fit: cover;
+}
+
+.image-banner:hover {
+  height: auto;
 }
 
 /** ====================== FOOTER ==================*/

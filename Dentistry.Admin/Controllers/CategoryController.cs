@@ -20,11 +20,13 @@ namespace Dentistry.Admin.Controllers
     {
         private readonly ICategoryReposiroty _categoryRepository;
         private readonly ICompositeViewEngine _compositeViewEngine;
+        private readonly LoggerRepository _loggerRepository;
 
-        public CategoryController(ICategoryReposiroty categoryRepository, ICompositeViewEngine viewE)
+        public CategoryController(ICategoryReposiroty categoryRepository, ICompositeViewEngine viewE, LoggerRepository loggerRepository)
         {
             _categoryRepository = categoryRepository;
             _compositeViewEngine = viewE;
+            _loggerRepository = loggerRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -54,15 +56,15 @@ namespace Dentistry.Admin.Controllers
                 categoryAddEdit.parrents = (await _categoryRepository.GetParents()).Select(x => x.ReturnViewModel()).ToList();
             }
             var categoryTypes = await _categoryRepository.GetCategoryParentTypes();
-            var listCategoryTypes = EnumExtensions.ToSelectList<CategoryType>();
-            var existsCategorys = categoryTypes.Select(x => (int)x);
+            var listCategoryTypes = EnumExtensions.ToSelectList<CategoryType>();  // Type mặc định
+            var existsCategorys = categoryTypes.Select(x => (int)x); // Type đã tồn tại
             if (categoryAddEdit.item != null)
             {
                 existsCategorys = existsCategorys.Where(x => x != (int)categoryAddEdit.item.Type).ToList();
             }
             if (parent)
             {
-                listCategoryTypes = listCategoryTypes.Where(x => x.Value != "0" && !existsCategorys.Contains(int.Parse(x.Value))).ToList();
+                listCategoryTypes = listCategoryTypes.Where(x => !existsCategorys.Contains(int.Parse(x.Value))).ToList();
 
             }
             categoryAddEdit.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>();
@@ -88,7 +90,7 @@ namespace Dentistry.Admin.Controllers
 
             //model.item.Alias = model.item.Name.ToSlus();
             var checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Alias, model.item.Id);
-            if (checkAlis)
+            if (checkAlis || string.IsNullOrEmpty(model.item.Alias))
             {
                 checkAlis = await _categoryRepository.CheckExistsAlias(model.item.Name.ToSlus(), model.item.Id);
                 if (checkAlis) {
@@ -96,18 +98,40 @@ namespace Dentistry.Admin.Controllers
                 }
                 model.item.Alias = model.item.Name.ToSlus();
             }
-            if (model.item.Id == 0)
+            try
             {
-                // Add slide logic
-                var slide = await _categoryRepository.CreateNew(model.item);
-            }
-            else
+                if (model.item.Id == 0)
+                {
+                    // Add slide logic
+                    var slide = await _categoryRepository.CreateNew(model.item);
+                }
+                else
+                {
+                    // Update slide logic
+                    var slide = await _categoryRepository.UpdateCategory(model.item);
+                }
+                return Json(new SuccessResult<bool>());
+            } catch (Exception ex)
             {
-                // Update slide logic
-                var slide = await _categoryRepository.UpdateCategory(model.item);
+                return Json(new ErrorResult<bool>() { Message = ex.Message });
             }
+            
 
-            return Json(new SuccessResult<bool>());
+            
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _categoryRepository.DeleteAsync(id);
+                return Json(new SuccessResult<bool>());
+            }
+            catch (Exception ex)
+            {
+                return Json(new ErrorResult<bool>() { Message = ex.Message });
+            }
         }
     }
 }

@@ -134,7 +134,7 @@ namespace Dentisty.Data.Repositories
         {
             try
             {
-                var doctor = await _context.Doctors.FirstOrDefaultAsync(x => x.Alias.ToLower() == alias.ToLower());
+                var doctor = await _context.Doctors.Include(x => x.Avatar).FirstOrDefaultAsync(x => x.Alias.ToLower() == alias.ToLower());
                 return doctor!.ReturnViewModel();
             } catch(Exception ex)
             {

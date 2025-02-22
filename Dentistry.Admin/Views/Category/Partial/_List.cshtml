@@ -38,7 +38,7 @@
                             <td class="align-middle">@item.Position.GetDisplayName()</td>
                             <td class="align-middle col-action">
                                 <button class="btn btn-sm btn-warning category-edit-btn" data-bs-toggle="modal" data-bs-target="#addEditCategoryModal" data-parent="true" data-id="@item.Id">Sửa</button>
-                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Xóa</button>
+                                <button class="btn btn-sm btn-danger" onclick="confirmDeleteCategory('@item.Name', @item.Id)">Xóa</button>
                             </td>
                         </tr>
                     }
@@ -80,7 +80,7 @@
                             <td class="align-middle">@item.Sort</td>
                             <td class="align-middle">
                                 <button class="btn btn-sm btn-warning category-edit-btn" data-bs-toggle="modal" data-bs-target="#addEditCategoryModal" data-parent="false" data-id="@item.Id">Sửa</button>
-                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Xóa</button>
+                                <button class="btn btn-sm btn-danger" onclick="confirmDeleteCategory('@item.Name', @item.Id)">Xóa</button>
                             </td>
                         </tr>
                     }
@@ -92,14 +92,14 @@
 
 <!-- Add/Edit Modal -->
 <div class="modal fade" id="addEditCategoryModal" tabindex="-1" aria-labelledby="addEditCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             
         </div>
     </div>
 </div>
 
-<!-- Confirm Delete Modal -->
+@* <!-- Confirm Delete Modal -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -116,7 +116,7 @@
             </div>
         </div>
     </div>
-</div>
+</div *@>
 
 
 <script type="text/javascript" src="~/js/category.js"></script>

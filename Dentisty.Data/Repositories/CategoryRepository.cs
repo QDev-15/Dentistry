@@ -27,23 +27,23 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<Category>> GetByParentId(int parentId)
         {
-            var categories = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).Where(x => x.ParentId == parentId).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.IsActive).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).Where(x => x.ParentId == parentId).ToListAsync();
             return categories;
         }
 
         public async Task<Category> GetById(int id)
         {
-            var category = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).FirstOrDefaultAsync(x => x.Id == id);
+            var category = await _context.Categories.Where(x => x.IsActive).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).FirstOrDefaultAsync(x => x.Id == id);
             return category;
         }
         public async Task<CategoryVm> GetByAlias(string alias)
         {
-            var category = await _context.Categories.Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ThenInclude(x => x.Image).FirstOrDefaultAsync(x => x.Alias.ToString() == alias.ToString());
+            var category = await _context.Categories.Where(x => x.IsActive).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ThenInclude(x => x.Image).FirstOrDefaultAsync(x => x.Alias.ToString() == alias.ToString());
             return category.ReturnViewModel();
         }
         public new async Task<IEnumerable<Category>> GetAllAsync()
         {
-            var categories = await _context.Categories.Include(i => i.Image).Include(x=>x.Parent).Include(x=>x.Categories).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.IsActive).Include(i => i.Image).Include(x=>x.Parent).Include(x=>x.Categories).ToListAsync();
             return categories;
         }
 
@@ -56,7 +56,7 @@ namespace Dentisty.Data.Repositories
                 {
                     Alias = model.Alias,
                     Name = model.Name,
-                    IsActive = model.IsActive,
+                    IsActive = true,
                     IsParent = model.IsParent,
                     ParentId = model.ParentId,
                     Position = model.Position,
@@ -68,7 +68,7 @@ namespace Dentisty.Data.Repositories
                 };
                 if (!model.IsParent)
                 {
-                    category.Parent = await _context.Categories.Where(x => x.Id == model.ParentId).FirstOrDefaultAsync();
+                    category.Parent = await _context.Categories.Where(x => x.IsActive == true && x.Id == model.ParentId).FirstOrDefaultAsync();
                     category.Type = category.Parent.Type;
                 }
                 await AddAsync(category);
@@ -102,8 +102,7 @@ namespace Dentisty.Data.Repositories
                     category.Alias = model.Alias;
                     category.Name = model.Name;
                     category.Sort = model.Sort;
-                    category.IsActive = model.IsActive;
-                    category.IsParent = model.IsParent;
+                    category.Description = model.Description;
                     category.Position = model.Position;
                     category.Type = model.Type;
                     if (category.ParentId != null)
@@ -139,7 +138,8 @@ namespace Dentisty.Data.Repositories
 
         public async Task<bool> CheckExistsAlias(string alias, int id)
         {
-            return await _context.Categories.AnyAsync(c => c.Alias == alias && c.Id != id);
+            if (string.IsNullOrEmpty(alias)) return true;
+            return await _context.Categories.Where(x => x.IsActive == true).AnyAsync(c => c.Alias == alias && c.Id != id);
         }
         private async Task<Image> CreateImageAsync(IFormFile formFile)
         {
@@ -151,29 +151,29 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<Category>> GetRightMenuAsync()
         {
-            var rightCategories = await _context.Categories.Where(x => x.Position == CategoryPosition.MenuRight).Include(x => x.Categories).ToListAsync();
+            var rightCategories = await _context.Categories.Where(x => x.IsActive == true && x.Position == CategoryPosition.MenuRight).Include(x => x.Categories).ToListAsync();
             return rightCategories;
         }
 
         public async Task<IEnumerable<Category>> GetLeftMenuAsync()
         {
-            var rightCategories = await _context.Categories.Where(x => x.Position == CategoryPosition.MenuLef).Include(x => x.Categories).ToListAsync();
+            var rightCategories = await _context.Categories.Where(x => x.IsActive == true && x.Position == CategoryPosition.MenuLef).Include(x => x.Categories).ToListAsync();
             return rightCategories;
         }
 
         public async Task<IEnumerable<CategoryType>> GetCategoryParentTypes()
         {
-            var categorys = await _context.Categories.Where(x => x.IsParent == true).Select(x => x.Type ?? CategoryType.None).Distinct().ToListAsync();
+            var categorys = await _context.Categories.Where(x => x.IsActive == true && x.IsParent == true ).Select(x => x.Type ?? CategoryType.None).Distinct().ToListAsync();
             return categorys;
         }
         public async Task<IEnumerable<Category>> GetParents()
         {
-            var parents = await _context.Categories.Where(x => x.IsParent == true || x.ParentId == null).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
+            var parents = await _context.Categories.Where(x => x.IsActive == true && (x.IsParent == true || x.ParentId == null)).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
             return parents;
         }
         public async Task<IEnumerable<Category>> GetChilds()
         {
-            var categories = await _context.Categories.Where(x => x.IsParent == false).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.IsActive == true && x.IsParent == false).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
             return categories;
         }
 
@@ -188,10 +188,31 @@ namespace Dentisty.Data.Repositories
             var settting = (await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1)).ReturnViewModel();
             if (settting.ShowCategoryList && settting.Categories.Length > 0) {
                 var categoryIds = settting.Categories.Split(',');
-                var categories = await _context.Categories.Where(x => categoryIds.Contains(x.Id.ToString())).Take(8).Include(x => x.Image).ToListAsync();
+                var categories = await _context.Categories.Where(x => x.IsActive == true && categoryIds.Contains(x.Id.ToString())).Take(8).Include(x => x.Image).ToListAsync();
                 return categories.Select(x => x.ReturnViewModel());
             }
             return new List<CategoryVm>();
+        }
+        public async Task<bool> DeleteAsync(int id)
+        {
+            try
+            {
+                var category = await _context.Categories.FindAsync(id);
+                if (category != null)
+                {
+                    await _imageRepository.DeleteFile(category.Image);
+                    category.IsActive = false;
+                    UpdateAsync(category);
+                    await SaveChangesAsync();
+                    return true;
+                }
+                throw new Exception("Danh mục không tồn tại.");
+            } catch (Exception ex)
+            {
+                _loggerRepository.QueueLog(ex.Message, "Delete Category Id = " + id);
+                throw new Exception(ex.Message);
+            }
+            
         }
     }
 }

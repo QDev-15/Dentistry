@@ -40,6 +40,8 @@ namespace Dentisty.Data.Common
 
         public static string ConvertToSlug(string text)
         {
+            text = text ?? "";
+            text = text.Trim();
             // Chuyển thành chữ thường
             text = text.ToLowerInvariant();
 

@@ -44,7 +44,7 @@
                             <h5>@item.Name</h5>
                             <h6>@item.Position</h6>
                             <div class="carousel-text-description">
-                                <p>@item.Description</p>
+                                <p>@item.Description.LimitTo(400, "...")</p>
                             </div>
 
                             <a asp-action="Detail" asp-controller="Doctor" asp-route-alias="@item.Alias" class="btn_yellow">Xem thêm</a>

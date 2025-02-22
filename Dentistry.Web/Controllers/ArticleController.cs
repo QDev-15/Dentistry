@@ -1,6 +1,7 @@
 ﻿using Dentistry.Common.Constants;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
@@ -31,6 +32,20 @@ namespace Dentistry.Web.Controllers
             ViewData["Description"] = $"Đọc ngay bài viết '{baiviet.Title}' để hiểu hơn về {baiviet.Tags}";
             ViewData["Keywords"] = baiviet.Tags;
             return View(baivietDetail);
-        }     
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _articleRepository.DeleteArticle(id);
+                return Json(new SuccessResult<bool>());
+            } catch(Exception ex)
+            {
+                return Json(new ErrorResult<bool>() { Message = ex.Message });
+            }
+        }
+        
+        
     }
 }

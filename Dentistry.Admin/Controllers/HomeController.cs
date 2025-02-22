@@ -17,10 +17,12 @@ namespace Dentistry.Admin.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ICategoryReposiroty _categoryReposiroty;
         private readonly ISlideRepository _slideRepository;
+        private readonly IImageRepository _imageRepository;
 
 
-        public HomeController(ILogger<HomeController> logger, ISlideRepository slideRepository, ICategoryReposiroty categoryReposiroty)
+        public HomeController(ILogger<HomeController> logger, IImageRepository imageRepository, ISlideRepository slideRepository, ICategoryReposiroty categoryReposiroty)
         {
+            _imageRepository = imageRepository;
             _logger = logger;
             _slideRepository = slideRepository;
             _categoryReposiroty = categoryReposiroty;
@@ -71,6 +73,27 @@ namespace Dentistry.Admin.Controllers
         {
             HttpContext.Session.SetString("UserTimeZone", request.TimeZone);
             return Ok();
+        }
+        [HttpPost("upload-image")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                {
+                    return BadRequest("No file uploaded.");
+                }
+                var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Tinys);
+                await _imageRepository.SaveChangesAsync();    
+                return Json(image.ReturnViewModel());                     
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+
         }
 
     }
