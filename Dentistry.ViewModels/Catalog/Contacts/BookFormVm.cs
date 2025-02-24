@@ -11,5 +11,6 @@ namespace Dentistry.ViewModels.Catalog.Contacts
     {
         public ContactVm contact { set; get; } = new ContactVm();
         public List<BranchesVm> branches { set; get; } = new List<BranchesVm>();
+        public bool SupportView { set; get; } = false;
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
+using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
@@ -13,9 +15,11 @@ namespace Dentistry.Web.Controllers
     {
         private readonly ICategoryReposiroty _categoryReposiroty;
         private readonly IArticleRepository _articleRepository;
+        private readonly IBranchesRepository _branchesRepository;
         private readonly IMemoryCache _memoryCache;
-        public CategoryController(ICategoryReposiroty categoryReposiroty, IArticleRepository articleRepository, IMemoryCache memoryCache)
+        public CategoryController(ICategoryReposiroty categoryReposiroty, IBranchesRepository branchesRepository, IArticleRepository articleRepository, IMemoryCache memoryCache)
         {
+            _branchesRepository = branchesRepository;
             _categoryReposiroty = categoryReposiroty;
             _articleRepository = articleRepository;
             _memoryCache = memoryCache;
@@ -50,10 +54,12 @@ namespace Dentistry.Web.Controllers
             // SEO ==================
             if (categoryDetailVm.category.Id > 0)
             {
+                ViewData["Support"] = categoryDetailVm.category.Type == CategoryType.Support;
                 ViewData["Title"] = categoryDetailVm.category.Name;
                 ViewData["Description"] = $"Đọc ngay danh mục '{categoryDetailVm.category.Name}' để hiểu hơn về {categoryDetailVm.category.Alias}";
                 ViewData["Keywords"] = categoryDetailVm.category.Alias;
             }
+
             return View("Detail", categoryDetailVm);
         }
 
@@ -119,6 +125,13 @@ namespace Dentistry.Web.Controllers
             categoryDetailVm.category = await _categoryReposiroty.GetByAlias(alias);
             categoryDetailVm.articles = (await _articleRepository.GetByCategoryId(categoryDetailVm.category.Id)).ToList();
             categoryDetailVm.hotNews = artsHotNews;
+            if (categoryDetailVm.category.Type == CategoryType.Support)
+            {
+                ViewData["Support"] = true;
+                var branches = await _branchesRepository.GetActive();
+                categoryDetailVm.bookFormVm.branches = branches.ToList();
+            }
+
             return categoryDetailVm;
         }
     }

@@ -10,9 +10,10 @@ namespace Dentistry.Web.Controllers.Components
         public AppContactViewComponent(IBranchesRepository branchesRepository) {
             _branchesRepository = branchesRepository;
         }
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(bool subportView)
         {
             BookFormVm vm = new BookFormVm();
+            vm.SupportView = subportView;
             var branches = await _branchesRepository.GetActive();
             vm.branches = branches.ToList();
             return View("~/Views/ViewComponents/AppContact.cshtml", vm);

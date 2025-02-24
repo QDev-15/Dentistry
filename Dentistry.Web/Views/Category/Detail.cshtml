@@ -7,6 +7,20 @@
 }
 
 @model CategoryDetailVm
+
+<style>
+    .support-view {
+        height: 600px;
+    }
+
+        .support-view .btnSuccess {
+            justify-content: center !important;
+        }
+
+    .support-view .box_wrap {
+        margin-top: -120px;
+    }
+</style>
 <div class="container-fluid justify-content-center image-banner p-0">
     <img src="@Model.category.Image?.Path" loading="lazy" />
 </div>
@@ -29,52 +43,74 @@
         </ul>
     </div>
 </div>
-@* Category detail *@
-@if (!string.IsNullOrEmpty(Model.category.Description))
-{
-    <div class="container-fluid p-0 pt-5 pb-5">
-        <div class="container main-detail">
-            <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.category.Name</h2>
-            <div class="flex items-center text-gray-500 text-sm mb-4">
-                <span><i class="fas fa-calendar-alt"></i> Ngày đăng: @Model.category.CreatedDate.ToString("dd/MM/yyyy")</span>
 
-                @if (Model.category.Type != CategoryType.None)
-                {
-                    <span class="mx-2">|</span>
-                    <span><i class="fas fa-tag"></i> Thể loại: @Model.category.Type.GetDisplayName()</span>
-                }
-                else if (Model.category.Parent != null && Model.category.Parent.Type != CategoryType.None)
-                {
-                    <span class="mx-2">|</span>
-                    <span><i class="fas fa-tag"></i> Thể loại: @Model.category.Parent.Type.GetDisplayName()</span>
-                }
-            </div>
-            <div class="box_article_description">
-                @Html.Raw(Model.category.Description)
-            </div>
-            @Html.Raw(Model.category.Description)
-        </div>
-    </div>
-}
 @{
-    if (Model.category.Parent == null)
+    if (Model.category.Type == CategoryType.Support)
     {
-        if (Model.category.ChildCategories.Any())
-        {
-            @* Category list *@
-            <div class="container-fluid p-0 pt-5 pb-5 box_categories">
-                <div class="container">
-                    @{
-                        Html.RenderPartial("~/Views/ViewComponents/HomeCategory.cshtml", @Model.category.ChildCategories.ToList());
-                    }
-                </div>
+        <div class="container-fluid box_book support-view section section-contact d-flex justify-content-center align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box_wrap">
+                            <div class="box_title">Đặt lịch khám tại Nhiên</div>
+                            <div class="box_content" id="app-contact-content">
+                                @{
+                                    Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml", Model.bookFormVm);
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>    
             </div>
+        </div>
+    } else {
+        if (Model.category.Parent == null)
+        {
+            if (Model.category.ChildCategories.Any())
+            {
+                @* Category list *@
+                <div class="container-fluid p-0 pt-5 pb-5 box_categories">
+                    <div class="container">
+                        @{
+                            Html.RenderPartial("~/Views/ViewComponents/HomeCategory.cshtml", @Model.category.ChildCategories.ToList());
+                        }
+                    </div>
+                </div>
+            }
+        } else {
+            @* Category detail *@
+            @if (!string.IsNullOrEmpty(Model.category.Description))
+            {
+                <div class="container-fluid p-0 pt-5 pb-5">
+                    <div class="container main-detail">
+                        <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.category.Name</h2>
+                        <div class="flex items-center text-gray-500 text-sm mb-4">
+                            @*<span><i class="fas fa-calendar-alt"></i> Ngày đăng: @Model.category.CreatedDate.ToString("dd/MM/yyyy")</span>
+
+                             @if (Model.category.Type != CategoryType.None) {
+                                {
+                                    <span class="mx-2">|</span>
+                                    <span><i class="fas fa-tag"></i> Thể loại: @Model.category.Type.GetDisplayName()</span>
+                                }
+                                else if (Model.category.Parent != null && Model.category.Parent.Type != CategoryType.None)
+                                {
+                                    <span class="mx-2">|</span>
+                                    <span><i class="fas fa-tag"></i> Thể loại: @Model.category.Parent.Type.GetDisplayName()</span>
+                                }
+                            *@
+                        </div>
+                        <div class="box_article_description">
+                            @Html.Raw(Model.category.Description)
+                        </div>
+                        @Html.Raw(Model.category.Description)
+                    </div>
+                </div>
+            }
+        
         }
-    } 
-    if (Model.articles.Count > 0) {
-        if (Model.category.Type == CategoryType.News
-            || Model.category.Type == CategoryType.FeedBack
-            || Model.category.Type == CategoryType.About)
+        if (Model.articles.Count > 0) {
+        if(Model.category.Type == CategoryType.News
+            || Model.category.Type == CategoryType.FeedBack)
         {
             <div class="container-fluid">
                 <div class="container search-page-content py-4">
@@ -135,7 +171,9 @@
             </div>
 
         }
-        else
+        else if (Model.category.Type == CategoryType.Service
+            || Model.category.Type == CategoryType.Products
+            || Model.category.Type == CategoryType.advise)
         {
             <div class="container-fluid p-0 pb-5" style="background: #fbfbfb;">
                 <div class="container">
@@ -173,5 +211,5 @@
             </div>
         }
     }
-    
+    }
 }
