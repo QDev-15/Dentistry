@@ -242,6 +242,13 @@
   color: #eea616;
 }
 
+.box_article_description {
+  overflow: auto;
+}
+.box_article_description iframe {
+  width: 100%;
+}
+
 .search-page-content .box_title {
   text-align: left !important;
 }
