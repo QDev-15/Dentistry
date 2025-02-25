@@ -290,11 +290,11 @@ $black50: rgba(0, 0, 0, 0.5);
     }
 
     .search-result-content {
+        padding-right: 30px;
         .search-results {
             min-height: 500px;
             background: #fff;
             padding-bottom: 10px;
-            border-bottom: 2px solid $main;
         }
 
         .not-result-found {
@@ -361,6 +361,7 @@ $black50: rgba(0, 0, 0, 0.5);
         .pagination-custom {
             text-align: right;
             margin-top: 10px;
+            border-top: 2px solid $main;
 
             .disabled {
                 color: $main;
@@ -522,14 +523,15 @@ $black50: rgba(0, 0, 0, 0.5);
     font-size: 30px !important;
     text-transform: uppercase;
     text-decoration: unset;
-}  
+}
 .box_title_v1 {
     color: $main !important;
-    font-weight: 400;
+    font-weight: 500;
     cursor: pointer;
-    font-size: 22px !important;
+    font-size: 24px !important;
     text-decoration: unset;
     word-wrap: break-word;
+    text-transform: uppercase;
 }
 .box_article_title {
     color: $main !important;

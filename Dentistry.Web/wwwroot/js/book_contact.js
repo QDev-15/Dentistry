@@ -8,10 +8,10 @@ $(document).ready(function () {
                 month: true,
                 year: true,
                 clock: false,
-                hours: true,
-                minutes: true,
-                seconds: false
-            }
+                //hours: false,
+                //minutes: false,
+                //seconds: false
+            },
         },
         localization: {
             locale: 'vi',
@@ -65,6 +65,8 @@ $(document).ready(function () {
                     }
                 } else {
                     form[0].reset();
+                    $("#frmBook").find("input, textarea").val("");
+                    $("#frmBook").find("select").val("0");
                     showSuccess("Gửi thông tin thành công!");
                 }
             },

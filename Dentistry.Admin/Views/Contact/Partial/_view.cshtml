@@ -75,6 +75,10 @@
                             <td class="col-name">Cơ sở khám:</td>
                             <td class="col-des">@Model.Branch.Name</td>
                         </tr>
+                        <tr>
+                            <td class="col-name">Thời gian:</td>
+                            <td class="col-des">@Model.TimeBook?.ToString("dd/MM/yyyy")</td>
+                        </tr>
                     }
                 }
                 <tr>

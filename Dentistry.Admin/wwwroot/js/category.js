@@ -105,13 +105,14 @@ function initCategoryTiny(editorId) {
     tinymce.init({
         selector: '#' + editorId,
         plugins: [
-            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists',
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'media', 'link', 'lists',
             'searchreplace', 'table', 'visualblocks', 'wordcount', "code"
         ],
+        media_live_embeds: true, // Cho phép hiển thị trực tiếp video
         extended_valid_elements: "h2,h3,p,strong,em,ul,ol,li,img[src|alt|style],a[href|style|target]",
         image_advtab: true,
         content_style: "img { margin: 10px;}",
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | code',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | code',
         height: 500,
         automatic_uploads: true,
         // File picker configuration (Choose file manually)

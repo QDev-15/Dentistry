@@ -248,11 +248,13 @@
 .search-page-content .box_title span {
   text-transform: none;
 }
+.search-page-content .search-result-content {
+  padding-right: 30px;
+}
 .search-page-content .search-result-content .search-results {
   min-height: 500px;
   background: #fff;
   padding-bottom: 10px;
-  border-bottom: 2px solid rgb(233, 177, 60);
 }
 .search-page-content .search-result-content .not-result-found {
   font-size: 14px;
@@ -309,6 +311,7 @@
 .search-page-content .search-result-content .pagination-custom {
   text-align: right;
   margin-top: 10px;
+  border-top: 2px solid rgb(233, 177, 60);
 }
 .search-page-content .search-result-content .pagination-custom .disabled {
   color: rgb(233, 177, 60);
@@ -453,11 +456,12 @@
 
 .box_title_v1 {
   color: rgb(233, 177, 60) !important;
-  font-weight: 400;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 22px !important;
+  font-size: 24px !important;
   text-decoration: unset;
   word-wrap: break-word;
+  text-transform: uppercase;
 }
 
 .box_article_title {
