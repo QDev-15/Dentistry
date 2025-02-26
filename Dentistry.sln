@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Tests", "Dentistry.Tests\Dentistry.Tests.csproj", "{6214EBEB-4445-4D88-CE55-8086C32FED29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,8 +40,15 @@ Global
 		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6214EBEB-4445-4D88-CE55-8086C32FED29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6214EBEB-4445-4D88-CE55-8086C32FED29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6214EBEB-4445-4D88-CE55-8086C32FED29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6214EBEB-4445-4D88-CE55-8086C32FED29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA077E8B-0D62-4BE9-8314-A2EF0B3BB69A}
 	EndGlobalSection
 EndGlobal
