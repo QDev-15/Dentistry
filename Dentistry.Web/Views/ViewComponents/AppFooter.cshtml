@@ -30,7 +30,7 @@
                                 </li>
                                 <li class="branches-address">
                                     Địa chỉ: <span>@item.Address</span>
-                                    </li>
+                                </li>
                                 <li class="branches-phone">
                                     Điện thoại: <span>@item.PhoneNumber</span>
                                 </li>
@@ -69,8 +69,16 @@
 
 
     </div>
-            <!-- Footer Bottom -->
-        <div class="footer__bottom">
+    <!-- Footer Bottom -->
+    <div class="footer__bottom">
         <p class="m-0">Copyright © Nhien Dentistry 2024. All rights reserved.</p>
-        </div>
+    </div>
 </footer>
+@{
+    if (!string.IsNullOrEmpty(Model.setting.ZaloHotline))
+    {
+        <a href="https://zalo.me/@Model.setting.ZaloHotline" class="zalo-chat" target="_blank">
+            <img src="/assets/img/zalo.svg" alt="Chat Zalo">
+        </a>
+    }
+}

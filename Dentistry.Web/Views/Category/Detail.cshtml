@@ -92,7 +92,7 @@
                                 string pathImageArt = "/assets/img/no-image.jpg";
                                 if (item.Images.Any())
                                 {
-                                    pathImageArt = item.Images[item.Images.Count - 1].Path;
+                                    pathImageArt = item.Images.LastOrDefault()!.Path;
                                 }
                                 <div class="search-item">
                                     <img src="@pathImageArt" alt="Ảnh bài viết">
@@ -119,7 +119,7 @@
                                 string pathImage = "/assets/img/no-image.jpg";
                                 if (item.Images.Any())
                                 {
-                                    pathImage = item.Images[item.Images.Count - 1].Path;
+                                    pathImage = item.Images.LastOrDefault()!.Path;
                                 }
                                 <div class="item">
                                     <div class="image">
@@ -176,7 +176,11 @@
                             @foreach (var item in Model.articles)
                             {
                                 var type = item.Type.GetAliasDisplayName();
-                                var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
+                                var imgPath = "/assets/img/no-image.jpg";
+                                if (item.Images.Any())
+                                {
+                                    imgPath = item.Images.LastOrDefault()?.Path;
+                                }
                                 <div class="col-sm-3 col-6">
                                     <div class="item">
                                         <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">

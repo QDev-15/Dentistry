@@ -15,7 +15,11 @@
     <div class="slider-service">
         @foreach (var item in Model)
         {
-            var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
+            var imgPath = "/assets/img/no-image.jpg";
+            if (item.Images.Any())
+            {
+                imgPath = item.Images.LastOrDefault()?.Path;
+            }
             <div class="slide-item">
                 <div class="content" alt="@item.Title" style="background-image: url('@imgPath');">
                     <a asp-controller="Article" asp-action="Articles" asp-route-alias="@item.Alias" class="action">

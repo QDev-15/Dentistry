@@ -6,7 +6,14 @@
 }
 
 <div class="container-fluid image-banner p-0">
-    <img src="@Model.item.Images[Model.item.Images.Count - 1]?.Path" loading="lazy" />
+    @{
+        var imgArtPath = "/assets/img/no-image.jpg";
+        if (Model.item.Images.Any())
+        {
+            imgArtPath = Model.item.Images.LastOrDefault()?.Path;
+        }
+    }
+    <img src="@imgArtPath" loading="lazy" />
 </div>
 <div class="container-fluid">
     <div class="container box_breadcrumb">
@@ -61,7 +68,11 @@
                     @foreach (var item in Model.items)
                     {
                         var type = item.Type.GetAliasDisplayName();
-                        var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
+                        var imgPath = "/assets/img/no-image.jpg";
+                        if (item.Images.Any())
+                        {
+                            imgPath = item.Images.LastOrDefault()?.Path;
+                        }
                         <div class="col-sm-3 col-6">
                             <div class="item pt-5">
                                 <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">

@@ -36,7 +36,7 @@
                         string pathImageArt = "/assets/img/no-image.jpg";
                         if (item.Images.Any())
                         {
-                            pathImageArt = item.Images[item.Images.Count - 1].Path;
+                            pathImageArt = item.Images.LastOrDefault()!.Path;
                         }
                         <div class="search-item">
                             <img src="@pathImageArt" alt="Ảnh bài viết">
@@ -128,7 +128,7 @@
                         string pathImage = "/assets/img/no-image.jpg";
                         if (item.Images.Any())
                         {
-                            pathImage = item.Images[item.Images.Count - 1].Path;
+                            pathImage = item.Images.LastOrDefault()!.Path;
                         }
                         <div class="item">
                             <div class="image">

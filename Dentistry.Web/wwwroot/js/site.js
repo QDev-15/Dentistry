@@ -31,8 +31,10 @@
         const backToTopButton = document.getElementById("backToTop");
         if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
             backToTopButton.style.display = "block";
+            $(".zalo-chat").css("bottom", "75px");
         } else {
             backToTopButton.style.display = "none";
+            $(".zalo-chat").css("bottom", "20px");
         }
     };
 

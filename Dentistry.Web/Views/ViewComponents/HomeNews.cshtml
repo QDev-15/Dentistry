@@ -14,7 +14,11 @@
         <div class="row">
             @foreach (var item in Model)
             {
-                var imgPath = item.Images.Any() ? item.Images[item.Images.Count - 1].Path : "";
+                var imgPath = "/assets/img/no-image.jpg";
+                if (item.Images.Any())
+                {
+                    imgPath = item.Images.LastOrDefault()?.Path;
+                }
                 <div class="col-sm-4 col-6">
                     <div class="item pt-5">
                         <div class="image" style="background: url('@imgPath')">

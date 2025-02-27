@@ -39,6 +39,30 @@ $black50: rgba(0, 0, 0, 0.5);
     transform: scale(1.1);
 }
 
+/** ===============Zalo Chat ==========================*/
+.zalo-chat {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 50%;
+    z-index: 9999;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.zalo-chat img {
+    width: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.zalo-chat img:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/** ====================================================*/
 /** =============== OnLoadPage Modal ==================*/
 #box_popup_tuvan {
     /* Tùy chỉnh modal */
