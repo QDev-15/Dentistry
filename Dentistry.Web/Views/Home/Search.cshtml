@@ -33,7 +33,7 @@
                     }
                     @foreach (var item in Model.Items)
                     {
-                        string pathImageArt = "";
+                        string pathImageArt = "/assets/img/no-image.jpg";
                         if (item.Images.Any())
                         {
                             pathImageArt = item.Images[item.Images.Count - 1].Path;
@@ -125,7 +125,7 @@
                 <div class="box_right_content flex-column">
                     @foreach (var item in Model.HotNews)
                     {
-                        string pathImage = "";
+                        string pathImage = "/assets/img/no-image.jpg";
                         if (item.Images.Any())
                         {
                             pathImage = item.Images[item.Images.Count - 1].Path;
