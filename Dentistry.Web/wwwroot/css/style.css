@@ -583,6 +583,7 @@
 }
 .box_breadcrumb .breadcrumb > li {
   display: inline-block;
+  padding: 5px 0;
 }
 .box_breadcrumb .breadcrumb > li a {
   color: #949494;
