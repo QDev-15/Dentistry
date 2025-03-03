@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7AAA9403-BCBD-4CD8-93B0-DEA3DB5CAC5A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Hướng Dẫn Sử Dụng Quản Trị Viên.docx = Hướng Dẫn Sử Dụng Quản Trị Viên.docx
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Tests", "Dentistry.Tests\Dentistry.Tests.csproj", "{6214EBEB-4445-4D88-CE55-8086C32FED29}"
