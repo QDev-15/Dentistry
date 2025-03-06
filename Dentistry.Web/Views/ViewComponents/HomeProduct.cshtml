@@ -38,7 +38,10 @@
             
                 </div>
             </div>
-            <div class="control d-flex justify-content-center"><a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@Model[0].Category.Type.GetAliasDisplayName()" asp-route-alias="@Model[0].Category.Alias" class="btn_yellow">Xem tất cả</a></div>
+            @if (Model[0].Category != null)
+            {
+                <div class="control d-flex justify-content-center"><a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@Model[0].Category.Type.GetAliasDisplayName()" asp-route-alias="@Model[0].Category.Alias" class="btn_yellow">Xem tất cả</a></div>
+            }
         </div>
     }
 }

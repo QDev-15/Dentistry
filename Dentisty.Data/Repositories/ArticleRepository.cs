@@ -280,7 +280,7 @@ namespace Dentisty.Data.Repositories
                     ids = [];
                     break;
             }
-            var articles = await _context.Articles.Where(x => x.Type == type && ids.Contains(x.Id.ToString()) && x.IsActive).Include(x => x.Images).Select(x => x.ReturnViewModel()).ToListAsync();
+            var articles = await _context.Articles.Where(x => x.Type == type && ids.Contains(x.Id.ToString()) && x.IsActive).Include(x => x.Images).Include(x => x.Category).Select(x => x.ReturnViewModel()).ToListAsync();
             return articles;
             
         }
