@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Admin", "Dentistry.Admin\Dentistry.Admin.csproj", "{54520D9C-CF38-4967-B6DE-62A39BB4CCEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Web", "Dentistry.Web\Dentistry.Web.csproj", "{5C6C5535-C768-4413-99F6-1F4EF7610401}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Data", "Dentistry.Data\Dentistry.Data.csproj", "{5884F4DA-2B04-45E1-B0B7-53132F22D0C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.ViewModels", "Dentistry.Common\Dentistry.ViewModels.csproj", "{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Common", "Dentistry.Common\Dentistry.Common.csproj", "{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentisty.Data", "Dentisty.Data\Dentisty.Data.csproj", "{3298184B-CD0B-4B52-BEAA-4153892C295B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{5C6C5535-C768-4413-99F6-1F4EF7610401}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C6C5535-C768-4413-99F6-1F4EF7610401}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C6C5535-C768-4413-99F6-1F4EF7610401}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5884F4DA-2B04-45E1-B0B7-53132F22D0C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5884F4DA-2B04-45E1-B0B7-53132F22D0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5884F4DA-2B04-45E1-B0B7-53132F22D0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5884F4DA-2B04-45E1-B0B7-53132F22D0C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
