@@ -1,5 +1,5 @@
-﻿using Dentistry.Data.GeneratorDB.Enums;
-using Dentistry.Data.GeneratorDB.Enums;
+﻿using Dentisty.Data.Common.Enums;
+using Dentisty.Data.GeneratorDB.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,12 +10,18 @@ namespace Dentistry.Data.GeneratorDB.Entities
     {
         public int Id { set; get; }
         public string Name { set; get; }
-        public string Email { set; get; }
+        public string? Email { set; get; }
         public string PhoneNumber { set; get; }
         public string Message { set; get; }
-        public MessageType Type { set; get; } = MessageType.None;
+        public string? Note { set; get; }
+        public bool IsActive { get; set; }
+        public Guid? ProcessById { set; get; }
+        public int? BranchesId { set; get; }
+        public DateTime? TimeBook { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public AppUser ProcessBy { set; get; }
+        public Branches Branches { set; get; }
 
     }
 }

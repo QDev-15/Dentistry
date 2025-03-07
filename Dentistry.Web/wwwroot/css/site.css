@@ -1,187 +1,102 @@
+﻿@charset "UTF-8";
 html {
-    font-size: 12px;
-    font-family: "Roboto","Arial",sans-serif;
+  font-size: 12px;
+  font-family: "Roboto", "Arial", sans-serif;
+  position: relative;
+  min-height: 100%;
 }
-
 @media (min-width: 768px) {
   html {
     font-size: 12px;
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container-main {
+  flex: 1;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
+.input-validation-error {
+  border: 1px solid #dc3545 !important;
+}
+
+/* Tùy chỉnh cho summary lỗi */
+.validation-summary-errors {
+  color: #ff0000; /* Màu đỏ cho lỗi tổng quát */
+  background-color: #ffe6e6; /* Nền nhạt để nổi bật */
+  border: 1px solid #ff0000; /* Viền màu đỏ */
+  padding: 10px; /* Khoảng cách bên trong */
+  margin-bottom: 15px; /* Khoảng cách phía dưới */
+  border-radius: 5px; /* Bo tròn các góc */
+}
+
+/* Tổng thể slider */
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
   position: relative;
-  min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+/* Phần item */
+.slider .item {
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.box-top {
-    background-color: #EEA616;
-    color: #FFF;
-    height: 38px;
-    line-height: 38px;
-    position: relative;
+.slider .item.slick-active {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-i.bi {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 2px;
-}
-i.fa {
-    padding: 5px;
-    background: #ffffff;
-    color: #eea616;
-    border-radius: 50%;
-    border: 1px solid #ededed;
-    font-size: 16px;
-    text-align: center;
-}
-/*i.bi-facebook, i.fa-facebook-f, i.fa-square-facebook, i.fa-facebook {
-    color: #0866FF;
-}
-i.bi-youtube {
-    color: red;
-}
-i.bi-instagram {
-    color: #F28476;
-}
-i.bi-telephone-inbound, i.fa-phone {
-    color: green;
-}*/
-
-.box-top .item {
-    display: inline-block;
-    padding: 0 13px 0 13px;
-    position: relative;
-    color: #494949;
-}
-        .box-top .item a {
-            color: white;
-            font-weight: bold;
-            text-decoration: none;
-        }       
-        .box-top .item span {
-            color: white;
-            font-weight: bold;
-            text-decoration: none;
-        }
-    .box-top .social {
-        position: relative;
-        padding-left: 10px;
-    }
-
-        .box-top .social a {
-            margin: 0 2px;
-            color: transparent;
-        }
-    .box-top .open {
-        position: relative;
-    }
-    .box-top .item-after:after {
-        content: ""; /* display: block; */
-        position: absolute;
-        width: 1px;
-        height: 12px;
-        top: 13px;
-        right: 0;
-        background-color: #FFF;
-    }
-.logo-brand img {
-    height: 110px;
-}
-.bg-custom {
-    /*background-image: url(../assets/img/background.png);*/
-    background: #231f20;
+/* Phần hình ảnh */
+.slider .item .image img {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-.b-divider {
-    height: 20px;
-}
-.b-divider-shadow {
-    height: 30px;
-    margin: 0 -20px;
-    background: #f9f9f9;
-    box-shadow: inset 0px 3px 5px 0px rgb(0 0 0 / 20%),
-                inset 0px 4px 0px rgb(253 253 253 / 25%),
-                inset 0px 0px 5px 0px rgb(111 111 111 / 20%);
-}
-.container-fluid-chuyengia {
-    background-image: url(./assets/img/bg-chuyengia.jpg);
-}
-.container-fluid-footer {
-    background-color: #ededed;
-    box-shadow: 0px 5px 1px 6px rgba(0, 0, 0, 0.1);
-}
-.box_book {
-    background: url(./assets/img/bg_book.jpg) no-repeat top left;
-    background-size: cover;
-}
-/**
-    actor list
-*/
-/* Actor list styling */
-.actor-list-header {
-    padding: 15px;
-    font-size: 30px;
-    font-weight: bold;
-    color: #EEA616;
-}
-.actor-list .image a {
-    position: relative;
-    display: block;
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
+/* Phần thông tin */
+.slider .item .info {
+  text-align: center;
+  font-family: Arial, sans-serif;
 }
 
-    .actor-list .image a::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        overflow: hidden;
-        transition: all 0.3s ease; /* Smooth transition for border color */
-    }
-
-    /* Second border layer with darker opacity */
-    .actor-list .image a::after {
-        border: 15px solid rgb(245 245 245 / 54%); /* Darker border */
-        box-sizing: border-box; /* Ensures borders are included in the element's box size */
-    }
-
-/* Styling for the image inside the anchor tag */
-.actor-image {
-    width: 100%;
-    height: auto;
-    border-radius: 50%; /* Ensure the image is circular */
-}
-.actor-list .info {
-    padding: 15px;
-    font-size: 14px;
-    font-weight: bold;
-}
-/* Default text color for the actor's name */
-.actor-list .info .title a {
-    color: #454545; /* Default text color (black) */
-    text-decoration: none;
-    transition: color 0.3s ease; /* Smooth transition for text color change */
+.slider .item .info .title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-
-.actor-list .actor-item:hover .image a::after {
-    border-color: rgb(233 174 55 / 34%); /* Change border to red on hover */
+.slider .item .info .position {
+  font-size: 1rem;
+  color: #555;
 }
 
-/* Hover effect to change the text color */
-.actor-list .actor-item:hover .info .title a {
-    color: rgb(233 174 55 / 97%) /* Change text color to red on hover */
+/* Điều chỉnh phần slick-dots nếu cần */
+.slick-dots li button:before {
+  font-size: 10px;
+  color: #007bff;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #0056b3;
 }

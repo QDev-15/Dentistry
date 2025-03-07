@@ -1,0 +1,46 @@
+﻿@using Dentistry.ViewModels.Catalog.Articles
+@using Dentistry.ViewModels.Enums
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<ArticleVm>
+@{
+    if (Model != null && Model.Any())
+    {
+        <div class="container">
+            <div class="box_title">
+                Tin tức về Nha Khoa Nhiên
+            </div>
+            <div class="box_desc"></div>
+            <div class="box_content">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        var imgPath = "/assets/img/no-image.jpg";
+                        if (item.Images.Any())
+                        {
+                            imgPath = item.Images.LastOrDefault()?.Path;
+                        }
+                        <div class="col-sm-4 col-6">
+                            <div class="item pt-5">
+                                <div class="image" style="background: url('@imgPath'); background-size: cover;">
+                                    <a href="/tin-tuc/@item.Alias" title="@item.Title">
+                                        <span>Xem thêm</span>
+                                    </a>
+                                </div>
+                                <div class="info pt-5">
+                                    <h3 class="title"><a href="/tin-tuc/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
+                                    <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+            
+                </div>
+            </div>
+            @if (Model[0].Category != null) {
+                <div class="control d-flex justify-content-center"><a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@Model[0].Category?.Type.GetAliasDisplayName()" asp-route-alias="@Model[0].Category?.Alias" class="btn_yellow">Xem tất cả</a></div>
+            }
+        </div>
+    }
+}

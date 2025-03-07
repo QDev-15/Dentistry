@@ -1,0 +1,213 @@
+﻿@using Dentistry.ViewModels.Enums
+@model MenuView
+
+
+<nav class="navbar navbar-mega navbar-expand-lg navbar-toggleable-lg box-shadow navbar-light ">
+    <div class="navbar-mega-container container-lg container-fluid">
+        <a class="navbar-brand logo-brand justify-content-sm-center d-lg-none mx-auto" asp-area="" asp-controller="Home" asp-action="index">
+            <img src="~/assets/logo/LOGO.png" loading="lazy" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#sideBarMenuModal" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        @* <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> *@
+
+        <div class="collapse navbar-collapse d-flex justify-content-between d-none d-lg-block" id="navbarSupportedContent">
+            <ul class="navbar-nav d-flex justify-content-evenly">
+                @foreach (var (item, index) in Model.LeftMenu.Select((item, index) => (item, index)))
+                {
+                    if (item.ChildCategories.Any())
+                    {
+                        <li class="nav-item nav-li-0 has-child dropdown">
+                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                <span class="title dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @item.Name
+                                </span>
+                            </a>
+                            <div class="dropdown-menu container" aria-labelledby="navbarDropdown">
+                                <div class="container">
+                                    <div class="row">
+                                        <span class="text-uppercase dropdown-menu-header col-12">@item.Name</span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <ul class="nav flex-column">
+                                                @foreach (var child in item.ChildCategories)
+                                                {
+
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item nav-li-0">
+                            <a class="nav-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                <span class="title">
+                                    @item.Name
+                                </span>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+            <a class="navbar-brand logo-brand justify-content-sm-center m-0 d-none d-lg-block" asp-area="" asp-controller="Home" asp-action="index">
+                <img src="~/assets/logo/LOGO NHIEN DENTAL CLINIC.png" loading="lazy" />
+            </a>
+            <ul class="navbar-nav d-flex justify-content-evenly">
+                @foreach (var (item, index) in Model.RightMenu.Select((item, index) => (item, index)))
+                {
+                    if (item.ChildCategories.Any())
+                    {
+                        <li class="nav-item nav-li-0 has-child dropdown">
+                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                <span class="title dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @item.Name
+                                </span>
+                            </a>
+                            <div class="dropdown-menu container" aria-labelledby="navbarDropdown">
+                                <div class="container">
+                                    <div class="row">
+                                        <span class="text-uppercase dropdown-menu-header col-12">@item.Name</span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <ul class="nav flex-column">
+                                                @foreach (var child in item.ChildCategories)
+                                                {
+
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item nav-li-0">
+                            <a class="nav-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                <span class="title">
+                                    @item.Name
+                                </span>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<!-- Sidebar Modal -->
+<div class="modal fade" id="sideBarMenuModal" tabindex="-1" aria-labelledby="sideBarMenuModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <img src="~/assets/logo/LOGO.png" style="height: 40px; width: 40px" loading="lazy" />
+            </div>
+            <div class="modal-body">
+                <div class="sidebar">
+                    <ul class="list-group">
+                        @foreach (var (item, index) in Model.LeftMenu.Select((item, index) => (item, index)))
+                        {
+                            if (item.ChildCategories.Any())
+                            {
+                                <li class="nav-item has-child list-group-item d-flex justify-content-between align-items-center">
+                                    <a class="nav-link" dropdown-toggle asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                        <span>
+                                            @item.Name
+                                        </span>
+                                    </a>
+                                    <span class="expand-btn" data-bs-toggle="collapse" href="#collapseItem1" aria-expanded="false" aria-controls="collapseItem1">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </span>
+                                </li>
+                                <ul id="collapseItem1" class="collapse expandable-list">
+                                    @foreach (var child in item.ChildCategories)
+                                    {
+                                        <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            } else {
+                                <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                                    <a class="nav-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                        <span>
+                                            @item.Name
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                        }
+                        @foreach (var (item, index) in Model.RightMenu.Select((item, index) => (item, index)))
+                        {
+                            if (item.ChildCategories.Any())
+                            {
+                                <li class="nav-item has-child list-group-item d-flex justify-content-between align-items-center">
+                                    <a class="nav-link" dropdown-toggle asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                        <span>
+                                            @item.Name
+                                        </span>
+                                    </a>
+                                    <span class="expand-btn" data-bs-toggle="collapse" href="#collapseItem1" aria-expanded="false" aria-controls="collapseItem1">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </span>
+                                </li>
+                                <ul id="collapseItem1" class="collapse expandable-list">
+                                    @foreach (var child in item.ChildCategories)
+                                    {
+                                        <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                                            <a class="nav-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                                    <a class="nav-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                        <span>
+                                            @item.Name
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                        }
+                        <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                            <form id="sidebar-search-form" asp-action="Search" asp-controller="Home" method="get">
+                                <input type="text" name="keyWord" id="search-input"
+                                       class="form-control sidebar-search-input shadow" @Context.Request.Query["keyWord"]
+                                       placeholder="Tìm kiếm..." />
+                                <button type="submit" class="sidebar-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                Nhiên Dentistry
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/js/navbar-mega.js" asp-append-version="true"></script>

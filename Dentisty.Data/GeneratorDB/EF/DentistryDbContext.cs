@@ -1,15 +1,13 @@
 ﻿
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
 using Dentistry.Data.GeneratorDB.Configurations;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.GeneratorDB.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Dentisty.Data.GeneratorDB.Configurations;
+using Dentisty.Data.GeneratorDB.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Dentistry.Data.GeneratorDB.EF
 {
@@ -28,16 +26,17 @@ namespace Dentistry.Data.GeneratorDB.EF
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
             modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
             modelBuilder.ApplyConfiguration(new AppUserConfiguration());
-            modelBuilder.ApplyConfiguration(new BaseConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new ContactConfiguration());
-
+            modelBuilder.ApplyConfiguration(new BranchesConfiguration());
             modelBuilder.ApplyConfiguration(new ImageConfiguration());
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
             modelBuilder.ApplyConfiguration(new LoggerConfiguration());
             modelBuilder.ApplyConfiguration(new ArticlesConfiguration());
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
+            modelBuilder.ApplyConfiguration(new DoctorConfiguration());
+            modelBuilder.ApplyConfiguration(new AppSettingfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -53,8 +52,8 @@ namespace Dentistry.Data.GeneratorDB.EF
         
 
         public DbSet<AppConfig> AppConfigs { get; set; }
-        public DbSet<Base> Bases { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Branches> Branches { get; set; }
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }    
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Image> Images { get; set; }    
@@ -62,6 +61,8 @@ namespace Dentistry.Data.GeneratorDB.EF
         public DbSet<Logger> Loggers { get; set; }
         public DbSet<Article> Articles { get; set; }
         public DbSet<Slide> Slides { get; set;}
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<AppSetting> AppSettings { get; set; }
 
     }
 }

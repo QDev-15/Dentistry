@@ -3,9 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Nha Khoa Nhiên 86</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"]</title>
+    <meta name="description" content="@ViewData["Description"]" />
+    <meta name="keywords" content="@ViewData["Keywords"]" />
+    <meta name="author" content="Nha Khoa Nhiên" />
+    <meta property="og:title" content="@ViewData["Title"]" />
+    <meta property="og:description" content="@ViewData["Description"]" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@Context.Request.Host@Context.Request.Path" />
+    <link rel="icon" type="image/x-icon" href="~/logo.ico" />
+
+    @* Css Lib *@
+    <link rel="stylesheet" href="~/lib/bootstrap-5.0.2/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/navbar-mega.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/plugins/carousel-01/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="~/plugins/carousel-01/css/owl.theme.default.min.css" />
@@ -13,387 +24,72 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <!-- Tempus Dominus (DateTimePicker) CSS -->
+    <link href="~/lib/datepicker/tempus-dominus.min.css" rel="stylesheet" />
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    @* Script Lib *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-NWMV5QHJ');</script>
+    <!-- End Google Tag Manager -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        // var hostAdmin = "https://localhost:7226/signalRHub"
+        var hostAdmin = "https://nhienadmin.quynhvpit.io.vn/signalRHub"
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl(hostAdmin) // URL của Admin
+            .build();
+
+        connection.start().catch(err => console.error("signalR Error = " + err.toString()));
+
+        connection.on("InvalidateCache", function () {
+            console.log("Cache đã bị xóa do dữ liệu thay đổi!");
+            location.reload(); // Tải lại trang để cập nhật dữ liệu mới
+        });
+    </script>
 </head>
 <body>
-    <div class="box-top d-none d-lg-block">
-        <div class="container-lg container-fluid">
-            <div class="row">
-                <div class="col-lg-6 col-sm-9 d-flex">
-                    <div class="hotline">
-                        <i class="fa fa-solid fa-phone"></i>
-                        <span class="item item-after">Hà Nội: <a href="tel:19009999">1900 9999</a></span>
-                        <span class="item ">TP.Hồ Chí Minh: <a href="tel:1900 9991">1900 9991</a></span>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-sm-4 d-flex justify-content-end">
-                    <div class="open item-after d-none d-lg-block">
-                        <span class="item">Giờ mở cửa: <span>8h00 - 20h00</span></span>
-                    </div>
-                    <div class="social">
-                        <a href="https://www.facebook.com/nhakhoanhien86" target="_blank">
-                            <i class="fa fa-brands fa-facebook"></i>
-                        </a>
-                        <a href="https://www.instagram.com/nhakhoanhien86" target="_blank">
-                            <i class="fa fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="https://www.youtube.com/channel/nhakhoanhien86" target="_blank">
-                            <i class="fa fa-brands fa-youtube"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                        </a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <nav class="navbar navbar-mega navbar-expand-lg navbar-toggleable-lg box-shadow navbar-light ">
-        <div class="navbar-mega-container container-lg container-fluid">
-            <a class="navbar-brand logo-brand justify-content-sm-center d-lg-none mx-auto" asp-area="" asp-controller="Home" asp-action="index">
-                <img src="~/assets/logo/LOGO.png" />
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item nav-li-0 dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Răng sứ
-                        </a>
-                        <div class="dropdown-menu container" aria-labelledby="navbarDropdown">
-                            <div class="container">
-                                <div class="row">
-                                    <span class="text-uppercase dropdown-menu-header col-12">Răng sứ</span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Privacy">Active Privacy</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                </div>
-                            </div>
-                            <!--  /.container  -->
-
-
-                        </div>
-                    </li>
-                    <li class="nav-item nav-li-0 dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Niềng răng
-                        </a>
-                        <div class="dropdown-menu container " aria-labelledby="navbarDropdown">
-
-
-                            <div class="container">
-                                <div class="row">
-                                    <span class="text-uppercase dropdown-menu-header col-12">Niềng răng</span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                </div>
-                            </div>
-                            <!--  /.container  -->
-
-
-                        </div>
-                    </li>
-                    <li class="nav-item nav-li-0 dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Trồng răng
-                        </a>
-                        <div class="dropdown-menu container " aria-labelledby="navbarDropdown">
-
-
-                            <div class="container">
-                                <div class="row">
-                                    <span class="text-uppercase dropdown-menu-header col-12">Trồng răng</span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                </div>
-                            </div>
-                            <!--  /.container  -->
-
-
-                        </div>
-                    </li>
-
-
-                </ul>
-                <a class="navbar-brand logo-brand justify-content-sm-center m-0 d-none d-lg-block" asp-area="" asp-controller="Home" asp-action="index">
-                    <img src="~/assets/logo/LOGO NHIEN DENTAL CLINIC.png" />
-                </a>
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item nav-li-0 dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Bệnh lý
-                        </a>
-                        <div class="dropdown-menu container" aria-labelledby="navbarDropdown">
-                            <div class="container">
-                                <div class="row">
-                                    <span class="text-uppercase dropdown-menu-header col-12">Bệnh lý</span>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                    <div class="col-md-4">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#">Active</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Link item</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- /.col-md-4  -->
-                                </div>
-                            </div>
-                            <!--  /.container  -->
-                        </div>
-                    </li>
-                    <li class="nav-item nav-li-0">
-                        <a class="nav-link" href="#" role="button">
-                            Nhiên Dentistry
-                        </a>
-                    </li>
-                    <li class="nav-item nav-li-0">
-                        <a class="nav-link" href="#" role="button">
-                            Liên hệ
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </nav>
-
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWMV5QHJ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    @await Component.InvokeAsync("AppToolbarTop")
+    @await Component.InvokeAsync("AppMenu")    
     <div class="container-main">
-        <main role="main" class="pb-3">
+        <main role="main" class="m-0 p-0">
             @RenderBody()
         </main>
     </div>
-    <div class="b-divider-shadow"></div>
-    <div class="container-fluid container-fluid-footer">
-        <div class="container">
-            <footer class="py-5">
-                <div class="row">
-                    <div class="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
 
-                    <div class="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
 
-                    <div class="col-6 col-md-2 mb-3">
-                        <h5>Section</h5>
-                        <ul class="nav flex-column">
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
-                            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                        </ul>
-                    </div>
+    
+    @await Component.InvokeAsync("AppContact")
+    @await Component.InvokeAsync("AppFooter")
+    @await Component.InvokeAsync("OnLoadPageModal")
 
-                    <div class="col-md-5 offset-md-1 mb-3">
-                        <form>
-                            <h5>Subscribe to our newsletter</h5>
-                            <p>Monthly digest of what's new and exciting from us.</p>
-                            <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                                <label for="newsletter1" class="visually-hidden">Email address</label>
-                                <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-                                <button class="btn btn-primary" type="button">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                    <p>© 2024 Company, Inc. All rights reserved.</p>
-                    <ul class="list-unstyled d-flex">
-                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-                    </ul>
-                </div>
-            </footer>
-        </div>
-    </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/navbar-mega.js" asp-append-version="true"></script>
+    @* Script Lib *@
+    <button id="backToTop" title="Lên đầu trang">
+        <i class="fas fa-arrow-up"></i>
+    </button>
     <script src="~/plugins/carousel-01/js/owl.carousel.min.js"></script>
     <script src="~/plugins/carousel-01/js/main.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/lib/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Tempus Dominus (DateTimePicker) JS -->
+    <script src="~/lib/datepicker/popper.min.js"></script>
+    <script src="~/lib/datepicker/tempus-dominus.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,83 @@
+﻿@using Dentistry.ViewModels.Catalog.AppSettings
+@model AppSettingVm
+
+
+<div class="box-top d-none d-lg-block">
+    <div class="container-lg container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-sm-9 d-flex">
+                <div class="hotline">
+                    <i class="fa fa-solid fa-phone"></i>
+                    <span class="item">Hà Nội: <a href="tel:@Model.HotlineHaNoi">@Model.HotlineHaNoi</a></span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-4 d-flex justify-content-end">
+                <div class="open item-after d-none d-lg-block">
+                    <span class="item">Giờ mở cửa: <span>@Model.StartWork - @Model.EndWork</span></span>
+                </div>
+                <div class="social">
+                    @if (!string.IsNullOrEmpty(Model.Facebook)) {
+                        <a href="@Model.Facebook" target="_blank">
+                            <i class="fa fa-brands fa-facebook"></i>
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Instagram)) {
+                        <a href="@Model.Instagram" target="_blank">
+                            <i class="fa fa-brands fa-instagram"></i>
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Twitter))
+                    {
+                        <a href="@Model.Twitter" target="_blank">
+                            <i class="fa-brands fa-twitter"></i>
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Youtube))
+                    {
+                        <a href="@Model.Youtube" target="_blank">
+                            <i class="fa fa-brands fa-youtube"></i>
+                        </a>
+                    }
+                    <a href="javascript:void()" id="open-modal-btn">
+                        <i class="fa fa-solid fa-magnifying-glass"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Search -->
+<div id="search-modal" class="modal fade" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-transparent border-0 shadow-none">
+            <div class="position-relative w-100">
+                <form id="search-form" asp-action="Search" asp-controller="Home" method="get" class="d-flex">
+                    <input type="text" name="keyWord" id="search-input"
+                           class="form-control search-input shadow" value="@Context.Request.Query["keyWord"]"
+                           placeholder="Tìm kiếm..." />
+                    <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script type="text/javascript">
+    $(document).ready(function () {
+         const searchModal = new bootstrap.Modal(document.getElementById('search-modal'), {
+            keyboard: true,
+            backdrop: true
+        });
+        document.getElementById('search-modal').addEventListener('shown.bs.modal', function () {
+            document.getElementById('search-input').focus();
+        });
+        // Open modal
+        document.getElementById('open-modal-btn').addEventListener('click', () => {
+            searchModal.show();
+        });
+    });
+</script>

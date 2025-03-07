@@ -1,0 +1,94 @@
+﻿@using Dentistry.ViewModels.Catalog.Articles
+@using Dentistry.ViewModels.Enums
+@model ArticleDetailVm
+@{
+    ViewData["Title"] = Model.item.Title;
+}
+
+<div class="container-fluid image-banner p-0">
+    @{
+        var imgArtPath = "/assets/img/no-image.jpg";
+        if (Model.item.Images.Any())
+        {
+            imgArtPath = Model.item.Images.LastOrDefault()?.Path;
+        }
+    }
+    <img src="@imgArtPath" loading="lazy" />
+</div>
+<div class="container-fluid">
+    <div class="container box_breadcrumb">
+        <ul class="breadcrumb">
+            <li><a href="/">Trang chủ</a></li>
+            @if (Model.item.Category.Parent != null)
+            {
+                <li>
+                    <a asp-action="Detail" asp-controller="Category"
+                       asp-route-danhmuc="@Model.item.Category.Parent.Type.GetAliasDisplayName()" asp-route-alias="@Model.item.Category.Parent.Alias"
+                       title="@Model.item.Category.Parent.Name">
+                        @Model.item.Category.Parent.Name
+                    </a>
+                </li>
+            }
+            <li>
+                <a asp-action="Detail" asp-controller="Category"
+                   asp-route-danhmuc="@Model.item.Category.Type.GetAliasDisplayName()" asp-route-alias="@Model.item.Category.Alias"
+                   title="@Model.item.Category.Name">
+                    @Model.item.Category.Name
+                </a>
+            </li>
+            <li>
+                @Model.item.Title
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container py-3 main-detail">
+    <article class="bg-white rounded-2xl shadow-md p-6 mb-8">
+        <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.item.Title</h2>
+        <div class="flex items-center text-gray-500 text-sm mb-4">
+            <span><i class="fas fa-user"></i> Tác giả: @Model.item.CreatedBy.DisplayName</span>
+            <span class="mx-2">|</span>
+            <span><i class="fas fa-calendar-alt"></i> Ngày đăng: @Model.item.CreatedDate.ToString("dd/MM/yyyy")</span>
+            <span class="mx-2">|</span>
+            <span><i class="fas fa-tag"></i> Thể loại: @Model.item.Type.GetDisplayName()</span>
+        </div>
+        <div class="box_article_description">
+            @Html.Raw(Model.item.Description)
+        </div>
+    </article>    
+</div>
+@* Bài viết liên quan *@
+@{
+    if (Model.items.Count > 0)
+    {
+        <div class="container">
+            <div class="box_title py-5"> Bài viết liên quan</div>
+            <div class="box_content box_list_item">
+                <div class="row">
+                    @foreach (var item in Model.items)
+                    {
+                        var type = item.Type.GetAliasDisplayName();
+                        var imgPath = "/assets/img/no-image.jpg";
+                        if (item.Images.Any())
+                        {
+                            imgPath = item.Images.LastOrDefault()?.Path;
+                        }
+                        <div class="col-sm-3 col-6">
+                            <div class="item pt-5">
+                                <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
+                                    <a href="/@type/@item.Alias" title="@item.Title">
+                                        <span>Xem thêm</span>
+                                    </a>
+                                </div>
+                                <div class="info pt-5">
+                                    <h3 class="title"><a href="/@type/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
+                                    <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}

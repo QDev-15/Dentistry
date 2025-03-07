@@ -13,10 +13,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
 
         public bool IsDefault { get; set; }
 
-        public List<Article> Articles { get; set; }
 
         public List<CategoryTranslation> CategoryTranslations   { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
     }
 }

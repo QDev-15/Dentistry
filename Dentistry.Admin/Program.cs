@@ -1,17 +1,25 @@
+﻿using Dentistry.Admin.Common;
 using Dentistry.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
-using Dentistry.Data.Interfaces;
-using Dentistry.Data.Services;
 using Dentistry.Data.Storages;
+using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Catalog.Branches;
+using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Catalog.Contacts;
+using Dentistry.ViewModels.Catalog.Doctors;
+using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data;
+using Dentisty.Data.Common;
+using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
-using Dentisty.Data.Services;
+using Dentisty.Data.Services.System;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using NhienDentistry.Core.Catalog.Articles;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add DbContext
@@ -22,7 +30,22 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 .AddEntityFrameworkStores<DentistryDbContext>()
 .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+// Đăng ký HostingConfig
+// Configure app settings based on environment
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+// Tải cấu hình UploadSettings từ appsettings
+builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
+
+var issuer = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Issuer);
+var audience = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Audience);
+var signingKey = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Key);
+byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey!);
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
     .AddCookie(options =>
     {
         options.LoginPath = "/Login/Index";
@@ -41,46 +64,124 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                 return Task.CompletedTask;
             }
         };
+    }).AddJwtBearer(options =>
+    {
+
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            ClockSkew = System.TimeSpan.Zero,
+            IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
+        };
     });
 
-builder.Services.AddControllersWithViews()
-         .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+// add controller views
+builder.Services.AddControllersWithViews(options =>
+{
+    // write log exception controller
+    options.Filters.Add<GlobalExceptionFilter>();
+})
+    .AddRazorRuntimeCompilation()
+    .AddFluentValidation(fv =>
+    {
+        fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<SlideVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<ArticleVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<CategoryVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<ContactVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<DoctorVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<BranchesVmValidator>();
+        fv.DisableDataAnnotationsValidation = true;
+    });
+
+// add resource validator
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
-// Register Repository and Service
-builder.Services.AddTransient<IRoleService, RoleService>();
-builder.Services.AddTransient<IUserService, UserService>();
+// Register Repository  add services
+builder.Services.AddSingleton<Logs>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<DentistryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<ICategoryReposiroty, CategoryRepository>();
+builder.Services.AddScoped<ISlideRepository, SlideRepository>();
 builder.Services.AddScoped<IStorageService, FileStorageService>();
-builder.Services.AddScoped<LanguagesServices>();
-builder.Services.AddScoped<SlideService>();
-builder.Services.AddScoped<ArticlesService>();
+builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
+builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
 
 
+
+builder.Services.AddScoped<LoggerRepository>();
+builder.Services.AddHostedService<LoggerBackgroundService>();
+
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<RoleService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        policy =>
+        {
+            //policy.WithOrigins("https://localhost:7278") // Cho phép website kết nối     // https://nhien.quynhvpit.io.vn
+            policy.WithOrigins("https://nhien.quynhvpit.io.vn") // Cho phép website kết nối     // 
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // Cần thiết cho SignalR
+        });
+});
+// Đăng ký SignalR
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseExceptionHandler("/Home/Error"); // Xử lý lỗi cho Production
+}
+else
+{
+    app.UseDeveloperExceptionPage(); // Hiển thị lỗi chi tiết khi ở Development Mode
+}
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
+    dbContext.Database.Migrate();
 }
 
+app.UseForwardedHeaders();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
-
+app.UseSession();
+app.UseMiddleware<TimeZoneMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
 
+// Kích hoạt CORS
+app.UseCors("AllowSpecificOrigins");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapHub<SignalRHub>("/signalRHub"); // Định tuyến Hub
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

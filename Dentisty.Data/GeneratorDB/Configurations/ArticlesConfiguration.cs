@@ -1,4 +1,5 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
+using Dentisty.Data.GeneratorDB.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -14,10 +15,15 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.ToTable("Articles");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
+            builder.Property(x => x.Title).IsRequired();
+            builder.Property(x => x.Alias).IsUnicode().IsRequired();
+            builder.Property(x => x.Type).IsRequired();
+            builder.Property(x => x.Tags).IsRequired(false);
+            builder.Property(x => x.CreatedById).IsRequired();
+            builder.Property(x => x.CategoryId).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();
-            builder.Property(x => x.showHome).IsRequired();
-            builder.HasOne(x => x.Category).WithMany(x => x.Articles).HasForeignKey(x => x.CategoryId).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            builder.Property(x => x.IsActive).HasDefaultValue(true);
+            builder.HasOne(x => x.Category).WithMany(x => x.Articles).HasForeignKey(x => x.CategoryId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(x => x.Images).WithMany(x => x.Articles).UsingEntity<Dictionary<string, object>>(
                 "ArticlesImage",
             j => j
@@ -30,7 +36,6 @@ namespace Dentistry.Data.GeneratorDB.Configurations
                 .WithMany()
                 .HasForeignKey("ArticlesId")
                 .OnDelete(DeleteBehavior.Restrict));
-
         }
     }
 }

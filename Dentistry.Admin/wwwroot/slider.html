@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slick Slider Example</title>
+  <!-- Slick CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .slider {
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .slide-item {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #fff;
+      text-align: center;
+    }
+
+    .slide-item img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .slide-item .title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 10px 0 5px;
+    }
+
+    .slide-item .position {
+      font-size: 1rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">Slick Slider Example</h1>
+  <div class="slider">
+    <div class="slide-item">
+      <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Đinh Đình Đức">
+      <div class="title">Đinh Đình Đức</div>
+      <div class="position">Bác sĩ Implant &amp; Bệnh lý</div>
+    </div>
+    <div class="slide-item">
+      <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Hứa Thị Xuân">
+      <div class="title">Hứa Thị Xuân</div>
+      <div class="position">Bác sĩ Niềng răng</div>
+    </div>
+    <div class="slide-item">
+      <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Nguyễn Thị Thu Hiền">
+      <div class="title">Nguyễn Thị Thu Hiền</div>
+      <div class="position">Bác sĩ Thẩm mỹ răng sứ</div>
+    </div>
+    <div class="slide-item">
+      <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Phùng Văn Thuận">
+      <div class="title">Phùng Văn Thuận</div>
+      <div class="position">Bác sĩ Niềng răng</div>
+    </div>
+    <div class="slide-item">
+      <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Bùi Bích Uyên">
+      <div class="title">Bùi Bích Uyên</div>
+      <div class="position">CEO Win Smile</div>
+    </div>
+  </div>
+
+  <!-- jQuery and Slick JS -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.slider').slick({
+        slidesToShow: 3, // Number of items visible at once
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        dots: true,
+        arrows: false, // Hide navigation arrows
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 2
+            }
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 1
+            }
+          }
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

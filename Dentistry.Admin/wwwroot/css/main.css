@@ -1,0 +1,194 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.sb-topnav a img {
+    height: 40px;
+}
+.sb-topnav .navbar-brand {
+    width: auto !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 0;
+    max-width: 225px !important;
+}
+.sb-topnav span {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    padding-left: 10px;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    color: white;
+}
+.show-slide-bar {
+    direction: rtl;
+}
+    .show-slide-bar a {
+        width: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+        .show-slide-bar a span {
+            display: none;
+        }
+
+
+.slide-page {
+    padding: 15px;
+}
+
+#sidebarToggle {
+    margin-left: 10px;
+}
+#viewContactForm .col-name {
+    padding: 5px 10px;
+    text-align: right;
+}
+
+#section-contact td.align-middle .btn {
+    margin: 2px;
+}
+#tabMenu {
+    background: #efefed;
+}
+
+/** key frames*/
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/** ================================= Dialog ================================= */
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
+    .modal-content .modal-body {
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+/** ================================= spinner All Page ======================= */
+#global-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Màu nền mờ */
+    z-index: 1050; /* Đảm bảo nó nằm trên cùng */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeout 0.5s ease-in-out;
+}
+
+/** Tiny */
+button[title="Browse links"] {
+    display: none !important;
+}
+
+.tox-editor-header .tox-promotion {
+    display: none !important;
+}
+.tox-statusbar .tox-statusbar__right-container .tox-statusbar__branding {
+    display: none !important;
+}
+/** Modal */
+.modal-header, .modal-footer {
+    background: #ebebeb;
+}
+
+
+/** ================================== Spinner custom =======================*/
+
+/* CSS cho spinner */
+.spinner-container {
+    position: relative;
+}
+
+    .spinner-container .spinner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8); /* Màu nền mờ */
+        z-index: 1050; /* Đảm bảo nó nằm trên cùng */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .spinner-container .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border: 0.25rem solid #ccc;
+        border-top-color: #007bff;
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+    }
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/** ============================= Setting App ===================*/
+.avatar-doctor {
+    width: 120px !important;
+}
+.setting-category-cell-checkbox, .setting-doctor-cell-checkbox, .setting-article-cell-checkbox,
+.setting-news-cell-checkbox, .setting-product-cell-checkbox, .setting-feedback-cell-checkbox {
+    width: 50px !important;
+    text-align: center !important;
+}
+    .setting-category-cell-checkbox input, .setting-doctor-cell-checkbox input, .setting-article-cell-checkbox input,
+    .setting-news-cell-checkbox input, .setting-product-cell-checkbox input, .setting-feedback-cell-checkbox input {
+        cursor: pointer;
+        width: 15px; /* Chiều rộng của checkbox */
+        height: 15px; /* Chiều cao của checkbox */
+        transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
+        margin: 0 auto; /* Căn giữa trong cột */
+    }
+.setting-actor-cell {
+    width: 250px;
+}
+
+/** ================================= Table =============================*/
+.dataTables_filter .form-control {
+    border: 1px solid #ced4da !important;
+    border-radius: 6px !important;
+}

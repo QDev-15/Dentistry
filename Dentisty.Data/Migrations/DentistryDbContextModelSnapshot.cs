@@ -56,26 +56,6 @@ namespace Dentisty.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppConfigs", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Key = "hotline-hcm",
-                            Value = "19009090"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Key = "facebook",
-                            Value = "nhien86"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Key = "hotline-hanoi",
-                            Value = "19001010"
-                        });
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.AppRole", b =>
@@ -108,7 +88,14 @@ namespace Dentisty.Data.Migrations
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
                             Description = "Administrator role",
                             Name = "admin",
-                            NormalizedName = "admin"
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("8d04dce2-945a-435d-bba4-df3f325983dc"),
+                            Description = "User role",
+                            Name = "user",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -127,10 +114,15 @@ namespace Dentisty.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Dob")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
@@ -140,6 +132,14 @@ namespace Dentisty.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("IdLogin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -170,6 +170,9 @@ namespace Dentisty.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TimeZone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -178,9 +181,7 @@ namespace Dentisty.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AvatarId")
-                        .IsUnique()
-                        .HasFilter("[AvatarId] IS NOT NULL");
+                    b.HasIndex("AvatarId");
 
                     b.ToTable("AppUsers", (string)null);
 
@@ -189,16 +190,18 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "06f398e9-5464-4d38-8430-22475b9c207e",
-                            Dob = new DateTime(2020, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "nguyenquynhvp.ictu@gmail.com",
+                            ConcurrencyStamp = "834bd250-8252-491b-8b33-88b90ac12360",
+                            DisplayName = "Nhiên",
+                            Dob = new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "nhienadmin@gmail.com",
                             EmailConfirmed = true,
-                            FirstName = "Quynh",
-                            LastName = "Nguyen",
+                            FirstName = "Nhiên",
+                            IsActive = true,
+                            LastName = "Admin",
                             LockoutEnabled = false,
-                            NormalizedEmail = "nguyenquynhvp.ictu@gmail.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDAZSkF7tWPkQU9SvhCbc4F4Q2Cy62WrynGZW3mQk8bQYKyoNrNUECFclDgIKqxXUg==",
+                            NormalizedEmail = "nhienadmin@gmail.com",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF7/9e7hq4pZAitwawQLft/hg0NMTt3GZ7jY5ba9PGzFfgq+FA0FoJAtEjMP9CIiAg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -216,6 +219,7 @@ namespace Dentisty.Data.Migrations
 
                     b.Property<string>("Alias")
                         .IsRequired()
+                        .IsUnicode(true)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CategoryId")
@@ -231,25 +235,26 @@ namespace Dentisty.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
-                    b.Property<string>("Name")
+                    b.Property<bool>("IsDraft")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SortOrder")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("showHome")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -257,61 +262,7 @@ namespace Dentisty.Data.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("LanguageId");
-
                     b.ToTable("Articles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Alias = "",
-                            CategoryId = 1,
-                            CreatedById = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
-                            CreatedDate = new DateTime(2024, 12, 4, 23, 1, 21, 451, DateTimeKind.Local).AddTicks(6667),
-                            Description = "Bài viết test",
-                            Name = "",
-                            SortOrder = 0,
-                            Status = 0,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            showHome = false
-                        });
-                });
-
-            modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Base", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Map")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Bases", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Category", b =>
@@ -329,6 +280,22 @@ namespace Dentisty.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsParent")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -336,10 +303,20 @@ namespace Dentisty.Data.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("Position")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasDefaultValue(0);
+
+                    b.Property<int>("Sort")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<int>("Type")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -348,6 +325,8 @@ namespace Dentisty.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("ParentId");
 
@@ -359,20 +338,98 @@ namespace Dentisty.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Alias = "rang-su",
-                            CreatedDate = new DateTime(2024, 12, 4, 23, 1, 21, 451, DateTimeKind.Local).AddTicks(6493),
-                            Name = "Răng Sứ",
-                            Status = 1,
+                            Alias = "dich-vu",
+                            CreatedDate = new DateTime(2025, 2, 20, 13, 52, 55, 941, DateTimeKind.Local).AddTicks(4971),
+                            IsActive = true,
+                            IsParent = false,
+                            Name = "Dịch vụ",
+                            Position = 1,
+                            Sort = 1,
+                            Type = 1,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         },
                         new
                         {
                             Id = 2,
-                            Alias = "rang-nhua",
-                            CreatedDate = new DateTime(2024, 12, 4, 23, 1, 21, 451, DateTimeKind.Local).AddTicks(6512),
-                            Name = "Răng Nhựa",
-                            Status = 1,
+                            Alias = "san-pham",
+                            CreatedDate = new DateTime(2025, 2, 20, 13, 52, 55, 941, DateTimeKind.Local).AddTicks(4990),
+                            IsActive = true,
+                            IsParent = false,
+                            Name = "Sản phẩm",
+                            Position = 1,
+                            Sort = 2,
+                            Type = 4,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Alias = "kien-thuc",
+                            CreatedDate = new DateTime(2025, 2, 20, 13, 52, 55, 941, DateTimeKind.Local).AddTicks(4993),
+                            IsActive = true,
+                            IsParent = false,
+                            Name = "Kiến thức",
+                            Position = 1,
+                            Sort = 3,
+                            Type = 7,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Alias = "tin-tuc",
+                            CreatedDate = new DateTime(2025, 2, 20, 13, 52, 55, 941, DateTimeKind.Local).AddTicks(4995),
+                            IsActive = true,
+                            IsParent = false,
+                            Name = "Tin tức",
+                            Position = 2,
+                            Sort = 4,
+                            Type = 3,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Alias = "tu-van",
+                            CreatedDate = new DateTime(2025, 2, 20, 13, 52, 55, 941, DateTimeKind.Local).AddTicks(4997),
+                            IsActive = true,
+                            IsParent = false,
+                            Name = "Tư vấn",
+                            Position = 2,
+                            Sort = 5,
+                            Type = 7,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Alias = "lien-he",
+                            CreatedDate = new DateTime(2025, 2, 20, 13, 52, 55, 941, DateTimeKind.Local).AddTicks(4999),
+                            IsActive = true,
+                            IsParent = false,
+                            Name = "Liên hệ",
+                            Position = 2,
+                            Sort = 6,
+                            Type = 5,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Alias = "gioi-thieu",
+                            CreatedDate = new DateTime(2025, 2, 20, 13, 52, 55, 941, DateTimeKind.Local).AddTicks(5001),
+                            IsActive = true,
+                            IsParent = false,
+                            Name = "Giới thiệu",
+                            Position = 2,
+                            Sort = 7,
+                            Type = 6,
                             UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
                         });
@@ -428,56 +485,6 @@ namespace Dentisty.Data.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("CategoryTranslations", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LanguageId = 1,
-                            Name = "Áo nam",
-                            SeoAlias = "ao-nam",
-                            SeoDescription = "Sản phẩm áo thời trang nam",
-                            SeoTitle = "Sản phẩm áo thời trang nam",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LanguageId = 2,
-                            Name = "Men Shirt",
-                            SeoAlias = "men-shirt",
-                            SeoDescription = "The shirt products for men",
-                            SeoTitle = "The shirt products for men",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LanguageId = 1,
-                            Name = "Áo nữ",
-                            SeoAlias = "ao-nu",
-                            SeoDescription = "Sản phẩm áo thời trang nữ",
-                            SeoTitle = "Sản phẩm áo thời trang women",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LanguageId = 2,
-                            Name = "Women Shirt",
-                            SeoAlias = "women-shirt",
-                            SeoDescription = "The shirt products for women",
-                            SeoTitle = "The shirt products for women",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Contact", b =>
@@ -488,13 +495,20 @@ namespace Dentisty.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("BranchesId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Message")
                         .IsRequired()
@@ -505,18 +519,28 @@ namespace Dentisty.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ProcessById")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("TimeBook")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BranchesId");
+
+                    b.HasIndex("ProcessById");
 
                     b.ToTable("Contacts", (string)null);
                 });
@@ -531,6 +555,10 @@ namespace Dentisty.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("FileSize")
                         .HasColumnType("bigint");
@@ -565,9 +593,6 @@ namespace Dentisty.Data.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(5)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit");
 
@@ -576,32 +601,9 @@ namespace Dentisty.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.ToTable("Languages", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "vi",
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDefault = true,
-                            Name = "Tiếng Việt",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Code = "en",
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDefault = false,
-                            Name = "English",
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Logger", b =>
@@ -642,16 +644,22 @@ namespace Dentisty.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Caption")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ImageId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -661,16 +669,14 @@ namespace Dentisty.Data.Migrations
                     b.Property<int>("SortOrder")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<string>("SubName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -682,80 +688,187 @@ namespace Dentisty.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Slides", (string)null);
+                });
+
+            modelBuilder.Entity("Dentisty.Data.GeneratorDB.Entities.AppSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Articles")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Categories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Doctors")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EndWork")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Feedbacks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HotlineHaNoi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("News")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Products")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ShowArtileSlideList")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowCategoryList")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowContactList")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowDoctorSlideList")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowFeedbackList")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowNewsList")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowProductList")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ShowToolBarTop")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StartWork")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Twitter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Youtube")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZaloHotline")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppSettings");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-                            Name = "Second Thumbnail label",
-                            SortOrder = 1,
-                            Status = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Url = "#",
-                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-                            Name = "Second Thumbnail label",
-                            SortOrder = 2,
-                            Status = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Url = "#",
-                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-                            Name = "Second Thumbnail label",
-                            SortOrder = 3,
-                            Status = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Url = "#",
-                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-                            Name = "Second Thumbnail label",
-                            SortOrder = 4,
-                            Status = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Url = "#",
-                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-                            Name = "Second Thumbnail label",
-                            SortOrder = 5,
-                            Status = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Url = "#",
-                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.",
-                            Name = "Second Thumbnail label",
-                            SortOrder = 6,
-                            Status = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Url = "#",
-                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de")
+                            Name = "Nhiên Dentistry",
+                            ShowArtileSlideList = true,
+                            ShowCategoryList = true,
+                            ShowContactList = true,
+                            ShowDoctorSlideList = true,
+                            ShowFeedbackList = true,
+                            ShowNewsList = true,
+                            ShowProductList = true,
+                            ShowToolBarTop = true
                         });
+                });
+
+            modelBuilder.Entity("Dentisty.Data.GeneratorDB.Entities.Branches", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(10)
+                        .IsUnicode(true)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branches");
+                });
+
+            modelBuilder.Entity("Dentisty.Data.GeneratorDB.Entities.Doctor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Alias")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Dob")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PositionExtent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Profile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -884,8 +997,9 @@ namespace Dentisty.Data.Migrations
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.AppUser", b =>
                 {
                     b.HasOne("Dentistry.Data.GeneratorDB.Entities.Image", "Avatar")
-                        .WithOne("User")
-                        .HasForeignKey("Dentistry.Data.GeneratorDB.Entities.AppUser", "AvatarId");
+                        .WithMany("AppUsers")
+                        .HasForeignKey("AvatarId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Avatar");
                 });
@@ -895,8 +1009,7 @@ namespace Dentisty.Data.Migrations
                     b.HasOne("Dentistry.Data.GeneratorDB.Entities.Category", "Category")
                         .WithMany("Articles")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Dentistry.Data.GeneratorDB.Entities.AppUser", "CreatedBy")
                         .WithMany()
@@ -904,19 +1017,17 @@ namespace Dentisty.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Dentistry.Data.GeneratorDB.Entities.Language", "Language")
-                        .WithMany("Articles")
-                        .HasForeignKey("LanguageId");
-
                     b.Navigation("Category");
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Category", b =>
                 {
+                    b.HasOne("Dentistry.Data.GeneratorDB.Entities.Image", "Image")
+                        .WithMany("Categories")
+                        .HasForeignKey("ImageId");
+
                     b.HasOne("Dentistry.Data.GeneratorDB.Entities.Category", "Parent")
                         .WithMany("Categories")
                         .HasForeignKey("ParentId");
@@ -926,6 +1037,8 @@ namespace Dentisty.Data.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("AppUser");
+
+                    b.Navigation("Image");
 
                     b.Navigation("Parent");
                 });
@@ -949,6 +1062,23 @@ namespace Dentisty.Data.Migrations
                     b.Navigation("Language");
                 });
 
+            modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Contact", b =>
+                {
+                    b.HasOne("Dentisty.Data.GeneratorDB.Entities.Branches", "Branches")
+                        .WithMany("Contacts")
+                        .HasForeignKey("BranchesId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Dentistry.Data.GeneratorDB.Entities.AppUser", "ProcessBy")
+                        .WithMany("Missions")
+                        .HasForeignKey("ProcessById")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Branches");
+
+                    b.Navigation("ProcessBy");
+                });
+
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Slide", b =>
                 {
                     b.HasOne("Dentistry.Data.GeneratorDB.Entities.Image", "Image")
@@ -966,9 +1096,21 @@ namespace Dentisty.Data.Migrations
                     b.Navigation("Image");
                 });
 
+            modelBuilder.Entity("Dentisty.Data.GeneratorDB.Entities.Doctor", b =>
+                {
+                    b.HasOne("Dentistry.Data.GeneratorDB.Entities.Image", "Avatar")
+                        .WithMany("Doctors")
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Avatar");
+                });
+
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.AppUser", b =>
                 {
                     b.Navigation("Categories");
+
+                    b.Navigation("Missions");
 
                     b.Navigation("Slides");
                 });
@@ -984,17 +1126,23 @@ namespace Dentisty.Data.Migrations
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Image", b =>
                 {
-                    b.Navigation("Slides");
+                    b.Navigation("AppUsers");
 
-                    b.Navigation("User")
-                        .IsRequired();
+                    b.Navigation("Categories");
+
+                    b.Navigation("Doctors");
+
+                    b.Navigation("Slides");
                 });
 
             modelBuilder.Entity("Dentistry.Data.GeneratorDB.Entities.Language", b =>
                 {
-                    b.Navigation("Articles");
-
                     b.Navigation("CategoryTranslations");
+                });
+
+            modelBuilder.Entity("Dentisty.Data.GeneratorDB.Entities.Branches", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

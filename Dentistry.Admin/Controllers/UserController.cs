@@ -1,35 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using Dentistry.Admin.Controllers;
-using Dentistry.Data.Interfaces;
+﻿using Dentistry.Common.Constants;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.System.Users;
+using Dentisty.Data.Repositories;
+using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Dentistry.Admin.Controllers
 {
     [Authorize]
     public class UserController : BaseController
     {
-        private readonly IUserService _userService;
-        private readonly IRoleService _roleService;
+        private readonly UserService _userService;
+        private readonly RoleService _roleService;
         private readonly IConfiguration _configuration;
+        private readonly LoggerRepository _loggerRepository;
 
-        public UserController(IUserService userService, IRoleService roleService,
+        public UserController(UserService userService, RoleService roleService, LoggerRepository loggerRepository,
             IConfiguration configuration)
         {
+            _loggerRepository = loggerRepository;
             _configuration = configuration;
             _userService = userService;
             _roleService = roleService;
@@ -124,8 +116,7 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Remove("Token");
-            Response.Cookies.Delete("AuthToken");
+            Response.Cookies.Delete(SystemConstants.AppSettings.Token);
             return RedirectToAction("Index", "Login");
         }
 
@@ -168,18 +159,25 @@ namespace Dentistry.Admin.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            var result = await _userService.RoleAssign(request.Id, request);
-
-            if (result.IsSuccessed)
+            try
             {
-                TempData["result"] = "Cập nhật quyền thành công";
-                return RedirectToAction("Index");
+                var result = await _userService.RoleAssign(request.Id, request);
+
+                if (result.IsSuccessed)
+                {
+                    TempData["result"] = "Cập nhật quyền thành công";
+                    return RedirectToAction("Index");
+                }
+
+                ModelState.AddModelError("", result.Message);
+                var roleAssignRequest = await GetRoleAssignRequest(request.Id);
+
+                return View(roleAssignRequest);
+            } catch (Exception ex)
+            {
+                _loggerRepository.QueueLog(ex.Message);
+                return View();
             }
-
-            ModelState.AddModelError("", result.Message);
-            var roleAssignRequest = await GetRoleAssignRequest(request.Id);
-
-            return View(roleAssignRequest);
         }
 
         private async Task<RoleAssignRequest> GetRoleAssignRequest(Guid id)
@@ -193,6 +191,7 @@ namespace Dentistry.Admin.Controllers
                 {
                     Id = role.Id.ToString(),
                     Name = role.Name,
+                    NormalizedName = role.NormalizedName,
                     Selected = userObj.ResultObj.Roles.Contains(role.Name)
                 });
             }

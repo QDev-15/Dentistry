@@ -7,9 +7,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Admin", "Dentistr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Web", "Dentistry.Web\Dentistry.Web.csproj", "{5C6C5535-C768-4413-99F6-1F4EF7610401}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.ViewModels", "Dentistry.Common\Dentistry.ViewModels.csproj", "{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.ViewModels", "Dentistry.ViewModels\Dentistry.ViewModels.csproj", "{F882F8C8-E011-45E0-A87B-A1C78F1D18AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentisty.Data", "Dentisty.Data\Dentisty.Data.csproj", "{3298184B-CD0B-4B52-BEAA-4153892C295B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7AAA9403-BCBD-4CD8-93B0-DEA3DB5CAC5A}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Hướng Dẫn Sử Dụng Quản Trị Viên.docx = Hướng Dẫn Sử Dụng Quản Trị Viên.docx
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Tests", "Dentistry.Tests\Dentistry.Tests.csproj", "{6214EBEB-4445-4D88-CE55-8086C32FED29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +41,15 @@ Global
 		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3298184B-CD0B-4B52-BEAA-4153892C295B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6214EBEB-4445-4D88-CE55-8086C32FED29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6214EBEB-4445-4D88-CE55-8086C32FED29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6214EBEB-4445-4D88-CE55-8086C32FED29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6214EBEB-4445-4D88-CE55-8086C32FED29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA077E8B-0D62-4BE9-8314-A2EF0B3BB69A}
 	EndGlobalSection
 EndGlobal

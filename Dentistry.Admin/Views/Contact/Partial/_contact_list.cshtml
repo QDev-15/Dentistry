@@ -1,0 +1,110 @@
+﻿@using Dentistry.ViewModels.Catalog.Contacts
+@model ContactVmList
+
+<div class="container-fluid p-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Tin nhắn</h2>
+    </div>
+
+    <div class="table-responsive">
+        <table id="contactActiveTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>Đặt lịch/Tư vấn</th>
+                    <th>Điện thoại</th>
+                    <th>Email</th>
+                    <th>Ngày gửi</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Rows -->
+                @foreach (var item in Model.ContactActives)
+                {
+                    <tr>
+                        <td class="align-middle">@item.Name</td>
+                        <td class="align-middle">
+                            @{
+                                if (item.TimeBook == null)
+                                {
+                                    <span>"Tư vấn"</span>
+                                } else {
+                                    <span>"Đặt lịch khám"</span>
+                                }
+                            }
+                        </td>
+                        <td class="align-middle">@item.PhoneNumber</td>
+                        <td class="align-middle">@item.Email</td>
+                        <td class="align-middle">@item.CreatedDate</td>
+                        <td class="align-middle text-center">
+                            <button class="btn btn-sm btn-warning contact-accept-btn" data-id="@item.Id">Duyệt</button>
+                            <button class="btn btn-sm btn-info contact-view-btn" data-bs-toggle="modal" data-bs-target="#viewContactModal" data-id="@item.Id">Xem</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container-fluid p-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Đã xử lý</h2>
+    </div>
+
+    <div class="table-responsive">
+        <table id="contactInActiveTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>Đặt lịch/Tư vấn</th>
+                    <th>Điện thoại</th>
+                    <th>Email</th>
+                    <th>Ngày gửi</th>
+                    <th>Ngày xử lý</th>
+                    <th>Người xử lý</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Rows -->
+                @foreach (var item in Model.ContactInActives)
+                {
+                    <tr>
+                        <td class="align-middle">@item.Name</td>
+                        <td class="align-middle">
+                            @{
+                                if (item.TimeBook == null)
+                                {
+                                    <span>"Tư vấn"</span>
+                                }
+                                else
+                                {
+                                    <span>"Đặt lịch khám"</span>
+                                }
+                            }
+                        </td>
+                        <td class="align-middle">@item.PhoneNumber</td>
+                        <td class="align-middle">@item.Email</td>
+                        <td class="align-middle">@item.CreatedDate</td>
+                        <td class="align-middle">@item.UpdatedDate</td>
+                        <td class="align-middle">@item.ProcessBy?.DisplayName</td>
+                        <td class="align-middle text-center">
+                            <button class="btn btn-sm btn-info contact-view-btn" data-bs-toggle="modal" data-bs-target="#viewContactModal" data-id="@item.Id">Xem</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade" id="viewContactModal" tabindex="-1" aria-labelledby="viewContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+<script src="~/js/contact.js"></script>

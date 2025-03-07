@@ -1,0 +1,210 @@
+﻿@using Dentistry.ViewModels.Enums
+@using Dentistry.ViewModels.Catalog.Categories
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model CategoryDetailVm
+
+<style>
+    .support-view {
+    height: 600px;
+    }
+
+    .support-view .btnSuccess {
+    justify-content: center !important;
+    }
+
+    .support-view .box_wrap {
+    margin-top: -120px;
+    }
+</style>
+<div class="container-fluid justify-content-center image-banner p-0">
+    <img src="@Model.category.Image?.Path" loading="lazy" />
+</div>
+<div class="container-fluid">
+    <div class="container box_breadcrumb">
+        <ul class="breadcrumb">
+            <li><a href="/">Trang chủ</a></li>
+            @if (Model.category.Parent != null) {
+                <li>
+                    <a asp-action="Detail" asp-asp-controller="Category"
+                    asp-route-danhmuc="@Model.category.Parent.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Parent.Alias"
+                    title="@Model.category.Parent.Name">
+                        @Model.category.Parent.Name
+                    </a>
+                </li>
+            }
+            <li>
+                @Model.category.Name
+            </li>
+        </ul>
+    </div>
+</div>
+
+@{
+    if (Model.category.Type == CategoryType.About) {
+        @if (!string.IsNullOrEmpty(Model.category.Description))
+        {
+            <div class="container-fluid p-0">
+                <div class="container main-detail">
+                    <div class="box_article_description">
+                        @Html.Raw(Model.category.Description)
+                    </div>
+                </div>
+            </div>
+        }
+    } else if (Model.category.Type == CategoryType.Support)
+    {
+        <div class="container-fluid box_book support-view section section-contact d-flex justify-content-center align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box_wrap">
+                            <div class="box_title">Đặt lịch khám tại Nhiên</div>
+                            <div class="box_content" id="app-contact-content">
+                                @{
+                                    Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml", Model.bookFormVm);
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    }
+    else if (Model.category.Type == CategoryType.News
+            || Model.category.Type == CategoryType.FeedBack)
+    {
+        <div class="container-fluid">
+            <div class="container search-page-content py-4">
+                <div class="row py-3">
+                    <div class="col-12 col-md-8 search-result-content">
+                        <div class="search-results">
+                            @if (Model.articles.Count == 0)
+                            {
+                                <span class="not-result-found">Chưa có bài viết về chuyên mục này.</span>
+                            }
+                            @foreach (var item in Model.articles)
+                            {
+                                string pathImageArt = "/assets/img/no-image.jpg";
+                                if (item.Images.Any())
+                                {
+                                    pathImageArt = item.Images.LastOrDefault()!.Path;
+                                }
+                                <div class="search-item">
+                                    <img src="@pathImageArt" alt="Ảnh bài viết">
+                                    <div class="search-content">
+                                        <h3>
+                                            <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
+                                        </h3>
+                                        <p>@item.Description.LimitTo(200, "...")</p>
+                                        <div class="search-meta">
+                                            <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
+                                            <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!-- Lặp lại search-item cho nhiều bài viết -->
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4 search-hotnew flex-column d-none d-md-flex">
+                        <div class="box_title_v1 py-3">Chủ đề mới nhất</div>
+                        <div class="box_right_content flex-column">
+                            @foreach (var item in Model.hotNews)
+                            {
+                                string pathImage = "/assets/img/no-image.jpg";
+                                if (item.Images.Any())
+                                {
+                                    pathImage = item.Images.LastOrDefault()!.Path;
+                                }
+                                <div class="item">
+                                    <div class="image">
+                                        <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">
+                                            <img src="@pathImage" alt="@item.Title">
+                                        </a>
+                                    </div>
+                                    <div class="info">
+                                        <h2 class="title">
+                                            <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title.LimitTo(200, "...")</a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    } else {
+        @* Category detail *@
+        @if (!string.IsNullOrEmpty(Model.category.Description))
+        {
+            <div class="container-fluid p-0">
+                <div class="container main-detail">
+                    <div class="box_article_description">
+                        @Html.Raw(Model.category.Description)
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    if (Model.category.Parent == null)
+    {
+        if (Model.category.ChildCategories.Any())
+        {
+            @* Category list *@
+            <div class="container-fluid p-0 pt-5 pb-5 box_categories">
+                <div class="container">
+                    @{
+                        Html.RenderPartial("~/Views/ViewComponents/HomeCategory.cshtml", @Model.category.ChildCategories.ToList());
+                    }
+                </div>
+            </div>
+        }
+    }
+    if (Model.articles.Count > 0)
+    {
+        <div class="container-fluid p-0 pb-5" style="background: #fbfbfb;">
+                <div class="container">
+                    <div class="box_title py-5"> Bài viết liên quan</div>
+                    <div class="box_content box_list_item">
+                        <div class="row">
+                            @foreach (var item in Model.articles)
+                            {
+                                var type = item.Type.GetAliasDisplayName();
+                                var imgPath = "/assets/img/no-image.jpg";
+                                if (item.Images.Any())
+                                {
+                                    imgPath = item.Images.LastOrDefault()?.Path;
+                                }
+                                <div class="col-sm-3 col-6">
+                                    <div class="item">
+                                        <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
+                                            <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias"
+                                               title="@item.Title">
+                                                <span>Xem thêm</span>
+                                            </a>
+                                        </div>
+                                        <div class="info">
+                                            <h3 class="title">
+                                                <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias"
+                                                   title="@item.Title">
+                                                    @item.Title.LimitTo(50, "...")
+                                                </a>
+                                            </h3>
+                                            <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
+}

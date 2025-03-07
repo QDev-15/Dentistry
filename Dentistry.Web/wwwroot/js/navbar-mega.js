@@ -30,8 +30,8 @@
 
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        console.log(currentScroll);
-        if (currentScroll > 190) {
+        //console.log(currentScroll);
+        if (currentScroll > 390) {
             // Scrolling down - hide the navbar
             navbar.classList.add('sticky-top');
             setTimeout(() => {
@@ -87,4 +87,20 @@
         }
     }
     // document ready  
+});
+
+// Toggle the icon direction when the collapsible content is shown/hidden
+document.querySelectorAll('.expand-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        const icon = this.querySelector('i');
+        const isChevronDown = icon.classList.contains('fa-chevron-down');
+
+        if (isChevronDown) {
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
+        } else {
+            icon.classList.remove('fa-chevron-up');
+            icon.classList.add('fa-chevron-down');
+        }
+    });
 });
