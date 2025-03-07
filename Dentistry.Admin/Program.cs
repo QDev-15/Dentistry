@@ -140,7 +140,8 @@ builder.Services.AddCors(options =>
         policy =>
         {
             //policy.WithOrigins("https://localhost:7278") // Cho phép website kết nối     // https://nhien.quynhvpit.io.vn
-            policy.WithOrigins("https://nhien.quynhvpit.io.vn") // Cho phép website kết nối     // 
+            //policy.WithOrigins("https://nhien.quynhvpit.io.vn") // Cho phép website kết nối     // 
+            policy.WithOrigins("https://annhienmedical.vn") // Cho phép website kết nối     // 
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials(); // Cần thiết cho SignalR
