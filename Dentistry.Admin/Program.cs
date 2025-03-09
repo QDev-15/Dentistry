@@ -32,8 +32,7 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 
 // Đăng ký HostingConfig
 // Configure app settings based on environment
-var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-File.WriteAllText("wwwroot/env.txt", $"Current Environment: {environment}");
+var environment = builder.Environment.EnvironmentName;
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
@@ -42,8 +41,6 @@ builder.Configuration
 //    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 
-var environment1 = builder.Environment.EnvironmentName;
-File.WriteAllText("wwwroot/env1.txt", $"Current Environment: {environment1}");
 
 // Tải cấu hình UploadSettings từ appsettings
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));

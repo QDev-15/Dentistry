@@ -20,6 +20,11 @@ CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 builder.Services.AddDbContext<DentistryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 // Tải cấu hình UploadSettings từ appsettings
+var environment = builder.Environment.EnvironmentName;
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
 // Add services to the container.
 builder.Services.AddControllersWithViews()
