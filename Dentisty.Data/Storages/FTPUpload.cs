@@ -55,6 +55,10 @@ namespace Dentisty.Data.Storages
 
             Disconnect();
         }
+        private string GetHostDirectory()
+        {
+            return string.IsNullOrEmpty(_config.HostDirectory.Replace("/", "")) ? "wwwroot/uploads/"  : _config.HostDirectory + "/wwwroot/uploads/";
+        }
 
         // Upload ảnh lên FTP
         //public string UploadImage(string localFilePath, string remoteDirectory)
@@ -100,7 +104,7 @@ namespace Dentisty.Data.Storages
                     throw new ArgumentException("File không hợp lệ.");
                 }
 
-                string fullRemoteDirectory = "wwwroot/uploads/" + remoteDirectory;
+                string fullRemoteDirectory = GetHostDirectory() + remoteDirectory;
                 // Tạo thư mục trên server nếu chưa tồn tại
                 CreateDirectoryIfNotExists(fullRemoteDirectory);
 
@@ -159,7 +163,7 @@ namespace Dentisty.Data.Storages
                 string relativePath = imageUrl.Replace($"{_config.WebHost}/uploads/", "").Replace("/", "\\");
 
                 // Tạo đường dẫn đầy đủ đến file trên server FTP
-                string remoteFilePath = Path.Combine("wwwroot/uploads", relativePath);
+                string remoteFilePath = Path.Combine(GetHostDirectory(), relativePath);
 
                 Connect();
 
