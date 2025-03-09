@@ -1,5 +1,5 @@
 ﻿using Dentistry.Admin.Common;
-using Dentistry.Common.Constants;
+using Dentistry.Data.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;

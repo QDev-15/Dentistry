@@ -1,4 +1,4 @@
-﻿using Dentistry.Common.Constants;
+﻿using Dentistry.Data.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;

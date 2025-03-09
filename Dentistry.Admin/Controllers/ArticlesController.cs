@@ -1,5 +1,5 @@
 ﻿using Dentistry.Admin.Common;
-using Dentistry.Common.Constants;
+using Dentistry.Data.Common.Constants;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Enums;
 using Dentisty.Data;

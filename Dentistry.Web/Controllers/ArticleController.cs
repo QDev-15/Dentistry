@@ -1,4 +1,4 @@
-﻿using Dentistry.Common.Constants;
+﻿using Dentistry.Data.Common.Constants;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Common;
