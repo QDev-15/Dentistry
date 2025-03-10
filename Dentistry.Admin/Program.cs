@@ -37,13 +37,11 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
-//builder.Configuration
-//    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-
 
 // Tải cấu hình UploadSettings từ appsettings
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
+var hostingConfig = builder.Configuration.GetSection("HostingConfig").Get<HostingConfig>();
+
 
 var issuer = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Issuer);
 var audience = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Audience);
@@ -89,7 +87,14 @@ builder.Services.AddAuthentication(options =>
             IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
         };
     });
-
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Chỉ hoạt động với HTTPS
+    options.Cookie.SameSite = SameSiteMode.None; // Quan trọng để hỗ trợ nhiều tab/domain
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.SlidingExpiration = true;
+});
 // add controller views
 builder.Services.AddControllersWithViews(options =>
 {
@@ -149,7 +154,8 @@ builder.Services.AddCors(options =>
         {
             //policy.WithOrigins("https://localhost:7278") // Cho phép website kết nối     // https://nhien.quynhvpit.io.vn
             //policy.WithOrigins("https://nhien.quynhvpit.io.vn") // Cho phép website kết nối     // 
-            policy.WithOrigins("https://annhienmedical.vn") // Cho phép website kết nối     // 
+            //policy.WithOrigins("https://annhienmedical.vn") // Cho phép website kết nối     // 
+            policy.WithOrigins(hostingConfig!.WebHost) // Cho phép website kết nối     // 
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials(); // Cần thiết cho SignalR

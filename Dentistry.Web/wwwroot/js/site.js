@@ -23,29 +23,37 @@
     $("#openFeedbackModal").on("click", function () {
         showModal();
     });
-
-
-    // Back to Top =================================================================================
-    // Hiển thị nút khi cuộn xuống 200px
-    window.onscroll = function () {
-        const backToTopButton = document.getElementById("backToTop");
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            backToTopButton.classList.remove("e-hidden");
-            $(".zalo-chat").css("bottom", "75px");
-            $(".call-phone").css("bottom", "135px");
-        } else {
-            backToTopButton.classList.add("e-hidden");
-            $(".zalo-chat").css("bottom", "20px");
-            $(".call-phone").css("bottom", "75px");
-        }
-    };
-
-    // Khi click, cuộn về đầu trang
-    document.getElementById("backToTop").addEventListener("click", function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM đã tải xong!");
+    checkScroll();
+});
+
+
+
+
+// Back to Top =================================================================================
+// Hiển thị nút khi cuộn xuống 200px
+window.onscroll = function () {
+    checkScroll();
+};
+// Khi click, cuộn về đầu trang
+document.getElementById("backToTop").addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+function checkScroll() {
+    const backToTopButton = document.getElementById("backToTop");
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        backToTopButton.classList.remove("e-hidden");
+        $(".zalo-chat").css("bottom", "75px");
+        $(".call-phone").css("bottom", "135px");
+    } else {
+        backToTopButton.classList.add("e-hidden");
+        $(".zalo-chat").css("bottom", "20px");
+        $(".call-phone").css("bottom", "75px");
+    }
+}
 //Resize Screen
 function getBootstrapBreakpoint(width) {
     width = width | window.innerWidth;

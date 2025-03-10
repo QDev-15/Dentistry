@@ -62,7 +62,8 @@ namespace Dentistry.Admin.Controllers
                 Expires = DateTime.UtcNow.AddDays(1),  // Cookie sẽ hết hạn sau 1 ngày
                 IsEssential = true,  // Cookie là bắt buộc
                 HttpOnly = true,  // Cookie không thể được truy cập từ JavaScript
-                Secure = true  // Cookie chỉ được gửi qua HTTPS
+                Secure = true,  // Cookie chỉ được gửi qua HTTPS
+                SameSite = SameSiteMode.None
             });
             HttpContext.Response.Cookies.Append(SystemConstants.AppSettings.DefaultLanguageId, _configuration[SystemConstants.AppSettings.DefaultLanguageId]);
             await HttpContext.SignInAsync(

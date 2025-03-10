@@ -45,7 +45,8 @@
     <script>
         // var hostAdmin = "https://localhost:7226/signalRHub"
         // var hostAdmin = "https://nhienadmin.quynhvpit.io.vn/signalRHub"
-        var hostAdmin = "https://admin.annhienmedical.vn/signalRHub"
+        // var hostAdmin = "https://admin.annhienmedical.vn/signalRHub"
+        var hostAdmin = @HostingConfig.Value.WebHost + "/signalRHub"
         const connection = new signalR.HubConnectionBuilder()
             .withUrl(hostAdmin) // URL của Admin
             .build();

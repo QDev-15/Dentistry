@@ -89,10 +89,6 @@ namespace Dentisty.Data.Storages
         //        return null;  // Hoặc ném lỗi ra ngoài
         //    }
         //}
-        private string GetHostDirectory()
-        {
-            return string.IsNullOrEmpty(_config.HostDirectory.Replace("/", "")) ? "wwwroot/uploads/" : _config.HostDirectory + "/wwwroot/uploads/";
-        }
         public string UploadImage(IFormFile file, string? remoteDirectory)
         {
             try

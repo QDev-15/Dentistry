@@ -12,7 +12,7 @@
 }
 
 /* Hiệu ứng ẩn dần */
-.hidden {
+.e-hidden {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
@@ -90,7 +90,7 @@
 
 .call-phone {
   position: fixed;
-  bottom: 135px;
+  bottom: 75px;
   right: 20px;
   border-radius: 50%;
   z-index: 9999;
