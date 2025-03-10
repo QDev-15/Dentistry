@@ -1,4 +1,4 @@
-﻿using Dentistry.Common.Constants;
+﻿using Dentistry.Data.Common.Constants;
 using Dentistry.Data.GeneratorDB.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

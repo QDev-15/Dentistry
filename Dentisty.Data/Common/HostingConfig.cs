@@ -11,6 +11,7 @@ namespace Dentisty.Data.Common
         public string Domain { get; set; }
         public string HostDirectory { get; set; }
         public string UploadDirectory { get; set; }
+        public string HostDirectory { get; set; }
         public List<string> AllowedExtensions { get; set; }
         public int MaxFileSizeMB { get; set; }
         public string WebHost { get; set; }

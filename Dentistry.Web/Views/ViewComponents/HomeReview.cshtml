@@ -1,5 +1,6 @@
 ﻿@using Dentistry.ViewModels.Catalog.Articles
 @using Dentistry.ViewModels.Enums
+@using Dentisty.Data.Common
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -20,6 +21,13 @@
                         if (item.Images.Any())
                         {
                             imgPath = item.Images.LastOrDefault()?.Path;
+                        } else
+                        {
+                            var images = Utilities.ExtractImageLinks(item.Description);
+                            if (images.Any())
+                            {
+                                imgPath = images.FirstOrDefault();
+                            }
                         }
                         <div class="col-sm-4 col-6">
                             <div class="item pt-5">

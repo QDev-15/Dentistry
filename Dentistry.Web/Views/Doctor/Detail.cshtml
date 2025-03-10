@@ -1,5 +1,6 @@
 ﻿@using Dentistry.ViewModels.Catalog.Doctors
 @using Dentistry.ViewModels.Enums
+@using Dentisty.Data.Common
 @model DoctorDetailVm
 @{
     ViewData["Title"] = Model.Doctor.Name;
@@ -13,7 +14,7 @@
     {
         <img src="/assets/img/no-image.jpg" loading="lazy" />
     }
-    
+
 </div>
 <div class="container-fluid">
     <div class="container box_breadcrumb">
@@ -25,7 +26,7 @@
         </ul>
     </div>
 </div>
-<div class="container py-3 main-detail">
+<div class="container py-3 pb-5 main-detail">
     <article class="bg-white rounded-2xl shadow-md p-6 mb-8">
         <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.Doctor.Name</h2>
         <div class="flex items-center text-gray-500 text-sm mb-4">
@@ -42,27 +43,37 @@
 @{
     if (Model.Doctors.Count > 0)
     {
-        <div class="container">
-            <div class="box_title py-5"> Bài viết liên quan</div>
-            <div class="box_content box_list_item">
-                <div class="row">
-                    @foreach (var item in Model.Doctors)
-                    {
-                        var imgPath = item.Avatar != null ? item.Avatar.Path : "";
-                        <div class="col-sm-3 col-6">
-                            <div class="item pt-5">
-                                <div class="image" style="background-image: url('@imgPath')">
-                                    <a href="/bac-si/@item.Alias" title="@item.Name">
-                                        <span>Xem thêm</span>
-                                    </a>
-                                </div>
-                                <div class="info pt-5">
-                                    <h3 class="title"><a href="/bac-si/@item.Alias" title="@item.Name">@item.Name</a></h3>
-                                    <div class="desc">@item.Description.LimitTo(200, "...")</div>
+        <div class="container-fluid" style="background: #f5f5f5;">
+            <div class="container p-0 pb-5 px-4">
+                <div class="box_title py-5"> Bài viết liên quan</div>
+                <div class="box_content box_list_item">
+                    <div class="row">
+                        @foreach (var item in Model.Doctors)
+                        {
+                            var imgPath = item.Avatar != null ? item.Avatar.Path : "";
+                            if (string.IsNullOrEmpty(imgPath) && !string.IsNullOrEmpty(item.Description))
+                            {
+                                var images = Utilities.ExtractImageLinks(item.Description);
+                                if (images.Any())
+                                {
+                                    imgPath = images.FirstOrDefault();
+                                }
+                            }
+                            <div class="col-sm-3 col-6">
+                                <div class="item pt-5">
+                                    <div class="image" style="background-image: url('@imgPath')">
+                                        <a href="/bac-si/@item.Alias" title="@item.Name">
+                                            <span>Xem thêm</span>
+                                        </a>
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="title pb-1"><a href="/bac-si/@item.Alias" title="@item.Name">@item.Name</a></h3>
+                                        <div class="desc">@item.Description.LimitTo(200, "...")</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>

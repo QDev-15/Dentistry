@@ -1,5 +1,5 @@
 ﻿using Dentistry.Admin.Common;
-using Dentistry.Common.Constants;
+using Dentistry.Data.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;
@@ -32,8 +32,16 @@ builder.Services.AddIdentity<AppUser, AppRole>()
 
 // Đăng ký HostingConfig
 // Configure app settings based on environment
+var environment = builder.Environment.EnvironmentName;
 builder.Configuration
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+//builder.Configuration
+//    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+
+
 // Tải cấu hình UploadSettings từ appsettings
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
 

@@ -14,7 +14,12 @@ $black50: rgba(0, 0, 0, 0.5);
 .modal-backdrop {
     background-color: #a9a9a9;
 }
-
+/* Hiệu ứng ẩn dần */
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
 /** =============== Back to top ===========================*/
 #backToTop {
     height: 50px;
@@ -22,7 +27,6 @@ $black50: rgba(0, 0, 0, 0.5);
     position: fixed;
     bottom: 20px;
     right: 20px;
-    display: none;
     background-color: $main;
     color: white;
     border: none;
@@ -40,26 +44,77 @@ $black50: rgba(0, 0, 0, 0.5);
 }
 
 /** ===============Zalo Chat ==========================*/
+@keyframes shake-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-8deg);
+    }
+
+    50% {
+        transform: rotate(8deg);
+    }
+
+    75% {
+        transform: rotate(-8deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 162, 255, 0.6);
+    }
+
+    50% {
+        box-shadow: 0 0 0 25px rgba(0, 162, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 162, 255, 0);
+    }
+}
+
 .zalo-chat {
     position: fixed;
     bottom: 20px;
     right: 20px;
     border-radius: 50%;
     z-index: 9999;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: bottom 0.5s ease; /* Di chuyển mượt mà */
+    animation: shake-rotate 1.5s infinite ease-in-out, pulse 2s infinite;
+
+    img {
+        width: 50px; /* Tăng kích thước */
+        border-radius: 50%;
+        cursor: pointer;
+        outline: auto;
+        clip-path: circle(50%);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 }
 
-.zalo-chat img {
-    width: 50px;
+.call-phone {
+    position: fixed;
+    bottom: 135px;
+    right: 20px;
     border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.zalo-chat img:hover {
-    transform: scale(1.05) rotate(1deg);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    transition: bottom 0.5s ease; /* Di chuyển mượt mà */
+    animation: shake-rotate 1.5s infinite ease-in-out, pulse 2s infinite;
+
+    i {
+        width: 50px;
+        height: 50px;
+        font-size: 36px;
+        padding: 8px;
+        color: green;
+    }
 }
 
 /** ====================================================*/

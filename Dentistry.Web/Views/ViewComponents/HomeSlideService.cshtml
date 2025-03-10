@@ -1,4 +1,5 @@
 ﻿@using Dentistry.ViewModels.Catalog.Articles
+@using Dentisty.Data.Common
 @model List<ArticleVm>
 @{
     while (Model.Count > 0 && Model.Count < 6)
@@ -19,6 +20,13 @@
             if (item.Images.Any())
             {
                 imgPath = item.Images.LastOrDefault()?.Path;
+            } else
+            {
+                var images = Utilities.ExtractImageLinks(item.Description);
+                if (images.Any())
+                {
+                    imgPath = images.FirstOrDefault();
+                }
             }
             <div class="slide-item">
                 <div class="content" alt="@item.Title" style="background-image: url('@imgPath');">

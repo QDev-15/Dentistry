@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Dentistry.Common.Constants;
+using Dentistry.Data.Common.Constants;
 using Dentistry.Data.GeneratorDB.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

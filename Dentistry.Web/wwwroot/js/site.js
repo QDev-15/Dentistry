@@ -30,11 +30,13 @@
     window.onscroll = function () {
         const backToTopButton = document.getElementById("backToTop");
         if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            backToTopButton.style.display = "block";
+            backToTopButton.classList.remove("e-hidden");
             $(".zalo-chat").css("bottom", "75px");
+            $(".call-phone").css("bottom", "135px");
         } else {
-            backToTopButton.style.display = "none";
+            backToTopButton.classList.add("e-hidden");
             $(".zalo-chat").css("bottom", "20px");
+            $(".call-phone").css("bottom", "75px");
         }
     };
 
