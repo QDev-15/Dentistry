@@ -75,6 +75,12 @@
     </div>
 </footer>
 @{
+    if (!string.IsNullOrEmpty(Model.setting.HotlineHaNoi))
+    {
+        <a href="tel:@Model.setting.HotlineHaNoi" class="call-phone" target="_blank">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    }
     if (!string.IsNullOrEmpty(Model.setting.ZaloHotline))
     {
         <a href="https://zalo.me/@Model.setting.ZaloHotline" class="zalo-chat" target="_blank">
