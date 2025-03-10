@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dentistry.Common.Constants
+namespace Dentistry.Data.Common.Constants
 {
     public class SystemConstants
     {

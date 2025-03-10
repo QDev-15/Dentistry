@@ -1,4 +1,4 @@
-﻿using Dentistry.Common.Constants;
+﻿using Dentistry.Data.Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

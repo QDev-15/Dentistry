@@ -1,4 +1,4 @@
-﻿using Dentistry.Common.Constants;
+﻿using Dentistry.Data.Common.Constants;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data.Common;
 using Dentisty.Data.Repositories;

@@ -1,5 +1,5 @@
 using Dentistry.Admin.Models;
-using Dentistry.Common.Constants;
+using Dentistry.Data.Common.Constants;
 using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentisty.Data;
