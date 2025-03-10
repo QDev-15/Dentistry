@@ -320,13 +320,22 @@ function initTiny(editorId) {
         selector: '#' + editorId,
         plugins: [
             'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'media', 'link', 'lists',
-            'searchreplace', 'table', 'visualblocks', 'wordcount', "code"
+            'searchreplace', 'table', 'visualblocks', 'wordcount', "code", "paste"
         ],
+        paste_enable_default_filters: false, // Tắt bộ lọc mặc định khi dán nội dung
+        valid_elements: '*[*]', // Giữ lại tất cả thẻ và thuộc tính
         media_live_embeds: true, // Cho phép hiển thị trực tiếp video
-        extended_valid_elements: "h2,h3,p,strong,em,ul,ol,li,img[src|alt|style],a[href|style|target]",
+        extended_valid_elements: "h2,h3,p,strong,em,ul,ol,li,img[class|src|alt|width|height|style],a[class,href|style|target]",
         image_advtab: true,
+        image_class_list: [ // Tùy chỉnh class cho ảnh
+            { title: 'Responsive', value: 'img-fluid' },
+            { title: 'Thumbnail', value: 'img-thumbnail' }
+        ],
+        paste_postprocess: function (plugin, args) {
+            console.log('Pasted content:', args.node.innerHTML);
+        },
         content_style: "img { margin: 10px;}",
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | code',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | code paste',
         height: 500,
         automatic_uploads: true,
         // File picker configuration (Choose file manually)
