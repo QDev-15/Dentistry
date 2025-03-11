@@ -42,5 +42,17 @@ namespace Dentisty.Data.Services
         {
             _memoryCache.Set(key, value, absoluteExpirationRelativeToNow ?? TimeSpan.FromMinutes(30));  // Lưu vào cache với thời gian hết hạn
         }
+        // 🔹 Hàm làm mới lại cache bằng cách xóa key và đặt lại
+        public async Task RefreshAsync<T>(string key, Func<Task<T>> getDataFunc, TimeSpan? absoluteExpirationRelativeToNow = null)
+        {
+            RemoveAsync(key);
+            var newValue = await getDataFunc();
+            await SetAsync(key, newValue, absoluteExpirationRelativeToNow);
+        }
+
+        public void RemoveAsync(string key)
+        {
+            _memoryCache.Remove(key);
+        }
     }
 }

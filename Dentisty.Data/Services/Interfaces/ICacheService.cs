@@ -11,5 +11,7 @@ namespace Dentisty.Data.Services.Interfaces
         Task<T> GetOrSetAsync<T>(string key, Func<Task<T>> getDataFunc, TimeSpan? absoluteExpirationRelativeToNow = null);
         Task<T> GetAsync<T>(string key);
         Task SetAsync<T>(string key, T value, TimeSpan? absoluteExpirationRelativeToNow = null);
+        Task RefreshAsync<T>(string key, Func<Task<T>> getDataFunc, TimeSpan? absoluteExpirationRelativeToNow = null);
+        void RemoveAsync(string key);
     }
 }

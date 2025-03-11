@@ -33,6 +33,7 @@ builder.Services.AddDbContext<DentistryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 // Register Repository  add services
 builder.Services.AddSingleton<Logs>();
+builder.Services.AddScoped<ApplicationService>();
 builder.Services.AddSingleton<ICacheService, CacheService>();
 builder.Services.AddScoped<DentistryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

@@ -1,34 +1,34 @@
 ﻿@using Dentistry.ViewModels.Catalog.AppSettings
 @model AppSettingVm
 @{
-    <div class="container-fluid carousel-container section section-carousel">
-        @await Component.InvokeAsync("HomeSlideMain")
-    </div>
-    @* <div class="b-divider-shadow"></div> *@
-    var categoryDisplay = Model.ShowCategoryList ? "block" : "none";
-    <div class="container-fluid py-4 mt-5 mb-5 section section-category" style="display: @categoryDisplay">
-        @await Component.InvokeAsync("HomeCategory")
-    </div>
-    var categoryDoctor = Model.ShowDoctorSlideList ? "block" : "none";
-    <div class="section section-slide-doctor-articles" style="display: @categoryDoctor">
-        @await Component.InvokeAsync("HomeSlideDoctor")
-    </div>
-    var categorySlideService = Model.ShowArtileSlideList ? "block" : "none";
-    <div class="section section-slide-service-articles" style="display: @categorySlideService">
-        @await Component.InvokeAsync("HomeSlideService")
-    </div>
-    var news = Model.ShowNewsList ? "block" : "none";
-    <div class="section section-news" style="display: @news">
-        @await Component.InvokeAsync("HomeNews")
-    </div>
-    var products = Model.ShowProductList ? "block" : "none";
-    <div class="section section-news" style="display: @news">
-        @await Component.InvokeAsync("HomeProduct")
-    </div>
-    var review = Model.ShowFeedbackList ? "block" : "none";
-    <div class="section section-feedback" style="display: @review">
-        @await Component.InvokeAsync("HomeReview")
-    </div>
+    // <div class="container-fluid carousel-container section section-carousel">
+    //     @await Component.InvokeAsync("HomeSlideMain")
+    // </div>
+    // @* <div class="b-divider-shadow"></div> *@
+    // var categoryDisplay = Model.ShowCategoryList ? "block" : "none";
+    // <div class="container-fluid py-4 mt-5 mb-5 section section-category" style="display: @categoryDisplay">
+    //     @await Component.InvokeAsync("HomeCategory")
+    // </div>
+    // var categoryDoctor = Model.ShowDoctorSlideList ? "block" : "none";
+    // <div class="section section-slide-doctor-articles" style="display: @categoryDoctor">
+    //     @await Component.InvokeAsync("HomeSlideDoctor")
+    // </div>
+    // var categorySlideService = Model.ShowArtileSlideList ? "block" : "none";
+    // <div class="section section-slide-service-articles" style="display: @categorySlideService">
+    //     @await Component.InvokeAsync("HomeSlideService")
+    // </div>
+    // var news = Model.ShowNewsList ? "block" : "none";
+    // <div class="section section-news" style="display: @news">
+    //     @await Component.InvokeAsync("HomeNews")
+    // </div>
+    // var products = Model.ShowProductList ? "block" : "none";
+    // <div class="section section-news" style="display: @news">
+    //     @await Component.InvokeAsync("HomeProduct")
+    // </div>
+    // var review = Model.ShowFeedbackList ? "block" : "none";
+    // <div class="section section-feedback" style="display: @review">
+    //     @await Component.InvokeAsync("HomeReview")
+    // </div>
 }
 
 
