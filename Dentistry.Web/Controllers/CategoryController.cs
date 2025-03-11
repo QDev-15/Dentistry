@@ -31,36 +31,24 @@ namespace Dentistry.Web.Controllers
         [HttpGet("/{alias}")]
         public async Task<IActionResult> DetailAlias(string alias)
         {
-            var categoryDetailVm = await getCategoryDetail(alias, null);
-
-            // SEO ==================
-            if (categoryDetailVm.category.Id > 0)
-            {
-                ViewData["Title"] = categoryDetailVm.category.Name;
-                ViewData["Description"] = $"Đọc ngay danh mục '{categoryDetailVm.category.Name}' để hiểu hơn về {categoryDetailVm.category.Alias}";
-                ViewData["Keywords"] = categoryDetailVm.category.Alias;
-            }
-            return View("Detail", categoryDetailVm);
+            return View("Detail", new CategoryDetailVm());
         }
         [HttpGet("{danhmuc}/{alias}")]
         public async Task<IActionResult> Detail(string danhmuc, string alias)
         {
-            if (danhmuc == alias)
-            {
-                return Redirect($"/{alias}");
-            }
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             var categoryDetailVm = await getCategoryDetail(alias, danhmuc);
+            watch.Stop();
+            ViewData["logs"] = watch.ElapsedMilliseconds + " - " + watch.Elapsed.TotalSeconds;
 
             // SEO ==================
             if (categoryDetailVm.category.Id > 0)
             {
-                ViewData["Support"] = categoryDetailVm.category.Type == CategoryType.Support;
                 ViewData["Title"] = categoryDetailVm.category.Name;
                 ViewData["Description"] = $"Đọc ngay danh mục '{categoryDetailVm.category.Name}' để hiểu hơn về {categoryDetailVm.category.Alias}";
                 ViewData["Keywords"] = categoryDetailVm.category.Alias;
             }
-
-            return View("Detail", categoryDetailVm);
+            return PartialView("Detail", categoryDetailVm);
         }
 
         private async Task<CategoryDetailVm> getCategoryDetail(string alias, string? danhmuc)

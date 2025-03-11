@@ -14,6 +14,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.ToTable("Contacts");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
+            builder.HasIndex(x => x.Id).HasDatabaseName("ix_contact_id").IsUnique(false);
             builder.Property(x => x.Name).HasMaxLength(200).IsRequired();
             builder.Property(x => x.Email).HasMaxLength(200).IsRequired(false);
             builder.Property(x => x.PhoneNumber).HasMaxLength(200).IsRequired();

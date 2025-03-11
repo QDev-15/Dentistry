@@ -1,4 +1,5 @@
 ﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
 @model List<CategoryVm>
 
 <div class="container categories-content">
@@ -13,13 +14,13 @@
             {
                 <div class="col-6 col-sm-4 col-md-3 slide-item text-center actor-item">
                     <div class="image">
-                        <a asp-controller="Category" asp-action="DichVu" asp-route-alias="@item.Alias">
+                        <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
                             <img src="@item.Image?.Path" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
                         </a>
                     </div>
                     <div class="info">
                         <h3 class="title">
-                            <a asp-controller="Category" asp-action="DichVu" asp-route-alias="@item.Alias" title="@item.Name">
+                            <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias" title="@item.Name">
                                 @item.Name
                             </a>
                         </h3>

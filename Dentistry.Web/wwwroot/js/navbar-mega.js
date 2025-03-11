@@ -87,6 +87,30 @@
         }
     }
     // document ready  
+    $(".menu-link").on("click", function (e) {
+        e.preventDefault(); // Ngăn tải lại trang
+
+        var url = $(this).attr("href"); // Lấy URL từ thẻ <a>
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            beforeSend: function () {
+                $("#main-container").html("<p>Đang tải...</p>"); // Hiển thị trạng thái tải
+            },
+            success: function (response) {
+                $("#main-container").html(response);
+                history.pushState(null, "", url); // Cập nhật URL trên trình duyệt
+            },
+            error: function () {
+                $("#main-container").html("<p>Lỗi tải trang!</p>");
+            }
+        });
+    });
+    // Xử lý khi người dùng nhấn nút quay lại trên trình duyệt
+    window.onpopstate = function () {
+        location.reload(); // Nếu người dùng bấm "Back", tải lại trang để tránh lỗi
+    };
 });
 
 // Toggle the icon direction when the collapsible content is shown/hidden

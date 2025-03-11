@@ -10,6 +10,7 @@ public class ImageConfiguration : IEntityTypeConfiguration<Image>
     public void Configure(EntityTypeBuilder<Image> builder)
     {
         builder.HasKey(x => x.Id);
+        builder.HasIndex(x => x.Id).HasDatabaseName("ix_image_id").IsUnique(false);
         builder.Property(x => x.Id).UseIdentityColumn();
         builder.Property(x => x.FileName).IsRequired();
         builder.Property(x => x.Path).IsRequired();

@@ -1,4 +1,6 @@
-﻿@using Dentistry.ViewModels.Catalog.Contacts
+﻿@using Dentistry.ViewModels.Catalog.AppSettings
+@using Dentistry.ViewModels.Catalog.Contacts
+@model AppSettingVm
 
 <!-- Nút để kích hoạt modal -->
 <button type="button" class="btn btn-primary d-none" id="openModal" data-bs-toggle="modal" data-bs-target="#box_popup_tuvan">
@@ -20,7 +22,7 @@
                     }
                 </div>
                 <div class="mt-3 hotline">
-                    Hotline tư vấn: <a href="tel:@ViewData["Hotline"]">@ViewData["Hotline"]</a>
+                    Hotline tư vấn: <a href="tel:@Model.HotlineHaNoi">@Model.HotlineHaNoi</a>
                 </div>
             </div>
         </div>
@@ -52,4 +54,4 @@
         </div>
     </div>
 </div>
-<script src="~/js/onload-page.js"></script>
+<script src="~/js/onload-page.js" asp-append-version="true"></script>

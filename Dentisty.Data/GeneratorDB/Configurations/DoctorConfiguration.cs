@@ -17,6 +17,7 @@ namespace Dentisty.Data.GeneratorDB.Configurations
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x =>x.Name).IsRequired();
             builder.Property(x =>x.Alias).IsRequired();
+            builder.HasIndex(x => x.Alias).HasDatabaseName("ix_doctor_name").IsUnique(false);
             builder.Property(x => x.Dob).IsRequired();
             builder.Property(x => x.Position).IsRequired();
             builder.Property(x => x.Description).IsRequired(false);

@@ -15,6 +15,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.ToTable("Loggers");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.UserId).IsRequired();
+            builder.HasIndex(x => x.Id).HasDatabaseName("ix_log_id").IsUnique(false);
             builder.Property(x => x.Body).IsRequired();
             builder.Property(x => x.IdAddress).IsRequired();
             builder.Property(x => x.CreatedDate).IsRequired();

@@ -10,15 +10,15 @@ using FluentValidation.AspNetCore;
 using Dentistry.ViewModels.Catalog.Contacts;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
+using WebOptimizer;
+using Dentistry.Web.Middleware;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Dentisty.Data.Services.Interfaces;
+using Dentisty.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-// Đặt trước khi tạo ứng dụng
-var cultureInfo = new CultureInfo("vi-VN");
-CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
-builder.Services.AddDbContext<DentistryDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 // Tải cấu hình UploadSettings từ appsettings
 var environment = builder.Environment.EnvironmentName;
 builder.Configuration
@@ -26,27 +26,14 @@ builder.Configuration
     .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
-// Add services to the container.
-builder.Services.AddControllersWithViews()
-    .AddRazorRuntimeCompilation()
-    .AddFluentValidation(fv =>
-    {
-        fv.RegisterValidatorsFromAssemblyContaining<ContactVmValidator>();
-        fv.RegisterValidatorsFromAssemblyContaining<BookFormVmValidator>();
-        fv.DisableDataAnnotationsValidation = true;
-    });
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddMemoryCache();
-// add resource validator
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-});
 
+// Register DbContext
+builder.Services.AddDbContext<DentistryDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 // Register Repository  add services
 builder.Services.AddSingleton<Logs>();
+builder.Services.AddSingleton<ICacheService, CacheService>();
 builder.Services.AddScoped<DentistryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
@@ -58,30 +45,72 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
-
 builder.Services.AddScoped<LoggerRepository>();
 builder.Services.AddHostedService<LoggerBackgroundService>();
 
-var app = builder.Build();
+// Add controller
+builder.Services.AddControllersWithViews()
+    .AddRazorRuntimeCompilation()
+    .AddFluentValidation(fv => {
+        fv.RegisterValidatorsFromAssemblyContaining<ContactVmValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<BookFormVmValidator>();
+        fv.DisableDataAnnotationsValidation = true;
+    });
+// add HttpContext
+//builder.Services.AddHttpContextAccessor();
+// add Memory Cache
+builder.Services.AddMemoryCache();
+// add resource validator
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+// Minify file
+builder.Services.AddWebOptimizer(options =>
+{
+    options.MinifyCssFiles("/css/*.css");
+    options.MinifyJsFiles("/js/*.js");
+    options.MinifyJsFiles("/lib/*.js");
+    options.MinifyJsFiles("/plugins/*.js");
+});
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    var hstsOptions = new HstsOptions();
+    builder.Configuration.GetSection("Hsts").Bind(hstsOptions);
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    // Xử lý lỗi trang không tìm thấy, chuyển hướng đến trang tùy chỉnh
+    app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
+
+
+    // HSTS from appsettings.json
+    app.Use(async (context, next) =>
+    {
+        context.Response.Headers.Append("Strict-Transport-Security",
+            $"max-age={hstsOptions.MaxAge}; " +
+            $"{(hstsOptions.IncludeSubDomains ? "includeSubDomains; " : "")}" +
+            $"{(hstsOptions.Preload ? "preload" : "")}"
+        );
+        await next();
+    });
+    app.UseHttpsRedirection();
 }
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
-    dbContext.Database.Migrate();
-}
-app.UseHttpsRedirection();
+
+
+// update database
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
+//    dbContext.Database.Migrate();
+//}
+
+app.UseMiddleware<MinifyHtmlMiddleware>(); // Bật Minify HTML Middleware
+
+
 app.UseStaticFiles();
 
-app.UseRouting();
-app.UseSession();
+app.UseRouting();;
 
 app.MapControllerRoute(
     name: "default",

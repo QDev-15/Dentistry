@@ -27,10 +27,10 @@
 <div class="container-fluid">
     <div class="container box_breadcrumb">
         <ul class="breadcrumb">
-            <li><a href="/">Trang chủ</a></li>
+            <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
             @if (Model.category.Parent != null) {
                 <li>
-                    <a asp-action="Detail" asp-asp-controller="Category"
+                    <a asp-action="Detail" asp-controller="Category"
                     asp-route-danhmuc="@Model.category.Parent.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Parent.Alias"
                     title="@Model.category.Parent.Name">
                         @Model.category.Parent.Name
@@ -49,7 +49,7 @@
         @if (!string.IsNullOrEmpty(Model.category.Description))
         {
             <div class="container-fluid p-0">
-                <div class="container main-detail">
+                <div class="container main-detail py-3">
                     <div class="box_article_description">
                         @Html.Raw(Model.category.Description)
                     </div>
@@ -144,7 +144,7 @@
         @if (!string.IsNullOrEmpty(Model.category.Description))
         {
             <div class="container-fluid p-0">
-                <div class="container main-detail">
+                <div class="container main-detail py-3">
                     <div class="box_article_description">
                         @Html.Raw(Model.category.Description)
                     </div>
