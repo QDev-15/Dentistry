@@ -13,15 +13,35 @@
                 <!-- Actor 1 -->
                 @foreach (var item in Model)
                 {
+                    var type = item.Type;
+                    if (item.Parent != null || (item.ParentId != null && item.ParentId > 0))
+                    {
+                        type = item.Parent.Type;
+                    }
+
+                    var imgArtPath = "/assets/img/no-image.jpg";
+                    if (item.Image != null)
+                    {
+                        imgArtPath = item.Image.Path;
+                    }
+                    else
+                    {
+                        var images = Utilities.ExtractImageLinks(item.Description);
+                        if (images.Any())
+                        {
+                            imgArtPath = images.FirstOrDefault();
+                        }
+                    }
+
                     <div class="col-6 col-sm-4 col-md-3 slide-item text-center actor-item">
                         <div class="image">
-                            <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
-                                <img src="@item.Image?.Path" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
+                            <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                <img src="@imgArtPath" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
                             </a>
                         </div>
                         <div class="info">
                             <h3 class="title">
-                                <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias" title="@item.Name">
+                                <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@type.GetAliasDisplayName()" asp-route-alias="@item.Alias" title="@item.Name">
                                     @item.Name
                                 </a>
                             </h3>

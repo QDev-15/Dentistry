@@ -66,7 +66,7 @@
                             <div class="box_title">Đặt lịch khám tại Nhiên</div>
                             <div class="box_content" id="app-contact-content">
                                 @{
-                                    Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml", Model.bookFormVm);
+                                    Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml");
                                 }
                             </div>
                         </div>
@@ -160,7 +160,7 @@
             <div class="container-fluid p-0 pt-5 pb-5 box_categories">
                 <div class="container">
                     @{
-                        Html.RenderPartial("~/Views/ViewComponents/HomeCategory.cshtml", @Model.category.ChildCategories.ToList());
+                        Html.RenderPartial("~/Views/ViewComponents/HomeCategorySlide.cshtml", @Model.category.ChildCategories.ToList());
                     }
                 </div>
             </div>

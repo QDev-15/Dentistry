@@ -214,7 +214,22 @@ namespace Dentisty.Data
                 IsParent = item.IsParent,
                 UserId = item.UserId,
                 Image = item.Image.ReturnViewModel(),
-                Parent = item.Parent != null ? new CategoryVm() { Id = item.Parent.Id, Name = item.Parent.Name, Alias = item.Parent.Alias } : null,
+                Parent = item.Parent != null ? new CategoryVm() {
+                    Id = item.Parent.Id,
+                    Alias = item.Parent.Alias,
+                    Name = item.Parent.Name,
+                    Sort = item.Parent.Sort,
+                    IsActive = item.Parent.IsActive,
+                    ParentId = item.Parent.ParentId,
+                    ImageId = item.Parent.ImageId,
+                    UpdatedDate = item.Parent.UpdatedDate,
+                    CreatedDate = item.Parent.CreatedDate,
+                    Description = item.Parent.Description ?? "",
+                    Position = item.Parent.Position,
+                    Type = item.Parent.Type,
+                    IsParent = item.Parent.IsParent,
+                    UserId = item.Parent.UserId,
+                } : null,
                 ChildCategories = item.Categories != null && item.Categories.Any() ? item.Categories.Select(c => c.ReturnViewModel()).ToList() : new List<CategoryVm>()
             };
             return categoryVm;

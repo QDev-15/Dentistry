@@ -946,7 +946,7 @@
   border-radius: 10px;
   height: 300px;
   width: 400px;
-  /*box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);*/
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 .section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text {
   flex: 1;

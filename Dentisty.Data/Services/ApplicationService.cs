@@ -65,7 +65,8 @@ namespace Dentisty.Data.Services
             return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppCategory, async () =>
             {
                 var categories = await _cat.GetParents();
-                return categories.Select(x => x.ReturnViewModel()).ToList();
+                var categoryList = categories.Select(x => x.ReturnViewModel()).ToList();
+                return categoryList;
             });
         }
         public async Task<List<BranchesVm>> GetBranches()
@@ -157,6 +158,14 @@ namespace Dentisty.Data.Services
             {
                 var appSetting = await GetAppSetting();
                 var articles = await _article.GetArticleByIds(appSetting.Feedbacks);
+                return articles.ToList();
+            });
+        }
+        public async Task<List<ArticleVm>> GetArticlesHotNews()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.ArticleChange, async () =>
+            {
+                var articles = await _article.GetArticleNew();
                 return articles.ToList();
             });
         }

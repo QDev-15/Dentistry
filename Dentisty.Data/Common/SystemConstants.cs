@@ -46,6 +46,11 @@ namespace Dentistry.Data.Common.Constants
             public const string AppSettingProduct = "appsetting-product";
             public const string AppSettingFeedback = "appsetting-feedbacks";
             public const string AppSettingArticle = "appsetting-article";
+            
+            
+            public const string ArticleChange = "article-changed";
+
+
         }
         
     }

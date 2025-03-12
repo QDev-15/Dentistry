@@ -1,24 +1,32 @@
 ﻿@using Dentistry.ViewModels.Catalog.Contacts
-@model BookFormVm
+@{
+    var support = Convert.ToBoolean(ViewData["Support"] ?? false);
+}
 @* <div class="b-divider-shadow"></div> *@
-<div class="container-fluid box_book section section-contact">
-    <div class="container">
-        <div class="row">
-            <div class="hidden-xs col-md-5">
-                <img class="image" src="~/assets/img/book.png" loading="lazy">
-            </div>
-            <div class="col-12 col-md-7">
-                <div class="box_wrap">
-                    <div class="box_title">Đặt lịch khám tại Nhiên</div>
-                    <div class="box_content" id="app-contact-content">
-                        @{
-                            Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml", Model);
-                        }
+@{
+    if (!support)
+    {
+        <div class="container-fluid box_book section section-contact">
+            <div class="container">
+                <div class="row">
+                    <div class="hidden-xs col-md-5">
+                        <img class="image" src="~/assets/img/book.png" loading="lazy">
+                    </div>
+                    <div class="col-12 col-md-7">
+                        <div class="box_wrap">
+                            <div class="box_title">Đặt lịch khám tại Nhiên</div>
+                            <div class="box_content" id="app-contact-content">
+                                @{
+                                    Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml");
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    }
+}
+
 
 

@@ -85,7 +85,7 @@
         </main>
     </div>
 
-    @Html.Partial("_appContact", application.BookFormVm)
+    @Html.Partial("_appContact")
     @Html.Partial("_appFooter", new AppFooter() { setting = application.Settings, branches = application.Branches })
     @Html.Partial("_onLoadPageModal", application.Settings)
     

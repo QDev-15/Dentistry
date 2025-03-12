@@ -1,43 +1,47 @@
 ﻿@using Dentistry.ViewModels.Catalog.Contacts
-@model BookFormVm
+@inject ApplicationService _applicationService
+@{
+    var application = await _applicationService.GetApplication();
+    var bookFm = application.BookFormVm;
+}
 
 <form name="frmBook" id="frmBook" novalidate>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group" id="input-name">
-                <input type="text" asp-for="contact.Name" class="form-control" placeholder="Họ tên khách hàng *">
-                <span asp-validation-for="contact.Name" class="text-danger"></span>
+                <input type="text" asp-for="@bookFm.contact.Name" class="form-control" placeholder="Họ tên khách hàng *">
+                <span asp-validation-for="@bookFm.contact.Name" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group" id="input-phone">
-                <input type="text" asp-for=contact.PhoneNumber class="form-control" placeholder="Số điện thoại liên hệ *">
-                <span asp-validation-for="contact.PhoneNumber" class="text-danger"></span>
+                <input type="text" asp-for=@bookFm.contact.PhoneNumber class="form-control" placeholder="Số điện thoại liên hệ *">
+                <span asp-validation-for="@bookFm.contact.PhoneNumber" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="input-group-datetimepicker">
-                    <input type="text" asp-for="contact.TimeBook" class="form-control" placeholder="Ngày đặt lịch *">
+                    <input type="text" asp-for="@bookFm.contact.TimeBook" class="form-control" placeholder="Ngày đặt lịch *">
                     <span class="input-group-text" id="calendarIcon">
                         <i class="fas fa-calendar-alt"></i>
                     </span>
                 </div>
-                <span asp-validation-for="contact.TimeBook" class="text-danger"></span>
+                <span asp-validation-for="@bookFm.contact.TimeBook" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group" id="input-location">
-                <select asp-for="contact.BranchesId" class="form-control custom-dropdown">
+                <select asp-for="@bookFm.contact.BranchesId" class="form-control custom-dropdown">
                     <option value="0">Chọn cơ sở gần bạn *</option>
                     @{
-                        foreach (var item in Model.branches)
+                        foreach (var item in application.BookFormVm.branches)
                         {
                             <option value="@item.Id">@item.Name</option>
                         }
                     }
                 </select>
-                <span asp-validation-for="contact.BranchesId" class="text-danger"></span>
+                <span asp-validation-for="@bookFm.contact.BranchesId" class="text-danger"></span>
             </div>
         </div>
         <div class="col-sm-12">
@@ -46,7 +50,7 @@
                 <button type="submit" class="btn_yellow submit">Đặt lịch</button>
                 <span class="open">
                     Giờ làm việc: <br>
-                    <span>8h00 đến 20h00</span>
+                    <span>@application.Settings.StartWork đến @application.Settings.EndWork</span>
                 </span>
             </div>
         </div>

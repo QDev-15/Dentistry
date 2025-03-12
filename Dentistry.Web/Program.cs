@@ -106,7 +106,7 @@ if (!app.Environment.IsDevelopment())
 //    dbContext.Database.Migrate();
 //}
 
-app.UseMiddleware<MinifyHtmlMiddleware>(); // Bật Minify HTML Middleware
+//app.UseMiddleware<MinifyHtmlMiddleware>(); // Bật Minify HTML Middleware
 
 
 app.UseStaticFiles();
