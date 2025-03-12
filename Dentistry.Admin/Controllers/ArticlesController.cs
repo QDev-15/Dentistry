@@ -4,6 +4,7 @@ using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
+using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -16,16 +17,16 @@ namespace Dentistry.Admin.Controllers
         private readonly IArticleRepository _articleRepository;
         private readonly ICategoryReposiroty _categoryReposiroty;
         private readonly IImageRepository _imageRepository;
-        private readonly IHubContext<SignalRHub> _hubContext;
+        private readonly CacheNotificationService _cacheService;
 
 
-        public ArticlesController(IArticleRepository articleRepository, IImageRepository imageRepository, 
+        public ArticlesController(CacheNotificationService cacheNotificationService, IArticleRepository articleRepository, IImageRepository imageRepository, 
             ICategoryReposiroty categoryReposiroty, IHubContext<SignalRHub> hubContext)
         {
             _imageRepository = imageRepository;
             _categoryReposiroty = categoryReposiroty;
             _articleRepository = articleRepository;
-            _hubContext = hubContext;
+            _cacheService = cacheNotificationService;
         }
 
         [HttpGet]
@@ -99,7 +100,7 @@ namespace Dentistry.Admin.Controllers
                 var slide = await _articleRepository.UpdateArticle(model.Item);
             }
             // Gửi tín hiệu tới website để xóa cache
-            await _hubContext.Clients.All.SendAsync("InvalidateCache");
+            await _cacheService.InvalidateCacheAsync(SystemConstants.CacheKeys.ArticleChange);
             return Json(new { success = true });
         }
 

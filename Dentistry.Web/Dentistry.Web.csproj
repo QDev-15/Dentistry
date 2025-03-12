@@ -21,6 +21,7 @@
     <PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
     <PackageReference Include="LigerShark.WebOptimizer.Core" Version="3.0.433" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.3" />
   </ItemGroup>
 
   <ItemGroup>

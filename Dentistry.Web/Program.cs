@@ -26,13 +26,16 @@ builder.Configuration
     .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
-
+var hostingConfig = builder.Configuration.GetSection("HostingConfig").Get<HostingConfig>();
+// Add SignalR
+builder.Services.AddSignalR();
 
 // Register DbContext
 builder.Services.AddDbContext<DentistryDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
 // Register Repository  add services
 builder.Services.AddSingleton<Logs>();
+builder.Services.AddSingleton<CacheInvalidationListener>();
 builder.Services.AddScoped<ApplicationService>();
 builder.Services.AddSingleton<ICacheService, CacheService>();
 builder.Services.AddScoped<DentistryDbContext>();
@@ -73,6 +76,9 @@ builder.Services.AddWebOptimizer(options =>
     options.MinifyJsFiles("/plugins/*.js");
 });
 
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -98,16 +104,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
+app.UseMiddleware<MinifyHtmlMiddleware>(); // Bật Minify HTML Middleware
 
-// update database
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
-//    dbContext.Database.Migrate();
-//}
-
-//app.UseMiddleware<MinifyHtmlMiddleware>(); // Bật Minify HTML Middleware
-
+var listener = app.Services.GetRequiredService<CacheInvalidationListener>();
+await listener.StartListeningAsync(hostingConfig.AdminHost + "/signalRHub");
 
 app.UseStaticFiles();
 

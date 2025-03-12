@@ -14,6 +14,8 @@ using Dentisty.Data;
 using Dentisty.Data.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
+using Dentisty.Data.Services;
+using Dentisty.Data.Services.Interfaces;
 using Dentisty.Data.Services.System;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -125,6 +127,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+// Đăng ký SignalR
+builder.Services.AddSignalR();
+
 // Register Repository  add services
 builder.Services.AddSingleton<Logs>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -139,8 +144,8 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
-
-
+builder.Services.AddScoped<ICacheService, CacheService>();
+builder.Services.AddScoped<CacheNotificationService>();
 
 builder.Services.AddScoped<LoggerRepository>();
 builder.Services.AddHostedService<LoggerBackgroundService>();
@@ -161,8 +166,6 @@ builder.Services.AddCors(options =>
                   .AllowCredentials(); // Cần thiết cho SignalR
         });
 });
-// Đăng ký SignalR
-builder.Services.AddSignalR();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.

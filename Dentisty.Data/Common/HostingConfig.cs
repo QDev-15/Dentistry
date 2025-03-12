@@ -14,6 +14,7 @@ namespace Dentisty.Data.Common
         public List<string> AllowedExtensions { get; set; }
         public int MaxFileSizeMB { get; set; }
         public string WebHost { get; set; }
+        public string AdminHost { get; set; }
         public string HostAddress { get; set; }
         public string UserFTP { get; set; }
         public string PassWordFTP { get; set; }

@@ -37,10 +37,10 @@ namespace Dentistry.Web.Controllers
         [HttpGet("{danhmuc}/{alias}")]
         public async Task<IActionResult> Detail(string danhmuc, string alias)
         {
-            if (danhmuc == alias)
-            {
-                return Redirect($"/{alias}");
-            }
+            //if (danhmuc == alias)
+            //{
+            //    return Redirect($"/{alias}");
+            //}
             var categoryDetailVm = await getCategoryDetail(alias, danhmuc);
             return View("Detail", categoryDetailVm);
         }
