@@ -1,0 +1,51 @@
+﻿@using Dentistry.ViewModels.Catalog.Articles
+@using Dentisty.Data.Common
+@model List<ArticleVm>
+@{
+    while (Model.Count > 0 && Model.Count < 6)
+    {
+        Model.AddRange(Model);
+    }
+}
+<div class="section section-slide-service-articles">
+    <div class="container">
+        <div class="box_title">
+            Các dịch vụ thế mạnh tại nha khoa Nhiên
+        </div>
+        <p class="doctor-dec">Chúng tôi luôn chú trọng quan tâm đến vấn đề sức khỏe và thẩm mỹ của khách hàng trước khi quyết định sử dụng dịch vụ của Nhiên.</p>
+        <div class="slider-service">
+            @foreach (var item in Model)
+            {
+                var imgPath = "/assets/img/no-image.jpg";
+                if (item.Images.Any())
+                {
+                    imgPath = item.Images.LastOrDefault()?.Path;
+                } else
+                {
+                    var images = Utilities.ExtractImageLinks(item.Description);
+                    if (images.Any())
+                    {
+                        imgPath = images.FirstOrDefault();
+                    }
+                }
+                <div class="slide-item">
+                    <div class="content" alt="@item.Title" style="background-image: url('@imgPath');">
+                        <a asp-controller="Article" asp-action="Articles" asp-route-alias="@item.Alias" class="action">
+                            <span>Xem thêm</span>
+                        </a>
+                        <span class="slide-item-span">
+                            <a asp-controller="Article" asp-action="Articles" asp-route-alias="@item.Alias" class="action">
+                                @item.Title.LimitTo(100, "...")
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            }
+        
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/js/home-slide-service.js"></script>

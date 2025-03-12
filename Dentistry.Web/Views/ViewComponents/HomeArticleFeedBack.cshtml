@@ -6,14 +6,15 @@
 *@
 @model List<ArticleVm>
 @{
-    if (Model != null && Model.Any())
+    if(Model != null && Model.Any())
     {
-        <div class="container">
+        <div class="section section-feedback">
+            <div class="container">
             <div class="box_title">
-                Tin tức về Nha Khoa Nhiên
+                Khách hàng nói về Nha Khoa Nhiên
             </div>
             <div class="box_desc"></div>
-            <div class="box_content">
+            <div class="box_content box_list_item">
                 <div class="row">
                     @foreach (var item in Model)
                     {
@@ -31,24 +32,26 @@
                         }
                         <div class="col-sm-4 col-6">
                             <div class="item pt-5">
-                                <div class="image" style="background: url('@imgPath'); background-size: cover;">
-                                    <a href="/tin-tuc/@item.Alias" title="@item.Title">
+                                <div class="image" style="background: url('@imgPath') no-repeat; background-size: cover;">
+                                    <a href="/phan-hoi/@item.Alias" title="@item.Title">
                                         <span>Xem thêm</span>
                                     </a>
                                 </div>
                                 <div class="info pt-5">
-                                    <h3 class="title"><a href="/tin-tuc/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
+                                    <h3 class="title"><a href="/phan-hoi/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
                                     <div class="desc">@item.Description.LimitTo(200, "...")</div>
                                 </div>
                             </div>
                         </div>
                     }
-            
+
                 </div>
             </div>
-            @if (Model[0].Category != null) {
-                <div class="control d-flex justify-content-center"><a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@Model[0].Category?.Type.GetAliasDisplayName()" asp-route-alias="@Model[0].Category?.Alias" class="btn_yellow">Xem tất cả</a></div>
+            @if (Model[0].Category != null)
+            {
+                <div class="control d-flex justify-content-center"><a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@Model[0].Category.Type.GetAliasDisplayName()" asp-route-alias="@Model[0].Category.Alias" class="btn_yellow">Xem tất cả</a></div>
             }
+        </div>
         </div>
     }
 }

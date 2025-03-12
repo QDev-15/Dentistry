@@ -6,8 +6,6 @@
     MenuView menu = new MenuView();
     menu.RightMenu = application.Categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuRight).OrderBy(x => x.Sort).ToList();
     menu.LeftMenu = application.Categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuLef).OrderBy(x => x.Sort).ToList();
-    BookFormVm bookFormVm = new BookFormVm();
-    bookFormVm.branches = application.Branches;
 }
 
 <!DOCTYPE html>
@@ -79,17 +77,17 @@
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    @Html.Partial("~/Views/ViewComponents/AppToolbarTop.cshtml", application.Settings);
-    @Html.Partial("~/Views/ViewComponents/AppMenu.cshtml", menu);
+    @Html.Partial("_appToolbarTop", application.Settings)
+    @Html.Partial("_appMenu", menu)
     <div class="container-fluid container-main m-0 p-0">
         <main id="main-container" role="main" class="">
             @RenderBody()
         </main>
     </div>
 
-    @Html.Partial("~/Views/ViewComponents/AppContact.cshtml", bookFormVm);
-    @Html.Partial("~/Views/ViewComponents/AppFooter.cshtml", new AppFooter() { setting = application.Settings, branches = application.Branches });
-    @Html.Partial("~/Views/ViewComponents/_onLoadPageModal.cshtml", application.Settings);
+    @Html.Partial("_appContact", application.BookFormVm)
+    @Html.Partial("_appFooter", new AppFooter() { setting = application.Settings, branches = application.Branches })
+    @Html.Partial("_onLoadPageModal", application.Settings)
     
 
     @* Script Lib *@

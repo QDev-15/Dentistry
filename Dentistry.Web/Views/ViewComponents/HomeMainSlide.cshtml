@@ -1,0 +1,30 @@
+﻿@using Dentistry.ViewModels.Catalog.Slide
+@model List<SlideVm>
+@{
+    while (Model.Count > 0 && Model.Count < 3)
+    {
+        Model.AddRange(Model);
+    }
+}
+
+<div class="container-fluid carousel-container section section-carousel">
+    <div class="container-fluid home-slider owl-carousel">
+        @foreach (var item in Model)
+        {
+            <div class="slider-item" style="background-image: url(@item.Image.Path);">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row no-gutters slider-text align-items-center justify-content-center">
+                        <div class="col-md-12 ftco-animate">
+                            <div class="text w-100 text-center actor-item">
+                                <h2>@item.SubName</h2>
+                                <h1 class="mb-3">@item.Caption</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

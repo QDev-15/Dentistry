@@ -31,24 +31,18 @@ namespace Dentistry.Web.Controllers
         [HttpGet("/{alias}")]
         public async Task<IActionResult> DetailAlias(string alias)
         {
-            return View("Detail", new CategoryDetailVm());
+            var categoryDetailVm = await getCategoryDetail(alias, null);
+            return View("Detail", categoryDetailVm);
         }
         [HttpGet("{danhmuc}/{alias}")]
         public async Task<IActionResult> Detail(string danhmuc, string alias)
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-            var categoryDetailVm = await getCategoryDetail(alias, danhmuc);
-            watch.Stop();
-            ViewData["logs"] = watch.ElapsedMilliseconds + " - " + watch.Elapsed.TotalSeconds;
-
-            // SEO ==================
-            if (categoryDetailVm.category.Id > 0)
+            if (danhmuc == alias)
             {
-                ViewData["Title"] = categoryDetailVm.category.Name;
-                ViewData["Description"] = $"Đọc ngay danh mục '{categoryDetailVm.category.Name}' để hiểu hơn về {categoryDetailVm.category.Alias}";
-                ViewData["Keywords"] = categoryDetailVm.category.Alias;
+                return Redirect($"/{alias}");
             }
-            return PartialView("Detail", categoryDetailVm);
+            var categoryDetailVm = await getCategoryDetail(alias, danhmuc);
+            return View("Detail", categoryDetailVm);
         }
 
         private async Task<CategoryDetailVm> getCategoryDetail(string alias, string? danhmuc)
@@ -119,7 +113,14 @@ namespace Dentistry.Web.Controllers
                 var branches = await _branchesRepository.GetActive();
                 categoryDetailVm.bookFormVm.branches = branches.ToList();
             }
-
+            // SEO ==================
+            if (categoryDetailVm.category.Id > 0)
+            {
+                ViewData["Support"] = categoryDetailVm.category.Type == CategoryType.Support;
+                ViewData["Title"] = categoryDetailVm.category.Name;
+                ViewData["Description"] = $"Đọc ngay danh mục '{categoryDetailVm.category.Name}' để hiểu hơn về {categoryDetailVm.category.Alias}";
+                ViewData["Keywords"] = categoryDetailVm.category.Alias;
+            }
             return categoryDetailVm;
         }
     }

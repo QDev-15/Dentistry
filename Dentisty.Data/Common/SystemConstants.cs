@@ -34,6 +34,19 @@ namespace Dentistry.Data.Common.Constants
             public const string Audience = "JwtTokens:Audience";
             public const string ExpiresInMinutes = "JwtTokens:ExpiresInMinutes";
         }
+        public static class CacheKeys
+        {
+            public const string AppSetting = "app-setting";
+            public const string AppCategory = "app-category";
+            public const string AppBranches = "app-branche";
+            public const string AppSlide = "app-slide";
+            public const string AppSettingDoctor = "appsetting-doctor";
+            public const string AppSettingCategory = "appsetting-category";
+            public const string AppSettingNews = "appsetting-news";
+            public const string AppSettingProduct = "appsetting-product";
+            public const string AppSettingFeedback = "appsetting-feedbacks";
+            public const string AppSettingArticle = "appsetting-article";
+        }
         
     }
 }

@@ -142,5 +142,12 @@ namespace Dentisty.Data.Repositories
                 throw new Exception("Server đang bận. Làm ơn thử lại");
             }
         }
+
+        public async Task<IEnumerable<DoctorVm>> GetDoctorByIds(string ids)
+        {
+            string[] listIds = string.IsNullOrEmpty(ids) == true ? [] : ids.Split(",");
+            var docs = await _context.Doctors.Where(x => ids.Contains(x.Id.ToString())).Include(x => x.Avatar).Select(c => c.ReturnViewModel()).ToListAsync();
+            return docs;
+        }
     }
 }

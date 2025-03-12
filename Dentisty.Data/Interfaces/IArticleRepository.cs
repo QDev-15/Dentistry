@@ -15,6 +15,7 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<Article>> GetByPagingAsync(ArticleVmPagingRequest request);
         Task<ArticleVm> CreateNew(ArticleVm item);
         Task<ArticleVm> UpdateArticle(ArticleVm item);
+        Task<IEnumerable<ArticleVm>> GetArticleByIds(string ids);
         Task<IEnumerable<ArticleVm>> GetArticleForSetting();
         Task<IEnumerable<ArticleVm>> GetNewsForSetting();
         Task<IEnumerable<ArticleVm>> GetProductForSetting();

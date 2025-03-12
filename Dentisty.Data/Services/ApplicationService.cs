@@ -1,5 +1,11 @@
-﻿using Dentistry.ViewModels.Catalog;
+﻿using Dentistry.Data.Common.Constants;
+using Dentistry.ViewModels.Catalog;
+using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Catalog.Branches;
+using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Catalog.Doctors;
+using Dentistry.ViewModels.Catalog.Slide;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
@@ -17,31 +23,148 @@ namespace Dentisty.Data.Services
         private readonly IAppSettingRepository _setting;
         private readonly ICacheService _cache;
         private readonly IBranchesRepository _branchesRepository;
-        public ApplicationService(IBranchesRepository branchesRepository, ICategoryReposiroty cat, IAppSettingRepository setting, IArticleRepository article, ICacheService cache)
+        private readonly ISlideRepository _slide;
+        private readonly IDoctorRepository _doctor;
+        private readonly IArticleRepository _article;
+        public ApplicationService(IArticleRepository article, IDoctorRepository doctor,
+            ISlideRepository slideRepository, IBranchesRepository branchesRepository,
+            ICategoryReposiroty cat, IAppSettingRepository setting, ICacheService cache)
         {
             _cat = cat;
             _setting = setting;
             _cache = cache; 
             _branchesRepository = branchesRepository;
+            _slide = slideRepository;
+            _doctor = doctor;
+            _article = article;
         }
 
         public async Task<ApplicationVm> GetApplication()
         {
-            return await _cache.GetOrSetAsync("ApplicationWebsite", async () =>
+            ApplicationVm application = new ApplicationVm();
+            application.Settings = await GetAppSetting();
+            application.Branches = await GetBranches();
+            application.Categories = await GetCategories();
+            return application;
+        }
+        public async Task<AppSettingVm> GetAppSetting()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSetting, async () =>
             {
-                ApplicationVm application = new ApplicationVm();
-                var setting = await _setting.GetById(1);
-                var categories = await _cat.GetParents();
-                var branches = await _branchesRepository.GetActive();
-                application.Settings = setting;
-                application.Branches = branches.ToList();
-                application.Categories = categories.Select(c => c.ReturnViewModel()).ToList();
-                return application;
+                InvalidateCache(SystemConstants.CacheKeys.AppSettingDoctor);
+                InvalidateCache(SystemConstants.CacheKeys.AppSettingCategory);
+                InvalidateCache(SystemConstants.CacheKeys.AppSettingArticle);
+                InvalidateCache(SystemConstants.CacheKeys.AppSettingNews);
+                InvalidateCache(SystemConstants.CacheKeys.AppSettingProduct);
+                InvalidateCache(SystemConstants.CacheKeys.AppSettingFeedback);
+                return await _setting.GetById(1);
             });
         }
-        public void InvalidateCache()
+        public async Task<List<CategoryVm>> GetCategories()
         {
-            _cache.RemoveAsync("ApplicationWebsite"); // Xóa cache khi có cập nhật từ DB
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppCategory, async () =>
+            {
+                var categories = await _cat.GetParents();
+                return categories.Select(x => x.ReturnViewModel()).ToList();
+            });
+        }
+        public async Task<List<BranchesVm>> GetBranches()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppBranches, async () =>
+            {
+                var branches = await _branchesRepository.GetActive();
+                return branches.ToList();
+            });
+        }
+        public async Task<List<SlideVm>> GetMainSlides()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSlide, async () =>
+            {
+                var slides = await _slide.GetActiveSlides();
+                return slides;
+            });
+        }
+        
+        
+        public async Task<List<DoctorVm>> GetDoctorSlides()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys. AppSettingDoctor, async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var doctors = await _doctor.GetDoctorByIds(appSetting.Doctors);
+                return doctors.ToList();
+            });
+        }
+        public async Task<List<CategoryVm>> GetCategorySlides()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingCategory, async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var categories = await GetCategories();
+                var listId = appSetting.Categories != null ? appSetting.Categories.Split(",") : [];
+                var homeCats = new List<CategoryVm>();
+                if (listId.Length > 0)
+                {
+                    foreach (var item in categories)
+                    {
+                        if (listId.Contains(item.Id.ToString()))
+                        {
+                            homeCats.Add(item);
+                        }
+                        foreach (var itemChild in item.ChildCategories)
+                        {
+                            if (listId.Contains(itemChild.Id.ToString()))
+                            {
+                                homeCats.Add(itemChild);
+                            }
+                        }
+                    }
+                    homeCats = homeCats.OrderBy(c => c.IsParent).Take(4).ToList();
+                }
+                return homeCats;
+            });
+        }
+        public async Task<List<ArticleVm>> GetArticleSlides()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingArticle, async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var articles = await _article.GetArticleByIds(appSetting.Articles);
+                return articles.ToList();
+            });
+        }
+        public async Task<List<ArticleVm>> GetArticlesNews()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingNews, async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var articles = await _article.GetArticleByIds(appSetting.News);
+                return articles.ToList();
+            });
+        }
+        public async Task<List<ArticleVm>> GetArticlesProduct()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingProduct, async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var articles = await _article.GetArticleByIds(appSetting.Products);
+                return articles.ToList();
+            });
+        }      
+        public async Task<List<ArticleVm>> GetArticlesFeddback()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingFeedback, async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var articles = await _article.GetArticleByIds(appSetting.Feedbacks);
+                return articles.ToList();
+            });
+        }
+        
+        
+        public void InvalidateCache(string key)
+        {
+            _cache.RemoveAsync(key); // Xóa cache khi có cập nhật từ DB
         }
     }
 }

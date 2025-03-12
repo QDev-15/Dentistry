@@ -29,11 +29,10 @@ namespace Dentistry.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var appSetting = await _appSettingRepository.GetById(1);
             ViewData["Title"] = "Nhiên Dentistry";
             ViewData["Description"] = $"Trang chủ Nhiên Nha Khoa - Cơ sở uy tín trao gửi niềm tin.";
             ViewData["Keywords"] = "Nhiên, Nha Khoa, Cơ sở uy tín, làm răng, răng sứ";
-            return View(appSetting);
+            return View();
         }
 
         public IActionResult Privacy()

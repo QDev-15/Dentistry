@@ -16,6 +16,7 @@ namespace Dentisty.Data.Interfaces
         Task<DoctorVm> GetByAlias(string alias);
         Task<DoctorVm> Create(DoctorVm doctor);
         Task<DoctorVm> Update(DoctorVm doctor);
+        Task<IEnumerable<DoctorVm>> GetDoctorByIds(string ids);
         Task<IEnumerable<DoctorVm>> GetDoctorForAppSettings();
         Task<IEnumerable<DoctorVm>> GetDoctorForApplication();
         Task<bool> CheckExistsAlias(string alias, int id);

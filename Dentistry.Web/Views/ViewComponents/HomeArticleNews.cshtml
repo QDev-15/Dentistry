@@ -8,9 +8,10 @@
 @{
     if (Model != null && Model.Any())
     {
-        <div class="container">
+        <div class="section section-news">
+            <div class="container">
             <div class="box_title">
-                Sản phẩm nổi bật ở Nhiên
+                Tin tức về Nha Khoa Nhiên
             </div>
             <div class="box_desc"></div>
             <div class="box_content">
@@ -46,10 +47,10 @@
             
                 </div>
             </div>
-            @if (Model[0].Category != null)
-            {
-                <div class="control d-flex justify-content-center"><a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@Model[0].Category.Type.GetAliasDisplayName()" asp-route-alias="@Model[0].Category.Alias" class="btn_yellow">Xem tất cả</a></div>
+            @if (Model[0].Category != null) {
+                <div class="control d-flex justify-content-center"><a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@Model[0].Category?.Type.GetAliasDisplayName()" asp-route-alias="@Model[0].Category?.Alias" class="btn_yellow">Xem tất cả</a></div>
             }
+        </div>  
         </div>
     }
 }

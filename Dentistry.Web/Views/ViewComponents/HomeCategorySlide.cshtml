@@ -1,0 +1,36 @@
+﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
+@model List<CategoryVm>
+
+<div class="container-fluid py-4 mt-5 mb-5 section section-category">
+    <div class="container categories-content">
+        <h1 class="actor-list-header box_title text-center actor-item">Dịch Vụ Thẩm Mỹ</h1>
+        <div class="box_title_sub">
+            Nhiên tập trung cung cấp các dịch vụ nha khoa thẩm mỹ trong môi trường nhẹ nhàng, chu đáo, chuyên nghiệp. Đảm bảo mọi khách hàng tới Win Smile đều có những trải nhiệm nha khoa đẳng cấp, ưng ý nhất cho đường cười của chính mình.
+        </div>
+        <div class="container">
+            <div class="row actor-list justify-content-center">
+                <!-- Actor 1 -->
+                @foreach (var item in Model)
+                {
+                    <div class="col-6 col-sm-4 col-md-3 slide-item text-center actor-item">
+                        <div class="image">
+                            <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+                                <img src="@item.Image?.Path" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
+                            </a>
+                        </div>
+                        <div class="info">
+                            <h3 class="title">
+                                <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias" title="@item.Name">
+                                    @item.Name
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                }
+            
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/home-category.js"></script>

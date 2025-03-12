@@ -319,5 +319,14 @@ namespace Dentisty.Data.Repositories
             var arts = await _context.Articles.Select(a => new ArticleVm() { Alias = a.Alias, UpdatedDate = a.UpdatedDate }).ToListAsync();
             return arts.ToList();
         }
+
+        public async Task<IEnumerable<ArticleVm>> GetArticleByIds(string ids)
+        {
+            string[] listIds = string.IsNullOrEmpty(ids) == true ? [] : ids.Split(",");
+            var articles = await _context.Articles.Where(x => ids.Contains(x.Id.ToString()) && x.IsActive == true)
+                .Include(x => x.Images).Include(x => x.Category).Take(6)
+                .Select(x => x.ReturnViewModel()).ToListAsync();
+            return articles;
+        }
     }
 }
