@@ -1,0 +1,28 @@
+[
+  {
+    "outputFileName": "wwwroot/dist/site.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap-5.0.2/dist/css/bootstrap.min.css",
+      "wwwroot/css/site.css",
+      "wwwroot/css/style.css",
+      "wwwroot/css/navbar-mega.css",
+      "wwwroot/plugins/carousel-01/css/owl.carousel.min.css",
+      "wwwroot/plugins/carousel-01/css/owl.theme.default.min.css",
+      "wwwroot/plugins/carousel-01/css/style.css"
+    ],
+    "minify": { "enabled": true }
+  },
+  {
+    "outputFileName": "wwwroot/dist/site.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/dist/jquery.min.js",
+      "wwwroot/plugins/carousel-01/js/owl.carousel.min.js",
+      "wwwroot/plugins/carousel-01/js/main.js",
+      "wwwroot/js/site.js",
+      "wwwroot/lib/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js",
+      "wwwroot/lib/datepicker/popper.min.js",
+      "wwwroot/lib/datepicker/tempus-dominus.min.js"
+    ],
+    "minify": { "enabled": true }
+  }
+]

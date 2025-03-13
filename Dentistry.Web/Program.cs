@@ -12,7 +12,6 @@ using Dentisty.Data.Services.Interfaces;
 using Dentisty.Data.Services.System;
 using Dentisty.Web.Services;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +24,7 @@ builder.Configuration
     .AddEnvironmentVariables();
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
 var hostingConfig = builder.Configuration.GetSection("HostingConfig").Get<HostingConfig>();
+
 // Add SignalR
 builder.Services.AddSignalR();
 
@@ -53,7 +53,6 @@ builder.Services.AddScoped<LoggerRepository>();
 builder.Services.AddHostedService<LoggerBackgroundService>();
 builder.Services.AddHostedService<ActiveUserCleanupService>();
 
-
 // Add controller
 builder.Services.AddControllersWithViews()
     .AddRazorRuntimeCompilation()
@@ -80,38 +79,27 @@ builder.Services.AddWebOptimizer(options =>
 
 
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    var hstsOptions = new HstsOptions();
-    builder.Configuration.GetSection("Hsts").Bind(hstsOptions);
     app.UseExceptionHandler("/Home/Error");
     // Xử lý lỗi trang không tìm thấy, chuyển hướng đến trang tùy chỉnh
     app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
-
     // HSTS from appsettings.json
-    app.Use(async (context, next) =>
-    {
-        context.Response.Headers.Append("Strict-Transport-Security",
-            $"max-age={hstsOptions.MaxAge}; " +
-            $"{(hstsOptions.IncludeSubDomains ? "includeSubDomains; " : "")}" +
-            $"{(hstsOptions.Preload ? "preload" : "")}"
-        );
-        await next();
-    });
-    app.UseHttpsRedirection();
+    app.UseHsts();
 }
+app.UseHttpsRedirection();
 
 app.UseMiddleware<MinifyHtmlMiddleware>(); // Bật Minify HTML Middleware
-app.UseMiddleware<VisitorTrackingMiddleware>(); 
+app.UseMiddleware<VisitorTrackingMiddleware>();
+
+
 
 var listener = app.Services.GetRequiredService<CacheInvalidationListener>();
 await listener.StartListeningAsync(hostingConfig.AdminHost + "/signalRHub");
-
 app.UseStaticFiles();
 
 app.UseRouting();;
@@ -119,5 +107,6 @@ app.UseRouting();;
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+File.AppendAllText("wwwroot/logs.txt", $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {hostingConfig.AdminHost}");
 app.Run();
+File.AppendAllText("wwwroot/logs1.txt", $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {hostingConfig.AdminHost}");
