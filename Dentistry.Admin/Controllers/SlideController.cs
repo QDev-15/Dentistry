@@ -1,7 +1,9 @@
-﻿using Dentistry.ViewModels.Catalog.Slide;
+﻿using Dentistry.Data.Common.Constants;
+using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
+using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,8 +12,10 @@ namespace Dentistry.Admin.Controllers
     public class SlideController : Controller
     {
         private readonly ISlideRepository _slideRepository;
-        public SlideController(ISlideRepository slideRepository)
+        private readonly CacheNotificationService _cacheNotificationService;
+        public SlideController(ISlideRepository slideRepository, CacheNotificationService cacheNotificationService)
         {
+            _cacheNotificationService = cacheNotificationService;
             _slideRepository = slideRepository;
         }
 
@@ -59,6 +63,7 @@ namespace Dentistry.Admin.Controllers
                     // Update slide logic
                     var slide = await _slideRepository.UpdateSlide(model);
                 }
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppSlide);
                 return Json(new SuccessResult<bool>());
             }
             catch (Exception ex) {
@@ -71,6 +76,7 @@ namespace Dentistry.Admin.Controllers
             try
             {
                 await _slideRepository.Delete(id);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppSlide);
                 return Json(new SuccessResult<bool>());
             }
             catch (Exception ex) {

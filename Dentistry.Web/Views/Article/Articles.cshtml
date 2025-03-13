@@ -1,6 +1,7 @@
 ﻿@using Dentistry.ViewModels.Catalog.Articles
 @using Dentistry.ViewModels.Enums
 @using Dentisty.Data.Common
+@using Microsoft.AspNetCore.Http.Extensions
 @model ArticleDetailVm
 @{
     ViewData["Title"] = Model.item.Title;
@@ -59,8 +60,53 @@
             <span class="mx-2">|</span>
             <span><i class="fas fa-tag"></i> Thể loại: @Model.item.Type.GetDisplayName()</span>
         </div>
+        <!-- Hiển thị Hashtags -->
+        @if (Model.item.Tags != null && Model.item.Tags.Length > 0)
+        {
+            var tags = Model.item.Tags.Split(",");
+            <div class="mb-4">
+                <strong class="text-gray-700">Hashtags:</strong>
+                @foreach (var tag in tags)
+                {
+                    <span class="text-blue-500 font-medium">#@tag</span>
+                }
+            </div>
+        }
+        @* Nội dung bài viết *@
         <div class="box_article_description">
             @Html.Raw(Model.item.Description)
+        </div>
+        <!-- Chia sẻ bài viết -->
+        @{
+            var encodedUrl = System.Web.HttpUtility.UrlEncode(Context.Request.GetDisplayUrl());
+            var encodedTitle = System.Web.HttpUtility.UrlEncode(Model.item.Title);
+        }
+        <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
+            <span class="fw-semibold fs-5 text-muted">Chia sẻ:</span>
+
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/sharer/sharer.php?u=@encodedUrl" target="_blank"
+               class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="bi bi-facebook"></i>
+            </a>
+
+            <!-- Twitter (X) -->
+            <a href="https://twitter.com/intent/tweet?url=@encodedUrl&text=@encodedTitle" target="_blank"
+               class="btn btn-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="fa-brands fa-twitter"></i>
+            </a>
+
+            <!-- Instagram (Chỉ copy link) -->
+            <button onclick="copyAndOpenInstagram()"
+                    class="btn btn-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="bi bi-instagram"></i>
+            </button>
+
+            <!-- Copy Link -->
+            <button onclick="copyToClipboard()"
+                    class="btn btn-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                <i class="fa-solid fa-link"></i>
+            </button>
         </div>
     </article>    
 </div>
@@ -108,3 +154,23 @@
         </div>
     }
 }
+
+
+<script>
+    function copyToClipboard() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert("Link đã được sao chép!");
+        }).catch(err => {
+            console.error('Copy failed', err);
+        });
+    }
+    function copyAndOpenInstagram() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            alert("Link đã được sao chép! Mở Instagram để đăng bài.");
+            window.open("https://www.instagram.com/", "_blank");
+        }).catch(err => {
+            console.error("Copy failed", err);
+        });
+    }
+</script>

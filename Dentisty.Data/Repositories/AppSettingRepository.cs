@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static Dentistry.Data.Common.Constants.SystemConstants;
 
 namespace Dentisty.Data.Repositories
 {
@@ -58,6 +59,20 @@ namespace Dentisty.Data.Repositories
                 return updateAppSetting.ReturnViewModel();
             }
             return appSettingVm;
+        }
+
+        public async Task UpdateAssess(int id, bool value)
+        {
+            try
+            {
+                var updateAppSetting = await GetByIdAsync(id);
+                updateAppSetting.TrackVisitors = value;
+                await SaveChangesAsync();
+            } catch(Exception ex)
+            {
+                
+            }
+            
         }
     }
 }

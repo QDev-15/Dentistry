@@ -12,5 +12,6 @@ namespace Dentisty.Data.Interfaces
     {
         Task<AppSettingVm> Update(AppSettingVm appSettingVm);
         Task<AppSettingVm> GetById(int id);
+        Task UpdateAssess(int id, bool value);
     }
 }

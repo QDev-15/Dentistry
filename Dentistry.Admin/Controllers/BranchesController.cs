@@ -5,14 +5,18 @@ using Microsoft.AspNetCore.Mvc;
 using Dentisty.Data.Interfaces;
 using Dentistry.ViewModels.Catalog.Branches;
 using Dentistry.ViewModels.Common;
+using Dentisty.Data.Services;
+using Dentistry.Data.Common.Constants;
 
 namespace Dentistry.Admin.Controllers
 {
     public class BranchesController : BaseController
     {
         private readonly IBranchesRepository _branchesRepository;
-        public BranchesController(IBranchesRepository branchesRepository)
+        private readonly CacheNotificationService _cacheNotificationService;
+        public BranchesController(IBranchesRepository branchesRepository, CacheNotificationService cacheNotificationService)
         {
+            _cacheNotificationService = cacheNotificationService;
             _branchesRepository = branchesRepository;
         }
         public IActionResult Index()
@@ -55,6 +59,7 @@ namespace Dentistry.Admin.Controllers
                     // Update slide logic
                     var branches = await _branchesRepository.Update(model);
                 }
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppBranches);
                 return Json(new SuccessResult<bool>());
             }
             catch (Exception ex) {
@@ -70,6 +75,7 @@ namespace Dentistry.Admin.Controllers
             try
             {
                 var result = await _branchesRepository.Active(id, active);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppBranches);
                 if (!result)
                 {
                     return Json(new ErrorResult<bool>("Cập nhật không thành công."));

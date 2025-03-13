@@ -1,4 +1,5 @@
-﻿using Dentistry.Data.GeneratorDB.Entities;
+﻿using Dentistry.Data.Common.Constants;
+using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Common;
@@ -8,6 +9,7 @@ using Dentisty.Data;
 using Dentisty.Data.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
+using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,12 +23,15 @@ namespace Dentistry.Admin.Controllers
         private readonly ICategoryReposiroty _categoryRepository;
         private readonly ICompositeViewEngine _compositeViewEngine;
         private readonly LoggerRepository _loggerRepository;
+        private readonly CacheNotificationService _cacheNotificationService;
 
-        public CategoryController(ICategoryReposiroty categoryRepository, ICompositeViewEngine viewE, LoggerRepository loggerRepository)
+        public CategoryController(ICategoryReposiroty categoryRepository, ICompositeViewEngine viewE,
+            LoggerRepository loggerRepository, CacheNotificationService cacheNotificationService)
         {
             _categoryRepository = categoryRepository;
             _compositeViewEngine = viewE;
             _loggerRepository = loggerRepository;
+            _cacheNotificationService = cacheNotificationService;
         }
         public async Task<IActionResult> Index()
         {
@@ -110,6 +115,7 @@ namespace Dentistry.Admin.Controllers
                     // Update slide logic
                     var slide = await _categoryRepository.UpdateCategory(model.item);
                 }
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppCategory);
                 return Json(new SuccessResult<bool>());
             } catch (Exception ex)
             {
@@ -126,6 +132,7 @@ namespace Dentistry.Admin.Controllers
             try
             {
                 await _categoryRepository.DeleteAsync(id);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppCategory);
                 return Json(new SuccessResult<bool>());
             }
             catch (Exception ex)

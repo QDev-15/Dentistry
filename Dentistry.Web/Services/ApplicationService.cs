@@ -6,16 +6,11 @@ using Dentistry.ViewModels.Catalog.Branches;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
+using Dentisty.Data;
 using Dentisty.Data.Interfaces;
-using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Dentisty.Data.Services
+namespace Dentisty.Web.Services
 {
     public class ApplicationService
     {

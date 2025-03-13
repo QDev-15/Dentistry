@@ -1,8 +1,10 @@
-﻿using Dentistry.ViewModels.Catalog.Doctors;
+﻿using Dentistry.Data.Common.Constants;
+using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data;
 using Dentisty.Data.Common;
 using Dentisty.Data.Interfaces;
+using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Admin.Controllers
@@ -11,8 +13,10 @@ namespace Dentistry.Admin.Controllers
     {
 
         private readonly IDoctorRepository _doctorRepository;
-        public DoctorController(IDoctorRepository doctorRepository)
+        private readonly CacheNotificationService _cacheNotificationService;
+        public DoctorController(IDoctorRepository doctorRepository, CacheNotificationService cacheNotificationService)
         {
+            _cacheNotificationService = cacheNotificationService;
             _doctorRepository = doctorRepository;
         }
         public async Task<IActionResult> Index()
@@ -54,7 +58,6 @@ namespace Dentistry.Admin.Controllers
                 {
                     item.Alias = item.Name.ToSlus();
                 }
-               
             }
             if (item.Id == 0)
             {
@@ -64,6 +67,7 @@ namespace Dentistry.Admin.Controllers
             {
                 var doctor = await _doctorRepository.Update(item);
             }
+            await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppSettingDoctor);
             return Json(new SuccessResult<bool>());
         }
     }

@@ -1,5 +1,4 @@
-﻿using Dentisty.Data.Interfaces;
-using Dentisty.Data.Services;
+﻿using Dentisty.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Web.Controllers.Components

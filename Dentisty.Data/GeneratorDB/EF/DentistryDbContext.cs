@@ -37,6 +37,8 @@ namespace Dentistry.Data.GeneratorDB.EF
             modelBuilder.ApplyConfiguration(new SlideConfiguration());
             modelBuilder.ApplyConfiguration(new DoctorConfiguration());
             modelBuilder.ApplyConfiguration(new AppSettingfiguration());
+            modelBuilder.ApplyConfiguration(new ActiveUserConfiguration());
+            modelBuilder.ApplyConfiguration(new VisitorLogConfiguration());
 
             modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
             modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
@@ -63,6 +65,8 @@ namespace Dentistry.Data.GeneratorDB.EF
         public DbSet<Slide> Slides { get; set;}
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<AppSetting> AppSettings { get; set; }
+        public DbSet<ActiveUser> ActiveUsers { get; set; }
+        public DbSet<VisitorLog> VisitorLogs { get; set; }
 
     }
 }

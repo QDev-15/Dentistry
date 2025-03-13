@@ -144,6 +144,7 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
+builder.Services.AddScoped<IAccessRepository, AccessRepository>();
 builder.Services.AddScoped<ICacheService, CacheService>();
 builder.Services.AddScoped<CacheNotificationService>();
 

@@ -5,6 +5,7 @@ using Dentistry.ViewModels.Catalog.Slide;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
+using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -18,19 +19,21 @@ namespace Dentistry.Admin.Controllers
         private readonly ICategoryReposiroty _categoryReposiroty;
         private readonly ISlideRepository _slideRepository;
         private readonly IImageRepository _imageRepository;
+        private readonly CacheNotificationService _cacheNotificationService;
 
-
-        public HomeController(ILogger<HomeController> logger, IImageRepository imageRepository, ISlideRepository slideRepository, ICategoryReposiroty categoryReposiroty)
+        public HomeController(ILogger<HomeController> logger, IImageRepository imageRepository,
+            ISlideRepository slideRepository, ICategoryReposiroty categoryReposiroty,
+            CacheNotificationService cacheNotificationService)
         {
             _imageRepository = imageRepository;
             _logger = logger;
             _slideRepository = slideRepository;
             _categoryReposiroty = categoryReposiroty;
+            _cacheNotificationService = cacheNotificationService;
         }
 
         public IActionResult Index()
         {
-            var user = User.Identity.Name;
             return View();
         }
 

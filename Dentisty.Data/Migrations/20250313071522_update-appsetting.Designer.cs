@@ -4,6 +4,7 @@ using Dentistry.Data.GeneratorDB.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dentisty.Data.Migrations
 {
     [DbContext(typeof(DentistryDbContext))]
-    partial class DentistryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250313071522_update-appsetting")]
+    partial class updateappsetting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,7 +193,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d5728b0e-b90b-4ac6-a7fe-625b63cc01ac",
+                            ConcurrencyStamp = "3703cbc0-e25d-4c19-beb9-4b477391915e",
                             DisplayName = "Nhiên",
                             Dob = new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nhienadmin@gmail.com",
@@ -201,7 +204,7 @@ namespace Dentisty.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "nhienadmin@gmail.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAENqYUtw+92JaTdZ6Cha3Pi51GYx9IZJg0Id6h54bXpt3O16uGIzF95nRkowFL2R84g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFqLF78L81Elbutns/3CAOk14cxWXOf6LfRtRbExZyZ/eFp+wSI2cxicF2qpqVsRAw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -345,7 +348,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 1,
                             Alias = "dich-vu",
-                            CreatedDate = new DateTime(2025, 3, 13, 15, 29, 10, 765, DateTimeKind.Local).AddTicks(4314),
+                            CreatedDate = new DateTime(2025, 3, 13, 14, 15, 22, 511, DateTimeKind.Local).AddTicks(8732),
                             IsActive = true,
                             IsParent = false,
                             Name = "Dịch vụ",
@@ -359,7 +362,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 2,
                             Alias = "san-pham",
-                            CreatedDate = new DateTime(2025, 3, 13, 15, 29, 10, 765, DateTimeKind.Local).AddTicks(4333),
+                            CreatedDate = new DateTime(2025, 3, 13, 14, 15, 22, 511, DateTimeKind.Local).AddTicks(8749),
                             IsActive = true,
                             IsParent = false,
                             Name = "Sản phẩm",
@@ -373,7 +376,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 3,
                             Alias = "kien-thuc",
-                            CreatedDate = new DateTime(2025, 3, 13, 15, 29, 10, 765, DateTimeKind.Local).AddTicks(4336),
+                            CreatedDate = new DateTime(2025, 3, 13, 14, 15, 22, 511, DateTimeKind.Local).AddTicks(8752),
                             IsActive = true,
                             IsParent = false,
                             Name = "Kiến thức",
@@ -387,7 +390,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 4,
                             Alias = "tin-tuc",
-                            CreatedDate = new DateTime(2025, 3, 13, 15, 29, 10, 765, DateTimeKind.Local).AddTicks(4338),
+                            CreatedDate = new DateTime(2025, 3, 13, 14, 15, 22, 511, DateTimeKind.Local).AddTicks(8754),
                             IsActive = true,
                             IsParent = false,
                             Name = "Tin tức",
@@ -401,7 +404,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 5,
                             Alias = "tu-van",
-                            CreatedDate = new DateTime(2025, 3, 13, 15, 29, 10, 765, DateTimeKind.Local).AddTicks(4340),
+                            CreatedDate = new DateTime(2025, 3, 13, 14, 15, 22, 511, DateTimeKind.Local).AddTicks(8777),
                             IsActive = true,
                             IsParent = false,
                             Name = "Tư vấn",
@@ -415,7 +418,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 6,
                             Alias = "lien-he",
-                            CreatedDate = new DateTime(2025, 3, 13, 15, 29, 10, 765, DateTimeKind.Local).AddTicks(4342),
+                            CreatedDate = new DateTime(2025, 3, 13, 14, 15, 22, 511, DateTimeKind.Local).AddTicks(8779),
                             IsActive = true,
                             IsParent = false,
                             Name = "Liên hệ",
@@ -429,7 +432,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 7,
                             Alias = "gioi-thieu",
-                            CreatedDate = new DateTime(2025, 3, 13, 15, 29, 10, 765, DateTimeKind.Local).AddTicks(4344),
+                            CreatedDate = new DateTime(2025, 3, 13, 14, 15, 22, 511, DateTimeKind.Local).AddTicks(8781),
                             IsActive = true,
                             IsParent = false,
                             Name = "Giới thiệu",
@@ -707,20 +710,13 @@ namespace Dentisty.Data.Migrations
 
             modelBuilder.Entity("Dentisty.Data.GeneratorDB.Entities.ActiveUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("IpAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("LastActive")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IpAddress");
 
                     b.HasIndex("LastActive")
                         .HasDatabaseName("ix_activeUser_time");
@@ -918,20 +914,13 @@ namespace Dentisty.Data.Migrations
 
             modelBuilder.Entity("Dentisty.Data.GeneratorDB.Entities.VisitorLog", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("IpAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("VisitTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("IpAddress");
 
                     b.HasIndex("VisitTime")
                         .HasDatabaseName("ix_visitorlog_time");

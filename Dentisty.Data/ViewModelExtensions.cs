@@ -75,6 +75,7 @@ namespace Dentisty.Data
                 ShowNewsList = item.ShowNewsList,
                 ShowProductList = item.ShowProductList,
                 ShowToolBarTop = item.ShowToolBarTop,
+                TrackVisitors = item.TrackVisitors,
                 Categories = item.Categories ?? "",
                 Doctors = item.Doctors ?? "",
                 Articles = item.Articles ?? "",

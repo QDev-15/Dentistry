@@ -1,21 +1,19 @@
 ﻿using Dentistry.Data.Common.Constants;
 using Dentistry.Data.GeneratorDB.EF;
+using Dentistry.Data.Storages;
+using Dentistry.ViewModels.Catalog.Contacts;
+using Dentistry.Web.Middleware;
+using Dentistry.Web.Services;
+using Dentisty.Data.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
-using Dentistry.Data.Storages;
-using Microsoft.EntityFrameworkCore;
-using Dentisty.Data.Services.System;
-using Dentisty.Data.Common;
-using FluentValidation.AspNetCore;
-using Dentistry.ViewModels.Catalog.Contacts;
-using Microsoft.AspNetCore.Mvc.Razor;
-using System.Globalization;
-using WebOptimizer;
-using Dentistry.Web.Middleware;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Dentisty.Data.Services.Interfaces;
 using Dentisty.Data.Services;
+using Dentisty.Data.Services.Interfaces;
+using Dentisty.Data.Services.System;
+using Dentisty.Web.Services;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +48,11 @@ builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
 builder.Services.AddScoped<LoggerRepository>();
+
+// Background Services
 builder.Services.AddHostedService<LoggerBackgroundService>();
+builder.Services.AddHostedService<ActiveUserCleanupService>();
+
 
 // Add controller
 builder.Services.AddControllersWithViews()
@@ -105,6 +107,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<MinifyHtmlMiddleware>(); // Bật Minify HTML Middleware
+app.UseMiddleware<VisitorTrackingMiddleware>(); 
 
 var listener = app.Services.GetRequiredService<CacheInvalidationListener>();
 await listener.StartListeningAsync(hostingConfig.AdminHost + "/signalRHub");

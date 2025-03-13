@@ -108,6 +108,7 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _articleRepository.DeleteArticle(id);
+            await _cacheService.InvalidateCacheAsync(SystemConstants.CacheKeys.ArticleChange);
             return Json(new { success = result });
         }
 

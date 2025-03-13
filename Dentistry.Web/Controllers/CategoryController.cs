@@ -1,14 +1,8 @@
-﻿using Dentistry.ViewModels.Catalog.Articles;
-using Dentistry.ViewModels.Catalog.Categories;
-using Dentistry.ViewModels.Catalog.Contacts;
+﻿using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Enums;
-using Dentisty.Data;
 using Dentisty.Data.Interfaces;
-using Dentisty.Data.Repositories;
-using Dentisty.Data.Services;
+using Dentisty.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using System.Diagnostics;
 
 namespace Dentistry.Web.Controllers
 {
