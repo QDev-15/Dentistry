@@ -62,6 +62,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 1,
                     ParentId = null,
+                    IsParent = true,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Dịch vụ",
@@ -75,6 +76,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 2,
                     ParentId = null,
+                    IsParent = true,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Sản phẩm",
@@ -88,6 +90,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 3,
                     ParentId = null,
+                    IsParent = true,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Kiến thức",
@@ -101,6 +104,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 4,
                     ParentId = null,
+                    IsParent = true,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Tin tức",
@@ -113,6 +117,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 5,
                     ParentId = null,
+                    IsParent = true,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Tư vấn",
@@ -126,6 +131,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                 {
                     Id = 6,
                     ParentId = null,
+                    IsParent = true,
                     IsActive = true,
                     CreatedDate = DateTime.Now,
                     Name = "Liên hệ",
@@ -139,6 +145,7 @@ namespace Dentistry.Data.GeneratorDB.Extensions
                  {
                      Id = 7,
                      ParentId = null,
+                     IsParent = true,
                      IsActive = true,
                      CreatedDate = DateTime.Now,
                      Name = "Giới thiệu",
