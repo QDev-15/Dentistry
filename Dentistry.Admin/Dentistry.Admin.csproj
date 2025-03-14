@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dentistry.Common\Dentistry.Common.csproj" />
     <ProjectReference Include="..\Dentistry.ViewModels\Dentistry.ViewModels.csproj" />
     <ProjectReference Include="..\Dentisty.Data\Dentisty.Data.csproj" />
   </ItemGroup>

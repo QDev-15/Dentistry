@@ -1,11 +1,7 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Enums;
-using Dentisty.Data.Common.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dentistry.Data.GeneratorDB.Configurations
 {

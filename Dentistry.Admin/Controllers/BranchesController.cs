@@ -6,7 +6,7 @@ using Dentisty.Data.Interfaces;
 using Dentistry.ViewModels.Catalog.Branches;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data.Services;
-using Dentistry.Data.Common.Constants;
+using Dentistry.Common;
 
 namespace Dentistry.Admin.Controllers
 {

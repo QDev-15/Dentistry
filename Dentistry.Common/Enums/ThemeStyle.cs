@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dentisty.Data.Common.Enums
+namespace Dentisty.Common.Enums
 {
     public enum ThemeStyle
     {

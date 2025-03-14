@@ -1,7 +1,7 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.System.Users;
-using Dentisty.Data.Common;
+using Dentisty.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

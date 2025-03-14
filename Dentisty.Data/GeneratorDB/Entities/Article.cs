@@ -1,6 +1,4 @@
 ﻿using Dentistry.ViewModels.Enums;
-using Dentisty.Data.Common.Enums;
-using Dentisty.Data.GeneratorDB.Entities;
 
 namespace Dentistry.Data.GeneratorDB.Entities
 {

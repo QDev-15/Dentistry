@@ -1,4 +1,4 @@
-﻿using Dentistry.Data.Common.Constants;
+﻿using Dentistry.Common;
 using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data.Interfaces;

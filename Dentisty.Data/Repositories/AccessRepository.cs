@@ -14,10 +14,12 @@ namespace Dentisty.Data.Repositories
     public class AccessRepository : IAccessRepository
     {
         private readonly DentistryDbContext _context;
+        private readonly ITimezoneService _timezone;
 
-        public AccessRepository(DentistryDbContext context)
+        public AccessRepository(DentistryDbContext context, ITimezoneService timezone)
         {
             _context = context;
+            _timezone = timezone;
         }
         public async Task<int> CountActiveUsers()
         {

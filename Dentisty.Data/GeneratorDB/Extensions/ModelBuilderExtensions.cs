@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Dentistry.Data.GeneratorDB.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dentisty.Data.Common;
-using Dentisty.Data.Common.Enums;
-using Dentisty.Data.GeneratorDB.Entities;
+﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Enums;
+using Dentisty.Data.GeneratorDB.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dentistry.Data.GeneratorDB.Extensions
 {

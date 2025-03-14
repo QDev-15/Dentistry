@@ -1,4 +1,5 @@
-﻿using Dentistry.Data.GeneratorDB.Entities;
+﻿using Dentistry.Common;
+using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.Catalog.Articles;
@@ -16,6 +17,7 @@ namespace Dentisty.Data
 {
     public static class ViewModelExtensions
     {
+        private static string TimeZoneDefault = SystemConstants.TimeZoneDefaultId;
         public static LoggerVm ReturnViewModel(this Logger item)
         {
             if (item == null) { return new LoggerVm(); }

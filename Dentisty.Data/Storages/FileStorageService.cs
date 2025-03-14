@@ -1,6 +1,6 @@
-﻿using Dentistry.Data.Common.Constants;
+﻿using Dentistry.Common;
 using Dentistry.ViewModels.Common;
-using Dentisty.Data.Common;
+using Dentisty.Common;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Storages;
 using FluentFTP;

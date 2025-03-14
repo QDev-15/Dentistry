@@ -1,8 +1,14 @@
-﻿@using Dentistry.ViewModels.Catalog.Articles
+﻿@using Dentistry.Common
+@using Dentistry.ViewModels.Catalog.Articles
 @using Dentistry.ViewModels.Enums
-@using Dentisty.Data.Common
+@using Dentisty.Web.Services
 @using Microsoft.AspNetCore.Http.Extensions
 @model ArticleDetailVm
+@inject ApplicationService _applicationService
+@{
+    var application = await _applicationService.GetApplication();
+    var hostNews = await _applicationService.GetArticlesHotNews();
+}
 @{
     ViewData["Title"] = Model.item.Title;
 }
@@ -50,109 +56,174 @@
         </ul>
     </div>
 </div>
-<div class="container py-3 pb-5 main-detail">
-    <article class="bg-white rounded-2xl shadow-md p-6 mb-8">
-        <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.item.Title</h2>
-        <div class="flex items-center text-gray-500 text-sm mb-4">
-            <span><i class="fas fa-user"></i> Tác giả: @Model.item.CreatedBy.DisplayName</span>
-            <span class="mx-2">|</span>
-            <span><i class="fas fa-calendar-alt"></i> Ngày đăng: @Model.item.CreatedDate.ToString("dd/MM/yyyy")</span>
-            <span class="mx-2">|</span>
-            <span><i class="fas fa-tag"></i> Thể loại: @Model.item.Type.GetDisplayName()</span>
-        </div>
-        <!-- Hiển thị Hashtags -->
-        @if (Model.item.Tags != null && Model.item.Tags.Length > 0)
-        {
-            var tags = Model.item.Tags.Split(",");
-            <div class="mb-4">
-                <strong class="text-gray-700">Hashtags:</strong>
-                @foreach (var tag in tags)
+
+
+
+<div class="container main-detail">
+    <div class="row">
+        @* column 1 *@
+        <div class="col-12 col-md-8 px-3 py-5">
+            <article class="rounded-2xl shadow-md p-6 mb-8">
+                <h2 class="text-3xl font-semibold text-gray-800 mb-4">@Model.item.Title</h2>
+                <div class="flex items-center text-gray-500 text-sm mb-4">
+                    <span><i class="fas fa-user"></i> Tác giả: @Model.item.CreatedBy.DisplayName</span>
+                    <span class="mx-2">|</span>
+                    <span><i class="fas fa-calendar-alt"></i> Ngày đăng: @Model.item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                    <span class="mx-2">|</span>
+                    <span><i class="fas fa-tag"></i> Thể loại: @Model.item.Type.GetDisplayName()</span>
+                </div>
+                <!-- Hiển thị Hashtags -->
+                @if (Model.item.Tags != null && Model.item.Tags.Length > 0)
                 {
-                    <span class="text-blue-500 font-medium">#@tag</span>
-                }
-            </div>
-        }
-        @* Nội dung bài viết *@
-        <div class="box_article_description">
-            @Html.Raw(Model.item.Description)
-        </div>
-        <!-- Chia sẻ bài viết -->
-        @{
-            var encodedUrl = System.Web.HttpUtility.UrlEncode(Context.Request.GetDisplayUrl());
-            var encodedTitle = System.Web.HttpUtility.UrlEncode(Model.item.Title);
-        }
-        <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
-            <span class="fw-semibold fs-5 text-muted">Chia sẻ:</span>
-
-            <!-- Facebook -->
-            <a href="https://www.facebook.com/sharer/sharer.php?u=@encodedUrl" target="_blank"
-               class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                <i class="bi bi-facebook"></i>
-            </a>
-
-            <!-- Twitter (X) -->
-            <a href="https://twitter.com/intent/tweet?url=@encodedUrl&text=@encodedTitle" target="_blank"
-               class="btn btn-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                <i class="fa-brands fa-twitter"></i>
-            </a>
-
-            <!-- Instagram (Chỉ copy link) -->
-            <button onclick="copyAndOpenInstagram()"
-                    class="btn btn-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                <i class="bi bi-instagram"></i>
-            </button>
-
-            <!-- Copy Link -->
-            <button onclick="copyToClipboard()"
-                    class="btn btn-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-                <i class="fa-solid fa-link"></i>
-            </button>
-        </div>
-    </article>    
-</div>
-@* Bài viết liên quan *@
-@{
-    if (Model.items.Count > 0)
-    {
-        <div class="container-fluid" style="background: #f5f5f5;">
-            <div class="container pb-5 px-4">
-                <div class="box_title py-5"> Bài viết liên quan</div>
-                <div class="box_content box_list_item">
-                    <div class="row">
-                        @foreach (var item in Model.items)
+                    var tags = Model.item.Tags.Split(",");
+                    <div class="mb-4">
+                        <strong class="text-gray-700">Hashtags:</strong>
+                        @foreach (var tag in tags)
                         {
-                            var type = item.Type.GetAliasDisplayName();
-                            var imgPath = "/assets/img/no-image.jpg";
-                            if (item.Images.Any())
-                            {
-                                imgPath = item.Images.LastOrDefault()?.Path;
-                            } else
-                            {
-                                var images = Utilities.ExtractImageLinks(item.Description);
-                                if (images.Any())
-                                {
-                                    imgPath = images.FirstOrDefault();
-                                }
-                            }
-                            <div class="col-sm-3 col-6">
-                                <div class="item pt-5">
-                                    <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
-                                        <a href="/@type/@item.Alias" title="@item.Title">
-                                            <span>Xem thêm</span>
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <h3 class="title pb-1"><a href="/@type/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
-                                        <div class="desc">@item.Description.LimitTo(200, "...")</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <span class="text-blue-500 font-medium">#@tag</span>
                         }
                     </div>
+                }
+                @* Nội dung bài viết *@
+                <div class="box_article_description">
+                    @Html.Raw(Model.item.Description)
                 </div>
+                <!-- Chia sẻ bài viết -->
+                @{
+                    var encodedUrl = System.Web.HttpUtility.UrlEncode(Context.Request.GetDisplayUrl());
+                    var encodedTitle = System.Web.HttpUtility.UrlEncode(Model.item.Title);
+                }
+                <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
+
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=@encodedUrl" target="_blank"
+                    class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+
+                    <!-- Twitter (X) -->
+                    <a href="https://twitter.com/intent/tweet?url=@encodedUrl&text=@encodedTitle" target="_blank"
+                    class="btn btn-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+
+                    <!-- Instagram (Chỉ copy link) -->
+                    <button onclick="copyAndOpenInstagram()"
+                    class="btn btn-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="bi bi-instagram"></i>
+                    </button>
+
+                    <!-- Copy Link -->
+                    <button onclick="copyToClipboard()"
+                    class="btn btn-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="fa-solid fa-link"></i>
+                    </button>
+                </div>
+            </article>
+            <div class="container px-2 py-5">
+                @if (Model.items.Count > 0)
+                {
+                    foreach (var item in Model.items)   
+                    {
+
+                        var customBox = new CustomBox()
+                        {
+                            Title = item.Title,
+                            ImgPath = item.CoverImage,
+                            Description = item.Description,
+                            Link = "/" + item.Type.GetDisplayName() + "/" +item.Alias
+                        };
+                        <div class="row">
+                            @Html.Partial("_viewComponentArticleBoxComment", customBox)
+                        </div>
+                    }
+                    foreach (var item in Model.items)
+                    {
+
+                        var customBox = new CustomBox()
+                    {
+                        Title = item.Title,
+                        ImgPath = item.CoverImage,
+                        Description = item.Description,
+                        Link = "/" + item.Type.GetDisplayName() + "/" + item.Alias
+                    };
+                        <div class="row">
+                            @Html.Partial("_viewComponentArticleBoxComment", customBox)
+                        </div>
+                    }
+                }
             </div>
         </div>
-    }
+        @* Column 2 *@
+        <div class="col-12 col-md-4 px-2 search-hotnew flex-column d-none d-md-flex">
+            <div class="box_title_v1 py-3">Tin mới nhất</div>
+            <div class="box_right_content flex-column">
+                @foreach (var item in hostNews)
+                {
+                    <div class="item">
+                        <div class="image">
+                            <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">
+                                <img src="@item.CoverImage" alt="@item.Title">
+                            </a>
+                        </div>
+                        <div class="info">
+                            <h2 class="title">
+                                <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title.LimitTo(200, "...")</a>
+                            </h2>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@* Bài viết liên quan *@
+@{
+    // if (Model.items.Count > 0)
+    // {
+    //     <div class="container-fluid" style="background: #f5f5f5;">
+    //         <div class="container pb-5 px-4">
+    //             <div class="box_title py-5"> Bài viết liên quan</div>
+    //             <div class="box_content box_list_item">
+    //                 <div class="row">
+    //                     @foreach (var item in Model.items)
+    //                     {
+    //                         var type = item.Type.GetAliasDisplayName();
+    //                         var imgPath = "/assets/img/no-image.jpg";
+    //                         if (item.Images.Any())
+    //                         {
+    //                             imgPath = item.Images.LastOrDefault()?.Path;
+    //                         } else
+    //                         {
+    //                             var images = Utilities.ExtractImageLinks(item.Description);
+    //                             if (images.Any())
+    //                             {
+    //                                 imgPath = images.FirstOrDefault();
+    //                             }
+    //                         }
+    //                         <div class="col-sm-3 col-6">
+    //                             <div class="item pt-5">
+    //                                 <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
+    //                                     <a href="/@type/@item.Alias" title="@item.Title">
+    //                                         <span>Xem thêm</span>
+    //                                     </a>
+    //                                 </div>
+    //                                 <div class="info">
+    //                                     <h3 class="title pb-1"><a href="/@type/@item.Alias" title="@item.Title">@item.Title.LimitTo(50, "...")</a></h3>
+    //                                     <div class="desc">@item.Description.LimitTo(200, "...")</div>
+    //                                 </div>
+    //                             </div>
+    //                         </div>
+    //                     }
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>
+    // }
 }
 
 

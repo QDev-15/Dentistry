@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Dentistry.Common;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +19,16 @@ namespace Dentisty.Data
 
         public async Task Invoke(HttpContext context)
         {
-            // Lấy TimeZone từ Session (nếu có)
-            var timeZoneId = context.Session.GetString("UserTimeZone");
-
-            // Nếu chưa có, đặt mặc định là UTC
-            if (string.IsNullOrEmpty(timeZoneId))
+            if (context.Request.Cookies.TryGetValue("timezone", out var timezone))
             {
-                timeZoneId = "UTC";
+                context.Items["UserTimezone"] = timezone;
+                SystemConstants.TimeZoneDefaultId = timezone;
             }
-
-            // Lưu vào HttpContext.Items để sử dụng trong suốt request
-            context.Items["UserTimeZone"] = timeZoneId;
+            else
+            {
+                context.Items["UserTimezone"] = "Asia/Ho_Chi_Minh"; // Mặc định nếu không có
+                SystemConstants.TimeZoneDefaultId = "Asia/Ho_Chi_Minh";
+            }
 
             await _next(context);
         }

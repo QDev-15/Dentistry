@@ -10,7 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using static Dentistry.Data.Common.Constants.SystemConstants;
+using static Dentistry.Common.SystemConstants;
 
 namespace Dentisty.Data.Repositories
 {

@@ -1,10 +1,10 @@
-﻿using Dentistry.Data.Common.Constants;
+﻿using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
-using Dentisty.Data.Common;
+using Dentisty.Common;
 using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;

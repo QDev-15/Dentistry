@@ -1,9 +1,4 @@
-﻿using Dentisty.Data.Common.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dentistry.Data.GeneratorDB.Entities
+﻿namespace Dentistry.Data.GeneratorDB.Entities
 {
     public class Slide
     {

@@ -1,4 +1,5 @@
-﻿using Dentistry.ViewModels.Catalog.Categories;
+﻿using Dentistry.Common;
+using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Enums;
 using Dentistry.ViewModels.System.Users;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +27,22 @@ namespace Dentistry.ViewModels.Catalog.Articles
         public UserVm CreatedBy { set; get; }
         public List<IFormFile> ImageFiles { get; set; }
         public string TagsJson { get; set; }
+        public string CoverImage
+        {
+            get
+            {
+                var value = "/assets/img/no-image.jpg";
+                if (Images.Any())
+                {
+                    value = Images.FirstOrDefault().Path;
+                }
+                else
+                {
+                    value = Utilities.GetImageLink(Description);
+                }
+                return value;
+            }
+        }
 
     }
 }

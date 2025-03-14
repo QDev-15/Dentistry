@@ -1,5 +1,5 @@
 ﻿using Dentistry.Admin.Common;
-using Dentistry.Data.Common.Constants;
+using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.Data.Storages;
@@ -11,7 +11,7 @@ using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data;
-using Dentisty.Data.Common;
+using Dentisty.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;
@@ -133,6 +133,7 @@ builder.Services.AddSignalR();
 // Register Repository  add services
 builder.Services.AddSingleton<Logs>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSingleton<ITimezoneService, TimezoneService>();
 builder.Services.AddScoped<DentistryDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IImageRepository, ImageRepository>();

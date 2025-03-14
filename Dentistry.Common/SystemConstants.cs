@@ -2,15 +2,27 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dentistry.Data.Common.Constants
+namespace Dentistry.Common
 {
-    public class SystemConstants
+    public static class SystemConstants
     {
         public const string ApplicationTitle = "Nhiên Nha Khoa";
         public const string MainConnectionString = "DentistryDbConnection";
         public const string CartSession = "CartSession";
         public const string NA = "N/A";
         public const string USER_CONTENT_FOLDER_NAME = "user-content";
+        public const string TimeZoneUTC = "UTC";
+        private static string _timeZoneDefaultId;
+        public static string TimeZoneDefaultId {
+            get
+            {
+                return _timeZoneDefaultId ?? "UTC";
+            }
+            set
+            {
+               _timeZoneDefaultId = value;                 
+            }
+        }
         public class Folder
         {
             public const string Slides = "Slides";

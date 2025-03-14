@@ -1,4 +1,4 @@
-﻿namespace Dentisty.Data.Common.Enums
+﻿namespace Dentisty.Common.Enums
 {
     public enum MessageType
     {

@@ -1,4 +1,4 @@
-﻿using Dentisty.Data.Common;
+﻿using Dentisty.Common;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using Dentistry.ViewModels.System.Users;
 using Dentistry.ViewModels.Common;
+using Dentisty.Data;
 
 namespace Dentistry.Tests
 {

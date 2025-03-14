@@ -1,10 +1,10 @@
-﻿using Dentistry.Data.Common.Constants;
+﻿using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.Storages;
 using Dentistry.ViewModels.Catalog.Contacts;
 using Dentistry.Web.Middleware;
 using Dentistry.Web.Services;
-using Dentisty.Data.Common;
+using Dentisty.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;

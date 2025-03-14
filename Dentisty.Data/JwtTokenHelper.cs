@@ -1,16 +1,13 @@
-﻿using Dentistry.Data.Common.Constants;
+﻿using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Dentisty.Data.Common
+
+namespace Dentisty.Data
 {
     public class JwtTokenHelper
     {
@@ -50,5 +47,8 @@ namespace Dentisty.Data.Common
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
+
+        
     }
 }

@@ -1,4 +1,4 @@
-﻿using Dentistry.Data.Common.Constants;
+﻿using Dentistry.Common;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data;

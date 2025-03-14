@@ -1,4 +1,4 @@
-﻿using Dentistry.Data.Common.Constants;
+﻿using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Slide;
@@ -6,7 +6,7 @@ using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
 using Dentistry.ViewModels.Extensions;
 using Dentisty.Data;
-using Dentisty.Data.Common;
+using Dentisty.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;

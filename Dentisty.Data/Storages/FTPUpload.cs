@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using Dentisty.Data.Common;
+using Dentistry.Common;
 using FluentFTP;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

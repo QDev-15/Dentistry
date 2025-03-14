@@ -8,7 +8,7 @@ const domStage = {
 
 /** +============================================================================= */
 
-
+setTimezoneCookie();
 document.addEventListener("DOMContentLoaded", function () {
     // Observer để kiểm tra khi DOM thay đổi
     let observer = new MutationObserver((mutations, observerInstance) => {
@@ -20,14 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     // Quan sát toàn bộ trang, kể cả các phần tử thêm vào sau
     observer.observe(document.body, { childList: true, subtree: true });
-
-    var userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-    fetch('/Home/SetUserTimeZone', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ timeZone: userTimeZone })
-    });
 });
 // Documents 
 $(document).ready(function () {
@@ -39,6 +31,11 @@ $(document).ready(function () {
 });
 
 
+// Hàm lưu timezone vào cookie
+function setTimezoneCookie() {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    document.cookie = `timezone=${timezone}; path=/; max-age=31536000`; // Lưu 1 năm
+}
 
 // Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.

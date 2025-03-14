@@ -1,8 +1,8 @@
-﻿using Dentistry.Data.Common.Constants;
+﻿using Dentistry.Common;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data;
-using Dentisty.Data.Common;
+using Dentisty.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +53,7 @@ namespace Dentistry.Admin.Controllers
                 checkAlis = await _doctorRepository.CheckExistsAlias(item.Name.ToSlus(), item.Id);
                 if (checkAlis)
                 {
-                    item.Alias = item.Name.ToSlus() + "-" + Utilities.GenerateRandomString(4);
+                    item.Alias = item.Name.ToSlus() + "-" + Helper.GenerateRandomString(4);
                 } else
                 {
                     item.Alias = item.Name.ToSlus();

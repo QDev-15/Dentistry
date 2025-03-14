@@ -1,4 +1,5 @@
-﻿using Dentisty.Data.Common;
+﻿using Dentistry.Common;
+using Dentisty.Common;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,23 @@ namespace Dentisty.Data
             var timeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
 
             return TimeZoneInfo.ConvertTimeFromUtc(value, timeZone);
+        }
+        public static DateTime UTC(this DateTime value)
+        {
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById(SystemConstants.TimeZoneUTC);
+            return TimeZoneInfo.ConvertTimeToUtc(value, timeZone);
+        }
+        public static DateTime Local(this DateTime value)
+        {
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById(SystemConstants.TimeZoneDefaultId);
+            return TimeZoneInfo.ConvertTimeFromUtc(value, timeZone);
+        }
+        public static DateTime Local(this DateTime value, string timezoneId) {
+            var timeZone = TimeZoneInfo.FindSystemTimeZoneById(timezoneId);
+            return TimeZoneInfo.ConvertTimeFromUtc(value, timeZone);
+        }    
+        public static DateTime Local(this DateTime value, TimeZoneInfo timezone) {
+            return TimeZoneInfo.ConvertTimeFromUtc(value, timezone);
         }
         /// <summary>
         /// Example: abc-def-123

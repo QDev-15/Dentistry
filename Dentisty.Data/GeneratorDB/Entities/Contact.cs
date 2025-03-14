@@ -1,8 +1,4 @@
-﻿using Dentisty.Data.Common.Enums;
-using Dentisty.Data.GeneratorDB.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Dentisty.Data.GeneratorDB.Entities;
 
 namespace Dentistry.Data.GeneratorDB.Entities
 {
