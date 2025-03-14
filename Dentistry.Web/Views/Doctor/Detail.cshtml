@@ -1,6 +1,7 @@
 ﻿@using Dentistry.Common
 @using Dentistry.ViewModels.Catalog.Doctors
 @using Dentistry.ViewModels.Enums
+@using Dentisty.Data
 @model DoctorDetailVm
 @{
     ViewData["Title"] = Model.Doctor.Name;
@@ -35,7 +36,7 @@
             <span><i class="fas fa-user"></i> Vị trí: @Model.Doctor.Position</span>
         </div>
         <div class="box_article_description">
-            @Html.Raw(Model.Doctor.Description)
+            @Html.Raw(Model.Doctor.Description.ValidateImg())
         </div>
     </article>
 </div>

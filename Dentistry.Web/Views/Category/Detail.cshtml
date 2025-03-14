@@ -1,5 +1,6 @@
 ﻿@using Dentistry.ViewModels.Enums
 @using Dentistry.ViewModels.Catalog.Categories
+@using Dentisty.Data
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -24,9 +25,9 @@
 <div class="container-fluid justify-content-center image-banner p-0">
     <img src="@Model.category.Image?.Path" loading="lazy" />
 </div>
-<div class="container-fluid">
+<div class="container-fluid breadcrumb">
     <div class="container box_breadcrumb">
-        <ul class="breadcrumb">
+        <ul class="ul-breadcrumb">
             <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
             @if (Model.category.Parent != null) {
                 <li>
@@ -49,9 +50,9 @@
         @if (!string.IsNullOrEmpty(Model.category.Description))
         {
             <div class="container-fluid p-0">
-                <div class="container main-detail py-3">
+                <div class="container main-detail category-content py-3">
                     <div class="box_article_description">
-                        @Html.Raw(Model.category.Description)
+                        @Html.Raw(Model.category.Description.ValidateImg())
                     </div>
                 </div>
             </div>
@@ -79,39 +80,41 @@
             || Model.category.Type == CategoryType.FeedBack)
     {
         <div class="container-fluid">
-            <div class="container search-page-content py-4">
-                <div class="row py-3">
-                    <div class="col-12 col-md-8 search-result-content">
-                        <div class="search-results">
-                            @if (Model.articles.Count == 0)
-                            {
-                                <span class="not-result-found">Chưa có bài viết về chuyên mục này.</span>
-                            }
-                            @foreach (var item in Model.articles)
-                            {
-                                string pathImageArt = "/assets/img/no-image.jpg";
-                                if (item.Images.Any())
+            <div class="container search-page-content">
+                <div class="row">
+                    <div class="col-12 col-md-8 d-flex flex-column search-result-container">
+                        <div class="search-result-content d-flex flex-column flex-grow-1 py-5">
+                            <div class="search-results flex-grow-1">
+                                @if (Model.articles.Count == 0)
                                 {
-                                    pathImageArt = item.Images.LastOrDefault()!.Path;
+                                    <span class="not-result-found">Chưa có bài viết về chuyên mục này.</span>
                                 }
-                                <div class="search-item">
-                                    <img src="@pathImageArt" alt="Ảnh bài viết">
-                                    <div class="search-content">
-                                        <h3>
-                                            <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
-                                        </h3>
-                                        <p>@item.Description.LimitTo(200, "...")</p>
-                                        <div class="search-meta">
-                                            <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
-                                            <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                @foreach (var item in Model.articles)
+                                {
+                                    string pathImageArt = "/assets/img/no-image.jpg";
+                                    if (item.Images.Any())
+                                    {
+                                        pathImageArt = item.Images.LastOrDefault()!.Path;
+                                    }
+                                    <div class="search-item">
+                                        <img src="@pathImageArt" alt="Ảnh bài viết">
+                                        <div class="search-content">
+                                            <h3>
+                                                <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
+                                            </h3>
+                                            <p>@item.Description.LimitTo(200, "...")</p>
+                                            <div class="search-meta">
+                                                <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
+                                                <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            }
-                            <!-- Lặp lại search-item cho nhiều bài viết -->
+                                }
+                                <!-- Lặp lại search-item cho nhiều bài viết -->
+                            </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-4 search-hotnew flex-column d-none d-md-flex">
+                    <div class="col-12 col-md-4 py-5 search-hotnew flex-column d-none d-md-flex">
                         <div class="box_title_v1 py-3">Chủ đề mới nhất</div>
                         <div class="box_right_content flex-column">
                             @foreach (var item in Model.hotNews)
@@ -144,9 +147,9 @@
         @if (!string.IsNullOrEmpty(Model.category.Description))
         {
             <div class="container-fluid p-0">
-                <div class="container main-detail py-3">
+                <div class="container main-detail category-content py-3">
                     <div class="box_article_description">
-                        @Html.Raw(Model.category.Description)
+                        @Html.Raw(Model.category.Description.ValidateImg())
                     </div>
                 </div>
             </div>
@@ -168,43 +171,54 @@
     }
     if (Model.articles.Count > 0)
     {
-        <div class="container-fluid p-0 pb-5" style="background: #fbfbfb;">
-                <div class="container">
-                    <div class="box_title py-5"> Bài viết liên quan</div>
-                    <div class="box_content box_list_item">
-                        <div class="row">
-                            @foreach (var item in Model.articles)
-                            {
-                                var type = item.Type.GetAliasDisplayName();
-                                var imgPath = "/assets/img/no-image.jpg";
-                                if (item.Images.Any())
-                                {
-                                    imgPath = item.Images.LastOrDefault()?.Path;
-                                }
-                                <div class="col-sm-3 col-6">
-                                    <div class="item">
-                                        <div class="image" style="background-image: url('@imgPath'), url('../assets/img/no-image.jpg')">
-                                            <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias"
-                                               title="@item.Title">
-                                                <span>Xem thêm</span>
-                                            </a>
-                                        </div>
-                                        <div class="info">
-                                            <h3 class="title pb-1">
-                                                <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias"
-                                                   title="@item.Title">
-                                                    @item.Title.LimitTo(50, "...")
-                                                </a>
-                                            </h3>
-                                            <div class="desc">@item.Description.LimitTo(200, "...")</div>
-                                        </div>
+        <div class="container-fluid p-0 pb-5" style="background: #fff9ed;">
+            <div class="container">
+                <div class="box_title py-5"> Bài viết liên quan</div>
+                <div class="box_content box_list_item">
+                    <div class="row">
+                        <div class="container mt-4">
+                            <div class="row g-3">
+                                <!-- Cột trái: Item lớn -->
+                                <div class="col-lg-4 col-md-12">
+                                    @{
+                                        var item = Model.articles.First();
+                                        var customBoxMedium = new CustomBox()
+                                        {
+                                            Title = item.Title,
+                                            ImgPath = item.CoverImage,
+                                            Description = item.Description,
+                                            Link = "/bai-viet/" + item.Alias
+                                        };
+                                    }
+                                    @Html.Partial("_viewComponentArticleLinkBoxMedium", customBoxMedium)
+                                </div>
+
+                                <!-- Cột phải: Danh sách item nhỏ -->
+                                <div class="col-lg-8 col-md-12">
+                                    <div class="row row-cols-1 row-cols-lg-1 row-cols-xl-2 g-3">
+                                        @foreach (var art in Model.articles.Take(7))
+                                        {
+                                            if (art != Model.articles.First())
+                                            {
+                                                var customBoxSmall = new CustomBox()
+                                                {
+                                                    Title = art.Title,
+                                                    ImgPath = art.CoverImage,
+                                                    Description = art.Description,
+                                                    Link = "/bai-viet/" + art.Alias
+                                                };
+                                                <div class="col">
+                                                    @Html.Partial("_viewComponentArticleLinkBoxSmall", customBoxSmall)
+                                                </div>
+                                            }
+                                        }
                                     </div>
                                 </div>
-                            }
-
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     }
 }

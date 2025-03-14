@@ -39,6 +39,15 @@ namespace Dentisty.Data
         public static DateTime Local(this DateTime value, TimeZoneInfo timezone) {
             return TimeZoneInfo.ConvertTimeFromUtc(value, timezone);
         }
+        public static string ValidateImg(this string safeDescription)
+        {
+            safeDescription = System.Text.RegularExpressions.Regex.Replace(
+            safeDescription,
+            "<img[^>]+src=['\"](?!http|/assets/)[^'\"]+['\"][^>]*>",
+            "",
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+            return safeDescription;
+        }
         /// <summary>
         /// Example: abc-def-123
         /// </summary>

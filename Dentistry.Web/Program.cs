@@ -79,7 +79,22 @@ builder.Services.AddWebOptimizer(options =>
 
 
 var app = builder.Build();
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value.ToLower();
 
+    // Nếu request là ảnh nhưng không bắt đầu bằng "http" hoặc "/assets/"
+    if ((path.EndsWith(".jpg") || path.EndsWith(".png") || path.EndsWith(".gif") ||
+         path.EndsWith(".jpeg") || path.EndsWith(".svg") || path.EndsWith(".webp"))
+        && !path.StartsWith("http") && !path.StartsWith("/assets/"))
+    {
+        context.Response.StatusCode = 404;
+        await context.Response.WriteAsync("Not Found");
+        return;
+    }
+
+    await next();
+});
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

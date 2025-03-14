@@ -29,6 +29,9 @@ namespace Dentistry.Web.Controllers
             try
             {
                 var baiviet = await _articleRepository.GetByAliasAsync(alias);
+                if (baiviet == null) { 
+                    return NotFound("bai viet not found: alias = " + alias);
+                }
                 var baiviets = await _articleRepository.GetForApplication(ArticleType.Article);
                 baivietDetail.item = baiviet.ReturnViewModel();
                 baivietDetail.items = baiviets.Where(x => x.Id != baiviet.Id).ToList();
@@ -36,13 +39,16 @@ namespace Dentistry.Web.Controllers
                 ViewData["Title"] = baiviet.Title;
                 ViewData["Description"] = $"Đọc ngay bài viết '{baiviet.Title}' để hiểu hơn về {baiviet.Tags}";
                 ViewData["Keywords"] = baiviet.Tags;
+                return View(baivietDetail);
             } catch (Exception ex)
             {
                 _loggerRepository.QueueLog(ex.Message, "get article alias = " + alias, "client");
+                // Tránh crash app
+                return StatusCode(500, "Lỗi server");
             }
 
             
-            return View(baivietDetail);
+            
         }
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)

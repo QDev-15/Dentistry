@@ -10,9 +10,9 @@
 
 @model SearchVm
 
-<div class="container-fluid">
+<div class="container-fluid breadcrumb">
     <div class="container box_breadcrumb">
-        <ul class="breadcrumb">
+        <ul class="ul-breadcrumb">
             <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
             <li>
                 Tìm kiếm
@@ -22,49 +22,37 @@
 </div>
 <div class="container-fluid">
     <div class="container search-page-content">
-
         <div class="row">
-            <div class="col-12 col-md-8 py-5 search-result-content">
-                <div class="box_title">
-                    Kết quả tìm kiếm <span>"@ViewData["keyWord"]"</span>
-                </div>
-                <div class="search-results">
-                    @if (Model.Items.Count == 0)
-                    {
-                        <span class="not-result-found">Có 0 kết quả được tìm thấy.</span>
-                    }
-                    @foreach (var item in Model.Items)
-                    {
-                        string pathImageArt = "/assets/img/no-image.jpg";
-                        if (item.Images.Any())
+            <div class="col-12 col-md-8 d-flex flex-column search-result-container">
+                <div class="search-result-content d-flex flex-column flex-grow-1 py-5">
+                    <div class="box_title">
+                        Kết quả tìm kiếm <span>"@ViewData["keyWord"]"</span>
+                    </div>
+                    <div class="search-results flex-grow-1">
+                        @if (Model.Items.Count == 0)
                         {
-                            pathImageArt = item.Images.LastOrDefault()!.Path;
-                        } else
-                        {
-                            var images = Utilities.ExtractImageLinks(item.Description);
-                            if (images.Any())
-                            {
-                                pathImageArt = images.FirstOrDefault();
-                            }
+                            <span class="not-result-found">Có 0 kết quả được tìm thấy.</span>
                         }
-                        <div class="search-item">
-                            <img src="@pathImageArt" alt="Ảnh bài viết">
-                            <div class="search-content">
-                                <h3>
-                                    <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
-                                </h3>
-                                <p>@item.Description.LimitTo(200, "...")</p>
-                                <div class="search-meta">
-                                    <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-danhmuc="@item.Category?.Type.GetAliasDisplayName()" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
-                                    <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="search-item shadow">
+                                <img src="@item.CoverImage" alt="Ảnh bài viết">
+                                <div class="search-content">
+                                    <h3>
+                                        <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
+                                    </h3>
+                                    <p>@item.Description.LimitTo(200, "...")</p>
+                                    <div class="search-meta">
+                                        <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-danhmuc="@item.Category?.Type.GetAliasDisplayName()" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
+                                        <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
-                    <!-- Lặp lại search-item cho nhiều bài viết -->
-                </div>
+                        }
+                        <!-- Lặp lại search-item cho nhiều bài viết -->
+                    </div>
 
-                <div class="pagination-custom">
+                    <div class="pagination-custom">
                     @{
                         int totalPages = (int)ViewData["TotalPages"];
                         int currentPage = (int)ViewData["CurrentPage"];
@@ -121,6 +109,7 @@
                             class="last @(currentPage == (int)ViewData["TotalPages"] ? "disabled" : "")">Sau</a>
                         }
                     }
+                </div>
                 </div>
             </div>
             <div class="col-12 col-md-4 py-5 search-hotnew flex-column d-none d-md-flex">
