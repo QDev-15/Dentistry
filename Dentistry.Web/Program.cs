@@ -86,7 +86,8 @@ app.Use(async (context, next) =>
     // Nếu request là ảnh nhưng không bắt đầu bằng "http" hoặc "/assets/"
     if ((path.EndsWith(".jpg") || path.EndsWith(".png") || path.EndsWith(".gif") ||
          path.EndsWith(".jpeg") || path.EndsWith(".svg") || path.EndsWith(".webp"))
-        && !path.StartsWith("http") && !path.StartsWith("/assets/"))
+        && !path.StartsWith("http") && !path.StartsWith("/assets/") && !path.StartsWith("/uploads/")
+        && !path.StartsWith("/js/") && !path.StartsWith("/css/") && !path.StartsWith("/lib/") && !path.StartsWith("/plugins/"))
     {
         context.Response.StatusCode = 404;
         await context.Response.WriteAsync("Not Found");
@@ -121,6 +122,5 @@ app.UseRouting();;
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-File.AppendAllText("wwwroot/logs.txt", $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {hostingConfig.AdminHost}");
 app.Run();
-File.AppendAllText("wwwroot/logs1.txt", $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {hostingConfig.AdminHost}");
+//File.AppendAllText("wwwroot/logs1.txt", $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {hostingConfig.AdminHost}");
