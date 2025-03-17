@@ -59,14 +59,14 @@
   font-weight: bold;
   margin-bottom: 5px;
   text-decoration: none;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
 }
 .custom-box-comment .text-container .title a:hover {
-  color: rgba(233, 177, 60, 0.5); /* Màu xanh khi hover */
+  color: rgba(188, 142, 46, 0.5); /* Màu xanh khi hover */
 }
 .custom-box-comment .text-container .description {
   font-size: 1.25rem;
@@ -118,14 +118,14 @@
   font-weight: bold;
   margin-bottom: 5px;
   text-decoration: none;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
 }
 .custom-box-small .text-container .title a:hover {
-  color: rgba(233, 177, 60, 0.5); /* Màu xanh khi hover */
+  color: rgba(188, 142, 46, 0.5); /* Màu xanh khi hover */
 }
 .custom-box-small .text-container .description {
   font-size: 1.25rem;
@@ -176,7 +176,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   text-decoration: none;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -184,7 +184,7 @@
   margin-bottom: 5px;
 }
 .custom-box-medium .text-container .title a:hover {
-  color: rgba(233, 177, 60, 0.5);
+  color: rgba(188, 142, 46, 0.5);
 }
 .custom-box-medium .text-container .description {
   font-size: 1.25rem;
@@ -210,7 +210,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: rgb(233, 177, 60);
+  background-color: rgb(188, 142, 46);
   color: white;
   border: none;
   padding: 0px;
@@ -222,7 +222,7 @@
 }
 
 #backToTop:hover {
-  background-color: rgb(233, 177, 60);
+  background-color: rgb(188, 142, 46);
   transform: scale(1.1);
 }
 
@@ -368,7 +368,7 @@
   right: 0;
   transform: translateY(-50%);
   z-index: 1000;
-  background: rgb(233, 177, 60);
+  background: rgb(188, 142, 46);
   height: auto;
   width: 45px;
   border-radius: 10px 0 0 10px;
@@ -395,7 +395,7 @@
   margin-top: 10px;
 }
 #popup_tuvan .btn_popup:hover {
-  background: rgba(233, 177, 60, 0.5);
+  background: rgba(188, 142, 46, 0.5);
 }
 
 /**================ Start bar - Top =========================*/
@@ -619,7 +619,7 @@
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 5px;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   text-transform: uppercase;
   text-decoration: unset;
 }
@@ -639,16 +639,16 @@
 }
 .search-page-content .search-result-content .search-meta a {
   text-decoration: unset;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   font-weight: 500;
 }
 .search-page-content .search-result-content .pagination-custom {
   text-align: right;
   margin-top: 10px;
-  border-top: 2px solid rgb(233, 177, 60);
+  border-top: 2px solid rgb(188, 142, 46);
 }
 .search-page-content .search-result-content .pagination-custom .disabled {
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   background: #e9ecef;
   pointer-events: none;
 }
@@ -672,7 +672,7 @@
 .search-page-content .search-result-content .pagination-custom a {
   display: inline-block;
   text-decoration: none;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   background: #f8f9fa;
   font-size: 14px;
   font-weight: 500;
@@ -737,7 +737,7 @@
 
 .box_title {
   text-align: center !important;
-  color: rgb(233, 177, 60) !important;
+  color: rgb(188, 142, 46) !important;
   font-weight: 400;
   cursor: pointer;
   font-size: 30px !important;
@@ -746,7 +746,7 @@
 }
 
 .box_title_v1 {
-  color: rgb(233, 177, 60) !important;
+  color: rgb(188, 142, 46) !important;
   font-weight: 500;
   cursor: pointer;
   font-size: 24px !important;
@@ -756,7 +756,7 @@
 }
 
 .box_article_title {
-  color: rgb(233, 177, 60) !important;
+  color: rgb(188, 142, 46) !important;
   font-weight: 400;
   cursor: pointer;
   font-size: 30px !important;
@@ -805,7 +805,7 @@
   font-size: 16px;
   /*font-family: "SVN-GothamBold";*/
   border-radius: 20px;
-  background: rgb(233, 177, 60);
+  background: rgb(188, 142, 46);
   transition: all 0.3s;
   text-decoration: none;
   font-weight: bold;
@@ -852,7 +852,7 @@
   color: #949494;
 }
 .breadcrumb .box_breadcrumb .ul-breadcrumb > li:last-child {
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   font-size: 18px;
   font-weight: 400;
   margin-top: -3px;
@@ -992,7 +992,7 @@
   padding: 15px 0;
 }
 .box_list_item .title a {
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   text-decoration: none;
   text-transform: uppercase;
   font-size: 16px;
@@ -1041,7 +1041,7 @@
   text-align: center;
   font-size: 32px;
   margin-bottom: 20px;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
 }
 .section-contact .form-group {
   margin-bottom: 15px;
@@ -1120,13 +1120,13 @@
 }
 .section-slide-doctor-articles .title {
   text-align: center;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   font-weight: 400;
   font-size: 28px;
   text-transform: uppercase;
 }
 .section-slide-doctor-articles .title a {
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   text-decoration: unset;
 }
 .section-slide-doctor-articles .doctor-dec {
@@ -1169,7 +1169,7 @@
   flex: 1;
   padding-top: 30px;
   height: 100%;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
 }
 .section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text h5 {
   font-size: 1.8rem;
@@ -1197,12 +1197,12 @@
   height: 12px;
   border-radius: 50%; /* Làm tròn thành hình tròn */
   border: 1px solid transparent; /* Viền */
-  outline: 1px solid rgb(233, 177, 60);
+  outline: 1px solid rgb(188, 142, 46);
   background-color: transparent; /* Nền trong suốt */
 }
 .section-slide-doctor-articles .carousel-indicators .active {
-  background-color: rgb(233, 177, 60); /* Màu nền khi active */
-  outline: 1px solid rgb(233, 177, 60); /* Viền ngoài */
+  background-color: rgb(188, 142, 46); /* Màu nền khi active */
+  outline: 1px solid rgb(188, 142, 46); /* Viền ngoài */
 }
 .section-slide-doctor-articles .carousel-indicators li::marker {
   content: none !important;
@@ -1317,7 +1317,7 @@
 }
 .section-slide-service-articles .slide-item .content .slide-item-span a {
   text-transform: capitalize;
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
   font-size: 1.2rem;
   line-height: 1.5;
@@ -1455,7 +1455,7 @@
   padding: 15px 0;
 }
 .section-news .box_content .title a {
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   text-decoration: none;
   text-transform: uppercase;
   font-size: 16px;
@@ -1518,7 +1518,7 @@
   padding: 15px 0;
 }
 .section-feedback .box_list_item .title a {
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   text-decoration: none;
   text-transform: uppercase;
   font-size: 16px;
@@ -1590,7 +1590,7 @@
   margin: 0;
 }
 .footer .footer__nav .footer_title {
-  color: rgb(233, 177, 60) !important;
+  color: rgb(188, 142, 46) !important;
   font-weight: 500;
   cursor: pointer;
   font-size: 18px !important;
@@ -1619,7 +1619,7 @@
   /*text-transform: uppercase;*/
 }
 .footer .footer__nav .footer_address .branches-address span {
-  color: rgb(233, 177, 60);
+  color: rgb(188, 142, 46);
   font-weight: 500;
   transition: all 0.15s ease-in-out 0s;
 }
