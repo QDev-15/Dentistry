@@ -1,10 +1,6 @@
 ﻿
-$main: rgba(233,177,60, 1); // #e9b13c;
-$main50: rgba(233,177,60, 0.5);
-$black: rgba(0, 0, 0);
-$black50: rgba(0, 0, 0, 0.5);
-$background: #f1f1f1d7;
 
+@use 'partials/variables' as *; 
 .container-main {
     main {
         min-height: 600px;
@@ -66,7 +62,7 @@ $background: #f1f1f1d7;
                 font-weight: bold;
                 margin-bottom: 5px;
                 text-decoration: none;
-                color: $main;
+                color: $color-main;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -74,7 +70,7 @@ $background: #f1f1f1d7;
             }
 
             a:hover {
-                color: $main50; /* Màu xanh khi hover */
+                color: $color-main-50; /* Màu xanh khi hover */
             }
         }
 
@@ -133,7 +129,7 @@ $background: #f1f1f1d7;
                 font-weight: bold;
                 margin-bottom: 5px;
                 text-decoration: none;
-                color: $main;
+                color: $color-main;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -141,7 +137,7 @@ $background: #f1f1f1d7;
             }
 
             a:hover {
-                color: $main50; /* Màu xanh khi hover */
+                color: $color-main-50; /* Màu xanh khi hover */
             }
         }
 
@@ -199,7 +195,7 @@ $background: #f1f1f1d7;
             font-size: 1.2rem;
             font-weight: bold;
             text-decoration: none;
-            color: $main;
+            color: $color-main;
             display: block;
             white-space: nowrap;
             overflow: hidden;
@@ -208,7 +204,7 @@ $background: #f1f1f1d7;
         }
 
         .title a:hover {
-            color: $main50;
+            color: $color-main-50;
         }
 
         .description {
@@ -237,7 +233,7 @@ $background: #f1f1f1d7;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: $main;
+    background-color: $color-main;
     color: white;
     border: none;
     padding: 0px;
@@ -249,7 +245,7 @@ $background: #f1f1f1d7;
 }
 
 #backToTop:hover {
-    background-color: $main;
+    background-color: $color-main;
     transform: scale(1.1);
 }
 /** ===============Zalo Chat ==========================*/
@@ -417,7 +413,7 @@ $background: #f1f1f1d7;
         right: 0;
         transform: translateY(-50%);
         z-index: 1000;
-        background: $main;
+        background: $color-main;
         height: auto;
         width: 45px;
         border-radius: 10px 0 0 10px;
@@ -447,7 +443,7 @@ $background: #f1f1f1d7;
     }
 
     .btn_popup:hover {
-        background: $main50;
+        background: $color-main-50;
     }
 }
 /**================ Start bar - Top =========================*/
@@ -702,7 +698,7 @@ $background: #f1f1f1d7;
             font-size: 18px;
             font-weight: 500;
             margin-bottom: 5px;
-            color: $main;
+            color: $color-main;
             text-transform: uppercase;
             text-decoration: unset;
         }
@@ -725,7 +721,7 @@ $background: #f1f1f1d7;
 
             a {
                 text-decoration: unset;
-                color: $main;
+                color: $color-main;
                 font-weight: 500;
             }
         }
@@ -733,10 +729,10 @@ $background: #f1f1f1d7;
         .pagination-custom {
             text-align: right;
             margin-top: 10px;
-            border-top: 2px solid $main;
+            border-top: 2px solid $color-main;
 
             .disabled {
-                color: $main;
+                color: $color-main;
                 background: #e9ecef;
                 pointer-events: none;
             }
@@ -764,7 +760,7 @@ $background: #f1f1f1d7;
             a {
                 display: inline-block;
                 text-decoration: none;
-                color: $main;
+                color: $color-main;
                 background: #f8f9fa;
                 font-size: 14px;
                 font-weight: 500;
@@ -839,7 +835,7 @@ $background: #f1f1f1d7;
 
 .box_title {
     text-align: center !important;
-    color: $main !important;
+    color: $color-main !important;
     font-weight: 400;
     cursor: pointer;
     font-size: 30px !important;
@@ -848,7 +844,7 @@ $background: #f1f1f1d7;
 }
 
 .box_title_v1 {
-    color: $main !important;
+    color: $color-main !important;
     font-weight: 500;
     cursor: pointer;
     font-size: 24px !important;
@@ -858,7 +854,7 @@ $background: #f1f1f1d7;
 }
 
 .box_article_title {
-    color: $main !important;
+    color: $color-main !important;
     font-weight: 400;
     cursor: pointer;
     font-size: 30px !important;
@@ -907,7 +903,7 @@ $background: #f1f1f1d7;
     font-size: 16px;
     /*font-family: "SVN-GothamBold";*/
     border-radius: 20px;
-    background: $main;
+    background: $color-main;
     transition: all .3s;
     text-decoration: none;
     font-weight: bold;
@@ -956,7 +952,7 @@ $background: #f1f1f1d7;
     }
 
     .ul-breadcrumb > li:last-child {
-        color: $main;
+        color: $color-main;
         font-size: 18px;
         font-weight: 400;
         margin-top: -3px;
@@ -1123,7 +1119,7 @@ $background: #f1f1f1d7;
         padding: 15px 0;
 
         a {
-            color: $main;
+            color: $color-main;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
@@ -1180,7 +1176,7 @@ $background: #f1f1f1d7;
         text-align: center;
         font-size: 32px;
         margin-bottom: 20px;
-        color: $main;
+        color: $color-main;
     }
 
     .form-group {
@@ -1271,13 +1267,13 @@ $background: #f1f1f1d7;
 
     .title {
         text-align: center;
-        color: $main;
+        color: $color-main;
         font-weight: 400;
         font-size: 28px;
         text-transform: uppercase;
 
         a {
-            color: $main;
+            color: $color-main;
             text-decoration: unset;
         }
     }
@@ -1326,7 +1322,7 @@ $background: #f1f1f1d7;
                     flex: 1;
                     padding-top: 30px;
                     height: 100%;
-                    color: $main;
+                    color: $color-main;
 
                     h5 {
                         font-size: 1.8rem;
@@ -1362,13 +1358,13 @@ $background: #f1f1f1d7;
         height: 12px;
         border-radius: 50%; /* Làm tròn thành hình tròn */
         border: 1px solid transparent; /* Viền */
-        outline: 1px solid $main;
+        outline: 1px solid $color-main;
         background-color: transparent; /* Nền trong suốt */
     }
 
     .carousel-indicators .active {
-        background-color: $main; /* Màu nền khi active */
-        outline: 1px solid $main; /* Viền ngoài */
+        background-color: $color-main; /* Màu nền khi active */
+        outline: 1px solid $color-main; /* Viền ngoài */
     }
 
     .carousel-indicators li::marker {
@@ -1501,7 +1497,7 @@ $background: #f1f1f1d7;
 
             a {
                 text-transform: capitalize;
-                color: $main;
+                color: $color-main;
                 text-shadow: 0px 1px 1px rgb(255 255 255 / 50%);
                 font-size: 1.2rem;
                 line-height: 1.5;
@@ -1670,7 +1666,7 @@ $background: #f1f1f1d7;
             padding: 15px 0;
 
             a {
-                color: $main;
+                color: $color-main;
                 text-decoration: none;
                 text-transform: uppercase;
                 font-size: 16px;
@@ -1752,7 +1748,7 @@ $background: #f1f1f1d7;
             padding: 15px 0;
 
             a {
-                color: $main;
+                color: $color-main;
                 text-decoration: none;
                 text-transform: uppercase;
                 font-size: 16px;
@@ -1836,7 +1832,7 @@ $background: #f1f1f1d7;
         }
 
         .footer_title {
-            color: $main !important;
+            color: $color-main !important;
             font-weight: 500;
             cursor: pointer;
             font-size: 18px !important;
@@ -1871,7 +1867,7 @@ $background: #f1f1f1d7;
                 /*text-transform: uppercase;*/
 
                 span {
-                    color: $main;
+                    color: $color-main;
                     font-weight: 500;
                     transition: all 0.15s ease-in-out 0s;
                 }
