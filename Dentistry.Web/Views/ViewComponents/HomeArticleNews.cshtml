@@ -11,27 +11,16 @@
     {
         <div class="section section-news">
             <div class="container">
-            <div class="box_title">
-                Tin tức về Nha Khoa Nhiên
-            </div>
-            <div class="box_desc"></div>
-            <div class="box_content">
-                <div class="row">
-                    @foreach (var item in Model)
-                    {
-                        var imgPath = "/assets/img/no-image.jpg";
-                        if (item.Images.Any())
+                <div class="box_title">
+                    Tin tức về Nha Khoa Nhiên
+                </div>
+                <div class="box_desc"></div>
+                <div class="box_content">
+                    <div class="row">
+                        @foreach (var item in Model)
                         {
-                            imgPath = item.Images.LastOrDefault()?.Path;
-                        } else
-                        {
-                            var images = Utilities.ExtractImageLinks(item.Description);
-                            if (images.Any())
-                            {
-                                imgPath = images.FirstOrDefault();
-                            }
-                        }
-                        <div class="col-sm-4 col-6">
+                            var imgPath = item.CoverImage;
+                            <div class="col-sm-4 col-6">
                             <div class="item pt-5">
                                 <div class="image" style="background: url('@imgPath'); background-size: cover;">
                                     <a href="/tin-tuc/@item.Alias" title="@item.Title">

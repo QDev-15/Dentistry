@@ -23,8 +23,8 @@
                                         <i class="fa-solid fa-circle-dot li-dot"></i>
                                         <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
                                         <span class="cadet">
-                                            <i class="fa-solid fa-caret-right i-caret-r-@child.Id"></i>
-                                            <i class="fa-solid fa-caret-left i-caret-l-@child.Id" style="display: none"></i>
+                                            <i class="fa-solid fa-caret-right i-visible i-caret-r-@child.Id"></i>
+                                            <i class="fa-solid fa-caret-left i-hidden i-caret-l-@child.Id"></i>
                                         </span>
                                     </li>
                                 }

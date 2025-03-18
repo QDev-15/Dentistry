@@ -34,8 +34,12 @@
                     setTimeout(() => {
                         if (hoverAny.lv2) {
                             $(".ul-lv3-" + hoverAny.lv2).stop(true, true).fadeIn(200);
-                            $(".i-caret-l-" + hoverAny.lv2).stop(true, true).fadeIn(200);
-                            $(".i-caret-r-" + hoverAny.lv2).stop(true, true).fadeOut(100);
+                            //$(".i-caret-l-" + hoverAny.lv2).stop(true, true).fadeIn(200);
+                            //$(".i-caret-r-" + hoverAny.lv2).stop(true, true).fadeOut(100);
+                            $(".i-caret-l-" + hoverAny.lv2).removeClass("i-hidden");
+                            $(".i-caret-l-" + hoverAny.lv2).addClass("i-visible");
+                            $(".i-caret-r-" + hoverAny.lv2).removeClass("i-visible");
+                            $(".i-caret-r-" + hoverAny.lv2).addClass("i-hidden");
                             // hiển thị Menu lv3
                             $(".menu-lv3").stop(true, true).fadeIn(200);
                         }
@@ -79,8 +83,12 @@
         $('[class*="menu-lv3"]').stop(true, true).fadeOut(200);
         if (hover.lv2) {
             $('.li-lv2').removeClass('lv2-active');
-            $(".i-caret-l-" + hover.lv2).stop(true, true).fadeOut(100);
-            $(".i-caret-r-" + hover.lv2).stop(true, true).fadeIn(100);
+            //$(".i-caret-l-" + hover.lv2).stop(true, true).fadeOut(100);
+            //$(".i-caret-r-" + hover.lv2).stop(true, true).fadeIn(100);
+            $(".i-caret-r-" + hoverAny.lv2).removeClass("i-hidden");
+            $(".i-caret-r-" + hoverAny.lv2).addClass("i-visible");
+            $(".i-caret-l-" + hoverAny.lv2).removeClass("i-visible");
+            $(".i-caret-l-" + hoverAny.lv2).addClass("i-hidden");
         }
     }
     // breakpoint and up  

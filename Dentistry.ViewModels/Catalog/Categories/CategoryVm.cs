@@ -21,6 +21,7 @@ namespace Dentistry.ViewModels.Catalog.Categories
         public bool IsParent { get; set; } = false;
         public CategoryPosition? Position { set; get; } = CategoryPosition.None;
         public CategoryType? Type { set; get; } = CategoryType.None;
+        public CategoryLevel Level { set; get; } = CategoryLevel.Level1;
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
         public string Description { set; get; }

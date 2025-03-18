@@ -18,6 +18,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public bool IsParent { get; set; }
         public CategoryPosition? Position { set; get; }
         public CategoryType? Type { set; get; }
+        public CategoryLevel Level { set; get; }
         public int Sort {  set; get; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }

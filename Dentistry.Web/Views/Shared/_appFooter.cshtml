@@ -15,13 +15,42 @@
             <div class="col-12 col-md-8 order-2">
                 <div class="row footer__nav">
                     <div class="col-md-4 p-3 footer_hotline">
-                        <h5 class="mb-3 footer_title">Hotline</h5>
+                        <h5 class="mb-3 footer_title">@Model.setting.CompanyTitle</h5>
                         <ul>
-                            <li> <span><a href="tel:@Model.setting.HotlineHaNoi">Hà Nội: @Model.setting.HotlineHaNoi</a></span></li>
+                            @* <li> <span><a href="tel:@Model.setting.HotlineHaNoi">Hà Nội: @Model.setting.HotlineHaNoi</a></span></li> *@
+                            <li class="branches">
+                                <span>@Model.setting.CompanyName</span>
+                            </li>
+                            @{
+                                if (string.IsNullOrEmpty(Model.setting.CompanyAddress))
+                                {
+                                    <li class="branches-address">
+                                        Địa chỉ: <span>@Model.setting.CompanyAddress</span>
+                                    </li>
+                                }
+                                if (string.IsNullOrEmpty(Model.setting.CompanyPhone))
+                                {
+                                    <li class="branches-phone">
+                                        Điện thoại: <span>@Model.setting.CompanyPhone</span>
+                                    </li>
+                                }
+                                if (string.IsNullOrEmpty(Model.setting.CompanyEmail))
+                                {
+                                    <li class="branches-phone">
+                                        Email: <span><a href="mailto:@Model.setting.CompanyEmail">@Model.setting.CompanyEmail</a></span>
+                                    </li>
+                                }
+                                if (string.IsNullOrEmpty(Model.setting.CompanyWebsite))
+                                {
+                                    <li class="branches-phone">
+                                        Website: <span><a href="@Model.setting.CompanyWebsite">@Model.setting.CompanyWebsite</a></span>
+                                    </li>
+                                }
+                            }
                         </ul>
                     </div>
                     <div class="col-md-4 p-3 footer_address">
-                        <h5 class="mb-3 footer_title">Hệ Thống Nha Khoa</h5>
+                        <h5 class="mb-3 footer_title">@Model.setting.BranchesTitle</h5>
                         <ul>
                             @foreach (var item in Model.branches)
                             {
@@ -59,6 +88,12 @@
                             @if (!string.IsNullOrEmpty(Model.setting.Youtube)) {
                                 <a href="@Model.setting.Youtube" class="social-icon youtube" target="_blank" aria-label="Youtube">
                                     <i class="fab fa-youtube"></i>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.setting.Tiktok))
+                            {
+                                <a href="@Model.setting.Tiktok" class="social-icon tiktok" target="_blank" aria-label="TikTok">
+                                    <i class="fab fa-tiktok"></i>
                                 </a>
                             }
                         </div>

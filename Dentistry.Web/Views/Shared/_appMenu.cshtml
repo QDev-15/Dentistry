@@ -42,8 +42,8 @@
                 <div class="sidebar">
                     <ul class="list-group">
                         @{
-                            var categories = Model.RightMenu;
-                            categories.AddRange(Model.LeftMenu);
+                            var categories = Model.LeftMenu;
+                            categories.AddRange(Model.RightMenu);
                         }
                         @Html.Partial("~/Views/Shared/Partials/_dropdownMobileMenu.cshtml", categories)
                         

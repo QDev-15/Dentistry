@@ -83,7 +83,24 @@ namespace Dentisty.Data
                 Articles = item.Articles ?? "",
                 News = item.News ?? "",
                 Feedbacks = item.Feedbacks ?? "",
-                Products = item.Products ?? ""
+                Products = item.Products ?? "",
+                CategoryProducts = item.CategoryProducts ?? "",
+                BranchesTitle = item.BranchesTitle,
+                CompanyAddress = item.CompanyAddress,
+                CompanyEmail = item.CompanyEmail,
+                CompanyName = item.CompanyName,
+                CompanyPhone = item.CompanyPhone,
+                CompanyTitle = item.CompanyTitle,
+                CompanyWebsite = item.CompanyWebsite,
+                Tiktok = item.Tiktok,
+                CategoryListProductSubTitle = item.CategoryListProductSubTitle,
+                CategoryListProductTitle = item.CategoryListProductTitle,
+                CategoryListSubTitle = item.CategoryListSubTitle,
+                CategoryListTitle = item.CategoryListTitle,
+                DoctorListSubTitle = item.DoctorListSubTitle,
+                DoctorListTitle = item.DoctorListTitle,
+                NewsListTitle = item.NewsListTitle,
+                ShowCategoryProductList = item.ShowCategoryProductList
             };
             return model;
         }
@@ -209,6 +226,7 @@ namespace Dentisty.Data
                 IsActive = item.IsActive,
                 ParentId = item.ParentId,
                 ImageId = item.ImageId,
+                Level = item.Level,
                 UpdatedDate = item.UpdatedDate,
                 CreatedDate = item.CreatedDate,
                 Description = item.Description ?? "",
@@ -230,6 +248,7 @@ namespace Dentisty.Data
                     Description = item.Parent.Description ?? "",
                     Position = item.Parent.Position,
                     Type = item.Parent.Type,
+                    Level = item.Parent.Level,
                     IsParent = item.Parent.IsParent,
                     UserId = item.Parent.UserId,
                 } : null,
