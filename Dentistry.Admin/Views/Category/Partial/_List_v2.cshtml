@@ -1,0 +1,64 @@
+﻿<style>
+    .draggable {
+        cursor: grab;
+        padding: 10px;
+        border: 1px solid #ddd;
+        margin-bottom: 5px;
+        background-color: #f8f9fa;
+    }
+
+    .dragging {
+        opacity: 0.5;
+    }
+
+    .category-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .category-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2>Quản lý Categories</h2>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Thêm Danh Mục</button>
+
+    <div class="accordion" id="categoryAccordion">
+        <!-- Danh mục động sẽ được thêm vào đây -->
+    </div>
+</div>
+
+<!-- Modal Thêm Danh Mục -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm Danh Mục</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="newCategoryName" placeholder="Tên danh mục">
+                <input type="text" class="form-control mt-2" id="categoryType" placeholder="Loại danh mục">
+                <input type="number" class="form-control mt-2" id="categoryPosition" placeholder="Vị trí">
+                <input type="url" class="form-control mt-2" id="categoryAvatar" placeholder="URL Ảnh đại diện">
+                <select class="form-control mt-2" id="parentCategory">
+                    <option value="">Cấp cao nhất</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="saveCategory">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/js/category_v2.js"></script>

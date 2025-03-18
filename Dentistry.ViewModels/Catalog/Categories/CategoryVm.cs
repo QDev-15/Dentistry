@@ -45,5 +45,26 @@ namespace Dentistry.ViewModels.Catalog.Categories
                 return value;
             }
         }
+
+        public string AliasType
+        {
+            get {
+                
+                if (Type != CategoryType.None)
+                {
+                    return Type.GetAliasDisplayName();
+                } else if (Parent != null && Parent.Type != CategoryType.None)
+                {
+                    return Parent.Type.GetAliasDisplayName();
+                } else if (Parent != null && Parent.Parent != null && Parent.Parent.Type != CategoryType.None)
+                {
+                    return Parent.Parent.Type.GetAliasDisplayName();
+                } else
+                {
+
+                }
+                return "none";
+            }
+        }
     }
 }

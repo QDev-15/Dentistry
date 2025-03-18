@@ -120,6 +120,35 @@ namespace Dentisty.Web.Services
                 return homeCats;
             });
         }
+        public async Task<List<CategoryVm>> GetCategoryProductSlides()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingCategory, async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var categories = await GetCategories();
+                var listId = appSetting.CategoryProducts != null ? appSetting.CategoryProducts.Split(",") : [];
+                var proCats = new List<CategoryVm>();
+                if (listId.Length > 0)
+                {
+                    foreach (var item in categories)
+                    {
+                        if (listId.Contains(item.Id.ToString()))
+                        {
+                            proCats.Add(item);
+                        }
+                        foreach (var itemChild in item.ChildCategories)
+                        {
+                            if (listId.Contains(itemChild.Id.ToString()))
+                            {
+                                proCats.Add(itemChild);
+                            }
+                        }
+                    }
+                    proCats = proCats.OrderBy(c => c.IsParent).Take(4).ToList();
+                }
+                return proCats;
+            });
+        }
         public async Task<List<ArticleVm>> GetArticleSlides()
         {
             return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingArticle, async () =>

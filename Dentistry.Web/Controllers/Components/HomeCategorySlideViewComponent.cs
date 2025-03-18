@@ -11,8 +11,7 @@ namespace Dentistry.Web.Controllers.Components
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var categories = await _app.GetCategorySlides();
-            return View("~/Views/ViewComponents/HomeCategorySlide.cshtml", categories);
+            return View("~/Views/ViewComponents/HomeCategorySlide.cshtml");
         }
     }
     

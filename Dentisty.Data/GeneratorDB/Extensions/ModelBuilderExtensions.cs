@@ -14,6 +14,10 @@ namespace Dentistry.Data.GeneratorDB.Extensions
             {
                 Id = 1,
                 Name = "Nhiên Dentistry",
+                CategoryListTitle = "Dịch Vụ Thẩm Mỹ",
+                CategoryListSubTitle = "Nhiên tập trung cung cấp các dịch vụ nha khoa thẩm mỹ trong môi trường nhẹ nhàng, chu đáo, chuyên nghiệp. Đảm bảo mọi khách hàng tới Win Smile đều có những trải nhiệm nha khoa đẳng cấp, ưng ý nhất cho đường cười của chính mình.",
+                CategoryListProductTitle = "Sản Phẩm Thẩm Mỹ",
+                CategoryListProductSubTitle = "Nhiên tập trung cung cấp các dịch vụ nha khoa thẩm mỹ trong môi trường nhẹ nhàng, chu đáo, chuyên nghiệp. Đảm bảo mọi khách hàng tới Win Smile đều có những trải nhiệm nha khoa đẳng cấp, ưng ý nhất cho đường cười của chính mình."
             });
             var adminId = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE");
             var roleAdminId = new Guid("8D04DCE2-969A-435D-BBA4-DF3F325983DC");

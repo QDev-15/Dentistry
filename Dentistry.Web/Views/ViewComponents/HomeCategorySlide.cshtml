@@ -1,32 +1,30 @@
 ﻿@using Dentistry.Common
 @using Dentistry.ViewModels.Catalog.Categories
 @using Dentistry.ViewModels.Enums
-@model List<CategoryVm>
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@{
+    var setting = await _applicationService.GetAppSetting();
+    var productCategories = await _applicationService.GetCategoryProductSlides();
+    var categories = await _applicationService.GetCategorySlides();
+}
 
     @* Dịch vụ *@
 <div class="container-fluid py-4 mt-5 mb-5 section section-category">
     <div class="container categories-content">
-        <h1 class="actor-list-header box_title text-center actor-item">Dịch Vụ Thẩm Mỹ</h1>
+        <h1 class="actor-list-header box_title text-center actor-item">@setting.CategoryListTitle</h1>
         <div class="box_title_sub">
-            Nhiên tập trung cung cấp các dịch vụ nha khoa thẩm mỹ trong môi trường nhẹ nhàng, chu đáo, chuyên nghiệp. Đảm bảo mọi khách hàng tới Win Smile đều có những trải nhiệm nha khoa đẳng cấp, ưng ý nhất cho đường cười của chính mình.
+            @setting.CategoryListSubTitle
         </div>
         <div class="container">
             <div class="row actor-list justify-content-center">
                 <!-- Actor 1 -->
-                @foreach (var item in Model)
+                @foreach (var item in categories)
                 {
-                    var type = item.Type;
-                    if (item.Parent != null || (item.ParentId != null && item.ParentId > 0))
-                    {
-                        type = item.Parent.Type;
-                    }
-
-                    var imgArtPath = item.CoverImage;
-
                     <div class="col-6 col-sm-4 col-md-3 slide-item text-center actor-item">
                         <div class="image">
-                            <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
-                                <img src="@imgArtPath" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
+                            <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.AliasType" asp-route-alias="@item.Alias">
+                                <img src="@item.CoverImage" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
                             </a>
                         </div>
                         <div class="info">
@@ -46,32 +44,24 @@
 @* Sảm phẩm *@
 <div class="container-fluid py-4 mt-5 mb-5 section section-category products">
     <div class="container categories-content">
-        <h1 class="actor-list-header box_title text-center actor-item">Dịch Vụ Thẩm Mỹ</h1>
+        <h1 class="actor-list-header box_title text-center actor-item">@setting.CategoryListProductTitle</h1>
         <div class="box_title_sub">
-            Nhiên tập trung cung cấp các dịch vụ nha khoa thẩm mỹ trong môi trường nhẹ nhàng, chu đáo, chuyên nghiệp. Đảm bảo mọi khách hàng tới Win Smile đều có những trải nhiệm nha khoa đẳng cấp, ưng ý nhất cho đường cười của chính mình.
+            @setting.CategoryListProductSubTitle
         </div>
         <div class="container">
             <div class="row actor-list-product justify-content-center">
                 <!-- Actor 1 -->
-                @foreach (var item in Model)
+                @foreach (var item in productCategories)
                 {
-                    var type = item.Type;
-                    if (item.Parent != null || (item.ParentId != null && item.ParentId > 0))
-                    {
-                        type = item.Parent.Type;
-                    }
-
-                    var imgArtPath = item.CoverImage;
-
                     <div class="col-6 col-sm-4 col-md-3 slide-item text-center actor-item">
                         <div class="image">
-                            <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
-                                <img src="@imgArtPath" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
+                            <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.AliasType" asp-route-alias="@item.Alias">
+                                <img src="@item.CoverImage" loading="lazy" alt="@item.Name" onerror="this.onerror=null; this.src='../assets/img/no-image.jpg';" class="actor-image">
                             </a>
                         </div>
                         <div class="info">
                             <h3 class="title">
-                                <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@type.GetAliasDisplayName()" asp-route-alias="@item.Alias" title="@item.Name">
+                                <a asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.AliasType" asp-route-alias="@item.Alias" title="@item.Name">
                                     @item.Name
                                 </a>
                             </h3>
