@@ -64,8 +64,11 @@
     <h2 class="accordion-header" id="@("headingcategory" + @Model.Id)">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="@("#collapsecategory" + @Model.Id)" aria-expanded="false" aria-controls="@("collapsecategory" + @Model.Id)">
             <div class="category-item">
-                <img src="@Model.CoverImage" class="category-avatar" alt="Avatar">
-                <span>&ensp;<b>@Model.Name</b> &emsp; (Vị trí: @Model.Position.GetDisplayName(), Thứ tự: @Model.Sort, Loại: @Model.Type.GetDisplayName())</span>
+                <img src="@Model.CoverImage" class="category-avatar category-avatar-@Model.Id" alt="Avatar">
+                @if(!string.IsNullOrEmpty(Model.SubName)) {
+                    <span>&ensp;<b class="category-accordion-name-@Model.Id">@Model.Name</b> &emsp; <span class="category-accordion-subname-@Model.Id">@Model.SubName</span></span>
+                }
+                
             </div>
         </button>
     </h2>
@@ -78,26 +81,26 @@
                     <button class="btn btn-danger btn-sm delete-category-btn">Xóa</button>
                 </div>
             </div>
-            <div class="card-@Model.Id card p-3 mb-2">
+            <div class="card-accordion-@Model.Id card p-3 mb-2">
                 <div class="mb-3">
                     <label class="form-label">Tên danh mục</label>
-                    <input type="text" class="form-control category-name-@Model.Id" value="@Model.Name" readonly>
+                    <input type="text" class="form-control card-accordion-name-@Model.Id" value="@Model.Name" readonly>
                 </div>
                 <div class="row">
                     @if (Model.Level == CategoryLevel.Level1)
                     {
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Vị trí</label>
-                            <input type="text" class="form-control  category-position-@Model.Id" value="@Model.Position.GetDisplayName()" readonly>
+                            <input type="text" class="form-control  card-accordion-position-@Model.Id" value="@Model.Position.GetDisplayName()" readonly>
                         </div>
                     }
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Loại danh mục</label>
-                        <input type="text" class="form-control category-type-@Model.Id" value="@Model.Type.GetDisplayName()" readonly>
+                        <input type="text" class="form-control card-accordion-type-@Model.Id" value="@Model.Type.GetDisplayName()" readonly>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="form-label">Thứ tự</label>
-                        <input type="text" class="form-control category-name-@Model.Id" value="@Model.Sort" readonly>
+                        <input type="text" class="form-control card-accordion-sort-@Model.Id" value="@Model.Sort" readonly>
                     </div>
                 </div>
             </div>

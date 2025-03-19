@@ -52,8 +52,18 @@
                     </div>
                 </div>`;
     }
+    function updateElement(id, img, subName, name, position, type, sort) {
+        $(".category-accordion-name-" + id).text(name);
+        $(".category-accordion-subname-" + id).text(subName);
+        $(".card-accordion-name-" + id).val(name);
+        $(".card-accordion-positon-" + id).val(position);
+        $(".card-accordion-type-" + id).val(type);
+        $(".card-accordion-sort-" + id).val(sort);
+        $(".category-avatar-" + id).attr('src', img);
+    }
 
-    $(document).on("click", ".add-category-btn, .edit-category-btn", function () {
+    $(document).on("click", ".add-category-btn, .edit-category-btn", function (e) {
+        e.preventDefault();
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
         const level = $(this).data('level'); // Nếu không có ID, thì tạo mới
         const parent = $(this).data('parent') || 0; // Nếu không có ID, thì tạo mới
@@ -72,10 +82,10 @@
         });
     });
     // submit modal
-    $('#addCategoryModal').on('submit', 'form', function (e) {
+    $(document).on('submit', '#addEditCategoryForm', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
-
+        var update = $("#item_Id").val() != "0";
         //debugger;
         $.ajax({
             url: $(this).attr('action'),
@@ -86,7 +96,12 @@
             success: function (response) {
                 if (response.isSuccessed) {
                     $('#addCategoryModal').modal('hide');
-                    loadCategoryList(); // Hoặc cập nhật bảng
+                    if (update && response && response.data) {
+                        updateElement(response.data.id, response.data.coverImage, response.data.subName, response.data.name, response.data.positionName, response.data.typeName, response.data.sort);
+                    } else {
+                        loadCategoryList();
+                    }
+                     // Hoặc cập nhật bảng
                 } else {
                     if (response.data) {
                         $('#addCategoryModal .modal-content').html(html);

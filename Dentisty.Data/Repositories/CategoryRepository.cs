@@ -129,7 +129,7 @@ namespace Dentisty.Data.Repositories
                     UpdateAsync(category);
                     await SaveChangesAsync();
                 }
-                return model;
+                return category.ReturnViewModel();
             }
             catch (Exception ex) { 
                 _loggerRepository.QueueLog(ex.Message);

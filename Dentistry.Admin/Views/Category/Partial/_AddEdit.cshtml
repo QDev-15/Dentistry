@@ -3,7 +3,6 @@
 @model CategoryVmAddEdit
 @{
     Layout = null;
-    List<SelectListItem> danhmucs = (List<SelectListItem>)Model.CategoryType;
 }
 <div class="modal-header">
     @{
@@ -21,8 +20,7 @@
 </div>
 <div class="modal-body">
     <div class="add-edit-category p-3">
-        @if (danhmucs.Any()) {
-            <form id="addEditCategoryForm" asp-action="AddEdit" asp-controller="Category" enctype="multipart/form-data" method="post">
+        <form id="addEditCategoryForm" asp-action="AddEdit" asp-controller="Category" enctype="multipart/form-data" method="post">
                 <input type="hidden" asp-for="@Model.item.Id" />
                 <input type="hidden" asp-for="@Model.item.IsParent" />
                 <input type="hidden" asp-for="@Model.item.ParentId" />
@@ -95,19 +93,11 @@
                     <textarea asp-for="@Model.item.Description" id="Cat_Item_Description"></textarea>
                 </div>
             </form>
-        } else
-        {
-            <span class="modal-title">Danh mục chính đã đạt giới hạn</span>
-        }
     </div>
 </div>
 <div class="modal-footer  d-flex justify-content-center">
     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-    @if (danhmucs.Any())
-    {
-        <button type="submit" form="addEditCategoryForm" class="btn btn-primary">Lưu</button>
-    }
-    
+    <button type="submit" form="addEditCategoryForm" class="btn btn-primary">Lưu</button>    
 </div>
 <script>
     $(document).ready(function () {

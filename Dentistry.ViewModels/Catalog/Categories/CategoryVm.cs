@@ -3,6 +3,7 @@ using Dentistry.ViewModels.Enums;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -64,6 +65,28 @@ namespace Dentistry.ViewModels.Catalog.Categories
 
                 }
                 return "none";
+            }
+        }
+
+        public string SubName
+        {
+            get
+            {
+                return "(Vị trí: " + Position.GetDisplayName() +  ", Thứ tự: " + Sort.ToString() + ", Loại: " + Type.GetDisplayName() + ")";
+            }
+        }
+        public string PositionName
+        {
+            get
+            {
+                return Position.GetDisplayName();
+            }
+        }
+        public string TypeName
+        {
+            get
+            {
+                return Type.GetDisplayName();
             }
         }
     }
