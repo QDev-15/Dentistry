@@ -12,6 +12,7 @@ namespace Dentistry.ViewModels.Catalog.AppSettings
     public class AppSettingDataVm
     {
         public AppSettingVm Setting { set; get; }
+        public List<CategoryVm> CategoryProducts { set; get; } = new List<CategoryVm>();
         public List<CategoryVm> Categories { set; get; } = new List<CategoryVm>();
         public List<ArticleVm> Products { set; get; } = new List<ArticleVm>();
         public List<ArticleVm> Articles { set; get; } = new List<ArticleVm>();

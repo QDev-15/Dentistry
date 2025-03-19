@@ -1,5 +1,6 @@
 ﻿using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.Catalog.Contacts;
+using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,9 @@ namespace Dentistry.Admin.Controllers.Components
             if (apps != null && apps.Any()) {               
                 result.Setting = apps.Select(x => x.ReturnViewModel()).First();           
             }
-            result.Categories = _categoryReposiroty.GetForSettings().Result.ToList();
+            var categories = await _categoryReposiroty.GetForSettings();
+            result.CategoryProducts = categories.Where(x => x.Type == CategoryType.Products).ToList();
+            result.Categories = categories.Where(x => x.Type != CategoryType.Products).ToList();
             result.Doctors = _doctorRepository.GetDoctorForAppSettings().Result.ToList();
             result.Articles = _articleRepository.GetArticleForSetting().Result.ToList();
             result.FeedBacks = _articleRepository.GetFeedBackForSetting().Result.ToList();

@@ -60,13 +60,14 @@ namespace Dentisty.Data.Repositories
                     IsParent = model.IsParent,
                     ParentId = model.ParentId,
                     Position = model.Position,
+                    Level  = model.Level,
                     Type = model.Type,
                     Sort = model.Sort,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     UserId = model.UserId ?? new Guid(_loggerRepository.GetCurrentUserId()),
                 };
-                if (!model.IsParent)
+                if (model.ParentId > 0)
                 {
                     category.Parent = await _context.Categories.Where(x => x.IsActive == true && x.Id == model.ParentId).FirstOrDefaultAsync();
                     category.Type = category.Parent.Type;

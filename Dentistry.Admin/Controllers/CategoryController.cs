@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Threading.Tasks;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -39,41 +40,39 @@ namespace Dentistry.Admin.Controllers
             return View(categories);
         }
         [HttpGet]
-        public IActionResult List()
+        public async Task<IActionResult> List()
         {
-            return ViewComponent("CategoryList");
+            var categories = await _categoryRepository.GetParents();
+            return View("~/Views/Category/Partial/_List_v2.cshtml", categories.Select(x => x.ReturnViewModel()).ToList());
         }
         [HttpGet]
-        public async Task<IActionResult> AddEdit(int id, bool parent) {
+        public async Task<IActionResult> AddEdit(int id, CategoryLevel level, int parentId = 0) {
             var categoryAddEdit = new CategoryVmAddEdit();
             var parentCategories = new List<CategoryVm>();
 
+            categoryAddEdit.item.Level = level;
+            categoryAddEdit.item.ParentId = parentId;
+            var parent = level == CategoryLevel.Level1;
             if (id == 0)
             {
                 categoryAddEdit.item = new CategoryVm() {};
-                categoryAddEdit.item.IsParent = parent;
+                categoryAddEdit.item.IsParent = level == CategoryLevel.Level1;
+                categoryAddEdit.item.Level = level;
+                categoryAddEdit.item.ParentId = parentId;
             } else
             {
                 categoryAddEdit.item = (await _categoryRepository.GetById(id)).ReturnViewModel();               
             }
-            if (!categoryAddEdit.item.IsParent) // add sub category
+            if (parentId > 0)
             {
-                categoryAddEdit.parrents = (await _categoryRepository.GetParents()).Select(x => x.ReturnViewModel()).ToList();
+                categoryAddEdit.item.Parent = (await _categoryRepository.GetById(parentId)).ReturnViewModel();
             }
-            var categoryTypes = await _categoryRepository.GetCategoryParentTypes();
-            var listCategoryTypes = EnumExtensions.ToSelectList<CategoryType>();  // Type mặc định
-            var existsCategorys = categoryTypes.Select(x => (int)x); // Type đã tồn tại
-            if (categoryAddEdit.item != null)
-            {
-                existsCategorys = existsCategorys.Where(x => x != (int)categoryAddEdit.item.Type).ToList();
-            }
-            if (parent)
-            {
-                listCategoryTypes = listCategoryTypes.Where(x => !existsCategorys.Contains(int.Parse(x.Value))).ToList();
-
-            }
-            categoryAddEdit.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>();
-            categoryAddEdit.CategoryType = listCategoryTypes;
+            categoryAddEdit.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>()
+                        .Where(x => (CategoryPosition)Enum.Parse(typeof(CategoryPosition), x.Value) != CategoryPosition.None)
+                        .ToList();
+            categoryAddEdit.CategoryType = EnumExtensions.ToSelectList<CategoryType>()
+                        .Where(x => (CategoryType)Enum.Parse(typeof(CategoryType), x.Value) != CategoryType.None)
+                        .ToList();
             return PartialView("~/Views/Category/Partial/_AddEdit.cshtml", categoryAddEdit);
         }
         [HttpPost]
@@ -105,18 +104,21 @@ namespace Dentistry.Admin.Controllers
             }
             try
             {
+                var result = new SuccessResult<bool>();
                 if (model.item.Id == 0)
                 {
                     // Add slide logic
                     var slide = await _categoryRepository.CreateNew(model.item);
+                    result.data = slide;
                 }
                 else
                 {
                     // Update slide logic
                     var slide = await _categoryRepository.UpdateCategory(model.item);
+                    result.data = slide;
                 }
                 await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppCategory);
-                return Json(new SuccessResult<bool>());
+                return Json(result);
             } catch (Exception ex)
             {
                 return Json(new ErrorResult<bool>() { Message = ex.Message });

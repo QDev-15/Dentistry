@@ -5,6 +5,28 @@
     Layout = null;
     List<SelectListItem> danhmucs = (List<SelectListItem>)Model.CategoryType;
 }
+
+<div class="modal-header">
+    <h5 class="modal-title">Thêm Danh Mục</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+    <input type="text" class="form-control" id="newCategoryName" placeholder="Tên danh mục">
+    <input type="text" class="form-control mt-2" id="categoryType" placeholder="Loại danh mục">
+    <input type="number" class="form-control mt-2" id="categoryPosition" placeholder="Vị trí">
+    <input type="url" class="form-control mt-2" id="categoryAvatar" placeholder="URL Ảnh đại diện">
+    <select class="form-control mt-2" id="parentCategory">
+        <option value="">Cấp cao nhất</option>
+    </select>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+    <button type="button" class="btn btn-primary" id="saveCategory">Lưu</button>
+</div>
+
+
+
+
 <div class="modal-header">
     @{
         string sunf = Model.item.IsParent ? "chính" : "phụ";
@@ -25,8 +47,6 @@
             <form id="addEditCategoryForm" asp-action="AddEdit" asp-controller="Category" enctype="multipart/form-data" method="post">
                 <input type="hidden" asp-for="@Model.item.Id" />
                 <input type="hidden" asp-for="@Model.item.IsParent" />
-                <input type="hidden" asp-for="@Model.item.ParentId" />
-                <input type="hidden" asp-for="@Model.item.Level" />
                 <div class="form-group">
                     <label asp-for="@Model.item.Name" class="form-label">Tên</label>
                     <input type="text" class="form-control ps-2" asp-for="@Model.item.Name" />
@@ -42,7 +62,7 @@
                 </div>
 
                 @{
-                    if (Model.item.Level == CategoryLevel.Level1) {
+                    if (Model.item.IsParent) {
                         <div class="form-group">
                             <label asp-for="@Model.item.Type" class="form-label">Loại danh mục</label>
                             <select asp-for="@Model.item.Type" asp-items="@Model.CategoryType" class="form-control">
@@ -52,17 +72,23 @@
                         <div class="form-group">
                             <label asp-for="@Model.item.Position" class="form-label">Vị trí</label>
                             <select asp-for="@Model.item.Position" asp-items="@Model.CategoryPositions" class="form-control">
-
+                                <option value="">-- Chọn vị trí --</option>
                             </select>
                         </div>
                     }
                 }
-                @if(Model.item.Parent != null)
-                {
-                    <div class="form-group">
-                        <label class="form-label">Danh mục cha</label>
-                        <input type="text" class="form-control ps-2" value="@Model.item.Parent.Name" readonly/>
-                    </div>
+                @{
+                    if (!Model.item.IsParent) {
+                        <div class="form-group">
+                            <label asp-for="@Model.item.ParentId" class="form-label">Danh mục chính</label>
+                            <select class="form-select" asp-for="@Model.item.ParentId">
+                                @foreach (var item in Model.parrents)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    }
                 }
                 <div class="form-group">
                     <label asp-for="item.ImageFile">Upload Image</label>

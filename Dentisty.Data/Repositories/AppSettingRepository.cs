@@ -38,8 +38,25 @@ namespace Dentisty.Data.Repositories
                 updateAppSetting.ShowArtileSlideList = appSettingVm.ShowArtileSlideList;
                 updateAppSetting.ShowFeedbackList = appSettingVm.ShowFeedbackList;
                 updateAppSetting.ShowNewsList = appSettingVm.ShowNewsList;
+                updateAppSetting.ShowCategoryProductList = appSettingVm.ShowCategoryProductList;
+
+                updateAppSetting.CompanyName = appSettingVm.CompanyName;
+                updateAppSetting.CompanyAddress = appSettingVm.CompanyAddress;
+                updateAppSetting.CompanyEmail = appSettingVm.CompanyEmail;
+                updateAppSetting.CompanyPhone = appSettingVm.CompanyPhone;
+                updateAppSetting.CompanyWebsite = appSettingVm.CompanyWebsite;
+                updateAppSetting.CompanyTitle = appSettingVm.CompanyTitle;
+                updateAppSetting.BranchesTitle = appSettingVm.BranchesTitle;
+
+                updateAppSetting.NewsListTitle = appSettingVm.NewsListTitle;
+                updateAppSetting.CategoryListTitle = appSettingVm.CategoryListTitle;
+                updateAppSetting.CategoryListSubTitle = appSettingVm.CategoryListSubTitle;
+                updateAppSetting.CategoryListProductTitle = appSettingVm.CategoryListProductTitle;
+                updateAppSetting.CategoryListProductSubTitle = appSettingVm.CategoryListProductSubTitle;
+                updateAppSetting.DoctorListTitle = appSettingVm.DoctorListSubTitle;
 
                 updateAppSetting.Categories = string.Join(",", appSettingVm.Categories);
+                updateAppSetting.CategoryProducts = string.Join(",", appSettingVm.CategoryProducts);
                 updateAppSetting.Products = string.Join(",", appSettingVm.Products);
                 updateAppSetting.Doctors = string.Join(",", appSettingVm.Doctors);
                 updateAppSetting.Articles = string.Join(",", appSettingVm.Articles);
@@ -52,6 +69,7 @@ namespace Dentisty.Data.Repositories
                 updateAppSetting.ZaloHotline = appSettingVm.ZaloHotline;
                 updateAppSetting.HotlineHaNoi = appSettingVm.HotlineHaNoi;
                 updateAppSetting.Youtube = appSettingVm.Youtube;
+                updateAppSetting.Tiktok = appSettingVm.Tiktok;
                 updateAppSetting.StartWork = appSettingVm.StartWork;
                 updateAppSetting.EndWork = appSettingVm.EndWork;
                 UpdateAsync(updateAppSetting);
