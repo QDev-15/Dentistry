@@ -1,10 +1,13 @@
 ﻿@using Dentistry.ViewModels.Catalog.Contacts
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
 @{
+    var setting = await _applicationService.GetAppSetting();
     var support = Convert.ToBoolean(ViewData["Support"] ?? false);
 }
 @* <div class="b-divider-shadow"></div> *@
 @{
-    if (!support)
+    if (!support && setting.ShowContactList)
     {
         <div class="container-fluid box_book section section-contact">
             <div class="container">

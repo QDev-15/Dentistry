@@ -6,14 +6,14 @@
 }
 <div class="modal-header">
     @{
-        string sunf = Model.item.IsParent ? "chính" : "phụ";
+        string sunf = Model.item.Name;
         if (Model.item.Id == 0)
         {
-            <h5 class="modal-title">Thêm mới danh mục @sunf</h5>
+            <h5 class="modal-title">Thêm mới</h5>
         }
         else
         {
-            <h5 class="modal-title">Cập nhật danh mục @sunf</h5>
+            <h5 class="modal-title">Cập nhật "@sunf"</h5>
         }
     }
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

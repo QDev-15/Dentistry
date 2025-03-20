@@ -27,18 +27,22 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<Category>> GetByParentId(int parentId)
         {
-            var categories = await _context.Categories.Where(x => x.IsActive).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).Where(x => x.ParentId == parentId).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.IsActive == true && x.ParentId == parentId).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
             return categories;
         }
 
         public async Task<Category> GetById(int id)
         {
-            var category = await _context.Categories.Where(x => x.IsActive).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).FirstOrDefaultAsync(x => x.Id == id);
+            var category = await _context.Categories.Where(x => x.IsActive == true && x.Id == id).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).FirstOrDefaultAsync();
             return category;
         }
         public async Task<CategoryVm> GetByAlias(string alias)
         {
-            var category = await _context.Categories.Where(x => x.IsActive).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ThenInclude(x => x.Image).FirstOrDefaultAsync(x => x.Alias.ToString() == alias.ToString());
+            var category = await _context.Categories.Where(x => x.IsActive == true && x.Alias.ToString() == alias.ToString())
+                .Include(i => i.Image)
+                .Include(i => i.Parent)
+                .Include(i => i.Categories)
+                .ThenInclude(x => x.Image).FirstOrDefaultAsync();
             return category.ReturnViewModel();
         }
         public new async Task<IEnumerable<Category>> GetAllAsync()
@@ -100,15 +104,25 @@ namespace Dentisty.Data.Repositories
                 var category = await GetById(model.Id);
                 if (category != null)
                 {
+                    if (category.Parent == null)
+                    {
+                        category.Level = CategoryLevel.Level1;
+                    } else if (category.Level != CategoryLevel.Level2 && category.Parent !=null && category.Parent.Parent == null )
+                    {
+                        category.Level = CategoryLevel.Level2;
+                    } else
+                    {
+                        category.Level = CategoryLevel.Level3;
+                    }
                     category.Alias = model.Alias;
                     category.Name = model.Name;
                     category.Sort = model.Sort;
                     category.Description = model.Description;
                     category.Position = model.Position;
                     category.Type = model.Type;
-                    if (category.ParentId != null)
+                    if (category.Level != CategoryLevel.Level1 && category.Parent != null)
                     {
-                        category.ParentId = model.ParentId;
+                        category.Type = category.Parent.Type;
                     }
                     category.UpdatedDate = DateTime.Now;
                     UpdateAsync(category);
@@ -164,25 +178,25 @@ namespace Dentisty.Data.Repositories
 
         public async Task<IEnumerable<CategoryType>> GetCategoryParentTypes()
         {
-            var categorys = await _context.Categories.Where(x => x.IsActive == true && x.IsParent == true ).Select(x => x.Type ?? CategoryType.None).Distinct().ToListAsync();
+            var categorys = await _context.Categories.Where(x => x.IsActive == true && x.Level == CategoryLevel.Level1).Select(x => x.Type ?? CategoryType.None).Distinct().ToListAsync();
             return categorys;
         }
         public async Task<IEnumerable<Category>> GetParents()
         {
-            var parents = await _context.Categories.Where(x => x.IsActive == true && (x.IsParent == true || x.ParentId == null))
+            var parents = await _context.Categories.Where(x => x.IsActive == true && (x.Level == CategoryLevel.Level1 || x.ParentId == null))
                 .Include(i => i.Image)
                 .Include(i => i.Categories.Where(c => c.IsActive == true)).ToListAsync();
             return parents;
         }
         public async Task<IEnumerable<Category>> GetChilds()
         {
-            var categories = await _context.Categories.Where(x => x.IsActive == true && x.IsParent == false).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.IsActive == true && x.Level != CategoryLevel.Level1).Include(i => i.Image).Include(i => i.Parent).Include(i => i.Categories).ToListAsync();
             return categories;
         }
 
         public async Task<IEnumerable<CategoryVm>> GetForSettings()
         {
-            return await _context.Categories.Where(x => x.IsActive).OrderBy(x => x.IsParent).Select(x => new CategoryVm() { Id = x.Id, Name = x.Name }).ToListAsync();
+            return await _context.Categories.Where(x => x.IsActive).OrderBy(x => x.Level == CategoryLevel.Level1).Select(x => new CategoryVm() { Id = x.Id, Name = x.Name, Type = x.Type }).ToListAsync();
         }
 
         public async Task<IEnumerable<CategoryVm>> GetFlatHomePage()

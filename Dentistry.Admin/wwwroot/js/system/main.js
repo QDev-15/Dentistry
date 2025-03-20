@@ -1,4 +1,4 @@
-﻿const defaultClassForSpinner = "layout-main-content";
+﻿const defaultClassForSpinner = "sb-nav-fixed";// "layout-main-content";
 
 /*** =============== CHECK DOM loading and END LOADING =======================*/
 const domStage = {

@@ -6,9 +6,11 @@ using Dentistry.ViewModels.Catalog.Branches;
 using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
+using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Services.Interfaces;
+using System.Diagnostics;
 
 namespace Dentisty.Web.Services
 {
@@ -115,7 +117,19 @@ namespace Dentisty.Web.Services
                             }
                         }
                     }
-                    homeCats = homeCats.OrderBy(c => c.IsParent).Take(4).ToList();
+                    homeCats = homeCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
+                }
+                else
+                {
+                    foreach (var item in categories)
+                    {
+                        homeCats.Add(item);
+                        foreach (var itemChild in item.ChildCategories)
+                        {
+                            homeCats.Add(itemChild);
+                        }
+                    }
+                    homeCats = homeCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
                 }
                 return homeCats;
             });
@@ -144,7 +158,18 @@ namespace Dentisty.Web.Services
                             }
                         }
                     }
-                    proCats = proCats.OrderBy(c => c.IsParent).Take(4).ToList();
+                    proCats = proCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
+                } else
+                {
+                    foreach (var item in categories)
+                    {
+                        proCats.Add(item);
+                        foreach (var itemChild in item.ChildCategories)
+                        {
+                            proCats.Add(itemChild);
+                        }
+                    }
+                    proCats = proCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
                 }
                 return proCats;
             });

@@ -1479,7 +1479,8 @@
 .section-feedback .box_list_item .item .image {
   background-size: cover;
   border-radius: 20px;
-  background-color: #e5c864;
+  border: 1px solid rgba(188, 142, 46, 0.2);
+  background-color: rgba(188, 142, 46, 0.5);
 }
 .section-feedback .box_list_item .item .image a {
   display: FLEX;
@@ -1693,4 +1694,19 @@
 /* Twitter Blue */
 .twitter {
   background-color: #1DA1F2;
+}
+
+.tiktok {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: black;
+  border: 2px solid transparent;
+  box-shadow: 0 0 4px #25F4EE, 0 0 4px #FE2C55;
+  color: white;
+  font-size: 20px;
+  transition: 0.3s ease-in-out;
 }

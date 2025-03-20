@@ -6,60 +6,7 @@
 @{
 }
 @model CategoryVm
-<style>
-    .draggable {
-    cursor: grab;
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin-bottom: 5px;
-    background-color: #f8f9fa;
-    }
 
-    .dragging {
-    opacity: 0.5;
-    }
-
-    .category-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    }
-
-    .category-item span {
-    line-height: 1.5;
-    }
-
-    .category-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    }
-
-    .Level1, .Level2, .Level3 {
-    margin-bottom: 5px;
-    box-shadow: 1px 3px 5px 1px rgba(0,0,0,.15) !important;
-    }
-
-        .Level1 h2 > button, .Level2 h2 > button, .Level3 h2 > button {
-    background-color: #d6e9ff;
-    }
-
-    .nested-accordion .accordion-item h2 > button {
-    background-color: #d6e9ff;
-    }
-
-    .accordion-button:focus {
-    box-shadow: none !important;
-    border-color: transparent !important;
-    outline: none !important;
-    }
-
-    .accordion-body {
-    background: #f1f1f1;
-    border: 1px solid #cbcbcb;
-    }
-</style>
 <div class="accordion-item @Model.Level.ToString()">
     <h2 class="accordion-header" id="@("headingcategory" + @Model.Id)">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="@("#collapsecategory" + @Model.Id)" aria-expanded="false" aria-controls="@("collapsecategory" + @Model.Id)">
@@ -68,7 +15,7 @@
                 @if(!string.IsNullOrEmpty(Model.SubName)) {
                     <span>&ensp;<b class="category-accordion-name-@Model.Id">@Model.Name</b> &emsp; <span class="category-accordion-subname-@Model.Id">@Model.SubName</span></span>
                 }
-                
+
             </div>
         </button>
     </h2>
@@ -78,7 +25,7 @@
                 <div></div>
                 <div>
                     <button class="btn btn-warning btn-sm edit-category-btn" data-id="@Model.Id" data-level="@Model.Level">Sửa</button>
-                    <button class="btn btn-danger btn-sm delete-category-btn">Xóa</button>
+                    <button class="btn btn-danger btn-sm delete-category-btn" data-id="@Model.Id" data-name="@Model.Name">Xóa</button>
                 </div>
             </div>
             <div class="card-accordion-@Model.Id card p-3 mb-2">
@@ -106,24 +53,27 @@
             </div>
             @if (Model.Level != CategoryLevel.Level3)
             {
+                string dmCap = "cấp 2";
+                if (Model.Level == CategoryLevel.Level2)
+                {
+                    dmCap = "cấp 3";
+                }
                 <div class="d-flex justify-content-between mb-2">
                     <div></div>
                     <div>
-                        <button class="btn btn-primary add-category-btn" data-id="0" data-level="@CategoryLevel.Level2" data-parent="@Model.Id">Thêm danh mục con</button>
+                        <button class="btn btn-primary add-category-btn" data-id="0" data-level="@(Model.Level + 1)" data-parent="@Model.Id">Thêm danh mục @dmCap</button>
                     </div>
                 </div>
             }
-            @if (Model.ChildCategories.Any())
-            {
-                <div class="accordion nested-accordion">
-                    @{
-                        foreach (var level2 in Model.ChildCategories)
-                        {
-                            @Html.Partial("~/Views/Category/Partial/_accordionItem.cshtml", level2)
-                        }
+            <div id="nested-accordion-@Model.Id" class="accordion nested-accordion">
+                @if (Model.ChildCategories.Any())
+                {
+                    foreach (var level2 in Model.ChildCategories)
+                    {
+                        @Html.Partial("~/Views/Category/Partial/_accordionItem.cshtml", level2)
                     }
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
 </div>

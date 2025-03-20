@@ -1,56 +1,66 @@
 ﻿$(document).ready(function () {
     let categoryCount = 0;
 
-    $("#saveCategory").click(function () {
-        let categoryName = $("#newCategoryName").val();
-        let categoryType = $("#categoryType").val();
-        let categoryPosition = $("#categoryPosition").val();
-        let categoryAvatar = $("#categoryAvatar").val();
-        let parentCategoryId = $("#parentCategory").val();
 
-        if (categoryName.trim() !== "") {
-            categoryCount++;
-            let categoryId = `category${categoryCount}`;
-            let newCategory = createCategoryElement(categoryId, categoryName, categoryType, categoryPosition, categoryAvatar);
-
-            if (parentCategoryId) {
-                let parentCollapse = $("#collapse" + parentCategoryId + " .nested-accordion");
-                if (!parentCollapse.length) {
-                    let parentBody = $("#collapse" + parentCategoryId + " .accordion-body");
-                    parentBody.append('<div class="accordion nested-accordion"></div>');
-                    parentCollapse = parentBody.find(".nested-accordion");
-                }
-                parentCollapse.append(newCategory);
-            } else {
-                $("#categoryAccordion").append(newCategory);
-            }
-
-            $("#parentCategory").append(`<option value="${categoryId}">${categoryName}</option>`);
-            $("#addCategoryModal").modal("hide");
-            $("#newCategoryName, #categoryType, #categoryPosition, #categoryAvatar").val("");
+    function createElement(id, img, levelName, levelValue, subName, name, position, type, sort) {
+        var dmCap = "cấp 2";
+        if (levelName === "Level2") {
+            dmCap = "cấp 3";
         }
-    });
-
-    function createCategoryElement(id, name, type, position, avatar) {
-        return `<div class="accordion-item">
-                    <h2 class="accordion-header" id="heading${id}">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${id}" aria-expanded="true" aria-controls="collapse${id}">
-                            <div class="category-item">
-                                <img src="${avatar}" class="category-avatar" alt="Avatar">
-                                <span>${name} (Vị trí: ${position}, Loại: ${type})</span>
-                            </div>
-                        </button>
-                    </h2>
-                    <div id="collapse${id}" class="accordion-collapse collapse" aria-labelledby="heading${id}">
-                        <div class="accordion-body d-flex justify-content-between">
-                            <span>${name}</span>
-                            <div>
-                                <button class="btn btn-warning btn-sm edit-btn">Sửa</button>
-                                <button class="btn btn-danger btn-sm delete-btn">Xóa</button>
-                            </div>
+        var element = `<div class="accordion-item ${levelName}">
+            <h2 class="accordion-header" id="headingcategory${id}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsecategory${id}" aria-expanded="false" aria-controls="collapsecategory${id}">
+                    <div class="category-item">
+                        <img src="${img}" class="category-avatar category-avatar-${id}" alt="Avatar">
+                        <span>&ensp;<b class="category-accordion-name-${id}">${name}</b> &emsp; <span class="category-accordion-subname-${id}">${subName}</span></span>    
+                    </div>
+                </button>
+            </h2 >
+            <div id="collapsecategory${id}" class="accordion-collapse collapse" aria - labelledby="headingcategory${id}">
+                <div class="accordion-body d-flex flex-column">
+                    <div class="d-flex justify-content-between mb-2">
+                        <div></div>
+                        <div>
+                            <button class="btn btn-warning btn-sm edit-category-btn" data-id="${id}" data-level="${levelValue}">Sửa</button>
+                            <button class="btn btn-danger btn-sm delete-category-btn" data-id="${id}" data-name="${name}">Xóa</button>
                         </div>
                     </div>
-                </div>`;
+                    <div class="card-accordion-${id} card p-3 mb-2">
+                        <div class="mb-3">
+                            <label class="form-label">Tên danh mục</label>
+                            <input type="text" class="form-control card-accordion-name-${id}" value="${name}" readonly>
+                        </div>
+                        <div class="row">`;
+            if (levelName === "Level1") {
+                element += `<div class="col-md-4 mb-3">
+                                <label class="form-label">Vị trí</label>
+                                <input type="text" class="form-control  card-accordion-position-${id}" value="${position}" readonly>
+                            </div>`;
+            }
+                element += `<div class="col-md-4 mb-3">
+                                <label class="form-label">Loại danh mục</label>
+                                <input type="text" class="form-control card-accordion-type-${id}" value="${type}" readonly>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Thứ tự</label>
+                                <input type="text" class="form-control card-accordion-sort-${id}" value="${sort}" readonly>
+                            </div>
+                        </div>
+                    </div>`
+        if (levelName !== "Level3") {
+            element +=`<div class="d-flex justify-content-between mb-2" >
+                            <div></div>
+                            <div>
+                                <button class="btn btn-primary add-category-btn" data-id="0" data-level="${parseInt(levelValue, 10) + 1}" data-parent="${id}">Thêm danh mục ${dmCap}</button>
+                            </div>
+                        </div>`
+        }
+        element += `<div id="nested-accordion-${id}" class="accordion nested-accordion" >
+                    </div>
+                </div>
+            </div>
+        </div>`
+        return element;
     }
     function updateElement(id, img, subName, name, position, type, sort) {
         $(".category-accordion-name-" + id).text(name);
@@ -61,7 +71,22 @@
         $(".card-accordion-sort-" + id).val(sort);
         $(".category-avatar-" + id).attr('src', img);
     }
+    $(document).on('click', '#btnRefreshCategory', function () {
+        loadCategoryList(); // Hàm này gọi lại API để cập nhật danh sách
+    });
+    $(document).on('click', '.delete-category-btn', function () {
+        const id = $(this).data('id');
+        const name = $(this).data('name');
 
+        showConfirm("Xóa danh mục: " + name, "Xác nhận").then(function (resp) {
+            if (resp == true) {
+                deleteCategory(id);
+            };
+        }, function (err) {
+            alter(err)
+        });
+
+    });
     $(document).on("click", ".add-category-btn, .edit-category-btn", function (e) {
         e.preventDefault();
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
@@ -85,7 +110,8 @@
     $(document).on('submit', '#addEditCategoryForm', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
-        var update = $("#item_Id").val() != "0";
+        var id = $("#item_Id").val();
+        var update = id != "0";
         //debugger;
         $.ajax({
             url: $(this).attr('action'),
@@ -96,10 +122,17 @@
             success: function (response) {
                 if (response.isSuccessed) {
                     $('#addCategoryModal').modal('hide');
-                    if (update && response && response.data) {
-                        updateElement(response.data.id, response.data.coverImage, response.data.subName, response.data.name, response.data.positionName, response.data.typeName, response.data.sort);
+                    var data = response.data;
+                    if (update && data) {
+                        updateElement(data.id, data.coverImage, data.subName, data.name, data.positionName, data.typeName, data.sort);
                     } else {
-                        loadCategoryList();
+                        var newCategoryElement = createElement(data.id, data.img, data.levelName, data.levelValue, data.subName, data.name, data.position, data.type, data.sort);
+                        if (data.levelName === "Level1") {
+                            $("#categoryAccordion").append(newCategoryElement);
+                        } else {
+                            $("#nested-accordion-" + id).append(newCategoryElement);
+                        }
+                        //loadCategoryList();
                     }
                      // Hoặc cập nhật bảng
                 } else {
@@ -116,12 +149,19 @@
             }
         });
     });
-    $(document).on("click", ".delete-btn", function () {
-        $(this).closest(".accordion-item").remove();
-        let optionValue = $(this).closest(".accordion-item").attr("id");
-        $("#parentCategory option[value='" + optionValue + "']").remove();
-    });
-
+    function deleteCategory(id) {
+        $.ajax({
+            url: `/Category/Delete/${id}`,
+            type: 'Delete',
+            success: function (result) {
+                console.log("result delete: ", result);
+                loadCategoryList();
+            },
+            error: function (err) {
+                console.log("result error: ", err);
+            }
+        });
+    }
 });
 
 function initCategoryTiny(editorId) {

@@ -1,6 +1,14 @@
 ﻿@using Dentistry.ViewModels.Catalog.AppSettings
 @model AppSettingDataVm
 
+<style>
+    #app-setting-form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+    }
+</style>
 <div id="app-setting-form" class="container-fluid mt-4">
     <!-- Name hiển thị và căn giữa -->
     <h3 class="text-center mb-4">@Model.Setting.Name</h3>
@@ -99,6 +107,14 @@
                 @{
                     string categoryDisplay = Model.Setting.ShowCategoryList ? "block" : "none";
                     <div class="card-body row g-3 setting-category-body" style="display: @categoryDisplay">
+                        <div class="col-12">
+                            <label asp-for="@Model.Setting.CategoryListTitle" class="form-label">Tiêu đề</label>
+                            <input type="text" class="form-control" asp-for="@Model.Setting.CategoryListTitle">
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="@Model.Setting.CategoryListSubTitle" class="form-label">Tiêu đề phụ</label>
+                            <input type="text" class="form-control" asp-for="@Model.Setting.CategoryListSubTitle">
+                        </div>
                         <!-- Table -->
                         <table id="categoryTableList" class="table table-striped table-hover table-bordered">
                             <thead>
@@ -143,6 +159,14 @@
                 @{
                     string categoryProductDisplay = Model.Setting.ShowCategoryProductList ? "block" : "none";
                     <div class="card-body row g-3 setting-categoryProduct-body" style="display: @categoryProductDisplay">
+                        <div class="col-12">
+                            <label asp-for="@Model.Setting.CategoryListProductTitle" class="form-label">Tiêu đề</label>
+                            <input type="text" class="form-control" asp-for="@Model.Setting.CategoryListProductTitle">
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="@Model.Setting.CategoryListProductSubTitle" class="form-label">Tiêu đề phụ</label>
+                            <input type="text" class="form-control" asp-for="@Model.Setting.CategoryListProductSubTitle">
+                        </div>
                         <!-- Table -->
                         <table id="categoryProductTableList" class="table table-striped table-hover table-bordered">
                             <thead>
@@ -226,155 +250,156 @@
         </div>
 
         @* Bài viết nổi bật *@
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="col-12">
-                        <div id="setting-article-header" class="form-check form-switch">
-                            <input type="hidden" asp-for="@Model.Setting.Articles" id="articleIdsInput">
-                            <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowArtileSlideList" id="setting_show_article">
-                            <label class="form-check-label" asp-for="@Model.Setting.ShowArtileSlideList">Slide bài viết nổi bật</label>
-                        </div>
-                    </div>
-                </div>
-                @{
-                    string articleDisplay = Model.Setting.ShowArtileSlideList ? "block" : "none";
-                    <div class="card-body row g-3 setting-article-body" style="display: @articleDisplay">
-                        <!-- Table -->
-                        <table id="articleTableList" class="table table-striped table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="setting-article-cell-checkbox">Chọn</th>
-                                    <th class="setting-actor-cell">Người viết</th>
-                                    <th>Tên bài viết</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var article in Model.Articles)
-                                {
-                                    <tr>
-                                        <td class="setting-article-cell-checkbox">
-                                            @if (Model.Setting.Articles.Split(',').Contains(article.Id.ToString()))
-                                            {
-                                                <input type="checkbox" class="article-checkbox" data-checkbox="@article.Id" value="@article.Id" checked>
-                                            }
-                                            else
-                                            {
-                                                <input type="checkbox" class="article-checkbox" data-checkbox="@article.Id" value="@article.Id">
-                                            }
+        @{
+            // string articleDisplay = Model.Setting.ShowArtileSlideList ? "block" : "none";
+            // <div class="col-12">
+            //     <div class="card">
+            //         <div class="card-header">
+            //             <div class="col-12">
+            //                 <div id="setting-article-header" class="form-check form-switch">
+            //                     <input type="hidden" asp-for="@Model.Setting.Articles" id="articleIdsInput">
+            //                     <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowArtileSlideList" id="setting_show_article">
+            //                     <label class="form-check-label" asp-for="@Model.Setting.ShowArtileSlideList">Slide bài viết nổi bật</label>
+            //                 </div>
+            //             </div>
+            //         </div> 
+            //         <div class="card-body row g-3 setting-article-body" style="display: @articleDisplay">
+            //             <!-- Table -->
+            //             <table id="articleTableList" class="table table-striped table-hover table-bordered">
+            //                 <thead>
+            //                     <tr>
+            //                         <th class="setting-article-cell-checkbox">Chọn</th>
+            //                         <th class="setting-actor-cell">Người viết</th>
+            //                         <th>Tên bài viết</th>
+            //                     </tr>
+            //                 </thead>
+            //                 <tbody>
+            //                     @foreach (var article in Model.Articles)
+            //                     {
+            //                         <tr>
+            //                             <td class="setting-article-cell-checkbox">
+            //                                 @if (Model.Setting.Articles.Split(',').Contains(article.Id.ToString()))
+            //                                 {
+            //                                     <input type="checkbox" class="article-checkbox" data-checkbox="@article.Id" value="@article.Id" checked>
+            //                                 }
+            //                                 else
+            //                                 {
+            //                                     <input type="checkbox" class="article-checkbox" data-checkbox="@article.Id" value="@article.Id">
+            //                                 }
 
-                                        </td>
-                                        <td class="setting-actor-cell">@article.CreatedBy.DisplayName</td>
-                                        <td>@article.Title</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-            </div>
-        </div>
-
+            //                             </td>
+            //                             <td class="setting-actor-cell">@article.CreatedBy.DisplayName</td>
+            //                             <td>@article.Title</td>
+            //                         </tr>
+            //                     }
+            //                 </tbody>
+            //             </table>
+            //         </div>
+            //     </div>
+            // </div>
+        }
         @* Tin tức nổi bật *@
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="col-12">
-                        <div id="setting-news-header" class="form-check form-switch">
-                            <input type="hidden" asp-for="@Model.Setting.News" id="newsIdsInput">
-                            <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowNewsList" id="setting_show_news">
-                            <label class="form-check-label" asp-for="@Model.Setting.ShowNewsList">Tin tức nổi bật</label>
-                        </div>
-                    </div>
-                </div>
-                @{
-                    string newsDisplay = Model.Setting.ShowNewsList ? "block" : "none";
-                    <div class="card-body row g-3 setting-news-body" style="display: @newsDisplay">
-                        <!-- Table -->
-                        <table id="newsTableList" class="table table-striped table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="setting-news-cell-checkbox">Chọn</th>
-                                    <th class="setting-actor-cell">Người viết</th>
-                                    <th>Tin tức</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var news in Model.News)
-                                {
-                                    <tr>
-                                        <td class="setting-news-cell-checkbox">
-                                            @if (Model.Setting.News.Split(',').Contains(news.Id.ToString()))
-                                            {
-                                                <input type="checkbox" class="news-checkbox" data-checkbox="@news.Id" value="@news.Id" checked>
-                                            }
-                                            else
-                                            {
-                                                <input type="checkbox" class="news-checkbox" data-checkbox="@news.Id" value="@news.Id">
-                                            }
+        @{
+            // string newsDisplay = Model.Setting.ShowNewsList ? "block" : "none";
+            // <div class="col-12">
+            //     <div class="card">
+            //         <div class="card-header">
+            //             <div class="col-12">
+            //                 <div id="setting-news-header" class="form-check form-switch">
+            //                     <input type="hidden" asp-for="@Model.Setting.News" id="newsIdsInput">
+            //                     <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowNewsList" id="setting_show_news">
+            //                     <label class="form-check-label" asp-for="@Model.Setting.ShowNewsList">Tin tức nổi bật</label>
+            //                 </div>
+            //             </div>
+            //         </div>
+                
+            //         <div class="card-body row g-3 setting-news-body" style="display: @newsDisplay">
+            //                 <!-- Table -->
+            //                 <table id="newsTableList" class="table table-striped table-hover table-bordered">
+            //                     <thead>
+            //                         <tr>
+            //                             <th class="setting-news-cell-checkbox">Chọn</th>
+            //                             <th class="setting-actor-cell">Người viết</th>
+            //                             <th>Tin tức</th>
+            //                         </tr>
+            //                     </thead>
+            //                     <tbody>
+            //                         @foreach (var news in Model.News)
+            //                         {
+            //                             <tr>
+            //                                 <td class="setting-news-cell-checkbox">
+            //                                     @if (Model.Setting.News.Split(',').Contains(news.Id.ToString()))
+            //                                     {
+            //                                         <input type="checkbox" class="news-checkbox" data-checkbox="@news.Id" value="@news.Id" checked>
+            //                                     }
+            //                                     else
+            //                                     {
+            //                                         <input type="checkbox" class="news-checkbox" data-checkbox="@news.Id" value="@news.Id">
+            //                                     }
 
-                                        </td>
-                                        <td class="setting-actor-cell">@news.CreatedBy.DisplayName</td>
-                                        <td>@news.Title</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-            </div>
-        </div>
-        
+            //                                 </td>
+            //                                 <td class="setting-actor-cell">@news.CreatedBy.DisplayName</td>
+            //                                 <td>@news.Title</td>
+            //                             </tr>
+            //                         }
+            //                     </tbody>
+            //                 </table>
+            //             </div>
+                
+            //     </div>
+            // </div>
+        }
         @* Sản phẩm *@
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="col-12">
-                        <div id="setting-product-header" class="form-check form-switch">
-                            <input type="hidden" asp-for="@Model.Setting.Products" id="productIdsInput">
-                            <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowProductList" id="setting_show_product">
-                            <label class="form-check-label" asp-for="@Model.Setting.ShowProductList">Sản phẩm</label>
-                        </div>
-                    </div>
-                </div>
-                @{
-                    string productDisplay = Model.Setting.ShowProductList ? "block" : "none";
-                    <div class="card-body row g-3 setting-product-body" style="display: @productDisplay">
-                        <!-- Table -->
-                        <table id="productTableList" class="table table-striped table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="setting-product-cell-checkbox">Chọn</th>
-                                    <th class="setting-actor-cell">Người viết</th>
-                                    <th>Tin tức</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var product in Model.Products)
-                                {
-                                    <tr>
-                                        <td class="setting-product-cell-checkbox">
-                                            @if (Model.Setting.Products.Split(',').Contains(product.Id.ToString()))
-                                            {
-                                                <input type="checkbox" class="product-checkbox" data-checkbox="@product.Id" value="@product.Id" checked>
-                                            }
-                                            else
-                                            {
-                                                <input type="checkbox" class="product-checkbox" data-checkbox="@product.Id" value="@product.Id">
-                                            }
+        @{
+            // string productDisplay = Model.Setting.ShowProductList ? "block" : "none";
+            // <div class="col-12">
+            //     <div class="card">
+            //         <div class="card-header">
+            //             <div class="col-12">
+            //                 <div id="setting-product-header" class="form-check form-switch">
+            //                     <input type="hidden" asp-for="@Model.Setting.Products" id="productIdsInput">
+            //                     <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.ShowProductList" id="setting_show_product">
+            //                     <label class="form-check-label" asp-for="@Model.Setting.ShowProductList">Sản phẩm</label>
+            //                 </div>
+            //             </div>
+            //         </div>
 
-                                        </td>
-                                        <td class="setting-actor-cell">@product.CreatedBy.DisplayName</td>
-                                        <td>@product.Title</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-            </div>
-        </div>
+            //         <div class="card-body row g-3 setting-product-body" style="display: @productDisplay">
+            //                 <!-- Table -->
+            //                 <table id="productTableList" class="table table-striped table-hover table-bordered">
+            //                     <thead>
+            //                         <tr>
+            //                             <th class="setting-product-cell-checkbox">Chọn</th>
+            //                             <th class="setting-actor-cell">Người viết</th>
+            //                             <th>Tin tức</th>
+            //                         </tr>
+            //                     </thead>
+            //                     <tbody>
+            //                         @foreach (var product in Model.Products)
+            //                         {
+            //                             <tr>
+            //                                 <td class="setting-product-cell-checkbox">
+            //                                     @if (Model.Setting.Products.Split(',').Contains(product.Id.ToString()))
+            //                                     {
+            //                                         <input type="checkbox" class="product-checkbox" data-checkbox="@product.Id" value="@product.Id" checked>
+            //                                     }
+            //                                     else
+            //                                     {
+            //                                         <input type="checkbox" class="product-checkbox" data-checkbox="@product.Id" value="@product.Id">
+            //                                     }
 
+            //                                 </td>
+            //                                 <td class="setting-actor-cell">@product.CreatedBy.DisplayName</td>
+            //                                 <td>@product.Title</td>
+            //                             </tr>
+            //                         }
+            //                     </tbody>
+            //                 </table>
+            //             </div>
+           
+            //     </div>
+            // </div>
+        }
 
         @* Phản hồi *@
         <div class="col-12">
@@ -396,7 +421,6 @@
                             <thead>
                                 <tr>
                                     <th class="setting-feedback-cell-checkbox">Chọn</th>
-                                    <th class="setting-actor-cell">Người viết</th>
                                     <th>Tin tức</th>
                                 </tr>
                             </thead>
@@ -415,7 +439,6 @@
                                             }
 
                                         </td>
-                                        <td class="setting-actor-cell">@feedback.CreatedBy.DisplayName</td>
                                         <td>@feedback.Title</td>
                                     </tr>
                                 }
@@ -428,8 +451,8 @@
 
 
         <!-- Submit Button -->
-        <div class="col-12 text-center mt-4">
-            <button type="submit" form="updateForm" id="btn-setting-update" class="btn btn-primary">Cập nhật</button>
+        <div class="col-12 text-center sticky-footer">
+            <button type="submit" form="updateForm" id="btn-setting-update" class="btn btn-primary shadow">Cập nhật</button>
         </div>
     </form>
 </div>

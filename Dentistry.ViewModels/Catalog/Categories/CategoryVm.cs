@@ -72,7 +72,14 @@ namespace Dentistry.ViewModels.Catalog.Categories
         {
             get
             {
-                return "(Vị trí: " + Position.GetDisplayName() +  ", Thứ tự: " + Sort.ToString() + ", Loại: " + Type.GetDisplayName() + ")";
+                if (Level == CategoryLevel.Level1)
+                {
+                    return "(Vị trí: " + Position.GetDisplayName() + ", Thứ tự: " + Sort.ToString() + ", Loại: " + Type.GetDisplayName() + ")";
+                }
+                else
+                {
+                    return "(Loại Danh mục: " + Type.GetDisplayName() + ")";
+                }
             }
         }
         public string PositionName
@@ -87,6 +94,20 @@ namespace Dentistry.ViewModels.Catalog.Categories
             get
             {
                 return Type.GetDisplayName();
+            }
+        }
+        public int LevelValue
+        {
+            get
+            {
+                return (int)Level;
+            }
+        }
+        public string LevelName
+        {
+            get
+            {
+                return Level.ToString();
             }
         }
     }

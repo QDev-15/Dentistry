@@ -7,12 +7,16 @@
 
 
 <style>
-    .add-category-btn {
+    .add-category-btn, .btn-secondary {
         box-shadow: 1px 3px 5px 1px rgba(0,0,0,.25) !important
     }
 </style>
 <h2>Quản lý Danh mục</h2>
-<button class="btn btn-primary add-category-btn mb-3" data-id="0" data-level="0" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Thêm Danh Mục</button>
+<div class="d-flex justify-content-between mb-3">
+    <button class="btn btn-primary add-category-btn mb-3" data-id="0" data-level="0" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Thêm Danh Mục Chính</button>
+    <button class="btn btn-secondary mb-3" id="btnRefreshCategory">Làm mới</button>
+</div>
+
 
 <div class="accordion" id="categoryAccordion">
     <!-- Danh mục động sẽ được thêm vào đây -->
