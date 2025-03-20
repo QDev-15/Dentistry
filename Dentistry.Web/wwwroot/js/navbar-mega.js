@@ -27,9 +27,7 @@
                     $(this).addClass("lv2-active");
                     hoverAny.lv2 = index;
                     hoverAny.lv3 = null;
-                    // Ẩn tất cả ul-lv3 ngay lập tức
-                    $('[class*="ul-lv3-"]').stop(true, true).fadeOut(200);
-
+                    
                     // Hiển thị ul-lv3 tương ứng sau 0.2s
                     setTimeout(() => {
                         if (hoverAny.lv2) {
@@ -49,6 +47,7 @@
         },
         function () {
             // đợi 0.2s nếu không có action thì reset
+            console.log("lv2 out = ");
             fadeOutAny();
         }
     );
@@ -81,6 +80,8 @@
     }
     function resetHover(hover) {
         $('[class*="menu-lv3"]').stop(true, true).fadeOut(200);
+        // Ẩn tất cả ul-lv3 ngay lập tức
+        $('[class*="ul-lv3-"]').stop(true, true).fadeOut(200);
         if (hover.lv2) {
             $('.li-lv2').removeClass('lv2-active');
             //$(".i-caret-l-" + hover.lv2).stop(true, true).fadeOut(100);
@@ -89,6 +90,9 @@
             $(".i-caret-r-" + hoverAny.lv2).addClass("i-visible");
             $(".i-caret-l-" + hoverAny.lv2).removeClass("i-visible");
             $(".i-caret-l-" + hoverAny.lv2).addClass("i-hidden");
+            hover.lv2 = null;
+            hover.lv3 = null;
+            console.log("reset done = ", hoverAny.lv2);
         }
     }
     // breakpoint and up  

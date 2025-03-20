@@ -30,5 +30,6 @@ namespace Dentisty.Data.Interfaces
         /// <returns></returns>
         Task<bool> CheckExistsAlias(string alias, int id);
         Task<bool> DeleteAsync(int id);
+        void RefreshCategory();
     }
 }

@@ -3,8 +3,10 @@ using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Home;
 using Dentistry.Web.Models;
+using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
+using Dentisty.Data.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
@@ -16,11 +18,15 @@ namespace Dentistry.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IAppSettingRepository _appSettingRepository;
         private readonly IArticleRepository _articleRepository;
+        private readonly ICacheService _cacheService;
         private readonly IMemoryCache _memoryCache;
+        private readonly ICategoryReposiroty _categoryReposiroty;
 
         public HomeController(ILogger<HomeController> logger, IAppSettingRepository appSettingRepository,
-            IArticleRepository articleRepository, IMemoryCache memoryCache)
+            IArticleRepository articleRepository, IMemoryCache memoryCache, ICacheService cacheService, ICategoryReposiroty categoryReposiroty)
         {
+            _categoryReposiroty = categoryReposiroty;
+            _cacheService = cacheService;
             _appSettingRepository = appSettingRepository;
             _logger = logger;
             _articleRepository = articleRepository;
@@ -96,6 +102,48 @@ namespace Dentistry.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [HttpGet("refresh-cache/{secret}")]
+        public async Task<IActionResult> RemoveCache(string secret)
+        {
+            if (secret == null)
+            {
+                return NotFound("Not found secret key");
+            }
+            else if(secret != "24032024-03031992-81726354") {
+                return Ok("Undefield");               
+            } else
+            {
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSetting);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppCategory);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppBranches);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSlide);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingDoctor);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingCategory);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingNews);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingProduct);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingFeedback);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingArticle);
+                _cacheService.RemoveAsync(SystemConstants.CacheKeys.ArticleChange);
+                return Ok("Done");
+            }
+        }
+        [HttpGet("/refresh-category/{secret}")]
+        public IActionResult RefreshCategory(string secret)
+        {
+            if (secret == null)
+            {
+                return NotFound("Not found secret key");
+            }
+            else if (secret != "24032024-03031992-81726354")
+            {
+                return Ok("Undefield");
+            }
+            else
+            {
+                _categoryReposiroty.RefreshCategory();
+                return Ok("Done");
+            }
         }
     }
 }

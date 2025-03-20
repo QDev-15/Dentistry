@@ -2,17 +2,20 @@
 @using Dentistry.ViewModels.Catalog.Articles
 @using Dentistry.ViewModels.Enums
 @using Dentistry.Common;
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model List<ArticleVm>
 @{
+    var setting = await _applicationService.GetAppSetting();
     if(Model != null && Model.Any())
     {
         <div class="section section-feedback">
             <div class="container">
                 <div class="box_title">
-                    Khách hàng nói về Nha Khoa Nhiên
+                    @setting.FeedbackListTitle
                 </div>
                 <div class="box_desc"></div>
                 <div class="box_content box_list_item">

@@ -240,5 +240,45 @@ namespace Dentisty.Data.Repositories
             }
             
         }
+
+        public async void RefreshCategory()
+        {
+            try
+            {
+                var categories = _context.Categories
+                    .Include(x => x.Parent)
+                    .ThenInclude(x => x.Parent)
+                    .ThenInclude(x=> x.Parent)
+                    .ToList();
+                if (categories.Any())
+                {
+                    foreach (var category in categories) {
+                        if (category == null) continue;
+                        // level1
+                        if (category.Parent == null) {
+                            category.Level = CategoryLevel.Level1;
+                        }
+                        else // level2
+                        if (category.Parent.Parent == null)
+                        {
+                            category.Level = CategoryLevel.Level2;  
+                            category.Type = category.Parent.Type;
+                        }
+                        else // level3
+                        {
+                            category.Level = CategoryLevel.Level3;
+                            category.Type = category.Parent?.Parent?.Type;
+                        }
+                        _context.Update(category);
+                    }
+                }
+                int affectedRows = _context.SaveChanges();
+                _loggerRepository.QueueLog($"Đã cập nhật {affectedRows} categories.", "Refresh category");
+            }
+            catch (Exception ex) {
+                _loggerRepository.QueueLog(ex.Message, "Error Refresh category");
+            }
+            
+        }
     }
 }

@@ -19,9 +19,24 @@
         showModal();
     }
 
-    // Hiển thị modal
+    // Hiển thị modal search
     $("#openFeedbackModal").on("click", function () {
         showModal();
+    });
+
+    const searchModal = new bootstrap.Modal($('#search-modal')[0], {
+        keyboard: true,
+        backdrop: true
+    });
+
+    $('#search-modal').on('shown.bs.modal', function () {
+        $('#search-input').focus();
+    });
+
+    // Open modal khi click vào nút
+    $('#open-modal-btn').on('click', function () {
+        console.log("Button clicked! Opening modal...");
+        searchModal.show();
     });
 });
 

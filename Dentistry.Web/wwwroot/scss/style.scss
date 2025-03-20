@@ -448,7 +448,7 @@
 }
 /**================ Start bar - Top =========================*/
 .box-top {
-    background-color: #eea616;
+    background-color: $color-main;
     color: #fff;
     height: 38px;
     line-height: 38px;
@@ -458,7 +458,7 @@
         display: inline-block;
         padding: 0px 15px 0 5px;
         position: relative;
-        color: #494949;
+        color: $color-main-text;
         font-size: 14px;
         font-weight: 500;
 
@@ -594,7 +594,7 @@
 
 
     .search-input:focus {
-        border-color: #eea616; /* Highlight border on focus */
+        border-color: $color-main-50; /* Highlight border on focus */
     }
     /* Custom styles for search input */
     .search-input {
@@ -620,7 +620,7 @@
     }
 
     .search-btn:hover {
-        color: #eea616;
+        color: $color-main-50;
     }
 }
 .search-hotnew {
@@ -1433,7 +1433,7 @@
 
     .slide-item.active {
         .slide-item-footer {
-            background: #ffc344;
+            background: rgb(237 178 66);
             color: white;
 
             .title {

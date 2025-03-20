@@ -34,6 +34,7 @@ namespace Dentistry.ViewModels.Catalog.AppSettings
         public string? CategoryListProductSubTitle { get; set; }
         public string? DoctorListTitle { get; set; }
         public string? DoctorListSubTitle { get; set; }
+        public string? FeedbackListTitle { get; set; }
 
         public bool ShowToolBarTop { get; set; } = true;
         public bool ShowContactList { get; set; } = true;

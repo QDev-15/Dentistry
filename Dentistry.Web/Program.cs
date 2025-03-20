@@ -87,7 +87,8 @@ app.Use(async (context, next) =>
     if ((path.EndsWith(".jpg") || path.EndsWith(".png") || path.EndsWith(".gif") ||
          path.EndsWith(".jpeg") || path.EndsWith(".svg") || path.EndsWith(".webp"))
         && !path.StartsWith("http") && !path.StartsWith("/assets/") && !path.StartsWith("/uploads/")
-        && !path.StartsWith("/js/") && !path.StartsWith("/css/") && !path.StartsWith("/lib/") && !path.StartsWith("/plugins/"))
+        && !path.StartsWith("/js/") && !path.StartsWith("/css/") && !path.StartsWith("/lib/")
+        && !path.StartsWith("/plugins/") && !path.StartsWith("/api/") && !path.StartsWith("/robots") && !path.StartsWith("/sitemap"))
     {
         context.Response.StatusCode = 404;
         await context.Response.WriteAsync("Not Found");

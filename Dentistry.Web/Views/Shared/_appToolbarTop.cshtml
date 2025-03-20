@@ -38,7 +38,7 @@
                             <i class="fa fa-brands fa-youtube"></i>
                         </a>
                     }
-                    <a href="javascript:void()" id="open-modal-btn">
+                    <a href="javascript:void(0)" id="open-modal-btn">
                         <i class="fa fa-solid fa-magnifying-glass"></i>
                     </a>
                 </div>
@@ -65,19 +65,3 @@
     </div>
 </div>
 
-<!-- JavaScript -->
-<script type="text/javascript">
-    $(document).ready(function () {
-         const searchModal = new bootstrap.Modal(document.getElementById('search-modal'), {
-            keyboard: true,
-            backdrop: true
-        });
-        document.getElementById('search-modal').addEventListener('shown.bs.modal', function () {
-            document.getElementById('search-input').focus();
-        });
-        // Open modal
-        document.getElementById('open-modal-btn').addEventListener('click', () => {
-            searchModal.show();
-        });
-    });
-</script>

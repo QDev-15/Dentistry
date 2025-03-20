@@ -400,7 +400,7 @@
 
 /**================ Start bar - Top =========================*/
 .box-top {
-  background-color: #eea616;
+  background-color: rgb(188, 142, 46);
   color: #fff;
   height: 38px;
   line-height: 38px;
@@ -410,7 +410,7 @@
   display: inline-block;
   padding: 0px 15px 0 5px;
   position: relative;
-  color: #494949;
+  color: rgb(49, 49, 49);
   font-size: 14px;
   font-weight: 500;
 }
@@ -527,7 +527,7 @@
   align-items: center;
 }
 #search-modal .search-input:focus {
-  border-color: #eea616; /* Highlight border on focus */
+  border-color: rgba(188, 142, 46, 0.5); /* Highlight border on focus */
 }
 #search-modal .search-input {
   flex: 1; /* Input will take up remaining space */
@@ -550,7 +550,7 @@
   cursor: pointer;
 }
 #search-modal .search-btn:hover {
-  color: #eea616;
+  color: rgba(188, 142, 46, 0.5);
 }
 
 .search-hotnew {
@@ -1259,7 +1259,7 @@
   color: #84837E;
 }
 .section-slide-doctor-articles .slide-item.active .slide-item-footer {
-  background: #ffc344;
+  background: rgb(237, 178, 66);
   color: white;
 }
 .section-slide-doctor-articles .slide-item.active .slide-item-footer .title {

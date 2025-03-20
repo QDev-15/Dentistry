@@ -100,6 +100,7 @@ namespace Dentisty.Data
                 DoctorListSubTitle = item.DoctorListSubTitle,
                 DoctorListTitle = item.DoctorListTitle,
                 NewsListTitle = item.NewsListTitle,
+                FeedbackListTitle = item.FeedbackListTitle,
                 ShowCategoryProductList = item.ShowCategoryProductList
             };
             return model;
