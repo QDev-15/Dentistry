@@ -7,7 +7,7 @@
         if (levelName === "Level2") {
             dmCap = "cấp 3";
         }
-        var element = `<div class="accordion-item ${levelName}">
+        var element = `<div id="accordion-item-${id}" class="accordion-item ${levelName}">
             <h2 class="accordion-header" id="headingcategory${id}">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsecategory${id}" aria-expanded="false" aria-controls="collapsecategory${id}">
                     <div class="category-item">
@@ -126,11 +126,11 @@
                     if (update && data) {
                         updateElement(data.id, data.coverImage, data.subName, data.name, data.positionName, data.typeName, data.sort);
                     } else {
-                        var newCategoryElement = createElement(data.id, data.img, data.levelName, data.levelValue, data.subName, data.name, data.position, data.type, data.sort);
+                        var newCategoryElement = createElement(data.id, data.coverImage, data.levelName, data.levelValue, data.subName, data.name, data.position, data.type, data.sort);
                         if (data.levelName === "Level1") {
                             $("#categoryAccordion").append(newCategoryElement);
                         } else {
-                            $("#nested-accordion-" + id).append(newCategoryElement);
+                            $("#nested-accordion-" + data.parentId).append(newCategoryElement);
                         }
                         //loadCategoryList();
                     }
@@ -155,7 +155,8 @@
             type: 'Delete',
             success: function (result) {
                 console.log("result delete: ", result);
-                loadCategoryList();
+                $("#accordion-item-" + id).remove();
+                /*loadCategoryList();*/
             },
             error: function (err) {
                 console.log("result error: ", err);

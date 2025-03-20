@@ -18,6 +18,6 @@ namespace Dentisty.Data.GeneratorDB.Entities
         public string Position { get; set; }
         public string? PositionExtent {  get; set; }
         public int? ImageId { get; set; }
-        public Image Avatar { get; set; }
+        public ImageFile Avatar { get; set; }
     }
 }

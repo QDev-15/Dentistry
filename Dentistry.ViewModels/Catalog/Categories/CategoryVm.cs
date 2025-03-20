@@ -37,7 +37,7 @@ namespace Dentistry.ViewModels.Catalog.Categories
                 var value = "/assets/img/no-image.jpg";
                 if (Image != null && Image.Id > 0)
                 {
-                    value = Image.Path;
+                    value = Image.ThumbPath??Image.Path;
                 }
                 else
                 {

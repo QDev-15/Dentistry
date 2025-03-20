@@ -9060,6 +9060,7 @@
   z-index: 0;
   margin: 0;
   padding: 0;
+  border-bottom: 1px solid rgba(188, 142, 46, 0.5);
 }
 .carousel-container .owl-carousel.home-slider .slider-item {
   background-size: cover;
@@ -9080,7 +9081,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: #000;
+  background-color: transparent;
   opacity: 0.3;
 }
 .carousel-container .owl-carousel.home-slider .slider-item .slider-text {

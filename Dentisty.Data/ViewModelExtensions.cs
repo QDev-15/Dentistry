@@ -169,13 +169,14 @@ namespace Dentisty.Data
             };
             return vm;
         }
-        public static ImageVm ReturnViewModel(this Image item) {
+        public static ImageVm ReturnViewModel(this Dentistry.Data.GeneratorDB.Entities.ImageFile item) {
             if (item == null) return null;
             var vm = new ImageVm()
             {
                Id = item.Id,
                FileName = item.FileName,
                FileSize = item.FileSize,
+               ThumbPath = item.ThumbPath,
                Path = item.Path,
                Type = item.Type
             };

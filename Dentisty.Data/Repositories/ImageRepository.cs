@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Dentisty.Data.Repositories
 {
-    public class ImageRepository : Repository<Image>, IImageRepository
+    public class ImageRepository : Repository<ImageFile>, IImageRepository
     {
         private readonly DentistryDbContext _context;
         private readonly IStorageService _storageService;
@@ -20,12 +20,12 @@ namespace Dentisty.Data.Repositories
             _storageService = storageService;
         }
 
-        public async Task<Image> CreateAsync(IFormFile file)
+        public async Task<ImageFile> CreateAsync(IFormFile file)
         {
             try
             {
                 var fileUpload = await _storageService.SaveFileToHostingAsync(file);
-                var image = new Image()
+                var image = new ImageFile()
                 {
                     FileSize = file.Length,
                     Type = file.ContentType,
@@ -43,12 +43,12 @@ namespace Dentisty.Data.Repositories
             
         }
 
-        public async Task<Image> CreateAsync(IFormFile file, string directory)
+        public async Task<ImageFile> CreateAsync(IFormFile file, string directory)
         {
             try
             {
                 var fileUpload = await _storageService.SaveFileToHostingAsync(file, directory);
-                var image = new Image()
+                var image = new ImageFile()
                 {
                     FileSize = file.Length,
                     Type = file.ContentType,
@@ -66,7 +66,7 @@ namespace Dentisty.Data.Repositories
             }
         }
 
-        public bool DeleteFileToHostingAsync(Image image)
+        public bool DeleteFileToHostingAsync(ImageFile image)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Dentisty.Data.Repositories
             }
             
         }             
-        public async Task<bool> DeleteFile(Image image)
+        public async Task<bool> DeleteFile(ImageFile image)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace Dentisty.Data.Repositories
             }
             
         }     
-        public async Task<bool> DeleteRangeFiles(List<Image> images)
+        public async Task<bool> DeleteRangeFiles(List<ImageFile> images)
         {
             try
             {

@@ -17,7 +17,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
 
         public DateTime Dob { get; set; }
         public int? AvatarId { get; set; }
-        public Image Avatar { get; set; }
+        public ImageFile Avatar { get; set; }
         public List<Contact> Missions { get; set; }
         public List<Category> Categories { get; set; } = new List<Category>();
         public List<Slide> Slides { get; set; } = new List<Slide> { };

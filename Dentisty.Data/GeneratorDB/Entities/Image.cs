@@ -2,11 +2,12 @@
 
 namespace Dentistry.Data.GeneratorDB.Entities
 {
-    public class Image
+    public class ImageFile
     {
         public int Id { get; set; }
         public string FileName { get; set; }
         public string Path { get; set; }
+        public string ThumbPath { get; set; }
         public string Type { get; set; }
         public long FileSize { get; set; }
         public DateTime CreatedDate { get; set; }

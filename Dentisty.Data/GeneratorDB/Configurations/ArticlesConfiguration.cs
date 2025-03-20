@@ -28,7 +28,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.HasMany(x => x.Images).WithMany(x => x.Articles).UsingEntity<Dictionary<string, object>>(
                 "ArticlesImage",
             j => j
-                .HasOne<Image>()
+                .HasOne<ImageFile>()
                 .WithMany()
                 .HasForeignKey("ImagesId")
                 .OnDelete(DeleteBehavior.Cascade), // Allow cascade delete for images

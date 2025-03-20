@@ -35,5 +35,17 @@ namespace Dentistry.ViewModels.System.Users
         public IFormFile ImageFile { get; set; }
 
         public IList<string> Roles { get; set; }
+        public string CoverImage
+        {
+            get
+            {
+                var value = "/assets/img/no-image.jpg";
+                if (Avatar != null && Avatar.Id > 0)
+                {
+                    value = Avatar.ThumbPath ?? Avatar.Path;
+                }
+                return value;
+            }
+        }
     }
 }

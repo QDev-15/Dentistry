@@ -58,7 +58,7 @@ namespace Dentistry.Data.GeneratorDB.EF
         public DbSet<Branches> Branches { get; set; }
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }    
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Image> Images { get; set; }    
+        public DbSet<ImageFile> Images { get; set; }    
         public DbSet<Language> Languages { get; set; }
         public DbSet<Logger> Loggers { get; set; }
         public DbSet<Article> Articles { get; set; }

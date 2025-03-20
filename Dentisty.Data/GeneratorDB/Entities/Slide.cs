@@ -16,6 +16,6 @@
         public DateTime UpdatedDate { get; set; }
 
         public AppUser CreatedBy { set; get; }
-        public Image Image { get; set; }
+        public ImageFile Image { get; set; }
     }
 }

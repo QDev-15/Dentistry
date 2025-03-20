@@ -62,7 +62,7 @@ namespace Dentisty.Data.Repositories
                     Name = model.Name,
                     IsActive = true,
                     IsParent = model.IsParent,
-                    ParentId = model.ParentId,
+                    ParentId = model.ParentId == 0 ? null : model.ParentId,
                     Position = model.Position,
                     Level  = model.Level,
                     Type = model.Type,
@@ -156,7 +156,7 @@ namespace Dentisty.Data.Repositories
             if (string.IsNullOrEmpty(alias)) return true;
             return await _context.Categories.Where(x => x.IsActive == true).AnyAsync(c => c.Alias == alias && c.Id != id);
         }
-        private async Task<Image> CreateImageAsync(IFormFile formFile)
+        private async Task<ImageFile> CreateImageAsync(IFormFile formFile)
         {
             if (formFile == null) { return null; }
             
@@ -183,10 +183,17 @@ namespace Dentisty.Data.Repositories
         }
         public async Task<IEnumerable<Category>> GetParents()
         {
-            var parents = await _context.Categories.Where(x => x.IsActive == true && (x.Level == CategoryLevel.Level1 || x.ParentId == null))
-                .Include(i => i.Image)
-                .Include(i => i.Categories.Where(c => c.IsActive == true)).ToListAsync();
-            return parents;
+            var categories = await _context.Categories
+                .Where(x => x.IsActive == true && (x.Level == CategoryLevel.Level1 || x.ParentId == null))
+                .Include(c => c.Image) // Ảnh của cấp 1
+                .Include(c => c.Categories.Where(sub => sub.IsActive == true)) // Lấy cấp 2
+                    .ThenInclude(sub => sub.Image) // Ảnh của cấp 2
+                .Include(c => c.Categories) // Đảm bảo cấp 2 được Include trước khi lấy cấp 3
+                    .ThenInclude(sub => sub.Categories.Where(subsub => subsub.IsActive == true)) // Lấy cấp 3
+                        .ThenInclude(subsub => subsub.Image) // Ảnh của cấp 3
+                .ToListAsync();
+
+            return categories;
         }
         public async Task<IEnumerable<Category>> GetChilds()
         {
@@ -218,6 +225,8 @@ namespace Dentisty.Data.Repositories
                 if (category != null)
                 {
                     await _imageRepository.DeleteFile(category.Image);
+                    category.Name += Guid.NewGuid().ToString();
+                    category.Alias = category.Name.ToSlus();
                     category.IsActive = false;
                     UpdateAsync(category);
                     await SaveChangesAsync();

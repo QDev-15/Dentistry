@@ -19,12 +19,15 @@
                             <ul class="nav flex-column">
                                 @foreach (var child in item.ChildCategories)
                                 {
-                                    <li class="nav-item li-lv2 li-lv2-hover-@child.Id">
+                                    string hover = child.ChildCategories.Any() ? "li-lv2-hover-" + child.Id : "";
+                                    <li class="nav-item li-lv2 @hover">
                                         <i class="fa-solid fa-circle-dot li-dot"></i>
                                         <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
                                         <span class="cadet">
-                                            <i class="fa-solid fa-caret-right i-visible i-caret-r-@child.Id"></i>
-                                            <i class="fa-solid fa-caret-left i-hidden i-caret-l-@child.Id"></i>
+                                            @if(child.ChildCategories.Any()) {
+                                                <i class="fa-solid fa-caret-right i-visible i-caret-r-@child.Id"></i>
+                                                <i class="fa-solid fa-caret-left i-hidden i-caret-l-@child.Id"></i>
+                                            }
                                         </span>
                                     </li>
                                 }
@@ -45,25 +48,6 @@
                                                    asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child3.Alias">@child3.Name</a>
                                             </li>
                                         }
-                                    </ul>
-                                } else // test
-                                {
-                                    <ul class="nav flex-column ul-lv3 ul-lv3-@child.Id" style="display: none">
-                                        <li class="nav-item li-lv3">
-                                            <i class="fa-solid fa-circle-dot li-dot"></i>
-                                            <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail"
-                                                asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">lv3-@child.Name</a>
-                                        </li>
-                                        <li class="nav-item li-lv3">
-                                            <i class="fa-solid fa-circle-dot li-dot"></i>
-                                            <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail"
-                                               asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">lv3-@child.Name</a>
-                                        </li>
-                                        <li class="nav-item li-lv3">
-                                            <i class="fa-solid fa-circle-dot li-dot"></i>
-                                            <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail"
-                                               asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">lv3-@child.Name</a>
-                                        </li>
                                     </ul>
                                 }
                             }

@@ -97,9 +97,9 @@ namespace Dentistry.Data.Storages
             {
                 var fileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + file.FileName;
                 // Upload ảnh lên FTP và lấy URL
-                string imageUrl = _ftpUploader.UploadImage(file, _config.UploadDirectory);
+                var uploadResult = _ftpUploader.UploadImageV2(file, _config.UploadDirectory);
 
-                return new FileUploadResult() { FileName = fileName, FilePath = imageUrl, FileSize = file.Length };
+                return new FileUploadResult() { FileName = fileName, FilePath = uploadResult.ImageUrl, FileSize = file.Length, ThumbPath = uploadResult.ThumbUrl };
             }
             catch (Exception ex)
             {
@@ -130,9 +130,9 @@ namespace Dentistry.Data.Storages
             {
                 var fileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + file.FileName;
                 // Upload ảnh lên FTP và lấy URL
-                string imageUrl = _ftpUploader.UploadImage(file, remoteDirectory);
+                var uploadResult = _ftpUploader.UploadImageV2(file, _config.UploadDirectory);
 
-                return new FileUploadResult() { FileName = fileName, FilePath = imageUrl, FileSize = file.Length };
+                return new FileUploadResult() { FileName = fileName, FilePath = uploadResult.ImageUrl, FileSize = file.Length, ThumbPath = uploadResult.ThumbUrl };
             }
             catch (Exception ex)
             {

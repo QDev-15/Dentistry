@@ -1,12 +1,9 @@
-﻿
-using System;
-using System.IO;
-using System.Text.RegularExpressions;
-using Dentistry.Common;
+﻿using Dentistry.Common;
 using FluentFTP;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using static System.Net.Mime.MediaTypeNames;
+using SixLabors.ImageSharp.Formats.Webp;
+using System.Text.RegularExpressions;
 
 namespace Dentisty.Data.Storages
 {
@@ -61,34 +58,6 @@ namespace Dentisty.Data.Storages
         }
 
         // Upload ảnh lên FTP
-        //public string UploadImage(string localFilePath, string remoteDirectory)
-        //{
-        //    try
-        //    {
-        //        // Tạo thư mục trên server nếu chưa tồn tại
-        //        CreateDirectoryIfNotExists(remoteDirectory);
-
-        //        // Lấy tên file từ đường dẫn local
-        //        string remoteFilePath = Path.Combine(remoteDirectory, Path.GetFileName(localFilePath));
-
-        //        Connect();
-
-        //        // Upload ảnh lên server
-        //        _client.UploadFile(localFilePath, remoteFilePath, FtpRemoteExists.Overwrite);
-
-        //        // Trả về URL của ảnh sau khi upload
-        //        string imageUrl = $"{_config.WebHost}/{remoteFilePath.Replace("\\", "/")}";
-
-        //        Disconnect();
-
-        //        return imageUrl;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Lỗi: {ex.Message}");
-        //        return null;  // Hoặc ném lỗi ra ngoài
-        //    }
-        //}
         public string UploadImage(IFormFile file, string? remoteDirectory)
         {
             try
@@ -146,6 +115,102 @@ namespace Dentisty.Data.Storages
                 return null;
             }
         }
+        public class UploadResult
+        {
+            public string ImageUrl { get; set; }     // Ảnh gốc
+            public string ThumbUrl { get; set; }     // Ảnh thumbnail
+        }
+
+        /// <summary>
+        /// Upload image and create thumb image
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="remoteDirectory"></param>
+        /// <returns></returns>
+        public UploadResult UploadImageV2(IFormFile file, string? remoteDirectory)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(remoteDirectory))
+                {
+                    remoteDirectory = _config.UploadDirectory;
+                }
+
+                // Kiểm tra file hợp lệ
+                if (file == null || file.Length <= 0)
+                {
+                    throw new ArgumentException("File không hợp lệ.");
+                }
+
+                string fullRemoteDirectory = GetHostDirectory() + remoteDirectory;
+                CreateDirectoryIfNotExists(fullRemoteDirectory);
+
+                // Tạo tên file ảnh gốc
+                string originalFileName = DateTime.Now.ToString("ddMMyyyyHHmmss_") + Path.GetFileName(file.FileName).ToLower();
+                originalFileName = Regex.Replace(originalFileName, @"\s+", "-");
+
+                // Đường dẫn file gốc trên server
+                string remoteFilePath = Path.Combine(fullRemoteDirectory, originalFileName);
+                string returnFilePath = Path.Combine(remoteDirectory, originalFileName);
+
+                // Lưu file tạm thời
+                string tempFilePath = Path.GetTempFileName();
+                using (var stream = new FileStream(tempFilePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+                // Tạo file thumb
+                string thumbFileName = "thumb_" + originalFileName + ".webp";
+                string remoteThumbPath = Path.Combine(fullRemoteDirectory, thumbFileName);
+                string returnThumbPath = Path.Combine(remoteDirectory, thumbFileName);
+
+                string tempThumbPath = Path.GetTempFileName();
+                using (var stream = file.OpenReadStream())
+                using (var image = Image.Load(stream))
+                {
+                    // Xóa metadata để giảm dung lượng
+                    image.Metadata.ExifProfile = null;
+
+                    // Resize ảnh thumbnail (tối đa 200x200)
+                    image.Mutate(x => x.Resize(new ResizeOptions
+                    {
+                        Size = new Size(200, 200),
+                        Mode = ResizeMode.Max
+                    }));
+
+                    // Lưu ảnh thumbnail với WebP, chất lượng 75%
+                    image.Save(tempThumbPath, new WebpEncoder { Quality = 75 });
+                }
+
+                // Kết nối FTP
+                Connect();
+
+                // Upload file gốc lên FTP
+                _client.UploadFile(tempFilePath, remoteFilePath, FtpRemoteExists.Overwrite);
+
+                // Upload file thumb lên FTP
+                _client.UploadFile(tempThumbPath, remoteThumbPath, FtpRemoteExists.Overwrite);
+
+                // Xóa file tạm
+                File.Delete(tempFilePath);
+                File.Delete(tempThumbPath);
+
+                Disconnect();
+
+                // Trả về object chứa URL ảnh gốc và thumbnail
+                return new UploadResult
+                {
+                    ImageUrl = $"{_config.WebHost}/uploads/{returnFilePath.Replace("\\", "/")}",
+                    ThumbUrl = $"{_config.WebHost}/uploads/{returnThumbPath.Replace("\\", "/")}"
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+                return null;
+            }
+        }
 
         // Xóa file dựa trên URL
         public bool DeleteFileFromUrl(string imageUrl)
@@ -188,7 +253,11 @@ namespace Dentisty.Data.Storages
         }
 
     }
-
+    public class UploadResult
+    {
+        public string ImageUrl { get; set; }     // Ảnh gốc
+        public string ThumbUrl { get; set; }     // Ảnh thumbnail
+    }
 }
 
 

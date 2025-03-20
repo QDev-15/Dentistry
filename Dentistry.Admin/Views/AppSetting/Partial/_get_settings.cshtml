@@ -216,6 +216,14 @@
                 @{
                     string doctorDisplay = Model.Setting.ShowDoctorSlideList ? "block" : "none";
                     <div class="card-body row g-3 setting-doctor-body" style="display: @doctorDisplay">
+                        <div class="col-12">
+                            <label asp-for="@Model.Setting.DoctorListTitle" class="form-label">Tiêu đề</label>
+                            <input type="text" class="form-control" asp-for="@Model.Setting.DoctorListTitle">
+                        </div>
+                        <div class="col-12">
+                            <label asp-for="@Model.Setting.DoctorListSubTitle" class="form-label">Tiêu đề phụ</label>
+                            <input type="text" class="form-control" asp-for="@Model.Setting.DoctorListSubTitle">
+                        </div>
                         <!-- Table -->
                         <table id="doctorTableList" class="table table-striped table-hover table-bordered">
                             <thead>

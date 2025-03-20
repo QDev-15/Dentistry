@@ -5,9 +5,9 @@ using Dentistry.Data.GeneratorDB.Entities;
 namespace Dentistry.Data.GeneratorDB.Configurations;
 
 
-public class ImageConfiguration : IEntityTypeConfiguration<Image>
+public class ImageConfiguration : IEntityTypeConfiguration<ImageFile>
 {
-    public void Configure(EntityTypeBuilder<Image> builder)
+    public void Configure(EntityTypeBuilder<ImageFile> builder)
     {
         builder.HasKey(x => x.Id);
         builder.HasIndex(x => x.Id).HasDatabaseName("ix_image_id").IsUnique(false);
