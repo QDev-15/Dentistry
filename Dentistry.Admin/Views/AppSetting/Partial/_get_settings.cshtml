@@ -16,6 +16,43 @@
     <!-- Form cập nhật -->
     <form id="updateForm" asp-action="UpdateSetting" asp-controller="AppSetting" method="post" class="row g-3">
         <input asp-for="@Model.Setting.Id" type="hidden" />
+        <!-- Company info -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Thông tin công ty</div>
+                <div class="card-body row g-3">
+
+                    <div class="col-md-12">
+                        <label asp-for="@Model.Setting.CompanyTitle" class="form-label">Tiêu đề công ty</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.CompanyTitle">
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="@Model.Setting.BranchesTitle" class="form-label">Tiêu đề cơ sở liên kết</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.BranchesTitle">
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="@Model.Setting.CompanyName" class="form-label">Tên công ty</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.CompanyName">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="@Model.Setting.CompanyAddress" class="form-label">Địa chỉ</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.CompanyAddress">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="@Model.Setting.CompanyEmail" class="form-label">Email</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.CompanyEmail">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="@Model.Setting.CompanyPhone" class="form-label">Điện thoại</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.CompanyPhone">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="@Model.Setting.CompanyWebsite" class="form-label">Website</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.CompanyWebsite">
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Hotline Group -->
         <div class="col-12">
             <div class="card">

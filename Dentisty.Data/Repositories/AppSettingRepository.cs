@@ -53,7 +53,8 @@ namespace Dentisty.Data.Repositories
                 updateAppSetting.CategoryListSubTitle = appSettingVm.CategoryListSubTitle;
                 updateAppSetting.CategoryListProductTitle = appSettingVm.CategoryListProductTitle;
                 updateAppSetting.CategoryListProductSubTitle = appSettingVm.CategoryListProductSubTitle;
-                updateAppSetting.DoctorListTitle = appSettingVm.DoctorListSubTitle;
+                updateAppSetting.DoctorListTitle = appSettingVm.DoctorListTitle;
+                updateAppSetting.DoctorListSubTitle = appSettingVm.DoctorListSubTitle;
                 updateAppSetting.FeedbackListTitle = appSettingVm.FeedbackListTitle;
 
                 updateAppSetting.Categories = string.Join(",", appSettingVm.Categories);
