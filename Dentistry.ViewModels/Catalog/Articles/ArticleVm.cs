@@ -32,16 +32,13 @@ namespace Dentistry.ViewModels.Catalog.Articles
             get
             {
                 var value = "/assets/img/no-image.jpg";
-                var img = Utilities.GetImageLink(Description);
-                if (!string.IsNullOrEmpty(img) && img == value)
+                if (Images.Any())
                 {
-                    if (Images.Any())
-                    {
-                        value = Images.FirstOrDefault().ThumbPath ?? Images.FirstOrDefault().Path;
-                    }
-                } else
+                    value = Images.FirstOrDefault().ThumbPath??Images.FirstOrDefault().Path;
+                }
+                else
                 {
-                    value = img;
+                    value = Utilities.GetImageLink(Description);
                 }
                 return value;
             }

@@ -47,7 +47,7 @@ $(document).ready(function () {
     });
 
     // Open modal add-edit
-    $(document).on('click', '.add-btn, .edit-btn', function () {
+    $(document).off('click', '.add-btn, .edit-btn').on('click', '.add-btn, .edit-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
 
         $.ajax({

@@ -95,7 +95,7 @@ namespace Dentisty.Web.Services
         }
         public async Task<List<CategoryVm>> GetCategorySlides()
         {
-            return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingCategory, async () =>
+            return await _cache.GetOrSetAsync("cate123", async () =>
             {
                 var appSetting = await GetAppSetting();
                 var categories = await GetCategories();
