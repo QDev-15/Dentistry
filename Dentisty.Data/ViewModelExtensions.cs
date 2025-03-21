@@ -196,14 +196,7 @@ namespace Dentisty.Data
                 Caption = item.Caption ?? "",
                 SubName = item.SubName ?? "",
                 Description = item.Description ?? "",
-                Image = item.Image == null ? new ImageVm() : new ImageVm()
-                {
-                    Id = item.Image.Id,
-                    FileName = item.Image.FileName,
-                    FileSize = item.Image.FileSize,
-                    Path = item.Image.Path,
-                    Type = item.Image.Type
-                },
+                Image = item.Image.ReturnViewModel(),
                 Url = item.Url ?? "",
                 UserId = item.UserId,
                 IsActive = item.IsActive,

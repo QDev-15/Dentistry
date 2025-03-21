@@ -31,6 +31,7 @@ namespace Dentisty.Data.Repositories
                     Type = file.ContentType,
                     FileName = fileUpload.FileName,
                     Path = fileUpload.FilePath,
+                    ThumbPath = fileUpload.ThumbPath,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now
                 };
@@ -54,6 +55,7 @@ namespace Dentisty.Data.Repositories
                     Type = file.ContentType,
                     FileName = fileUpload.FileName,
                     Path = fileUpload.FilePath,
+                    ThumbPath = fileUpload.ThumbPath,
                     CreatedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now
                 };
@@ -72,6 +74,7 @@ namespace Dentisty.Data.Repositories
             {
                 if (image == null) return false;
                 bool v = _storageService.DeleteFileToHostingAsync(image.Path);
+                bool vThumb = _storageService.DeleteFileToHostingAsync(image.ThumbPath);
                 return v;
             }
             catch (Exception ex)

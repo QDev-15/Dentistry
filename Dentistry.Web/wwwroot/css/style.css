@@ -835,6 +835,14 @@
   padding: 0;
 }
 
+.section.category-container {
+  background: rgba(215, 158, 40, 0.2196078431);
+}
+
+.section.product-container {
+  background: #ebebeb;
+}
+
 .breadcrumb {
   margin: 0;
   padding: 0;
@@ -1474,7 +1482,8 @@
 
 .section-feedback {
   padding: 50px 0;
-  background: #fff;
+  background: rgba(215, 158, 40, 0.2196078431);
+  margin: 3rem 0;
 }
 .section-feedback .box_list_item .item .image {
   background-size: cover;

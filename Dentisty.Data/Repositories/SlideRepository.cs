@@ -48,14 +48,6 @@ namespace Dentisty.Data.Repositories
                 {
                     var image = await _imageRepository.CreateAsync(slideVm.ImageFile, SystemConstants.Folder.Slides);
                     // set image to slideVm
-                    slideVm.Image = new ImageVm()
-                    {
-                        Id = image.Id,
-                        FileName = image.FileName,
-                        Type = image.Type,
-                        Path = image.Path,
-                        FileSize = image.FileSize,
-                    };
                     slide.Image = image;
                 }
                 // set image slide
@@ -81,17 +73,7 @@ namespace Dentisty.Data.Repositories
                 var imageOld = slide.Image;
                 if (slideVm.ImageFile != null)
                 {
-                    var image = await _imageRepository.CreateAsync(slideVm.ImageFile, SystemConstants.Folder.Slides);
-                    // set image to slideVm
-                    slideVm.Image = new ImageVm()
-                    {
-                        Id = image.Id,
-                        FileName = image.FileName,
-                        Type = image.Type,
-                        Path = image.Path,
-                        FileSize = image.FileSize,
-                    };
-                    
+                    var image = await _imageRepository.CreateAsync(slideVm.ImageFile, SystemConstants.Folder.Slides);                   
                     slide.Image = image;
                     // delete oldImage
                     if (imageOld != null)
@@ -104,6 +86,7 @@ namespace Dentisty.Data.Repositories
                 slide.Name = slideVm.Name;
                 slide.SubName = slideVm.SubName;
                 slide.Url = slideVm.Url;
+                slide.IsActive = slideVm.IsActive;
                 slide.UpdatedDate = DateTime.Now;
                 slide.Description = slideVm.Description;
                 slide.Caption = slideVm.Caption;

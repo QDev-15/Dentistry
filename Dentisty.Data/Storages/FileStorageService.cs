@@ -132,7 +132,7 @@ namespace Dentistry.Data.Storages
                 // Upload ảnh lên FTP và lấy URL
                 var uploadResult = _ftpUploader.UploadImageV2(file, _config.UploadDirectory);
 
-                return new FileUploadResult() { FileName = fileName, FilePath = uploadResult.ImageUrl, FileSize = file.Length, ThumbPath = uploadResult.ThumbUrl };
+                return new FileUploadResult() { FileName = fileName, FilePath = uploadResult?.ImageUrl, FileSize = file.Length, ThumbPath = uploadResult?.ThumbUrl };
             }
             catch (Exception ex)
             {
@@ -152,9 +152,16 @@ namespace Dentistry.Data.Storages
 
         public bool DeleteFileToHostingAsync(string urlImage)
         {
-            // Xóa file từ URL
-            bool isDeleted = _ftpUploader.DeleteFileFromUrl(urlImage);
-            return isDeleted;
+            try
+            {
+                // Xóa file từ URL
+                bool isDeleted = _ftpUploader.DeleteFileFromUrl(urlImage);
+                return isDeleted;
+            } catch(Exception ex)
+            {
+                logger.QueueLog(ex.Message, "Delete file Error");
+                return false;
+            }
         }
     }
 }

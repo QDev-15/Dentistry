@@ -22,10 +22,9 @@
         });
     });
     // submit modal
-    $('#editSlideModal').on('submit', 'form', function (e) {
+    $(document).on('submit', '#slide-add-edit', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
-
         $.ajax({
             url: $(this).attr('action'),
             type: 'POST',

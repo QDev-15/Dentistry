@@ -183,8 +183,14 @@ namespace Dentisty.Data.Storages
                     image.Save(tempThumbPath, new WebpEncoder { Quality = 75 });
                 }
 
-                // Kết nối FTP
+                // Kết nối FTP với timeout
                 Connect();
+
+                // Thiết lập timeout
+                _client.Config.ConnectTimeout = 15000; // 15 giây
+                _client.Config.ReadTimeout = 15000; // 15 giây
+                _client.Config.DataConnectionConnectTimeout = 15000; // Timeout khi kết nối dữ liệu
+                _client.Config.DataConnectionReadTimeout = 15000; // Timeout khi đọc dữ liệu
 
                 // Upload file gốc lên FTP
                 _client.UploadFile(tempFilePath, remoteFilePath, FtpRemoteExists.Overwrite);
@@ -211,6 +217,7 @@ namespace Dentisty.Data.Storages
                 return null;
             }
         }
+
 
         // Xóa file dựa trên URL
         public bool DeleteFileFromUrl(string imageUrl)
