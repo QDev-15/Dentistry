@@ -1,4 +1,5 @@
 ﻿using Dentistry.Common;
+using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Enums;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -30,6 +31,7 @@ namespace Dentistry.ViewModels.Catalog.Categories
         public ImageVm Image {  set; get; }
         public CategoryVm? Parent { get; set; }
         public List<CategoryVm> ChildCategories { get; set; } = new List<CategoryVm>();
+        public List<ArticleVm> Articles { get; set; } = new List<ArticleVm>();
         public string CoverImage
         {
             get

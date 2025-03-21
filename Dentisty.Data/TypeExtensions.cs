@@ -39,13 +39,18 @@ namespace Dentisty.Data
         public static DateTime Local(this DateTime value, TimeZoneInfo timezone) {
             return TimeZoneInfo.ConvertTimeFromUtc(value, timezone);
         }
+        /// <summary>
+        /// Remove img if not start ['assets', 'uploads', 'data:image', 'http']
+        /// </summary>
+        /// <param name="safeDescription"></param>
+        /// <returns></returns>
         public static string ValidateImg(this string safeDescription)
         {
             safeDescription = System.Text.RegularExpressions.Regex.Replace(
-            safeDescription,
-            "<img[^>]+src=['\"](?!http|/assets/)[^'\"]+['\"][^>]*>",
-            "",
-            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                safeDescription,
+                "<img[^>]+src=[\"'](?!https?://|/assets/|/uploads/|data:image/)[^\"']+[\"'][^>]*>",
+                "",
+                System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             return safeDescription;
         }
         /// <summary>

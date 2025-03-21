@@ -15,6 +15,12 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<Category>> GetChilds();
         Task<IEnumerable<Category>> GetParents();
         Task<IEnumerable<CategoryType>> GetCategoryParentTypes();
+        /// <summary>
+        /// Get Category not get Parent and Childs
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        Task<List<CategoryVm>> GetCategoryByType(CategoryType type);
         Task<IEnumerable<Category>> GetRightMenuAsync();
         Task<IEnumerable<Category>> GetLeftMenuAsync();
         Task<Category> GetById(int id);

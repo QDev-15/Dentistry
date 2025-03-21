@@ -44,6 +44,7 @@ namespace Dentisty.Web.Services
             application.Categories = await GetCategories();
             return application;
         }
+
         public async Task<AppSettingVm> GetAppSetting()
         {
             return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSetting, async () =>
@@ -65,6 +66,12 @@ namespace Dentisty.Web.Services
                 var categoryList = categories.Select(x => x.ReturnViewModel()).ToList();
                 return categoryList;
             });
+        }
+        public async Task<List<ArticleVm>> GetArticleByCategoryId(int id)
+        {
+            
+            var articles = await _article.GetByCategoryId(id);
+            return articles.ToList();
         }
         public async Task<List<BranchesVm>> GetBranches()
         {

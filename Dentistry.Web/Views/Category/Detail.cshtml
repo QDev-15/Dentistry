@@ -1,159 +1,91 @@
 ﻿@using Dentistry.ViewModels.Enums
 @using Dentistry.ViewModels.Catalog.Categories
 @using Dentisty.Data
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+@model CategoryVm
 
-@model CategoryDetailVm
+<div class="category-detail-container">
+    @* <div class="container-fluid justify-content-center image-banner p-0">
+        <img src="@Model.Image?.Path" loading="lazy" />
+    </div> *@
 
-<style>
-    .support-view {
-    height: 600px;
-    }
-
-    .support-view .btnSuccess {
-    justify-content: center !important;
-    }
-
-    .support-view .box_wrap {
-    margin-top: -120px;
-    }
-</style>
-<div class="container-fluid justify-content-center image-banner p-0">
-    <img src="@Model.category.Image?.Path" loading="lazy" />
-</div>
-<div class="container-fluid breadcrumb">
-    <div class="container box_breadcrumb">
-        <ul class="ul-breadcrumb">
-            <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
-            @if (Model.category.Parent != null) {
+    @*
+        Breadcrum
+    *@
+    <div class="container-fluid breadcrumb">
+        <div class="container box_breadcrumb">
+            <ul class="ul-breadcrumb">
+                <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
+                @if (Model.Parent != null && Model.Parent.Parent != null)
+                {
+                    <li>
+                        <a asp-controller="Category" asp-action="Detail" asp-route-alias="@Model.Parent.Parent.Alias"
+                        title="@Model.Parent.Parent.Name">
+                            @Model.Parent.Parent.Name
+                        </a>
+                    </li>
+                }
+                @if (Model.Parent != null)
+                {
+                    <li>
+                        <a asp-controller="Category" asp-action="Detail" asp-route-alias="@Model.Parent.Alias"
+                        title="@Model.Parent.Name">
+                            @Model.Parent.Name
+                        </a>
+                    </li>
+                }
                 <li>
-                    <a asp-action="Detail" asp-controller="Category"
-                    asp-route-danhmuc="@Model.category.Parent.Type.GetAliasDisplayName()" asp-route-alias="@Model.category.Parent.Alias"
-                    title="@Model.category.Parent.Name">
-                        @Model.category.Parent.Name
-                    </a>
+                    @Model.Name
                 </li>
-            }
-            <li>
-                @Model.category.Name
-            </li>
-        </ul>
+            </ul>
+        </div>
     </div>
+
+    @* Descriptin *@
+    @{
+        string partial = "~/Views/Category/Partials/";
+        if (Model.Type == CategoryType.About)
+        {
+            Html.RenderPartial(partial + "_about.cshtml", Model);
+        } else if (Model.Type == CategoryType.Service)
+        {
+            Html.RenderPartial(partial + "_services.cshtml", Model);
+        } else if (Model.Type == CategoryType.Products)
+        {
+            Html.RenderPartial(partial + "_product.cshtml", Model);
+        } else if (Model.Type == CategoryType.advise)
+        {
+            Html.RenderPartial(partial + "_advise.cshtml", Model);
+        } else if (Model.Type == CategoryType.FeedBack)
+        {
+            Html.RenderPartial(partial + "_feedBack.cshtml", Model);
+        } else if (Model.Type == CategoryType.News)
+        {
+            Html.RenderPartial(partial + "_news.cshtml", Model);
+        }
+        else if (Model.Type == CategoryType.Support)
+        {
+            Html.RenderPartial(partial + "_support.cshtml", Model);
+        }
+    }
+
 </div>
+
+
 
 @{
     if (Model.category.Type == CategoryType.About) {
-        @if (!string.IsNullOrEmpty(Model.category.Description))
-        {
-            <div class="container-fluid p-0">
-                <div class="container main-detail category-content py-3">
-                    <div class="box_article_description">
-                        @Html.Raw(Model.category.Description.ValidateImg())
-                    </div>
-                </div>
-            </div>
-        }
+        
     } else if (Model.category.Type == CategoryType.Support)
     {
-        <div class="container-fluid box_book support-view section section-contact d-flex justify-content-center align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="box_wrap">
-                            <div class="box_title">Đặt lịch khám tại Nhiên</div>
-                            <div class="box_content" id="app-contact-content">
-                                @{
-                                    Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml");
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>    
-            </div>
-        </div>
+        
     }
     else if (Model.category.Type == CategoryType.News
             || Model.category.Type == CategoryType.FeedBack)
     {
-        <div class="container-fluid">
-            <div class="container search-page-content">
-                <div class="row">
-                    <div class="col-12 col-md-8 d-flex flex-column search-result-container">
-                        <div class="search-result-content d-flex flex-column flex-grow-1 py-5">
-                            <div class="search-results flex-grow-1">
-                                @if (Model.articles.Count == 0)
-                                {
-                                    <span class="not-result-found">Chưa có bài viết về chuyên mục này.</span>
-                                }
-                                @foreach (var item in Model.articles)
-                                {
-                                    string pathImageArt = "/assets/img/no-image.jpg";
-                                    if (item.Images.Any())
-                                    {
-                                        pathImageArt = item.Images.LastOrDefault()!.Path;
-                                    }
-                                    <div class="search-item">
-                                        <img src="@pathImageArt" alt="Ảnh bài viết">
-                                        <div class="search-content">
-                                            <h3>
-                                                <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
-                                            </h3>
-                                            <p>@item.Description.LimitTo(200, "...")</p>
-                                            <div class="search-meta">
-                                                <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
-                                                <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                <!-- Lặp lại search-item cho nhiều bài viết -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4 py-5 search-hotnew flex-column d-none d-md-flex">
-                        <div class="box_title_v1 py-3">Chủ đề mới nhất</div>
-                        <div class="box_right_content flex-column">
-                            @foreach (var item in Model.hotNews)
-                            {
-                                string pathImage = "/assets/img/no-image.jpg";
-                                if (item.Images.Any())
-                                {
-                                    pathImage = item.Images.LastOrDefault()!.Path;
-                                }
-                                <div class="item">
-                                    <div class="image">
-                                        <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">
-                                            <img src="@pathImage" alt="@item.Title">
-                                        </a>
-                                    </div>
-                                    <div class="info">
-                                        <h2 class="title">
-                                            <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title.LimitTo(200, "...")</a>
-                                        </h2>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     } else {
         @* Category detail *@
-        @if (!string.IsNullOrEmpty(Model.category.Description))
-        {
-            <div class="container-fluid p-0">
-                <div class="container main-detail category-content py-3">
-                    <div class="box_article_description">
-                        @Html.Raw(Model.category.Description.ValidateImg())
-                    </div>
-                </div>
-            </div>
-        }
+        
     }
     if (Model.category.Parent == null)
     {

@@ -22,21 +22,22 @@ namespace Dentistry.Web.Controllers
         {
             return View();
         }
-        [HttpGet("/{alias}")]
-        public async Task<IActionResult> DetailAlias(string alias)
-        {
-            var categoryDetailVm = await getCategoryDetail(alias, null);
-            return View("Detail", categoryDetailVm);
-        }
-        [HttpGet("{danhmuc}/{alias}")]
+
+        [HttpGet("category/{alias}")]
         public async Task<IActionResult> Detail(string danhmuc, string alias)
         {
-            //if (danhmuc == alias)
-            //{
-            //    return Redirect($"/{alias}");
-            //}
-            var categoryDetailVm = await getCategoryDetail(alias, danhmuc);
-            return View("Detail", categoryDetailVm);
+            var category = await _categoryReposiroty.GetByAlias(alias);
+            if (category == null) { 
+                category = new CategoryVm();
+                ViewData["Title"] = "Not found";
+                return View("Detail", category);
+            }
+
+            // SEO ==================
+            ViewData["Support"] = category.Type == CategoryType.Support;
+            ViewData["Description"] = $"Đọc ngay danh mục '{category.Name}' để hiểu hơn về {category.Alias}";
+            ViewData["Keywords"] = category.Alias;
+            return View("Detail", category);
         }
 
         private async Task<CategoryDetailVm> getCategoryDetail(string alias, string? danhmuc)

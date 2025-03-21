@@ -28,14 +28,13 @@ namespace Dentistry.Admin.Controllers.Components
             if (apps != null && apps.Any()) {               
                 result.Setting = apps.Select(x => x.ReturnViewModel()).First();           
             }
-            var categories = await _categoryReposiroty.GetForSettings();
-            result.CategoryProducts = categories.Where(x => x.Type == CategoryType.Products).ToList();
-            result.Categories = categories.Where(x => x.Type != CategoryType.Products).ToList();
+            result.CategoryProducts = await _categoryReposiroty.GetCategoryByType(CategoryType.Products);
+            result.Categories = await _categoryReposiroty.GetCategoryByType(CategoryType.Service);
             result.Doctors = _doctorRepository.GetDoctorForAppSettings().Result.ToList();
-            result.Articles = _articleRepository.GetArticleForSetting().Result.ToList();
-            result.FeedBacks = _articleRepository.GetFeedBackForSetting().Result.ToList();
-            result.News = _articleRepository.GetNewsForSetting().Result.ToList();
-            result.Products = _articleRepository.GetProductForSetting().Result.ToList();
+            result.Articles = await _articleRepository.GetByType(ArticleType.Article);
+            result.FeedBacks = await _articleRepository.GetByType(ArticleType.FeedBack);
+            result.News = await _articleRepository.GetByType(ArticleType.News);
+            result.Products = await _articleRepository.GetByType(ArticleType.Products);
             return View("~/Views/AppSetting/Partial/_get_settings.cshtml", result);
         }
     }

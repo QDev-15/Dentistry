@@ -18,6 +18,17 @@
   padding-top: 5px;
 }
 
+/** =================Category Detail Container ============*/
+.category-detail-container .support-view {
+  height: 600px;
+}
+.category-detail-container .support-view .btnSuccess {
+  justify-content: center !important;
+}
+.category-detail-container .support-view .box_wrap {
+  margin-top: -120px;
+}
+
 /** ================= Custom-Box ==========================*/
 .custom-box-comment {
   min-width: 400px;

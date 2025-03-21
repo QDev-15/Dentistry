@@ -328,5 +328,12 @@ namespace Dentisty.Data.Repositories
                 .Select(x => x.ReturnViewModel()).ToListAsync();
             return articles;
         }
+
+        public async Task<List<ArticleVm>> GetByType(ArticleType type)
+        {
+            var articleByTypes = await _context.Articles.Where(x => x.IsActive == true && x.Type == type).ToListAsync();
+            if (articleByTypes == null) return new List<ArticleVm>();
+            return articleByTypes.Select(x => x.ReturnViewModel()).ToList();
+        }
     }
 }

@@ -1,0 +1,20 @@
+﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentisty.Web.Services
+@* @inject ApplicationService _applicationService
+@{
+    var setting = await _applicationService.GetAppSetting();
+} *@
+@model CategoryVm
+
+@{
+    Html.RenderPartial("~/Views/Category/Partials/_showCategoryDescription.cshtml", Model);
+}
+
+
+@* @{
+    if (Model.ChildCategories.Any())
+    {
+        ViewData["CategoryTitle"] = Model.Name;
+        Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", Model.ChildCategories);
+    }
+} *@

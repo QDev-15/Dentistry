@@ -39,10 +39,11 @@ namespace Dentisty.Data.Repositories
         public async Task<CategoryVm> GetByAlias(string alias)
         {
             var category = await _context.Categories.Where(x => x.IsActive == true && x.Alias.ToString() == alias.ToString())
-                .Include(i => i.Image)
                 .Include(i => i.Parent)
                 .Include(i => i.Categories)
-                .ThenInclude(x => x.Image).FirstOrDefaultAsync();
+                .Include(i => i.Articles.Take(10))
+                    .ThenInclude(x => x.Images)
+                .FirstOrDefaultAsync();
             return category.ReturnViewModel();
         }
         public new async Task<IEnumerable<Category>> GetAllAsync()
@@ -279,6 +280,16 @@ namespace Dentisty.Data.Repositories
                 _loggerRepository.QueueLog(ex.Message, "Error Refresh category");
             }
             
+        }
+
+        public async Task<List<CategoryVm>> GetCategoryByType(CategoryType type)
+        {
+            var categories = await _context.Categories.Where(x => x.IsActive == true && x.Type == type).OrderBy(x => x.Level == CategoryLevel.Level1).ToListAsync();
+            if (categories != null)
+            {
+                return categories.Select(x => x.ReturnViewModel()).ToList();
+            }
+            return new List<CategoryVm>();
         }
     }
 }

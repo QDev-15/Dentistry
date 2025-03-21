@@ -247,6 +247,7 @@ namespace Dentisty.Data
                     IsParent = item.Parent.IsParent,
                     UserId = item.Parent.UserId,
                 } : null,
+                Articles = item.Articles != null && item.Articles.Any() ? item.Articles.Select(x => x.ReturnViewModel()).ToList() : new List<ArticleVm>(),
                 ChildCategories = item.Categories != null && item.Categories.Any() ? item.Categories.Select(c => c.ReturnViewModel()).ToList() : new List<CategoryVm>()
             };
             return categoryVm;

@@ -21,6 +21,7 @@ namespace Dentisty.Data.Interfaces
         Task<IEnumerable<ArticleVm>> GetProductForSetting();
         Task<IEnumerable<ArticleVm>> GetFeedBackForSetting();
         Task<IEnumerable<ArticleVm>> GetForApplication(ArticleType type);
+        Task<List<ArticleVm>> GetByType(ArticleType type);
         Task<PagedResult<ArticleVm>> GetForSearch(string keyWord, int pageIndex);
         Task<List<ArticleVm>> GetArticleNew();
         Task<List<ArticleVm>> SiteMap();
