@@ -1,4 +1,5 @@
 ﻿using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
 using Dentisty.Data.Interfaces;
 using Dentisty.Web.Services;
@@ -24,7 +25,7 @@ namespace Dentistry.Web.Controllers
         }
 
         [HttpGet("category/{alias}")]
-        public async Task<IActionResult> Detail(string danhmuc, string alias)
+        public async Task<IActionResult> Detail(string alias)
         {
             var category = await _categoryReposiroty.GetByAlias(alias);
             if (category == null) { 
@@ -39,6 +40,24 @@ namespace Dentistry.Web.Controllers
             ViewData["Keywords"] = category.Alias;
             return View("Detail", category);
         }
+
+        [HttpGet("article/{alias}")]
+        public async Task<IActionResult> Article(string alias, int page = 1)
+        {
+            if (page < 1)
+            {
+                page = 1;
+            }
+            var category = await _categoryReposiroty.GetByAlias(alias);
+            var result = await _articleRepository.GetForCategory(category.Id, page);
+            ViewData["TotalPages"] = result.PageCount;
+            ViewData["CurrentPage"] = page;
+            // SEO ==================
+            ViewData["Description"] = $"Đọc ngay danh mục '{category.Name}' để hiểu hơn về {category.Alias}";
+            ViewData["Keywords"] = category.Alias;
+            return View("Article", result);
+        }
+
 
         private async Task<CategoryDetailVm> getCategoryDetail(string alias, string? danhmuc)
         {

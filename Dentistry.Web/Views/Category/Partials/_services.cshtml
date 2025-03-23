@@ -10,4 +10,7 @@
     {
         Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", new CategoryBox() { Items = Model.ChildCategories, Title= Model.Name });
     }
+
+    Html.RenderPartial("~/Views/Category/Partials/_articleView2.cshtml", Model);
 }
+

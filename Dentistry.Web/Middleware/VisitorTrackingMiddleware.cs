@@ -26,7 +26,7 @@ namespace Dentistry.Web.Middleware
                 try
                 {
                     var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
-                    var appsetting = dbContext.AppSettings.Find(1);
+                    var appsetting = dbContext.AppSettings.FirstOrDefault();
                     if (appsetting !=null && appsetting.TrackVisitors == false)
                     {
                         await _next(context);
@@ -40,7 +40,7 @@ namespace Dentistry.Web.Middleware
                     }
 
                     // Kiểm tra và cập nhật danh sách người đang online
-                    var existingUser = await dbContext.ActiveUsers.FindAsync(userIp);
+                    var existingUser = await dbContext.ActiveUsers.FirstOrDefaultAsync(x => x.IpAddress == userIp);
                     if (existingUser == null)
                     {
                         dbContext.ActiveUsers.Add(new ActiveUser { IpAddress = userIp, LastActive = now });

@@ -152,7 +152,7 @@
     function deleteCategory(id) {
         $.ajax({
             url: `/Category/Delete/${id}`,
-            type: 'Delete',
+            type: 'GET',
             success: function (result) {
                 console.log("result delete: ", result);
                 $("#accordion-item-" + id).remove();

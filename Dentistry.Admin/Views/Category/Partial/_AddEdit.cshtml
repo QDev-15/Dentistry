@@ -25,6 +25,7 @@
                 <input type="hidden" asp-for="@Model.item.IsParent" />
                 <input type="hidden" asp-for="@Model.item.ParentId" />
                 <input type="hidden" asp-for="@Model.item.Level" />
+                <input type="hidden" asp-for="@Model.item.IsActive" />
                 <div class="form-group">
                     <label asp-for="@Model.item.Name" class="form-label">Tên</label>
                     <input type="text" class="form-control ps-2" asp-for="@Model.item.Name" />
@@ -84,10 +85,6 @@
                     }
                 }
 
-                <div class="form-group">
-                    <input type="checkbox" asp-for="@Model.item.IsActive" />
-                    <label asp-for="@Model.item.IsActive">IsActive</label>
-                </div>
                 <div class="form-group">
                     <label asp-for="@Model.item.Description" class="form-label">Nội dung</label>
                     <textarea asp-for="@Model.item.Description" id="Cat_Item_Description"></textarea>

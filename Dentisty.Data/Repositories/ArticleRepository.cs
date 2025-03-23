@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace Dentisty.Data.Repositories
 {
@@ -334,6 +335,27 @@ namespace Dentisty.Data.Repositories
             var articleByTypes = await _context.Articles.Where(x => x.IsActive == true && x.Type == type).ToListAsync();
             if (articleByTypes == null) return new List<ArticleVm>();
             return articleByTypes.Select(x => x.ReturnViewModel()).ToList();
+        }
+
+        public async Task<PagedResult<ArticleVm>> GetForCategory(int categoryId, int pageIndex)
+        {
+            pageIndex = pageIndex <= 0 ? 1 : pageIndex;
+            int pageSize = 10;
+            int skip = (pageIndex - 1) * pageSize;
+
+            var articles = await _context.Articles.Where(x => x.CategoryId == categoryId)
+                .Include(x => x.Category)
+                .Include(x => x.Images)
+                .Skip(skip).Take(pageSize).ToListAsync();
+            var count = await _context.Articles.Where(x => x.CategoryId == categoryId).CountAsync();
+            var result = new PagedResult<ArticleVm>()
+            {
+                Items = articles.Select(x => x.ReturnViewModel()).ToList(),
+                PageIndex = pageIndex,
+                PageSize = 10,
+                TotalRecords = count
+            };
+            return result;
         }
     }
 }

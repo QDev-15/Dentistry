@@ -7,7 +7,7 @@
     if (item.ChildCategories.Any())
     {
         <li class="nav-item nav-li-0 has-child dropdown">
-            <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+            <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@item.Alias">
                 <span class="title dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     @item.Name
                 </span>
@@ -22,7 +22,7 @@
                                     string hover = child.ChildCategories.Any() ? "li-lv2-hover-" + child.Id : "";
                                     <li class="nav-item li-lv2 @hover">
                                         <i class="fa-solid fa-circle-dot li-dot"></i>
-                                        <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child.Alias">@child.Name</a>
+                                        <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@child.Alias">@child.Name</a>
                                         <span class="cadet">
                                             @if(child.ChildCategories.Any()) {
                                                 <i class="fa-solid fa-caret-right i-visible i-caret-r-@child.Id"></i>
@@ -45,7 +45,7 @@
                                             <li class="nav-item li-lv3">
                                                 <i class="fa-solid fa-circle-dot li-dot"></i>
                                                 <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail"
-                                                   asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@child3.Alias">@child3.Name</a>
+                                                   asp-route-alias="@child3.Alias">@child3.Name</a>
                                             </li>
                                         }
                                     </ul>
@@ -61,7 +61,7 @@
     else
     {
         <li class="nav-item nav-li-0">
-            <a class="nav-link menu-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Alias">
+            <a class="nav-link menu-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@item.Alias">
                 <span class="title">
                     @item.Name
                 </span>

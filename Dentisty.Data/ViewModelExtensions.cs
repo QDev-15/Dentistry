@@ -259,7 +259,36 @@ namespace Dentisty.Data
             {
                 Id = item.Id,
                 Alias = item.Alias,
-                Category = item.Category.ReturnViewModel(),
+                Category = item.Category == null ? new CategoryVm() : new CategoryVm()
+                {
+                    Id = item.Category.Id,
+                    Name = item.Category.Name,
+                    Alias = item.Category.Alias,
+                    Image = item.Category.Image.ReturnViewModel(),
+                    Description = item.Category.Description ?? "",
+                    CreatedDate = item.Category.CreatedDate,
+                    UpdatedDate = item.Category.UpdatedDate,
+                    Parent = item.Category.Parent == null ? null : new CategoryVm()
+                    {
+                        Id = item.Category.Parent.Id,
+                        Name = item.Category.Parent.Name,
+                        Alias = item.Category.Parent.Alias,
+                        Image = item.Category.Parent.Image.ReturnViewModel(),
+                        Description = item.Category.Parent.Description ?? "",
+                        CreatedDate = item.Category.Parent.CreatedDate,
+                        UpdatedDate = item.Category.Parent.UpdatedDate,
+                        Parent = item.Category.Parent.Parent == null ? null : new CategoryVm()
+                        {
+                            Id = item.Category.Parent.Parent.Id,
+                            Name = item.Category.Parent.Parent.Name,
+                            Alias = item.Category.Parent.Parent.Alias,
+                            Image = item.Category.Parent.Parent.Image.ReturnViewModel(),
+                            Description = item.Category.Parent.Parent.Description ?? "",
+                            CreatedDate = item.Category.Parent.Parent.CreatedDate,
+                            UpdatedDate = item.Category.Parent.Parent.UpdatedDate
+                        }
+                    }
+                },
                 CategoryId = item.CategoryId,
                 CreatedBy = item.CreatedBy.ReturnViewModel(),
                 CreatedDate = item.CreatedDate,

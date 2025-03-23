@@ -24,7 +24,15 @@ namespace Dentisty.Data.Repositories
 
         public async Task<AppSettingVm> GetById(int id)
         {
+            if (id == 0) {
+                return (await _dbContext.AppSettings.FirstOrDefaultAsync()).ReturnViewModel();
+            }
             return (await _dbContext.AppSettings.FirstOrDefaultAsync(x => x.Id == id)).ReturnViewModel();
+        }
+
+        public async Task<AppSettingVm> GetFirst()
+        {
+            return (await _dbContext.AppSettings.FirstOrDefaultAsync()).ReturnViewModel();
         }
 
         public async Task<AppSettingVm> Update(AppSettingVm appSettingVm)

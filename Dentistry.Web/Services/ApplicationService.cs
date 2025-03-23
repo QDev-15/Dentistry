@@ -23,10 +23,13 @@ namespace Dentisty.Web.Services
         private readonly ISlideRepository _slide;
         private readonly IDoctorRepository _doctor;
         private readonly IArticleRepository _article;
+        private readonly IWebHostEnvironment _env;
+
         public ApplicationService(IArticleRepository article, IDoctorRepository doctor,
-            ISlideRepository slideRepository, IBranchesRepository branchesRepository,
+            ISlideRepository slideRepository, IBranchesRepository branchesRepository, IWebHostEnvironment env,
             ICategoryReposiroty cat, IAppSettingRepository setting, ICacheService cache)
         {
+            _env = env;
             _cat = cat;
             _setting = setting;
             _cache = cache; 
@@ -47,6 +50,10 @@ namespace Dentisty.Web.Services
 
         public async Task<AppSettingVm> GetAppSetting()
         {
+            if (_env.IsDevelopment())
+            {
+                return await _setting.GetFirst();
+            }
             return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSetting, async () =>
             {
                 InvalidateCache(SystemConstants.CacheKeys.AppSettingDoctor);
@@ -55,11 +62,17 @@ namespace Dentisty.Web.Services
                 InvalidateCache(SystemConstants.CacheKeys.AppSettingNews);
                 InvalidateCache(SystemConstants.CacheKeys.AppSettingProduct);
                 InvalidateCache(SystemConstants.CacheKeys.AppSettingFeedback);
-                return await _setting.GetById(1);
+                return await _setting.GetFirst();
             });
         }
         public async Task<List<CategoryVm>> GetCategories()
         {
+            if (_env.IsDevelopment())
+            {
+                var categories = await _cat.GetParents();
+                var categoryList = categories.Select(x => x.ReturnViewModel()).ToList();
+                return categoryList;
+            }
             return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppCategory, async () =>
             {
                 var categories = await _cat.GetParents();
@@ -210,6 +223,12 @@ namespace Dentisty.Web.Services
         }      
         public async Task<List<ArticleVm>> GetArticlesFeddback()
         {
+            if (_env.IsDevelopment())
+            {
+                var appSetting = await GetAppSetting();
+                var articles = await _article.GetArticleByIds(appSetting.Feedbacks);
+                return articles.ToList();
+            }
             return await _cache.GetOrSetAsync(SystemConstants.CacheKeys.AppSettingFeedback, async () =>
             {
                 var appSetting = await GetAppSetting();

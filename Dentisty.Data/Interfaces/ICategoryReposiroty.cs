@@ -37,5 +37,6 @@ namespace Dentisty.Data.Interfaces
         Task<bool> CheckExistsAlias(string alias, int id);
         Task<bool> DeleteAsync(int id);
         void RefreshCategory();
+        void CreateArticle(int catId, ArticleType type);
     }
 }

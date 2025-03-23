@@ -222,14 +222,11 @@ namespace Dentisty.Data.Repositories
         {
             try
             {
-                var category = await _context.Categories.FindAsync(id);
+                var category = await _context.Categories.Include(x => x.Image)
+                    .FirstOrDefaultAsync(x => x.Id == id);
                 if (category != null)
                 {
-                    await _imageRepository.DeleteFile(category.Image);
-                    category.Name += Guid.NewGuid().ToString();
-                    category.Alias = category.Name.ToSlus();
-                    category.IsActive = false;
-                    UpdateAsync(category);
+                    await DeleteCategoryAsync(category);
                     await SaveChangesAsync();
                     return true;
                 }
@@ -242,6 +239,22 @@ namespace Dentisty.Data.Repositories
             
         }
 
+        private async Task DeleteCategoryAsync(Category category)
+        {
+            await _imageRepository.DeleteFile(category.Image);
+            category.IsActive = false;
+            category.Name += Guid.NewGuid().ToString();
+            category.Alias = category.Name.ToSlus();
+            var categories = _context.Categories.Where(x => x.ParentId == category.Id).Include(x => x.Image).ToList();
+            if (categories.Any()) {
+                //
+                foreach (var item in categories)
+                {
+                    await DeleteCategoryAsync(item);
+                }
+            }
+            UpdateAsync(category);
+        }
         public async void RefreshCategory()
         {
             try
@@ -290,6 +303,23 @@ namespace Dentisty.Data.Repositories
                 return categories.Select(x => x.ReturnViewModel()).ToList();
             }
             return new List<CategoryVm>();
+        }
+
+        public void CreateArticle(int catId, ArticleType type)
+        {
+            var art = new Article()
+            {
+                Title = "Bài viết test " + Guid.NewGuid(),
+                Alias = Guid.NewGuid().ToString(),
+                Description = "Đây là bài test",
+                CreatedById = new Guid("69BD714F-9576-45BA-B5B7-F00649BE00DE"),
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now,
+                CategoryId = catId,
+                Type = type
+            };
+            _context.Articles.Add(art);
+            _context.SaveChanges();
         }
     }
 }

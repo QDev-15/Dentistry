@@ -1,0 +1,141 @@
+﻿@using Dentistry.ViewModels.Catalog.Articles
+@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Common
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@model PagedResult<ArticleVm>
+
+@{
+    var category = new CategoryVm();
+    if (Model != null && Model.Items.Any())
+    {
+        category = Model.Items.First().Category;
+    }
+}
+<style>
+    .card {
+        border: none;
+    }
+</style>
+
+<div class="container-fluid breadcrumb">
+    <div class="container box_breadcrumb">
+        <ul class="ul-breadcrumb">
+            <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
+            @if (category.Parent != null && category.Parent.Parent != null)
+            {
+                <li>
+                    <a asp-controller="Category" asp-action="Detail" asp-route-alias="@category.Parent.Parent.Alias"
+                    title="@category.Parent.Parent.Name">
+                        @category.Parent.Parent.Name
+                    </a>
+                </li>
+            }
+            @if (category.Parent != null)
+            {
+                <li>
+                    <a asp-controller="Category" asp-action="Detail" asp-route-alias="@category.Parent.Alias"
+                    title="@category.Parent.Name">
+                        @category.Parent.Name
+                    </a>
+                </li>
+            }
+            <li>
+                @category.Name
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="box_title">
+            @category.Name
+        </div>
+    </div>
+    <div class="container pt-4 pb-2">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body row g-3">
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="col-sm-4 col-md-3">
+                            @{
+                                var customBoxMedium = new CustomBox()
+                                {
+                                    Title = item.Title,
+                                    ImgPath = item.CoverImage,
+                                    Description = item.Description,
+                                    Link = "/bai-viet/" + item.Alias
+                                };
+                            }
+                            @Html.Partial("_viewComponentArticleLinkBoxMedium", customBoxMedium)
+                        </div>
+
+                    }
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="pagination-custom">
+            @{
+                int totalPages = (int)ViewData["TotalPages"];
+                int currentPage = (int)ViewData["CurrentPage"];
+                string keyWord = ViewData["keyWord"] as string ?? "";
+                if (totalPages > 1)
+                {
+                    <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="@(currentPage - 1)"
+                       class="first @(currentPage == 1 ? "disabled" : "")">Trước</a>
+
+                    @if (totalPages <= 10)
+                    {
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="@i"
+                               class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                        }
+                    }
+                    else
+                    {
+                        if (currentPage <= 4)
+                        {
+                            @for (int i = 1; i <= 4; i++)
+                            {
+                                <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="@i"
+                                   class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                            }
+                            <span>...</span>
+                            <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="@totalPages" class="page-number">@totalPages</a>
+                        }
+                        else if (currentPage >= totalPages - 3)
+                        {
+                            <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="1" class="page-number">1</a>
+                            <span>...</span>
+                            @for (int i = totalPages - 3; i <= totalPages; i++)
+                            {
+                                <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="@i"
+                                   class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                            }
+                        }
+                        else
+                        {
+                            <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="1" class="page-number">1</a>
+                            <span>...</span>
+                            @for (int i = currentPage - 1; i <= currentPage + 1; i++)
+                            {
+                                <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="@i"
+                                   class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                            }
+                            <span>...</span>
+                            <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="@totalPages" class="page-number">@totalPages</a>
+                        }
+                    }
+
+                    <a asp-controller="Category" asp-action="Article" asp-route-alias="@category.Alias" asp-route-page="@(currentPage + 1)"
+                       class="last @(currentPage == (int)ViewData["TotalPages"] ? "disabled" : "")">Sau</a>
+                }
+            }
+        </div>
+    </div>
+</div>

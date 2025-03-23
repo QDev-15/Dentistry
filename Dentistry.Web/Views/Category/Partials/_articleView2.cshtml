@@ -1,5 +1,48 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Dentistry.Common
+@using Dentistry.ViewModels.Catalog.Articles
+@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
+@using Dentistry.Common;
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@model CategoryVm
 @{
+    var setting = await _applicationService.GetAppSetting();
+    if (Model != null && Model.Articles.Any())
+    {
+        var artilies = Model.Articles.OrderByDescending(x => x.UpdatedDate).ToList();
+        <div class="section section-feedback">
+            <div class="container">
+                <div class="box_title">
+                    @setting.FeedbackListTitle
+                </div>
+                <div class="box_desc"></div>
+                <div class="box_content box_list_item">
+                    <div class="row">
+                        @foreach (var article in artilies)
+                        {
+                            var imgPath = article.CoverImage;
+
+                            <div class="col-sm-4 col-6">
+                                <div class="item pt-5">
+                                    <div class="image" style="background: url('@imgPath') no-repeat; background-size: cover;">
+                                        <a asp-action="Articles" asp-controller="Article" asp-route-alias="@article.Alias" title="@article.Title">
+                                            <span>Xem thêm</span>
+                                        </a>
+                                    </div>
+                                    <div class="info">
+                                        <h3 class="title"><a asp-action="Articles" asp-controller="Article" asp-route-alias="@article.Alias" title="@article.Title">@article.Title.LimitTo(50, "...")</a></h3>
+                                        <div class="desc">@article.Description.LimitTo(200, "...")</div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="control d-flex justify-content-center"><a asp-controller="Category" asp-action="Article" asp-route-alias="@Model.Alias" class="btn_yellow">Xem tất cả</a></div>
+            </div>
+        </div>
+    }
+
 }

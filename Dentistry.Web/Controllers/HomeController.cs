@@ -129,7 +129,7 @@ namespace Dentistry.Web.Controllers
             }
         }
         [HttpGet("/refresh-category/{secret}")]
-        public IActionResult RefreshCategory(string secret)
+        public async Task<IActionResult> RefreshCategory(string secret, int id = 0)
         {
             if (secret == null)
             {
@@ -141,6 +141,16 @@ namespace Dentistry.Web.Controllers
             }
             else
             {
+                //if (id > 0)
+                //{
+                //    for (int i = 0; i < 21; i++)
+                //    {
+                //        _categoryReposiroty.CreateArticle(id, ViewModels.Enums.ArticleType.FeedBack);
+                //        _categoryReposiroty.CreateArticle(id, ViewModels.Enums.ArticleType.Article);
+                //        _categoryReposiroty.CreateArticle(id, ViewModels.Enums.ArticleType.Products);
+                //        _categoryReposiroty.CreateArticle(id, ViewModels.Enums.ArticleType.News);
+                //    }
+                //}
                 _categoryReposiroty.RefreshCategory();
                 return Ok("Done");
             }

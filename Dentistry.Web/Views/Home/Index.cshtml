@@ -13,11 +13,17 @@
 
     if (application.Settings.ShowCategoryList)
     {
-        Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", new CategoryBox() { Items = categories });
+        <div class="container-fluid py-4 mt-5 mb-5 section">
+         @{ Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", new CategoryBox() { Items = categories }); }
+        </div>
     }
     if (application.Settings.ShowCategoryProductList)
     {
-        Html.RenderPartial("~/Views/Category/Partials/_listCategoryProducts.cshtml", new CategoryBox() { Items = productCategories });
+        <div class="container-fluid py-4 mt-5 mb-5 section">
+            @{
+                Html.RenderPartial("~/Views/Category/Partials/_listCategoryProducts.cshtml", new CategoryBox() { Items = productCategories });
+            }
+        </div>
     }
 
     if (application.Settings.ShowDoctorSlideList)

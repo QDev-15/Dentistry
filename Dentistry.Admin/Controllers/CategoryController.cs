@@ -67,9 +67,7 @@ namespace Dentistry.Admin.Controllers
             {
                 categoryAddEdit.item.Parent = (await _categoryRepository.GetById(parentId)).ReturnViewModel();
             }
-            categoryAddEdit.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>()
-                        .Where(x => (CategoryPosition)Enum.Parse(typeof(CategoryPosition), x.Value) != CategoryPosition.None)
-                        .ToList();
+            categoryAddEdit.CategoryPositions = EnumExtensions.ToSelectList<CategoryPosition>().ToList();
             categoryAddEdit.CategoryType = EnumExtensions.ToSelectList<CategoryType>()
                         .Where(x => (CategoryType)Enum.Parse(typeof(CategoryType), x.Value) != CategoryType.None)
                         .ToList();
@@ -128,7 +126,7 @@ namespace Dentistry.Admin.Controllers
             
         }
 
-        [HttpDelete]
+        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             try

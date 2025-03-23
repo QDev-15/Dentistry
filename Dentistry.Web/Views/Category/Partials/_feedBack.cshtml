@@ -34,7 +34,7 @@
                                     </h3>
                                     <p>@item.Description.LimitTo(200, "...")</p>
                                     <div class="search-meta">
-                                        <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-danhmuc="@item.Type.GetAliasDisplayName()" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
+                                        <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
                                         <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
                                     </div>
                                 </div>

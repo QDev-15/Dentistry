@@ -172,15 +172,27 @@ namespace Dentisty.Data.Storages
                     // Xóa metadata để giảm dung lượng
                     image.Metadata.ExifProfile = null;
 
-                    // Resize ảnh thumbnail (tối đa 200x200)
+                    // Lấy kích thước gốc của ảnh
+                    int originalWidth = image.Width;
+                    int originalHeight = image.Height;
+
+                    // Xác định kích thước tối đa
+                    int maxWidth = 800;
+                    int maxHeight = 800;
+
+                    // Tính tỷ lệ scale sao cho ảnh giữ đúng tỷ lệ gốc và không vượt quá maxWidth, maxHeight
+                    float scale = Math.Min((float)maxWidth / originalWidth, (float)maxHeight / originalHeight);
+                    int newWidth = (int)(originalWidth * scale);
+                    int newHeight = (int)(originalHeight * scale);
+
                     image.Mutate(x => x.Resize(new ResizeOptions
                     {
-                        Size = new Size(200, 200),
-                        Mode = ResizeMode.Max
+                        Size = new Size(newWidth, newHeight),
+                        Mode = ResizeMode.Max // Giữ nguyên tỷ lệ gốc
                     }));
 
-                    // Lưu ảnh thumbnail với WebP, chất lượng 75%
-                    image.Save(tempThumbPath, new WebpEncoder { Quality = 75 });
+                    // Lưu ảnh với chất lượng cao hơn
+                    image.Save(tempThumbPath, new WebpEncoder { Quality = 90 });
                 }
 
                 // Kết nối FTP với timeout
