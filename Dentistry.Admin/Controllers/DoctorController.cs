@@ -6,6 +6,7 @@ using Dentisty.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
+using Dentisty.Data.Repositories;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -69,6 +70,23 @@ namespace Dentistry.Admin.Controllers
             }
             await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Doctor);
             return Json(new SuccessResult<bool>());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var category = await _doctorRepository.GetById(id);
+                _doctorRepository.DeleteAsync(category);
+                await _doctorRepository.SaveChangesAsync();
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
+                return Json(new SuccessResult<bool>());
+            }
+            catch (Exception ex)
+            {
+                return Json(new ErrorResult<bool>() { Message = ex.Message });
+            }
         }
     }
 }

@@ -1,11 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#doctorTable').DataTable({
-        autoWidth: false,
-        paging: true,
-        searching: true,
-        ordering: true,
-        pageLength: 5
-    });
+
 
     // open model edit-add
     $(document).on('click', '.add-btn, .edit-btn', function () {
@@ -25,10 +19,10 @@
         });
     });
     // submit modal
-    $('#addEditDoctorModal').on('submit', 'form', function (e) {
+    $(document).on('submit', '#addDoctorForm', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
-
+        showGlobalSpinner();
         $.ajax({
             url: '/Doctor/AddEdit',
             type: 'POST',
@@ -36,6 +30,7 @@
             processData: false,
             contentType: false,
             success: function (response) {
+                hideGlobalSpinner();
                 if (response.isSuccessed) {
                     $('#addEditDoctorModal').modal('hide');
                     loadDoctorList();
@@ -44,12 +39,52 @@
                 }
             },
             error: function (err) {
+                hideGlobalSpinner();
                 showError('Lưu thất bại.');
             }
         });
     });
+    $(document).on('click', '.doctor-delete-btn', function () {
+        const id = $(this).data('id');
+        const name = $(this).data('name');
+
+        showConfirm("Xóa bác sĩ: " + name, "Xác nhận").then(function (resp) {
+            if (resp == true) {
+                deleteDoctor(id);
+            };
+        }, function (err) {
+            showError(err)
+        });
+
+    });
+    function deleteDoctor(id) {
+        showGlobalSpinner();
+        $.ajax({
+            url: `/Doctor/Delete/${id}`,
+            type: 'GET',
+            success: function (result) {
+                hideGlobalSpinner();
+                console.log("result delete: ", result);
+                showSuccess("Xóa thành công!");
+            },
+            error: function (err) {
+                hideGlobalSpinner();
+                console.log("result error: ", err);
+                showError("Xóa không thành công!")
+            }
+        });
+    }
 });
 
+function initDoctorTable() {
+    $('#doctorTable').DataTable({
+        autoWidth: false,
+        paging: true,
+        searching: true,
+        ordering: true,
+        pageLength: 5
+    });
+}
 function initDoctorTiny(editorId) {
     while (tinymce.get(editorId)) {
         tinymce.get(editorId).destroy();
