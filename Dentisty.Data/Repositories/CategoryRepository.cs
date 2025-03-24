@@ -107,26 +107,12 @@ namespace Dentisty.Data.Repositories
                 var category = await GetById(model.Id);
                 if (category != null)
                 {
-                    if (category.Parent == null)
-                    {
-                        category.Level = CategoryLevel.Level1;
-                    } else if (category.Level != CategoryLevel.Level2 && category.Parent !=null && category.Parent.Parent == null )
-                    {
-                        category.Level = CategoryLevel.Level2;
-                    } else
-                    {
-                        category.Level = CategoryLevel.Level3;
-                    }
                     category.Alias = model.Alias;
                     category.Name = model.Name;
                     category.Sort = model.Sort;
                     category.Description = model.Description;
                     category.Position = model.Position;
                     category.Type = model.Type;
-                    if (category.Level != CategoryLevel.Level1 && category.Parent != null)
-                    {
-                        category.Type = category.Parent.Type;
-                    }
                     category.UpdatedDate = DateTime.Now;
                     UpdateAsync(category);
                     await SaveChangesAsync();

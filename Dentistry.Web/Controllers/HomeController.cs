@@ -103,6 +103,11 @@ namespace Dentistry.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        /// <summary>
+        ///          refresh-cache/24032024-03031992-81726354
+        /// </summary>
+        /// <param name="secret"></param>
+        /// <returns></returns>
         [HttpGet("refresh-cache/{secret}")]
         public async Task<IActionResult> RemoveCache(string secret)
         {
@@ -118,6 +123,12 @@ namespace Dentistry.Web.Controllers
                 return Ok("Done");
             }
         }
+        /// <summary>
+        ///   refresh-category/24032024-03031992-81726354
+        /// </summary>
+        /// <param name="secret"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("/refresh-category/{secret}")]
         public async Task<IActionResult> RefreshCategory(string secret, int id = 0)
         {
