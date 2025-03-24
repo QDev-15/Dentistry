@@ -38,6 +38,10 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> UpdateSetting(AppSettingDataVm model) {
             var result = await _appSettingRepository.Update(model.Setting);
             await _cache.InvalidateCacheAsync(SystemConstants.Cache_Setting);
+            await _cache.InvalidateCacheAsync(SystemConstants.Cache_Category);
+            await _cache.InvalidateCacheAsync(SystemConstants.Cache_Doctor);
+            await _cache.InvalidateCacheAsync(SystemConstants.Cache_Article);
+            await _cache.InvalidateCacheAsync(SystemConstants.Cache_Branches);
             return Json(new SuccessResult<bool>());
         }
     }

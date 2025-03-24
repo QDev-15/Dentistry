@@ -70,7 +70,7 @@ namespace Dentisty.Web.Services
         }
         public async Task<CategoryVm> GetCategoryByAlias(string alias)
         {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Branches + "GetCategoryByAlias" + alias, async () =>
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Category + "GetCategoryByAlias" + alias, async () =>
             {
                 var category = new CategoryVm();
                 var categories = await GetAllCategories();
@@ -110,7 +110,7 @@ namespace Dentisty.Web.Services
         }
         public async Task<CategoryVm> GetCategoryById(int id)
         {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Branches + "GetCategoryById" + id, async () =>
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Category + "GetCategoryById" + id, async () =>
             {
                 var category = new CategoryVm();
                 var categories = await GetAllCategories();
@@ -175,7 +175,7 @@ namespace Dentisty.Web.Services
         }
         public async Task<List<CategoryVm>> GetCategoryServices()
         {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Article + "GetCategoryServices", async () =>
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Category + "GetCategoryServices", async () =>
             {
                 var appSetting = await GetAppSetting();
                 var categories = await GetAllCategories();
@@ -191,13 +191,19 @@ namespace Dentisty.Web.Services
                         }
                         foreach (var itemChild in item.ChildCategories)
                         {
-                            if (listId.Contains(itemChild.Id.ToString()) && item.Type == CategoryType.Service)
+                            if (listId.Contains(itemChild.Id.ToString()) && itemChild.Type == CategoryType.Service)
                             {
                                 homeCats.Add(itemChild);
                             }
+                            foreach (var itemLv3 in itemChild.ChildCategories)
+                            {
+                                if (listId.Contains(itemLv3.Id.ToString()) && item.Type == CategoryType.Service)
+                                {
+                                    homeCats.Add(itemLv3);
+                                }
+                            }
                         }
                     }
-                    homeCats = homeCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
                 }
                 else
                 {
@@ -206,23 +212,31 @@ namespace Dentisty.Web.Services
                         if (item.Type == CategoryType.Service)
                         {
                             homeCats.Add(item);
-                            foreach (var itemChild in item.ChildCategories)
+                        }
+                        foreach (var itemChild in item.ChildCategories)
+                        {
+                            if (itemChild.Type == CategoryType.Service)
                             {
-                                if (itemChild.Type == CategoryType.Service) { 
-                                    homeCats.Add(itemChild);
+                                homeCats.Add(itemChild);
+                            }
+                            foreach (var itemChildLv3 in itemChild.ChildCategories)
+                            {
+                                if (itemChildLv3.Type == CategoryType.Service)
+                                {
+                                    homeCats.Add(itemChildLv3);
                                 }
                             }
                         }
-                    
                     }
-                    homeCats = homeCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
+                    
                 }
+                homeCats = homeCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
                 return homeCats;
             });
         }
         public async Task<List<CategoryVm>> GetCategoryProducts()
         {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Article + "GetCategoryProducts", async () =>
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Category + "GetCategoryProducts", async () =>
             {
                 var appSetting = await GetAppSetting();
                 var categories = await GetAllCategories();
@@ -242,9 +256,15 @@ namespace Dentisty.Web.Services
                             {
                                 proCats.Add(itemChild);
                             }
+                            foreach (var itemChildLv3 in itemChild.ChildCategories)
+                            {
+                                if (listId.Contains(itemChildLv3.Id.ToString()) && itemChildLv3.Type == CategoryType.Products)
+                                {
+                                    proCats.Add(itemChildLv3);
+                                }
+                            }
                         }
                     }
-                    proCats = proCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
                 }
                 else
                 {
@@ -253,17 +273,24 @@ namespace Dentisty.Web.Services
                         if (item.Type == CategoryType.Products)
                         {
                             proCats.Add(item);
-                            foreach (var itemChild in item.ChildCategories)
+                        }
+                        foreach (var itemChild in item.ChildCategories)
+                        {
+                            if (itemChild.Type == CategoryType.Products)
                             {
-                                if (itemChild.Type == CategoryType.Products)
+                                proCats.Add(itemChild);
+                            }
+                            foreach (var itemChildLv3 in itemChild.ChildCategories)
+                            {
+                                if (itemChildLv3.Type == CategoryType.Products)
                                 {
-                                    proCats.Add(itemChild);
+                                    proCats.Add(itemChildLv3);
                                 }
                             }
                         }
                     }
-                    proCats = proCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
                 }
+                proCats = proCats.OrderBy(c => c.Level == CategoryLevel.Level1).ToList();
                 return proCats;
             });
         }

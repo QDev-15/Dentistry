@@ -1,6 +1,7 @@
 ﻿using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -13,12 +14,12 @@ namespace Dentisty.Data.Services
     public class CacheService : ICacheService
     {
         private readonly IMemoryCache _memoryCache;
-        private readonly LoggerRepository _logger;
+        private readonly IServiceProvider _serviceProvider;
         private static readonly ConcurrentDictionary<string, bool> _cacheKeys = new();
 
-        public CacheService(IMemoryCache memoryCache, LoggerRepository loggerRepository)
+        public CacheService(IMemoryCache memoryCache, IServiceProvider serviceProvider)
         {
-            _logger = loggerRepository;
+            _serviceProvider = serviceProvider;
             _memoryCache = memoryCache;
         }
 
@@ -62,7 +63,7 @@ namespace Dentisty.Data.Services
             {
                 if (itemKey.Contains(key))
                 {
-                    _logger.QueueLog("remove caches: " + key, "Remove caches");
+                    LogCaches("remove caches: " + key, "Remove caches");
                     _memoryCache.Remove(itemKey);
                     _cacheKeys.TryRemove(itemKey, out _);
                 }
@@ -77,6 +78,12 @@ namespace Dentisty.Data.Services
                 _memoryCache.Remove(key);
             }
             _cacheKeys.Clear();
+        }
+        public void LogCaches(string message, string? title)
+        {
+            using var scope = _serviceProvider.CreateScope(); // Tạo Scope mới
+            var loggerRepository = scope.ServiceProvider.GetRequiredService<LoggerRepository>(); // Lấy LoggerRepository
+            loggerRepository.QueueLog(message, title);
         }
     }
 }

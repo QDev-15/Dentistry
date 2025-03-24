@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    var selectedAllIds = {
+
+    }
     // submit modal
     $('#app-setting-form').on('submit', 'form', function (e) {
         e.preventDefault();
@@ -59,21 +62,55 @@
                     next: "Sau",
                     previous: "Trước",
                 },
+            },
+            drawCallback: function () {
+                if (!selectedAllIds[type]) {
+                    selectedAllIds[type] = new Set();
+                    var ids = $("#" + type + "IdsInput").val();
+                    if (ids) {
+                        ids = ids.split(",");
+                        ids.forEach((id) => {
+                            selectedAllIds[type].add(id);
+                        })
+                    }
+                }
+                if (!selectedAllIds[type + "Ids"]) {
+                    selectedAllIds[type + "Ids"] = $("#" + type + "IdsInput");
+                }
+                // Khi vẽ lại bảng (sang trang khác), đảm bảo giữ trạng thái checkbox
+                $("." + type + "-checkbox").each(function () {
+                    const categoryId = $(this).val();
+                    $(this).prop("checked", selectedAllIds[type].has(categoryId));
+                });
             }
         });
 
         const typeIdsInput = $("#" + type + "IdsInput");
 
         // Lắng nghe sự kiện checkbox thay đổi
-        $("." + type + "-checkbox").on("change", function () {
-            const selectedIds = $("." + type + "-checkbox:checked")
-                .map(function () {
-                    return $(this).val();
-                })
-                .get(); // Lấy danh sách ID được chọn
+        $(document).on("change", "." + type + "-checkbox", function () {
+            if (!selectedAllIds[type]) {
+                selectedAllIds[type] = new Set();
+                var ids = $("#" + type + "IdsInput").val();
+                if (ids) {
+                    ids = ids.split(",");
+                    ids.forEach((id) => {
+                        selectedAllIds[type].add(id);
+                    })
+                }
+            }
+            const categoryId = $(this).val();
+            if (!selectedAllIds[type + "Ids"]) {
+                selectedAllIds[type + "Ids"] = $("#" + type + "IdsInput");
+            }
+            if ($(this).prop("checked")) {
+                selectedAllIds[type].add(categoryId); // Thêm ID vào danh sách
+            } else {
+                selectedAllIds[type].delete(categoryId); // Xóa ID khỏi danh sách
+            }
 
-            // Gán danh sách ID vào input ẩn
-            typeIdsInput.val(selectedIds.join(","));
+            // Cập nhật input ẩn để lưu toàn bộ ID đã chọn
+            selectedAllIds[type + "Ids"].val(Array.from(selectedAllIds[type]).join(","));
         });
 
 

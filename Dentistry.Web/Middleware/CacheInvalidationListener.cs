@@ -7,14 +7,14 @@ namespace Dentistry.Web.Middleware
     public class CacheInvalidationListener
     {
         private readonly ICacheService _cacheService;
-        private readonly LoggerRepository _logger;
+        private readonly IServiceProvider _serviceProvider;
         private HubConnection _hubConnection;
         private readonly int _maxRetryAttempts = 10; // Số lần thử kết nối tối đa
         private readonly TimeSpan _retryDelay = TimeSpan.FromSeconds(5); // Khoảng thời gian giữa các lần thử
 
-        public CacheInvalidationListener(ICacheService cacheService, LoggerRepository loggerRepository)
+        public CacheInvalidationListener(ICacheService cacheService, IServiceProvider serviceProvider)
         {
-            _logger = loggerRepository;
+            _serviceProvider = serviceProvider;
             _cacheService = cacheService;
         }
 
@@ -27,7 +27,7 @@ namespace Dentistry.Web.Middleware
 
             _hubConnection.On<string>("CacheInvalidated", async (key) =>
             {
-                _logger.QueueLog("remove caches: " + key, "Remove caches");
+                LogCaches("remove caches: " + key, "Remove caches");
                 _cacheService.RemoveAsync(key);
             });
 
@@ -56,6 +56,12 @@ namespace Dentistry.Web.Middleware
                     await Task.Delay(_retryDelay);
                 }
             }
+        }
+        public void LogCaches(string message, string? title)
+        {
+            using var scope = _serviceProvider.CreateScope(); // Tạo Scope mới
+            var loggerRepository = scope.ServiceProvider.GetRequiredService<LoggerRepository>(); // Lấy LoggerRepository
+            loggerRepository.QueueLog(message, title);
         }
     }
 }

@@ -112,6 +112,7 @@
         const formData = new FormData(this);
         var id = $("#item_Id").val();
         var update = id != "0";
+        showGlobalSpinner();
         //debugger;
         $.ajax({
             url: $(this).attr('action'),
@@ -120,6 +121,7 @@
             processData: false,
             contentType: false,
             success: function (response) {
+                hideGlobalSpinner();
                 if (response.isSuccessed) {
                     $('#addCategoryModal').modal('hide');
                     var data = response.data;
@@ -136,6 +138,7 @@
                     }
                      // Hoặc cập nhật bảng
                 } else {
+                    hideGlobalSpinner();
                     if (response.data) {
                         $('#addCategoryModal .modal-content').html(html);
                     } else {
@@ -150,15 +153,18 @@
         });
     });
     function deleteCategory(id) {
+        showGlobalSpinner();
         $.ajax({
             url: `/Category/Delete/${id}`,
             type: 'GET',
             success: function (result) {
+                hideGlobalSpinner();
                 console.log("result delete: ", result);
                 $("#accordion-item-" + id).remove();
                 /*loadCategoryList();*/
             },
             error: function (err) {
+                hideGlobalSpinner();
                 console.log("result error: ", err);
             }
         });
