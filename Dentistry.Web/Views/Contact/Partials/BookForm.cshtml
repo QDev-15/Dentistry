@@ -2,8 +2,10 @@
 @using Dentisty.Web.Services
 @inject ApplicationService _applicationService
 @{
-    var application = await _applicationService.GetApplication();
-    var bookFm = application.BookFormVm;
+    var bookFm = new BookFormVm();
+    var branches = await _applicationService.GetBranches();
+    var setting = await _applicationService.GetAppSetting();
+    bookFm.branches = branches;
 }
 
 <form name="frmBook" id="frmBook" novalidate>
@@ -36,7 +38,7 @@
                 <select asp-for="@bookFm.contact.BranchesId" class="form-control custom-dropdown">
                     <option value="0">Chọn cơ sở gần bạn *</option>
                     @{
-                        foreach (var item in application.BookFormVm.branches)
+                        foreach (var item in branches)
                         {
                             <option value="@item.Id">@item.Name</option>
                         }
@@ -50,12 +52,11 @@
             <div class="btnSuccess">
                 <button type="submit" class="btn_yellow submit">Đặt lịch</button>
                 <span class="open">
-                    Giờ làm việc: <br>
-                    <span>@application.Settings.StartWork đến @application.Settings.EndWork</span>
+                    <span style="color: #404040;">Giờ làm việc: </span><br>
+                    <span>@setting.StartWork đến @setting.EndWork</span>
                 </span>
             </div>
         </div>
     </div>
 </form>
 
-<script src="~/js/book_contact.js"></script>

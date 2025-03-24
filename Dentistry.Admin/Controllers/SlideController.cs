@@ -63,7 +63,7 @@ namespace Dentistry.Admin.Controllers
                     // Update slide logic
                     var slide = await _slideRepository.UpdateSlide(model);
                 }
-                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppSlide);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Slide);
                 return Json(new SuccessResult<bool>());
             }
             catch (Exception ex) {
@@ -76,7 +76,7 @@ namespace Dentistry.Admin.Controllers
             try
             {
                 await _slideRepository.Delete(id);
-                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppSlide);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Slide);
                 return Json(new SuccessResult<bool>());
             }
             catch (Exception ex) {

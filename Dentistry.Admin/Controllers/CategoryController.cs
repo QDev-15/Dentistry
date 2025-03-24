@@ -105,17 +105,18 @@ namespace Dentistry.Admin.Controllers
                 var result = new SuccessResult<bool>();
                 if (model.item.Id == 0)
                 {
-                    // Add slide logic
-                    var slide = await _categoryRepository.CreateNew(model.item);
-                    result.data = slide;
+                    // Add category logic
+                    var category = await _categoryRepository.CreateNew(model.item);
+                    result.data = category;
                 }
                 else
                 {
-                    // Update slide logic
-                    var slide = await _categoryRepository.UpdateCategory(model.item);
-                    result.data = slide;
+                    // Update category logic
+                    var category = await _categoryRepository.UpdateCategory(model.item);
+                    result.data = category;
                 }
-                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppCategory);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
+                
                 return Json(result);
             } catch (Exception ex)
             {
@@ -131,8 +132,9 @@ namespace Dentistry.Admin.Controllers
         {
             try
             {
-                await _categoryRepository.DeleteAsync(id);
-                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppCategory);
+                var category = await _categoryRepository.GetById(id);
+                await _categoryRepository.DeleteAsync(category);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
                 return Json(new SuccessResult<bool>());
             }
             catch (Exception ex)

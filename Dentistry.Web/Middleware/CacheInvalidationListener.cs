@@ -1,4 +1,5 @@
-﻿using Dentisty.Data.Services.Interfaces;
+﻿using Dentisty.Data.Repositories;
+using Dentisty.Data.Services.Interfaces;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Dentistry.Web.Middleware
@@ -6,12 +7,14 @@ namespace Dentistry.Web.Middleware
     public class CacheInvalidationListener
     {
         private readonly ICacheService _cacheService;
+        private readonly LoggerRepository _logger;
         private HubConnection _hubConnection;
         private readonly int _maxRetryAttempts = 10; // Số lần thử kết nối tối đa
         private readonly TimeSpan _retryDelay = TimeSpan.FromSeconds(5); // Khoảng thời gian giữa các lần thử
 
-        public CacheInvalidationListener(ICacheService cacheService)
+        public CacheInvalidationListener(ICacheService cacheService, LoggerRepository loggerRepository)
         {
+            _logger = loggerRepository;
             _cacheService = cacheService;
         }
 
@@ -24,6 +27,7 @@ namespace Dentistry.Web.Middleware
 
             _hubConnection.On<string>("CacheInvalidated", async (key) =>
             {
+                _logger.QueueLog("remove caches: " + key, "Remove caches");
                 _cacheService.RemoveAsync(key);
             });
 

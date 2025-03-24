@@ -25,6 +25,7 @@
     $(document).on('submit', '#slide-add-edit', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
+        showGlobalSpinner();
         $.ajax({
             url: $(this).attr('action'),
             type: 'POST',
@@ -35,10 +36,14 @@
                 if (response.isSuccessed) {
                     $('#editSlideModal').modal('hide');
                     loadSlideList(); // Hoặc cập nhật bảng
+                    hideGlobalSpinner();
+                    showSuccess("Thánh công");
                 }
             },
             error: function (error) {
+                hideGlobalSpinner();
                 showError(error);
+
             }
         });
     });
@@ -47,6 +52,7 @@
     $('#deleteSlideConfirm').on('click', function (e) {
         e.preventDefault();
         var id = $('#deleteId').val();
+        showGlobalSpinner();
         $.ajax({
             url: `/Slide/Delete/${id}`,
             type: 'Delete',
@@ -54,10 +60,12 @@
                 if (response.isSuccessed) {
                     showSuccess("Xóa slide thành công");
                     loadSlideList();
+                    hideGlobalSpinner();
                 }
             },
             error: function (error) {
                 showError(error);
+                hideGlobalSpinner();
             }
         });
     });

@@ -53,7 +53,7 @@
     );
 
     // level 3 hover
-    $('[class*="li-lv3"]').hover(
+    $('[class*="menu-lv3').hover(
         function () {
             // hover
             hoverAny.lv3 = 'active';

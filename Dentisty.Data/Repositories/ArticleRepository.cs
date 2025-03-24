@@ -33,19 +33,33 @@ namespace Dentisty.Data.Repositories
 
         public async Task<bool> CheckExistsAlias(ArticleVm articleVm)
         {
-            return await _context.Articles.AnyAsync(a => a.Alias == articleVm.Alias && a.Id != articleVm.Id);
+            return await _context.Articles.AnyAsync(a => a.Alias == articleVm.Alias && a.Id != articleVm.Id && a.IsActive);
         }
         public async Task<Article> GetByAliasAsync(string alias)
         {
-            return await _context.Articles.Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).FirstOrDefaultAsync(a => a.Alias == alias);
+            if (string.IsNullOrEmpty(alias)) return null;
+
+            return await _context.Articles
+             .Include(x => x.CreatedBy)
+             .Include(x => x.Category)
+             .Include(x => x.Images)
+             .FirstOrDefaultAsync(a => a.Alias == alias && a.IsActive);
         }
         public async Task<Article> GetByIdAsync(int id)
         {
-            return await _context.Articles.Include(x=>x.CreatedBy).Include(x=>x.Category).Include(x=>x.Images).FirstAsync(a => a.Id == id);
+            return await _context.Articles
+                .Include(x=>x.CreatedBy)
+                .Include(x=>x.Category)
+                .Include(x=>x.Images)
+                .FirstAsync(a => a.Id == id && a.IsActive);
         }
         public async Task<IEnumerable<Article>> GetAllAsync()
         {
-            return await _context.Articles.Where(x => x.IsActive == true).Include(x => x.CreatedBy).Include(x => x.Category).Include(x => x.Images).ToListAsync();
+            return await _context.Articles.Where(x => x.IsActive == true)
+                .Include(x => x.CreatedBy)
+                .Include(x => x.Category)
+                .Include(x => x.Images)
+                .ToListAsync();
         }
 
         public async Task<ArticleVm> CreateNew(ArticleVm item)
@@ -138,6 +152,8 @@ namespace Dentisty.Data.Repositories
                     } else
                     {
                         art.IsActive = false;
+                        art.Title += Guid.NewGuid();
+                        art.Alias = art.Title.ToSlus();
                         UpdateAsync(art);
                         await SaveChangesAsync();
                     }
@@ -150,7 +166,44 @@ namespace Dentisty.Data.Repositories
             }
             
         }
+        public async Task<bool> DeleteArticle(Article art)
+        {
+            try
+            {
+                if (art == null)
+                {
+                    return false;
+                }
+                if (art != null)
+                {
+                    if (art.Images != null && art.Images.Any())
+                    {
+                        await _imageRepository.DeleteRangeFiles(art.Images);
+                        art.Images.Clear();
+                    }
+                    if (art.IsDraft)
+                    {
+                        _context.Remove(art);
+                        _context.SaveChanges();
+                    }
+                    else
+                    {
+                        art.IsActive = false;
+                        art.Title += Guid.NewGuid();
+                        art.Alias = art.Title.ToSlus();
+                        UpdateAsync(art);
+                        await SaveChangesAsync();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _loggerRepository.QueueLog(ex.Message);
+                throw new Exception(ex.Message);
+            }
 
+        }
         public async Task<string> GenerateAlias(ArticleVm item)
         {
             var alias = item.Title.ToSlus();
@@ -162,102 +215,9 @@ namespace Dentisty.Data.Repositories
             return alias;
         }
 
-        public async Task<bool> DeleteFile(int artId, int fileId)
-        {
-            try
-            {
-                var art = await GetByIdAsync(artId);
-                if (art != null)
-                {
-                    if (art.Images != null && art.Images.Any())
-                    {
-                        var imageDel = art.Images.FirstOrDefault(x=>x.Id == fileId);
-                        if (imageDel != null)
-                        {
-                            await _imageRepository.DeleteFile(imageDel);
-                            art.Images.Remove(imageDel);
-                        }
-                    }
-                    UpdateAsync(art);
-                    await SaveChangesAsync();
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _loggerRepository.QueueLog($"{ex.Message}", "Delete file width artId: " + artId + " fileId: " + fileId);
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async Task<bool> AddFile(int artId, IEnumerable<IFormFile> files)
-        {
-            try
-            {
-                var art = await GetByIdAsync(artId);
-                if (art != null)
-                {
-                    if (files != null && files.Any())
-                    {
-                        foreach (var file in files)
-                        {
-                            var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Article);
-                            art.Images.Add(image);
-                        }
-                    }
-                    UpdateAsync(art);
-                    await SaveChangesAsync();
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _loggerRepository.QueueLog($"{ex.Message}", "Delete file width artId: " + artId);
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async Task<IEnumerable<Article>> GetByPagingAsync(ArticleVmPagingRequest request)
-        {
-            IQueryable<Article> query = _context.Articles;
-
-            if (!string.IsNullOrEmpty(request.Keyword))
-            {
-                query = query.Where(x => EF.Functions.Like(x.Alias, $"%{request.Keyword}%"));
-            }
-
-            // paging
-            if (request.PageIndex > 0 && request.PageSize > 0)
-            {
-                query = query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize);
-            }
-
-            return await query.ToListAsync();
-        }
-
-        public async Task<IEnumerable<ArticleVm>> GetArticleForSetting()
-        {
-            return await _context.Articles.Where(x => x.Type == ArticleType.Article && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
-        }
-
-        public async Task<IEnumerable<ArticleVm>> GetNewsForSetting()
-        {
-            return await _context.Articles.Where(x => x.Type == ArticleType.News && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
-        }
-
-        public async Task<IEnumerable<ArticleVm>> GetProductForSetting()
-        {
-            return await _context.Articles.Where(x => x.Type == ArticleType.Products && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
-        }
-
-        public async Task<IEnumerable<ArticleVm>> GetFeedBackForSetting()
-        {
-            return await _context.Articles.Where(x => x.Type == ArticleType.FeedBack && x.IsActive).Include(x => x.CreatedBy).Select(x => x.ReturnViewModel()).ToListAsync();
-        }
-
         public async Task<IEnumerable<ArticleVm>> GetForApplication(ArticleType type)
         {
-            var appSetting = await _context.AppSettings.FirstOrDefaultAsync(x => x.Id == 1);
+            var appSetting = await _context.AppSettings.FirstOrDefaultAsync();
             string[] ids = [];
             if (appSetting ==null || string.IsNullOrEmpty(appSetting.Articles))
             {
@@ -281,14 +241,20 @@ namespace Dentisty.Data.Repositories
                     ids = [];
                     break;
             }
-            var articles = await _context.Articles.Where(x => x.Type == type && ids.Contains(x.Id.ToString()) && x.IsActive).Include(x => x.Images).Include(x => x.Category).Select(x => x.ReturnViewModel()).ToListAsync();
+            var articles = await _context.Articles.Where(x => x.Type == type && ids.Contains(x.Id.ToString()) && x.IsActive)
+                .Include(x => x.Images)
+                .Include(x => x.Category)
+                .Select(x => x.ReturnViewModel())
+                .ToListAsync();
             return articles;
             
         }
 
         public async Task<IEnumerable<ArticleVm>> GetByCategoryId(int id)
         {
-            var articles = await _context.Articles.Where(x => x.CategoryId == id).Include(x => x.Images).ToListAsync();
+            var articles = await _context.Articles.Where(x => x.CategoryId == id && x.IsActive)
+                .Include(x => x.Images)
+                .ToListAsync();
             return articles.Select(x => x.ReturnViewModel());
         }
 
@@ -299,8 +265,12 @@ namespace Dentisty.Data.Repositories
             int pageSize = 10;
             int skip = (pageIndex - 1) * pageSize;
 
-            var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).Include(x => x.Category).Include(x=> x.Images).Skip(skip).Take(pageSize).ToListAsync();
-            var count = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower())).CountAsync();
+            var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower()) && x.IsActive)
+                .Include(x => x.Category)
+                .Include(x=> x.Images)
+                .Skip(skip).Take(pageSize)
+                .ToListAsync();
+            var count = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower()) && x.IsActive).CountAsync();
             var result = new PagedResult<ArticleVm>()
             {
                 Items = articles.Select(x => x.ReturnViewModel()).ToList(),
@@ -312,27 +282,32 @@ namespace Dentisty.Data.Repositories
         }  
         public async Task<List<ArticleVm>> GetArticleNew()
         {
-            var articles = await _context.Articles.OrderBy(x => x.CreatedDate).Include(x => x.Category).Include(x => x.Images).Take(10).ToListAsync();
+            var articles = await _context.Articles.Where(x => x.IsActive).OrderBy(x => x.CreatedDate)
+                .Include(x => x.Category)
+                .Include(x => x.Images)
+                .Take(10).ToListAsync();
             return articles.Select(x => x.ReturnViewModel()).ToList();
         }
         public async Task<List<ArticleVm>> SiteMap()
         {
-            var arts = await _context.Articles.Select(a => new ArticleVm() { Alias = a.Alias, UpdatedDate = a.UpdatedDate }).ToListAsync();
+            var arts = await _context.Articles.Where(x => x.IsActive).Select(a => new ArticleVm() { Alias = a.Alias, UpdatedDate = a.UpdatedDate }).ToListAsync();
             return arts.ToList();
         }
 
         public async Task<IEnumerable<ArticleVm>> GetArticleByIds(string ids)
         {
             string[] listIds = string.IsNullOrEmpty(ids) == true ? [] : ids.Split(",");
-            var articles = await _context.Articles.Where(x => ids.Contains(x.Id.ToString()) && x.IsActive == true)
-                .Include(x => x.Images).Include(x => x.Category).Take(6)
+
+            var articles = await _context.Articles.Where(x => ids.Contains(x.Id.ToString()) && x.IsActive)
+                .Include(x => x.Images)
+                .Include(x => x.Category)
                 .Select(x => x.ReturnViewModel()).ToListAsync();
             return articles;
         }
 
         public async Task<List<ArticleVm>> GetByType(ArticleType type)
         {
-            var articleByTypes = await _context.Articles.Where(x => x.IsActive == true && x.Type == type).ToListAsync();
+            var articleByTypes = await _context.Articles.Where(x => x.IsActive && x.Type == type).Include(x=>x.Images).ToListAsync();
             if (articleByTypes == null) return new List<ArticleVm>();
             return articleByTypes.Select(x => x.ReturnViewModel()).ToList();
         }
@@ -343,7 +318,7 @@ namespace Dentisty.Data.Repositories
             int pageSize = 10;
             int skip = (pageIndex - 1) * pageSize;
 
-            var articles = await _context.Articles.Where(x => x.CategoryId == categoryId)
+            var articles = await _context.Articles.Where(x => x.CategoryId == categoryId && x.IsActive)
                 .Include(x => x.Category)
                 .Include(x => x.Images)
                 .Skip(skip).Take(pageSize).ToListAsync();

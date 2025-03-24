@@ -1,6 +1,8 @@
 ﻿using Dentistry.Admin.Common;
 using Dentistry.Common;
 using Dentistry.ViewModels.Catalog.Articles;
+using Dentistry.ViewModels.Catalog.Slide;
+using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
@@ -88,27 +90,29 @@ namespace Dentistry.Admin.Controllers
                     return Json(new { success = false, message = "Tiêu đề đã tồn tại, xin vui lòng chọn lại tiêu đề." });
                 }
             }
-            
+            var resultArt = new ArticleVm();
             if (model.Item.Id == 0)
             {
                 // Add slide logic
-                var slide = await _articleRepository.CreateNew(model.Item);
+                resultArt = await _articleRepository.CreateNew(model.Item);
             }
             else
             {
                 // Update slide logic
-                var slide = await _articleRepository.UpdateArticle(model.Item);
+                resultArt = await _articleRepository.UpdateArticle(model.Item);
             }
             // Gửi tín hiệu tới website để xóa cache
-            await _cacheService.InvalidateCacheAsync(SystemConstants.CacheKeys.ArticleChange);
-            return Json(new { success = true });
+            await _cacheService.InvalidateCacheAsync(SystemConstants.Cache_Article);
+            return Json(new SuccessResult<bool>());
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _articleRepository.DeleteArticle(id);
-            await _cacheService.InvalidateCacheAsync(SystemConstants.CacheKeys.ArticleChange);
+            var article = await _articleRepository.GetByIdAsync(id);
+            var result = await _articleRepository.DeleteArticle(article);
+
+            await _cacheService.InvalidateCacheAsync(SystemConstants.Cache_Article);
             return Json(new { success = result });
         }
 

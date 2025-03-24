@@ -2,7 +2,11 @@
 using FluentFTP;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Formats.Webp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing.Processors.Quantization;
 using System.Text.RegularExpressions;
 
 namespace Dentisty.Data.Storages
@@ -145,82 +149,70 @@ namespace Dentisty.Data.Storages
                 string fullRemoteDirectory = GetHostDirectory() + remoteDirectory;
                 CreateDirectoryIfNotExists(fullRemoteDirectory);
 
-                // Tạo tên file ảnh gốc
-                string originalFileName = DateTime.Now.ToString("ddMMyyyyHHmmss_") + Path.GetFileName(file.FileName).ToLower();
-                originalFileName = Regex.Replace(originalFileName, @"\s+", "-");
+                // Tạo tên file WebP tối ưu
+                string optimizedFileName = "opt_" + DateTime.Now.ToString("ddMMyyyyHHmmss_") + Path.GetFileNameWithoutExtension(file.FileName).ToLower() + ".webp";
+                optimizedFileName = Regex.Replace(optimizedFileName, @"\s+", "-");
 
-                // Đường dẫn file gốc trên server
-                string remoteFilePath = Path.Combine(fullRemoteDirectory, originalFileName);
-                string returnFilePath = Path.Combine(remoteDirectory, originalFileName);
+                // Đường dẫn file WebP tối ưu trên server
+                string remoteFilePath = Path.Combine(fullRemoteDirectory, optimizedFileName);
+                string returnFilePath = Path.Combine(remoteDirectory, optimizedFileName);
 
                 // Lưu file tạm thời
                 string tempFilePath = Path.GetTempFileName();
-                using (var stream = new FileStream(tempFilePath, FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
 
-                // Tạo file thumb
-                string thumbFileName = "thumb_" + originalFileName + ".webp";
-                string remoteThumbPath = Path.Combine(fullRemoteDirectory, thumbFileName);
-                string returnThumbPath = Path.Combine(remoteDirectory, thumbFileName);
-
-                string tempThumbPath = Path.GetTempFileName();
                 using (var stream = file.OpenReadStream())
-                using (var image = Image.Load(stream))
                 {
-                    // Xóa metadata để giảm dung lượng
-                    image.Metadata.ExifProfile = null;
-
-                    // Lấy kích thước gốc của ảnh
-                    int originalWidth = image.Width;
-                    int originalHeight = image.Height;
-
-                    // Xác định kích thước tối đa
-                    int maxWidth = 800;
-                    int maxHeight = 800;
-
-                    // Tính tỷ lệ scale sao cho ảnh giữ đúng tỷ lệ gốc và không vượt quá maxWidth, maxHeight
-                    float scale = Math.Min((float)maxWidth / originalWidth, (float)maxHeight / originalHeight);
-                    int newWidth = (int)(originalWidth * scale);
-                    int newHeight = (int)(originalHeight * scale);
-
-                    image.Mutate(x => x.Resize(new ResizeOptions
+                    // Xác định định dạng ảnh
+                    stream.Position = 0; // Reset stream về đầu trước khi load ảnh
+                    using (var image = Image.Load<Rgba32>(stream))
                     {
-                        Size = new Size(newWidth, newHeight),
-                        Mode = ResizeMode.Max // Giữ nguyên tỷ lệ gốc
-                    }));
+                        // 1️⃣ Xóa metadata để giảm dung lượng
+                        image.Metadata.ExifProfile = null;
+                        image.Metadata.IptcProfile = null;
+                        image.Metadata.XmpProfile = null;
 
-                    // Lưu ảnh với chất lượng cao hơn
-                    image.Save(tempThumbPath, new WebpEncoder { Quality = 90 });
+                        // 3️⃣ Giảm số lượng màu nếu là PNG (Color Quantization)
+                        if (file.ContentType == "image/png")
+                        {
+                            image.Mutate(x => x.Quantize(new OctreeQuantizer()));
+                        }
+                        // 4️⃣ Nếu ảnh đơn sắc, chuyển sang grayscale
+                        if (IsGrayscale(image))
+                        {
+                            image.Mutate(x => x.Grayscale());
+                        }
+
+                        // 5️⃣ Lưu ảnh WebP với mã hóa tối ưu
+                        image.Save(tempFilePath, new WebpEncoder
+                        {
+                            Quality = 70, // Giảm chất lượng để giảm kích thước
+                            Method = WebpEncodingMethod.BestQuality, // Sử dụng nén mạnh
+                            NearLossless = true
+                        }); 
+                    }
                 }
-
-                // Kết nối FTP với timeout
+                // Kết nối FTP
                 Connect();
 
                 // Thiết lập timeout
-                _client.Config.ConnectTimeout = 15000; // 15 giây
-                _client.Config.ReadTimeout = 15000; // 15 giây
-                _client.Config.DataConnectionConnectTimeout = 15000; // Timeout khi kết nối dữ liệu
-                _client.Config.DataConnectionReadTimeout = 15000; // Timeout khi đọc dữ liệu
+                _client.Config.ConnectTimeout = 15000;
+                _client.Config.ReadTimeout = 15000;
+                _client.Config.DataConnectionConnectTimeout = 15000;
+                _client.Config.DataConnectionReadTimeout = 15000;
 
-                // Upload file gốc lên FTP
+                // Upload file tối ưu lên FTP
                 _client.UploadFile(tempFilePath, remoteFilePath, FtpRemoteExists.Overwrite);
-
-                // Upload file thumb lên FTP
-                _client.UploadFile(tempThumbPath, remoteThumbPath, FtpRemoteExists.Overwrite);
 
                 // Xóa file tạm
                 File.Delete(tempFilePath);
-                File.Delete(tempThumbPath);
 
                 Disconnect();
 
-                // Trả về object chứa URL ảnh gốc và thumbnail
+                // Trả về object chứa URL ảnh tối ưu
                 return new UploadResult
                 {
                     ImageUrl = $"{_config.WebHost}/uploads/{returnFilePath.Replace("\\", "/")}",
-                    ThumbUrl = $"{_config.WebHost}/uploads/{returnThumbPath.Replace("\\", "/")}"
+                    ThumbUrl = string.Empty
                 };
             }
             catch (Exception ex)
@@ -230,6 +222,24 @@ namespace Dentisty.Data.Storages
             }
         }
 
+        /// <summary>
+        /// Kiểm tra xem ảnh có phải là grayscale không
+        /// </summary>
+        private bool IsGrayscale(Image<Rgba32> image)
+        {
+            for (int y = 0; y < image.Height; y++)
+            {
+                for (int x = 0; x < image.Width; x++)
+                {
+                    var pixel = image[x, y];
+                    if (pixel.R != pixel.G || pixel.G != pixel.B)
+                    {
+                        return false; // Không phải grayscale
+                    }
+                }
+            }
+            return true; // Ảnh là grayscale
+        }
 
         // Xóa file dựa trên URL
         public bool DeleteFileFromUrl(string imageUrl)

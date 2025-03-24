@@ -59,7 +59,7 @@ namespace Dentistry.Admin.Controllers
                     // Update slide logic
                     var branches = await _branchesRepository.Update(model);
                 }
-                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppBranches);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Branches);
                 return Json(new SuccessResult<bool>());
             }
             catch (Exception ex) {
@@ -75,7 +75,7 @@ namespace Dentistry.Admin.Controllers
             try
             {
                 var result = await _branchesRepository.Active(id, active);
-                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppBranches);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Branches);
                 if (!result)
                 {
                     return Json(new ErrorResult<bool>("Cập nhật không thành công."));

@@ -3,51 +3,55 @@
 @using Dentisty.Web.Services
 @inject ApplicationService _applicationService
 @{
-    var application = await _applicationService.GetApplication();
-    var categories = await _applicationService.GetCategorySlides();
-    var productCategories = await _applicationService.GetCategoryProductSlides();
+    var settingApp = await _applicationService.GetAppSetting();
+    var slides = await _applicationService.GetMainSlides();
+    var doctors = await _applicationService.GetDoctorSlides();
+    var feedbacks = await _applicationService.GetArticlesFeddback();
+    var categoryServices = await _applicationService.GetCategoryServices();
+    var categoryProducts = await _applicationService.GetCategoryProducts();
 }
 @{
+    Html.RenderPartial("~/Views/Shared/Partials/_homeMainSlide.cshtml", slides);
 
-    @await Component.InvokeAsync("HomeMainSlide")
-
-    if (application.Settings.ShowCategoryList)
-    {
-        <div class="container-fluid py-4 mt-5 mb-5 section">
-         @{ Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", new CategoryBox() { Items = categories }); }
-        </div>
-    }
-    if (application.Settings.ShowCategoryProductList)
+    if (settingApp.ShowCategoryList)
     {
         <div class="container-fluid py-4 mt-5 mb-5 section">
             @{
-                Html.RenderPartial("~/Views/Category/Partials/_listCategoryProducts.cshtml", new CategoryBox() { Items = productCategories });
+                Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", new CategoryBox() { Items = categoryServices });
+            }
+        </div>
+    }
+    if (settingApp.ShowCategoryProductList)
+    {
+        <div class="container-fluid py-4 mt-5 mb-5 section">
+            @{
+                Html.RenderPartial("~/Views/Category/Partials/_listCategoryProducts.cshtml", new CategoryBox() { Items = categoryProducts });
             }
         </div>
     }
 
-    if (application.Settings.ShowDoctorSlideList)
+    if (settingApp.ShowDoctorSlideList)
     {
-        @await Component.InvokeAsync("HomeDoctorSlide")
+        Html.RenderPartial("~/Views/Shared/Partials/_homeDoctorSlide.cshtml", doctors);
     }
-    // if (application.Settings.ShowArtileSlideList)
+    // if (settingApp.ShowArtileSlideList)
     // {
     //     @await Component.InvokeAsync("HomeArticleSlide")
     // } 
-    // if (application.Settings.ShowNewsList)
+    // if (settingApp.ShowNewsList)
     // {
     //     @await Component.InvokeAsync("HomeArticleNews")
     // }
-    // if (application.Settings.ShowProductList)
+    // if (settingApp.ShowProductList)
     // {
     //     @await Component.InvokeAsync("HomeArticleProduct")
     // }
-    if (application.Settings.ShowFeedbackList)
+    if (settingApp.ShowFeedbackList)
     {
-        @await Component.InvokeAsync("HomeArticleFeedBack")
+        Html.RenderPartial("~/Views/Shared/Partials/_homeArticleFeedBack.cshtml", feedbacks);
     }
 }
 
-<script src="~/js/home-category.js"></script>
+
 
 

@@ -7,7 +7,6 @@
 @model ArticleDetailVm
 @inject ApplicationService _applicationService
 @{
-    var application = await _applicationService.GetApplication();
     var hostNews = await _applicationService.GetArticlesHotNews();
 }
 @{

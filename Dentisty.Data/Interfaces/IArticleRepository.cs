@@ -12,14 +12,9 @@ namespace Dentisty.Data.Interfaces
         Task<Article> GetByIdAsync(int id);
         Task<Article> GetByAliasAsync(string alias);
         Task<IEnumerable<Article>> GetAllAsync();
-        Task<IEnumerable<Article>> GetByPagingAsync(ArticleVmPagingRequest request);
         Task<ArticleVm> CreateNew(ArticleVm item);
         Task<ArticleVm> UpdateArticle(ArticleVm item);
         Task<IEnumerable<ArticleVm>> GetArticleByIds(string ids);
-        Task<IEnumerable<ArticleVm>> GetArticleForSetting();
-        Task<IEnumerable<ArticleVm>> GetNewsForSetting();
-        Task<IEnumerable<ArticleVm>> GetProductForSetting();
-        Task<IEnumerable<ArticleVm>> GetFeedBackForSetting();
         Task<IEnumerable<ArticleVm>> GetForApplication(ArticleType type);
         Task<List<ArticleVm>> GetByType(ArticleType type);
         Task<PagedResult<ArticleVm>> GetForSearch(string keyWord, int pageIndex);
@@ -28,6 +23,7 @@ namespace Dentisty.Data.Interfaces
         Task<List<ArticleVm>> SiteMap();
         Task<IEnumerable<ArticleVm>> GetByCategoryId(int id);
         Task<bool> DeleteArticle(int id);
+        Task<bool> DeleteArticle(Article art);
         /// <summary>
         /// If exixts return True, else return False
         /// </summary>
@@ -35,8 +31,6 @@ namespace Dentisty.Data.Interfaces
         /// <returns></returns>
         Task<bool> CheckExistsAlias(ArticleVm item);
         Task<string> GenerateAlias(ArticleVm item);
-        Task<bool> DeleteFile(int artId, int fileId);
-        Task<bool> AddFile(int artId, IEnumerable<IFormFile> file);
 
     }
 }

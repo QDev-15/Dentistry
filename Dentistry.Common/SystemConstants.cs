@@ -13,6 +13,34 @@ namespace Dentistry.Common
         public const string USER_CONTENT_FOLDER_NAME = "user-content";
         public const string TimeZoneUTC = "UTC";
         private static string _timeZoneDefaultId;
+        // Cache Keys
+        public static string Cache_Setting { 
+            get
+            {
+                return "app-setting";
+            }
+        }
+        public static string Cache_Category {
+            get { return "app-category"; }
+        }
+        public static string Cache_Branches
+        {
+            get { return "app-branche"; }
+        }
+        public static string Cache_Slide
+        {
+            get { return "app-slide"; }
+        }
+        public static string Cache_Doctor
+        {
+            get { return "app-doctor"; }
+        }
+        public static string Cache_Article
+        {
+            get { return "app-article"; }
+        }
+
+
         public static string TimeZoneDefaultId {
             get
             {
@@ -46,20 +74,7 @@ namespace Dentistry.Common
             public const string Audience = "JwtTokens:Audience";
             public const string ExpiresInMinutes = "JwtTokens:ExpiresInMinutes";
         }
-        public static class CacheKeys
-        {
-            public const string AppSetting = "app-setting";
-            public const string AppCategory = "app-category";
-            public const string AppBranches = "app-branche";
-            public const string AppSlide = "app-slide";
-            public const string AppSettingDoctor = "appsetting-doctor";
-            public const string AppSettingCategory = "appsetting-category";
-            public const string AppSettingNews = "appsetting-news";
-            public const string AppSettingProduct = "appsetting-product";
-            public const string AppSettingFeedback = "appsetting-feedbacks";
-            public const string AppSettingArticle = "appsetting-article";
-            public const string ArticleChange = "article-changed";
-        }
+        
         
     }
 }

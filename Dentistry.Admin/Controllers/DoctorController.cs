@@ -67,7 +67,7 @@ namespace Dentistry.Admin.Controllers
             {
                 var doctor = await _doctorRepository.Update(item);
             }
-            await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.CacheKeys.AppSettingDoctor);
+            await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Doctor);
             return Json(new SuccessResult<bool>());
         }
     }

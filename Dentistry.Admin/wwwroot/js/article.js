@@ -79,7 +79,7 @@ $(document).ready(function () {
     $('#addEditArticleModal').on('submit', 'form', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
-
+        showGlobalSpinner();
         $.ajax({
             url: 'Articles/AddEdit',
             type: 'POST',
@@ -87,15 +87,19 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                if (response.success) {
+                if (response.isSuccessed) {
                     $('#addEditArticleModal').modal('hide');
                     loadArticle();
+                    showSuccess("Thành công");
+                    hideGlobalSpinner();
                 } else {
                     window.alert(response.message);
+                    hideGlobalSpinner();
                 }
             },
             error: function () {
                 showError('Lưu bài biết thất bại.');
+                hideGlobalSpinner();
             }
         });
     });
@@ -107,15 +111,19 @@ $(document).ready(function () {
 
 
 function deleteArt(id) {
+    showGlobalSpinner();
     $.ajax({
         url: `/Articles/Delete/${id}`,
         type: 'Delete',
         success: function (result) {
             console.log("result delete: ", result);
             loadArticle();
+            showSuccess("Xóa bài viết thành công!")
+            hideGlobalSpinner();
         },
         error: function (err) {
             console.log("result error: ", err);
+            hideGlobalSpinner();
         }
     });
 }

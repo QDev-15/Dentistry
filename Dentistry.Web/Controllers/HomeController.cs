@@ -114,17 +114,7 @@ namespace Dentistry.Web.Controllers
                 return Ok("Undefield");               
             } else
             {
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSetting);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppCategory);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppBranches);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSlide);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingDoctor);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingCategory);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingNews);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingProduct);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingFeedback);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.AppSettingArticle);
-                _cacheService.RemoveAsync(SystemConstants.CacheKeys.ArticleChange);
+                _cacheService.RemoveAllAsync();
                 return Ok("Done");
             }
         }

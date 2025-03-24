@@ -3,10 +3,12 @@
 @using Dentisty.Web.Services
 @inject ApplicationService _applicationService
 @{
-    var application = await _applicationService.GetApplication();
+    var settings = await _applicationService.GetAppSetting();
+    var categories = await _applicationService.GetAllCategories();
+    var branches = await _applicationService.GetBranches();
     MenuView menu = new MenuView();
-    menu.RightMenu = application.Categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuRight).OrderBy(x => x.Sort).ToList();
-    menu.LeftMenu = application.Categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuLef).OrderBy(x => x.Sort).ToList();
+    menu.RightMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuRight).OrderBy(x => x.Sort).ToList();
+    menu.LeftMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuLef).OrderBy(x => x.Sort).ToList();
 }
 
 <!DOCTYPE html>
@@ -15,7 +17,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <meta name="logs" content="@application.Settings.Name" />
+    <meta name="logs" content="@settings.Name" />
     <meta name="description" content="@ViewData["Description"]" />
     <meta name="keywords" content="@ViewData["Keywords"]" />
     <meta name="author" content="Nha Khoa Nhiên" />
@@ -62,7 +64,7 @@
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
-    @Html.Partial("_appToolbarTop", application.Settings)
+    @Html.Partial("_appToolbarTop", settings)
     @Html.Partial("_appMenu", menu)
     <div class="container-fluid container-main m-0 p-0">
         <main id="main-container" role="main" class="">
@@ -71,8 +73,8 @@
     </div>
 
     @Html.Partial("_appContact")
-    @Html.Partial("_appFooter", new AppFooter() { setting = application.Settings, branches = application.Branches })
-    @Html.Partial("_onLoadPageModal", application.Settings)
+    @Html.Partial("_appFooter", new AppFooter() { setting = settings, branches = branches })
+    @Html.Partial("_onLoadPageModal", settings)
     
 
     @* Script Lib *@
@@ -88,6 +90,12 @@
     <!-- Tempus Dominus (DateTimePicker) JS -->
     <script src="~/lib/datepicker/popper.min.js" asp-append-version="true"></script>
     <script src="~/lib/datepicker/tempus-dominus.min.js" asp-append-version="true"></script>
+    @* script *@
+    <script src="~/js/add_contact.js"></script>
+    <script src="~/js/book_contact.js"></script>
+    <script src="~/js/home-category.js"></script>
+    <script src="~/js/home-slide-doctor.js"></script>
+    <script src="~/js/navbar-mega.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

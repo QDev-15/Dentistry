@@ -27,7 +27,7 @@ namespace Dentistry.Web.Controllers
         [HttpGet("category/{alias}")]
         public async Task<IActionResult> Detail(string alias)
         {
-            var category = await _categoryReposiroty.GetByAlias(alias);
+            var category = await _app.GetCategoryByAlias(alias);// _categoryReposiroty.GetByAlias(alias);
             if (category == null) { 
                 category = new CategoryVm();
                 ViewData["Title"] = "Not found";
@@ -48,8 +48,9 @@ namespace Dentistry.Web.Controllers
             {
                 page = 1;
             }
-            var category = await _categoryReposiroty.GetByAlias(alias);
-            var result = await _articleRepository.GetForCategory(category.Id, page);
+
+            var category = await _app.GetCategoryByAlias(alias);
+            var result = await _app.GetCategoryArticles(category.Id, page);
             ViewData["TotalPages"] = result.PageCount;
             ViewData["CurrentPage"] = page;
             // SEO ==================
