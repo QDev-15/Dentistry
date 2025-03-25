@@ -108,7 +108,7 @@
   border-radius: 0px 0px 20px 20px;
   background-color: rgb(255, 254, 253);
   transition: visibility 0s, opacity 0.3s linear;
-  box-shadow: 0px 1px 3px 0px rgba(231, 231, 231, 0.13), 0px 1px 1px 0px rgba(223, 223, 223, 0.14), 0px 1px 2px 1px rgba(124, 124, 124, 0.12);
+  box-shadow: 2px 2px 10px 0px rgba(14, 14, 14, 0.2);
 }
 .navbar-mega .dropdown .dropdown-menu .row {
   display: flex;
