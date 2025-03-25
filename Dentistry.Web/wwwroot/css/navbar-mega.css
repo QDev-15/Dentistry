@@ -103,7 +103,7 @@
   top: calc(120px - 1px);
   display: block;
   visibility: hidden;
-  opacity: 1;
+  opacity: 0.95;
   border: 1px solid rgba(188, 142, 46, 0.5) !important;
   border-radius: 0px 0px 20px 20px;
   background-color: rgb(255, 254, 253);
@@ -215,7 +215,7 @@
 .navbar-mega .dropdown:hover .dropdown-menu {
   display: block;
   visibility: visible;
-  opacity: 1;
+  opacity: 0.95;
   transition: visibility 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) !important;
 }
 
