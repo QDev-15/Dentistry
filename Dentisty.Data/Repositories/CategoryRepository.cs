@@ -135,6 +135,10 @@ namespace Dentisty.Data.Repositories
                     category.Description = model.Description;
                     category.Position = model.Position;
                     category.Type = model.Type;
+                    if (category.Type == CategoryType.None && category.Parent != null)
+                    {
+                        category.Type = category.Parent.Type;
+                    }
                     category.UpdatedDate = DateTime.Now;
                     UpdateAsync(category);
                     await SaveChangesAsync();
