@@ -265,7 +265,7 @@ namespace Dentisty.Data.Repositories
             int pageSize = 10;
             int skip = (pageIndex - 1) * pageSize;
 
-            var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower()) && x.IsActive)
+            var articles = await _context.Articles.Where(x => x.Title.ToLower().Contains(keyWord.ToLower()) && x.IsActive).OrderByDescending(x => x.UpdatedDate)
                 .Include(x => x.Category)
                 .Include(x=> x.Images)
                 .Skip(skip).Take(pageSize)
@@ -318,7 +318,7 @@ namespace Dentisty.Data.Repositories
             int pageSize = 10;
             int skip = (pageIndex - 1) * pageSize;
 
-            var articles = await _context.Articles.Where(x => x.CategoryId == categoryId && x.IsActive)
+            var articles = await _context.Articles.Where(x => x.CategoryId == categoryId && x.IsActive).OrderByDescending(x => x.UpdatedDate)
                 .Include(x => x.Category)
                 .Include(x => x.Images)
                 .Skip(skip).Take(pageSize).ToListAsync();

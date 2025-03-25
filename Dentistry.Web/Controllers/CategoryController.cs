@@ -28,6 +28,8 @@ namespace Dentistry.Web.Controllers
         public async Task<IActionResult> Detail(string alias)
         {
             var category = await _app.GetCategoryByAlias(alias);// _categoryReposiroty.GetByAlias(alias);
+            category.Articles = await _app.GetArticlesByCategoryId(category.Id);
+
             if (category == null) { 
                 category = new CategoryVm();
                 ViewData["Title"] = "Not found";

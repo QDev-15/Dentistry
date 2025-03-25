@@ -94,7 +94,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Chỉ hoạt động với HTTPS
     options.Cookie.SameSite = SameSiteMode.None; // Quan trọng để hỗ trợ nhiều tab/domain
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.ExpireTimeSpan = TimeSpan.FromDays(10);
     options.SlidingExpiration = true;
 });
 // add controller views

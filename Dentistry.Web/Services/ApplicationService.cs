@@ -41,7 +41,7 @@ namespace Dentisty.Web.Services
             _doctor = doctor;
             _article = article;
         }
-
+        // app setting
         public async Task<AppSettingVm> GetAppSetting()
         {
             //if (_env.IsDevelopment())
@@ -53,6 +53,33 @@ namespace Dentisty.Web.Services
                 return await _setting.GetFirst();
             });
         }
+        
+        public async Task<List<BranchesVm>> GetBranches()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Branches + "GetBranches", async () =>
+            {
+                var branches = await _branchesRepository.GetActive();
+                return branches.ToList();
+            });
+        }
+        public async Task<List<SlideVm>> GetMainSlides()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Slide + "GetMainSlides", async () =>
+            {
+                var slides = await _slide.GetActiveSlides();
+                return slides;
+            });
+        }
+        public async Task<List<DoctorVm>> GetDoctorSlides()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Doctor + "GetDoctorSlides", async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var doctors = await _doctor.GetDoctorByIds(appSetting.Doctors);
+                return doctors.ToList();
+            });
+        }
+        // Category
         public async Task<List<CategoryVm>> GetAllCategories()
         {
             //if (_env.IsDevelopment())
@@ -72,7 +99,6 @@ namespace Dentisty.Web.Services
         {
             return await _cache.GetOrSetAsync(SystemConstants.Cache_Category + "GetCategoryByAlias" + alias, async () =>
             {
-                var category = new CategoryVm();
                 var categories = await GetAllCategories();
                 if (!categories.Any())
                 {
@@ -146,31 +172,6 @@ namespace Dentisty.Web.Services
                     }
                 }
                 return new CategoryVm();
-            });
-        }
-        public async Task<List<BranchesVm>> GetBranches()
-        {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Branches + "GetBranches", async () =>
-            {
-                var branches = await _branchesRepository.GetActive();
-                return branches.ToList();
-            });
-        }
-        public async Task<List<SlideVm>> GetMainSlides()
-        {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Slide + "GetMainSlides", async () =>
-            {
-                var slides = await _slide.GetActiveSlides();
-                return slides;
-            });
-        }
-        public async Task<List<DoctorVm>> GetDoctorSlides()
-        {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Doctor + "GetDoctorSlides", async () =>
-            {
-                var appSetting = await GetAppSetting();
-                var doctors = await _doctor.GetDoctorByIds(appSetting.Doctors);
-                return doctors.ToList();
             });
         }
         public async Task<List<CategoryVm>> GetCategoryServices()
@@ -294,27 +295,7 @@ namespace Dentisty.Web.Services
                 return proCats;
             });
         }
-
-        public async Task<List<ArticleVm>> GetArticlesFeddback()
-        {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Article + "GetArticlesFeddback", async () =>
-            {
-                var appSetting = await GetAppSetting();
-                var articles = await _article.GetArticleByIds(appSetting.Feedbacks);
-                return articles.ToList();
-            });
-            
-        }
-        public async Task<List<ArticleVm>> GetArticlesHotNews()
-        {
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Article + "GetArticlesHotNews", async () =>
-            {
-                var articles = await _article.GetArticleNew();
-                return articles.ToList();
-            });
-            
-        }
-        
+ 
         public async Task<PagedResult<ArticleVm>> GetCategoryArticles(int id, int page)
         {
             return await _cache.GetOrSetAsync(SystemConstants.Cache_Article + "GetCategoryArticles_" + id + "_" + page, async () =>
@@ -325,6 +306,34 @@ namespace Dentisty.Web.Services
             
         }
 
+        // Articles
+        public async Task<List<ArticleVm>> GetArticlesByCategoryId(int categoryId)
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Article + "GetArticlesByCategoryId" + categoryId, async () =>
+            {
+                var articles = await _article.GetForCategory(categoryId, 1);
+                return articles.Items;
+            });
+        }
+        public async Task<List<ArticleVm>> GetArticlesFeddback()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Article + "GetArticlesFeddback", async () =>
+            {
+                var appSetting = await GetAppSetting();
+                var articles = await _article.GetArticleByIds(appSetting.Feedbacks);
+                return articles.ToList();
+            });
+
+        }
+        public async Task<List<ArticleVm>> GetArticlesHotNews()
+        {
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Article + "GetArticlesHotNews", async () =>
+            {
+                var articles = await _article.GetArticleNew();
+                return articles.ToList();
+            });
+
+        }
 
         public void InvalidateCache(string key)
         {

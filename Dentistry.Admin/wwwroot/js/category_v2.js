@@ -216,11 +216,26 @@ function initCategoryTiny(editorId) {
             'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'media', 'link', 'lists',
             'searchreplace', 'table', 'visualblocks', 'wordcount', "code", "paste"
         ],
-        paste_enable_default_filters: false, // Tắt bộ lọc mặc định khi dán nội dung
+        forced_root_block: '',
+        valid_children: "+body[style],+div[style],+span[style],+a[style]",
+        content_css: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
+        inline_styles: true, // Giữ lại CSS nội tuyến
         valid_elements: '*[*]', // Giữ lại tất cả thẻ và thuộc tính
+        extended_valid_elements: '*[*]',
         media_live_embeds: true, // Cho phép hiển thị trực tiếp video
-        extended_valid_elements: "h2,h3,p,strong,em,ul,ol,li,img[class|src|alt|width|height|style],a[class,href|style|target]",
+        // Tắt các bộ lọc và kiểm tra tự động
+        paste_enable_default_filters: false,   // Tắt bộ lọc mặc định khi dán nội dung
+        paste_as_text: false,
+        cleanup: false,
+        verify_html: false,
+        entity_encoding: "raw",
+        remove_trailing_brs: false,
+
+        // Không tự động chỉnh sửa URL
+        convert_urls: false,
         image_advtab: true,
+        relative_urls: false,
+        remove_script_host: false,
         image_class_list: [ // Tùy chỉnh class cho ảnh
             { title: 'Responsive', value: 'img-fluid' },
             { title: 'Thumbnail', value: 'img-thumbnail' }
