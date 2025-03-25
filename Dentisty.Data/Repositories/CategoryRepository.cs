@@ -34,6 +34,28 @@ namespace Dentisty.Data.Repositories
                 .FirstOrDefaultAsync();
             return category;
         }
+        public async Task<CategoryVm> UpLoadFile(int id, IFormFile file)
+        {
+            var category = await _context.Categories.Where(x => x.IsActive && x.Id == id).Include(x => x.Image).FirstOrDefaultAsync();
+            if (category != null)
+            {
+                var imageOld = category.Image;
+                if (file != null)
+                {
+                    var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Category);
+                    category.Image = image;
+                    // delete oldImage
+                    if (imageOld != null)
+                    {
+                        _imageRepository.DeleteFileToHostingAsync(imageOld);
+                        _imageRepository.DeleteAsync(imageOld);
+                    }
+                    UpdateAsync(category);
+                    await SaveChangesAsync();
+                }
+            }
+            return category.ReturnViewModel();
+        }
         public async Task<CategoryVm> GetByAlias(string alias)
         {
             var category = await _context.Categories.Where(x => x.IsActive && x.Alias.ToString() == alias.ToString())

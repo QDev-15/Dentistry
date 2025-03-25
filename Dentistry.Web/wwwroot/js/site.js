@@ -68,6 +68,24 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM đã tải xong!");
     checkScroll();
+    // Observer để kiểm tra khi DOM thay đổi
+    let observer = new MutationObserver((mutations, observerInstance) => {
+        // kiểm tra toàn bộ ảnh đã được load hay tồn tại không. nếu không tồn tại ảnh thì load ảnh default
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.tagName === 'IMG') {
+                    checkImageValidity(node);
+                    observer.observe(node, { attributes: true, attributeFilter: ['src'] });
+                } else {
+                    // Nếu không phải img, tìm trong tất cả các thẻ con
+                    node.querySelectorAll && node.querySelectorAll("img").forEach(checkImageValidity);
+                }
+            });
+        });
+    });
+
+    // Quan sát toàn bộ trang, kể cả các phần tử thêm vào sau
+    observer.observe(document.body, { childList: true, subtree: true });
 });
 
 
@@ -241,3 +259,38 @@ function closeAllModal() {
         }
     });
 }
+
+function checkImageValidity(img) {
+    let src = img.getAttribute("src");
+    let imgDefault = "/assets/img/loading/loading2.webp";
+
+    // Nếu ảnh không có src hoặc src rỗng -> Gán ảnh mặc định
+    if (!src || src.trim() === "") {
+        img.setAttribute("src", imgDefault);
+        return;
+    }
+
+    // Kiểm tra ảnh có tồn tại không bằng cách tạo một đối tượng Image mới
+    let newImg = new Image();
+    newImg.src = src;
+
+    newImg.onload = function () {
+        // Ảnh hợp lệ, giữ nguyên
+        console.log(`✅ Ảnh tồn tại: ${src}`);
+    };
+
+    newImg.onerror = function () {
+        // Ảnh lỗi, thay thế bằng ảnh mặc định
+        console.log(`❌ Ảnh lỗi: ${src} -> Chuyển sang ảnh mặc định`);
+        img.setAttribute("src", imgDefault);
+    };
+}
+
+
+
+
+
+
+
+
+

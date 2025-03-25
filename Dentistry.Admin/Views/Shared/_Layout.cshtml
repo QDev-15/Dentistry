@@ -52,9 +52,10 @@
 </head>
 <body class="sb-nav-fixed">
     <div id="global-spinner" style="display: none;">
-        <div class="spinner-border text-primary" role="status">
+        <img src="~/assets/img/loading/loading3.webp" />
+        @* <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
-        </div>
+        </div> *@
     </div>
     @await Component.InvokeAsync("Navigation")
     <div id="layoutSidenav">

@@ -126,7 +126,23 @@ namespace Dentistry.Admin.Controllers
 
             
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(int id, IFormFile imageFile)
+        {
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                return BadRequest(new { isSuccessed = false, message = "Không có ảnh được tải lên" });
+            }
+            var result = new SuccessResult<bool>();
+            if (id > 0)
+            {
+                var categoryUpdate = await _categoryRepository.UpLoadFile(id, imageFile);
+                result.data = categoryUpdate;
+            }
 
+
+            return Json(result);
+        }
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

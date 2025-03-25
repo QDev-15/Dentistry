@@ -70,6 +70,7 @@
         $(".card-accordion-type-" + id).val(type);
         $(".card-accordion-sort-" + id).val(sort);
         $(".category-avatar-" + id).attr('src', img);
+        checkImageValidity($(".category-avatar-" + id)[0]);
     }
     $(document).on('click', '#btnRefreshCategory', function () {
         loadCategoryList(); // Hàm này gọi lại API để cập nhật danh sách
@@ -111,6 +112,8 @@
         e.preventDefault();
         const formData = new FormData(this);
         var id = $("#item_Id").val();
+        // Bước 1: thêm mới/cập nhập text không bao gồm file
+        formData.delete("item.ImageFile");
         var update = id != "0";
         showGlobalSpinner();
         //debugger;
@@ -136,22 +139,54 @@
                         }
                         //loadCategoryList();
                     }
-                     // Hoặc cập nhật bảng
+                    // Nếu có file ảnh, tiếp tục upload ảnh (Bước 2)
+                    const fileInput = document.getElementById("item_ImageFile");
+                    if (fileInput.files.length > 0) {
+                        uploadCategoryImage(data.id, fileInput.files[0]);
+                    } 
                 } else {
-                    hideGlobalSpinner();
                     if (response.data) {
                         $('#addCategoryModal .modal-content').html(html);
                     } else {
                         showError(response.message);
                     }
                 }
-
+                
             },
             error: function () {
                 showError('Failed to save changes');
             }
         });
     });
+    // Hàm upload ảnh riêng biệt sau khi đã lưu slide thành công
+    function uploadCategoryImage(categoryId, file) {
+        const formData = new FormData();
+        formData.append("id", categoryId);
+        formData.append("imageFile", file);
+
+        $.ajax({
+            url: '/Category/UploadImage',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.isSuccessed) {
+                    var data = response.data;
+                    $(".category-avatar-" + data.id).css("opacity", 0).attr("src", data.coverImage).on("load", function () {
+                        $(this).fadeTo(500, 1); // Làm mờ dần trong 500ms
+                    });
+                    /*$(".category-avatar-" + data.id).attr('src', data.coverImage);*/
+                    //showSuccess("Upload ảnh thành công");
+                } else {
+                    showError("Upload ảnh thất bại");
+                }
+            },
+            error: function (error) {
+                showError("Lỗi khi upload ảnh");
+            }
+        });
+    }
     function deleteCategory(id) {
         showGlobalSpinner();
         $.ajax({

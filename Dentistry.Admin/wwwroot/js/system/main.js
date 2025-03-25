@@ -1,5 +1,5 @@
 ﻿const defaultClassForSpinner = "sb-nav-fixed";// "layout-main-content";
-
+const imgLoadingDefault = "/assets/img/loading/loading5.webp";
 /*** =============== CHECK DOM loading and END LOADING =======================*/
 const domStage = {
     running: false,
@@ -17,7 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         domStage.running = false;
         domStage.method = null;
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.tagName === 'IMG') {
+                    checkImageValidity(node);
+                    observer.observe(node, { attributes: true, attributeFilter: ['src'] });
+                } else {
+                    // Nếu không phải img, tìm trong tất cả các thẻ con
+                    node.querySelectorAll && node.querySelectorAll("img").forEach(checkImageValidity);
+                }
+            });
+        });
     });
+    
     // Quan sát toàn bộ trang, kể cả các phần tử thêm vào sau
     observer.observe(document.body, { childList: true, subtree: true });
 });
@@ -175,18 +187,6 @@ $("#sidebarToggle").on("click", function (e) {
 });
 
 // spinner  =========================================================================
-
-//// mở Spinner khi  AJAX request
-//$(document).ajaxStart(function () {
-//    console.log("start spinner");
-//    $("#global-spinner").show();
-//});
-
-//// Ẩn Spinner khi tất cả AJAX request hoàn tất
-//$(document).ajaxStop(function () {
-//    console.log("end spinner");
-//    $("#global-spinner").hide();
-//});
 function showGlobalSpinner() {
     document.getElementById('global-spinner').style.display = 'flex';
 }
@@ -306,6 +306,30 @@ function loadSettingData() {
 }
 
 
+function checkImageValidity(img) {
+    let src = img.getAttribute("src");
+    
+    // Nếu ảnh không có src hoặc src rỗng -> Gán ảnh mặc định
+    if (!src || src.trim() === "") {
+        img.setAttribute("src", imgLoadingDefault);
+        return;
+    }
+
+    // Kiểm tra ảnh có tồn tại không bằng cách tạo một đối tượng Image mới
+    let newImg = new Image();
+    newImg.src = src;
+
+    newImg.onload = function () {
+        // Ảnh hợp lệ, giữ nguyên
+        //console.log(`✅ Ảnh tồn tại: ${src}`);
+    };
+
+    newImg.onerror = function () {
+        // Ảnh lỗi, thay thế bằng ảnh mặc định
+        //console.log(`❌ Ảnh lỗi: ${src} -> Chuyển sang ảnh mặc định`);
+        img.setAttribute("src", imgLoadingDefault);
+    };
+}
 
 
 // Tiny =========================================================================

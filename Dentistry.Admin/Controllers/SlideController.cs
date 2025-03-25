@@ -4,6 +4,7 @@ using Dentistry.ViewModels.Common;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,24 +54,43 @@ namespace Dentistry.Admin.Controllers
 
             try
             {
+                var result = new SuccessResult<bool>();
                 if (model.Id == 0)
                 {
                     // Add slide logic
                     var slide = await _slideRepository.Create(model);
+                    result.data = slide;
                 }
                 else
                 {
                     // Update slide logic
                     var slide = await _slideRepository.UpdateSlide(model);
+                    result.data = slide;
                 }
                 await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Slide);
-                return Json(new SuccessResult<bool>());
+                return Json(result);
             }
             catch (Exception ex) {
                 return Json(new ErrorResult<bool>(ex.Message));
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(int slideId, IFormFile imageFile)
+        {
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                return BadRequest(new { isSuccessed = false, message = "Không có ảnh được tải lên" });
+            }
+            var result = new SuccessResult<bool>();
+            if (slideId > 0)
+            {
+                var slideUpdate = await _slideRepository.UpLoadFile(slideId, imageFile);
+                result.data = slideUpdate;
+            }
 
+
+            return Json(result);
+        }
         [HttpDelete]
         public async Task<IActionResult> Delete(int id) {
             try

@@ -4,6 +4,7 @@ using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dentisty.Data.Repositories
@@ -129,6 +130,29 @@ namespace Dentisty.Data.Repositories
         {
             var slides = await _context.Slides.Where(x => x.IsActive).Include(x => x.Image).ToListAsync();
             return slides.Select(x => x.ReturnViewModel()).OrderBy(x => x.SortOrder).ToList();
+        }
+
+        public async Task<SlideVm> UpLoadFile(int id, IFormFile file)
+        {
+            var slide = await _context.Slides.Where(x => x.IsActive && x.Id == id).Include(x => x.Image).FirstOrDefaultAsync();
+            if (slide != null)
+            {
+                var imageOld = slide.Image;
+                if (file != null)
+                {
+                    var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Slides);
+                    slide.Image = image;
+                    // delete oldImage
+                    if (imageOld != null)
+                    {
+                        _imageRepository.DeleteFileToHostingAsync(imageOld);
+                        _imageRepository.DeleteAsync(imageOld);
+                    }
+                    UpdateAsync(slide);
+                    await SaveChangesAsync();
+                }
+            }
+            return slide.ReturnViewModel();
         }
     }
 }

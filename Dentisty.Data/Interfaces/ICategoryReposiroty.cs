@@ -1,6 +1,8 @@
 ﻿using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog.Categories;
+using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,7 @@ namespace Dentisty.Data.Interfaces
         Task<List<CategoryVm>> GetCategoryByType(CategoryType type);
         Task<Category> GetById(int id);
         Task<CategoryVm> GetByAlias(string alias);
+        Task<CategoryVm> UpLoadFile(int id, IFormFile file);
         Task<CategoryVm> CreateNew(CategoryVm category);
         Task<CategoryVm> UpdateCategory(CategoryVm category);
         Task<IEnumerable<CategoryVm>> GetForSettings();
