@@ -950,11 +950,14 @@
     padding: 0;
 }
 
-.section.category-container {
-    background: #d79e2838;
+.section.category-list-slick {
+    background: #d79e281c;
 }
-.section.product-container {
-    background: #ebebeb;
+.section.product-list-slick {
+    background: #d78a280a;
+}
+.category-container, .product-container {
+    padding: 0 60px;
 }
 .breadcrumb {
     margin: 0;
@@ -1021,8 +1024,6 @@
 }
 
 .categories-content {
-    padding: 50px 0;
-
     .actor-list {
         .actor-item {
             padding: 15px 15px;

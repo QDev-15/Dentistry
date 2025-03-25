@@ -15,7 +15,7 @@
 
     if (settingApp.ShowCategoryList)
     {
-        <div class="container-fluid py-4 mt-5 mb-5 section">
+        <div class="container-fluid py-4 mt-5 mb-5 section category-list-slick">
             @{
                 Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", new CategoryBox() { Items = categoryServices });
             }
@@ -23,7 +23,7 @@
     }
     if (settingApp.ShowCategoryProductList)
     {
-        <div class="container-fluid py-4 mt-5 mb-5 section">
+        <div class="container-fluid py-4 mt-5 mb-5 section product-list-slick">
             @{
                 Html.RenderPartial("~/Views/Category/Partials/_listCategoryProducts.cshtml", new CategoryBox() { Items = categoryProducts });
             }
