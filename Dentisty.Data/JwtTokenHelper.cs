@@ -37,7 +37,7 @@ namespace Dentisty.Data
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),  // Thêm claim vào Subject
-                Expires = DateTime.UtcNow.AddHours(1),  // Thời gian hết hạn
+                Expires = DateTime.Now.AddDays(10),  // Thời gian hết hạn
                 SigningCredentials = creds,
                 Issuer = _config[SystemConstants.JwtTokens.Issuer],  // Người phát hành
                 Audience = _config[SystemConstants.JwtTokens.Audience]  // Đối tượng nhận token

@@ -52,7 +52,7 @@ namespace Dentistry.Admin.Controllers
             var userPrincipal = this.ValidateToken(result.ResultObj);
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(10),
+                ExpiresUtc = DateTimeOffset.Now.AddDays(10),
                 IsPersistent = request.RememberMe
             };
             var userId = userPrincipal.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
