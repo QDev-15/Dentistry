@@ -1489,9 +1489,8 @@
     }
 
     .slide-item {
-        max-width: 350px;
-        min-width: 350px;
-        height: 300px;
+        width: 300px !important;
+        height: 300px !important;
         /*border-radius: 5px;*/
         cursor: pointer;
         transition: all 0.3s ease;
