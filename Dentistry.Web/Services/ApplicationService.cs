@@ -88,7 +88,7 @@ namespace Dentisty.Web.Services
             //    var categoryList = categories.Select(x => x.ReturnViewModel()).ToList();
             //    return categoryList;
             //}
-            return await _cache.GetOrSetAsync(SystemConstants.Cache_Category, async () =>
+            return await _cache.GetOrSetAsync(SystemConstants.Cache_Category + "GetAllCategories", async () =>
             {
                 var categories = await _cat.GetParents();
                 var categoryList = categories.Select(x => x.ReturnViewModel()).ToList();

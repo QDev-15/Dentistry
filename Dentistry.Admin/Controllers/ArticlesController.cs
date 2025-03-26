@@ -103,6 +103,7 @@ namespace Dentistry.Admin.Controllers
             }
             // Gửi tín hiệu tới website để xóa cache
             await _cacheService.InvalidateCacheAsync(SystemConstants.Cache_Article);
+            await _cacheService.InvalidateCacheAsync(SystemConstants.Cache_Category);
             return Json(new SuccessResult<bool>());
         }
 

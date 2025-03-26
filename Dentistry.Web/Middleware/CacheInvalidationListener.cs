@@ -1,5 +1,7 @@
-﻿using Dentisty.Data.Repositories;
+﻿using Dentistry.Common;
+using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
+using Dentisty.Web.Services;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Dentistry.Web.Middleware
@@ -29,6 +31,12 @@ namespace Dentistry.Web.Middleware
             {
                 LogCaches("remove caches: " + key, "Remove caches");
                 _cacheService.RemoveAsync(key);
+                if (key == SystemConstants.Cache_Category) {
+                    // sau khi remove cache thì cập nhập lại cache của category all
+                    using var scope = _serviceProvider.CreateScope(); // Tạo Scope mới
+                    var appService = scope.ServiceProvider.GetRequiredService<ApplicationService>(); // Lấy Application service 
+                    await appService.GetAllCategories();
+                }
             });
 
 
