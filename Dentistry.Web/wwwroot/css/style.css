@@ -569,7 +569,7 @@
 }
 
 .box_article_description {
-  overflow: auto;
+  /*overflow: auto;*/
 }
 .box_article_description iframe {
   width: 100%;
