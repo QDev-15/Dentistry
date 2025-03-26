@@ -59,7 +59,7 @@ namespace Dentistry.Admin.Controllers
             // Lưu token vào cookie hoặc trả về trong response
             HttpContext.Response.Cookies.Append(SystemConstants.AppSettings.Token, result.ResultObj, new CookieOptions
             {
-                Expires = DateTime.UtcNow.AddDays(1),  // Cookie sẽ hết hạn sau 1 ngày
+                Expires = DateTime.Now.AddDays(10),  // Cookie sẽ hết hạn sau 1 ngày
                 IsEssential = true,  // Cookie là bắt buộc
                 HttpOnly = true,  // Cookie không thể được truy cập từ JavaScript
                 Secure = true,  // Cookie chỉ được gửi qua HTTPS

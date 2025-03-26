@@ -122,7 +122,7 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.IdleTimeout = TimeSpan.FromDays(10);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });

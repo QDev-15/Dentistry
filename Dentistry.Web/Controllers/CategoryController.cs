@@ -60,59 +60,5 @@ namespace Dentistry.Web.Controllers
             ViewData["Keywords"] = category.Alias;
             return View("Article", result);
         }
-
-
-        private async Task<CategoryDetailVm> getCategoryDetail(string alias, string? danhmuc)
-        {
-            if (danhmuc == null)
-            {
-                danhmuc = alias;
-            }
-            var categoryDetailVm = new CategoryDetailVm();
-            CategoryType categoryType = CategoryType.None;
-
-            switch (danhmuc)
-            {
-                case var _ when danhmuc == CategoryType.About.GetAliasDisplayName(): // Giới thiệu
-                    categoryType = CategoryType.About;
-                    break;
-                case var _ when danhmuc == CategoryType.advise.GetAliasDisplayName(): // Tư vấn
-                    categoryType = CategoryType.advise;
-                    break;
-                case var _ when danhmuc == CategoryType.FeedBack.GetAliasDisplayName(): // Phản hồi
-                    categoryType = CategoryType.FeedBack;
-                    break;
-                case var _ when danhmuc == CategoryType.News.GetAliasDisplayName(): // Tin tức
-                    categoryType = CategoryType.News;
-                    break;
-                case var _ when danhmuc == CategoryType.Products.GetAliasDisplayName(): // sản phẩm
-                    categoryType = CategoryType.Products;
-                    break;
-                case var _ when danhmuc == CategoryType.Service.GetAliasDisplayName(): // dịch vụ
-                    categoryType = CategoryType.Service;
-                    break;
-                case var _ when danhmuc == CategoryType.Support.GetAliasDisplayName(): // Hỗ trợ
-                    categoryType = CategoryType.Support;
-                    break;
-                default:
-                    break;
-            }
-            if (categoryType == CategoryType.None) return categoryDetailVm;
-
-            
-            categoryDetailVm.category = await _categoryReposiroty.GetByAlias(alias);
-            categoryDetailVm.articles = (await _articleRepository.GetByCategoryId(categoryDetailVm.category.Id)).ToList();
-            categoryDetailVm.hotNews = await _app.GetArticlesHotNews();
-
-            // SEO ==================
-            if (categoryDetailVm.category.Id > 0)
-            {
-                ViewData["Support"] = categoryDetailVm.category.Type == CategoryType.Support;
-                ViewData["Title"] = categoryDetailVm.category.Name;
-                ViewData["Description"] = $"Đọc ngay danh mục '{categoryDetailVm.category.Name}' để hiểu hơn về {categoryDetailVm.category.Alias}";
-                ViewData["Keywords"] = categoryDetailVm.category.Alias;
-            }
-            return categoryDetailVm;
-        }
     }
 }
