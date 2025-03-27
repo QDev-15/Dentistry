@@ -9,6 +9,7 @@ using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,14 +45,14 @@ namespace Dentisty.Data.Repositories
              .Include(x => x.Category)
              .Include(x => x.Images)
              .FirstOrDefaultAsync(a => a.Alias == alias && a.IsActive);
-        }
-        public async Task<Article> GetByIdAsync(int id)
+        }      
+        public async Task<Article> GetByIdAdminAsync(int id)
         {
             return await _context.Articles
                 .Include(x=>x.CreatedBy)
                 .Include(x=>x.Category)
                 .Include(x=>x.Images)
-                .FirstAsync(a => a.Id == id && a.IsActive);
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
         public async Task<IEnumerable<Article>> GetAllAsync()
         {
@@ -61,7 +62,118 @@ namespace Dentisty.Data.Repositories
                 .Include(x => x.Images)
                 .ToListAsync();
         }
+        public async Task<DataTableResponse<ArticleVm>> GetListAsync([FromQuery] DataTableRequest request)
+        {
+            var query = _context.Articles
+            .Include(x => x.Category)
+            .Include(x => x.CreatedBy)
+            .AsQueryable();
 
+            // 🔥 Tìm kiếm
+            if (!string.IsNullOrEmpty(request.SearchValue))
+            {
+                query = query.Where(x =>
+                    x.Title.Contains(request.SearchValue) ||
+                    x.Category.Name.Contains(request.SearchValue) ||
+                    x.CreatedBy.UserName.Contains(request.SearchValue) // Tìm theo ngày
+                );
+            }
+
+            // 🔥 Sắp xếp dữ liệu dựa vào cột được chọn từ DataTables
+            if (!string.IsNullOrEmpty(request.SortColumn))
+            {
+                switch (request.SortColumn.ToLower())
+                {
+                    case "title":
+                        query = request.SortDirection == "asc"
+                            ? query.OrderBy(x => x.Title)
+                            : query.OrderByDescending(x => x.Title);
+                        break;
+
+                    case "categoryname":
+                        query = request.SortDirection == "asc"
+                            ? query.OrderBy(x => x.Category.Name)
+                            : query.OrderByDescending(x => x.Category.Name);
+                        break;
+
+                    case "isactive":
+                        query = request.SortDirection == "asc"
+                            ? query.OrderBy(x => x.IsActive)
+                            : query.OrderByDescending(x => x.IsActive);
+                        break;
+
+                    case "createddate":
+                        query = request.SortDirection == "asc"
+                            ? query.OrderBy(x => x.CreatedDate)
+                            : query.OrderByDescending(x => x.CreatedDate);
+                        break;
+                    case "type":
+                        query = request.SortDirection == "asc"
+                            ? query.OrderBy(x => x.Type)
+                            : query.OrderByDescending(x => x.Type);
+                        break;
+
+                    default:
+                        query = query.OrderByDescending(x => x.CreatedDate);
+                        break;
+                }
+            }
+
+            int totalRecords = await query.CountAsync();
+
+            var articles = await query
+                .Skip(request.PageIndex * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => x.ReturnViewModel())
+                .ToListAsync();
+
+            return new DataTableResponse<ArticleVm> ()
+            {
+                Draw = request.Draw,
+                RecordsTotal = totalRecords,
+                RecordsFiltered = totalRecords,
+                Data = articles
+            };
+        }
+
+
+
+        private async Task<Article> UpdateArticleImages(Article art, string newIds)
+        {
+            if (string.IsNullOrEmpty(newIds))
+            {
+                newIds = "";
+            }
+            string[] arrayIds = newIds.Split(",") ?? [];
+            // get list Images new
+            var newImages = _context.Images.Where(x => arrayIds.Contains(x.Id.ToString())).ToList();
+            // get list images real
+            var imagePrimaryPaths = Utilities.ExtractImageLinks(art.Description);
+            var imageNeedDeletes = new List<ImageFile>();
+            if (art.Images.Any())
+            {
+                // images delete
+                imageNeedDeletes = art.Images.Where(x => !imagePrimaryPaths.Contains(x.Path)).ToList();
+                // skip images
+                art.Images = art.Images.Where(x => imagePrimaryPaths.Contains(x.Path)).ToList();
+            }
+            // check new images
+            if (newImages.Any())
+            {
+                var needDeletes = newImages.Where(x => !imagePrimaryPaths.Contains(x.Path)).ToList();
+                imageNeedDeletes.AddRange(needDeletes);
+                newImages = newImages.Where(x => imagePrimaryPaths.Contains(x.Path)).ToList();
+                art.Images.AddRange(newImages);
+            }
+            if (imageNeedDeletes.Any())
+            {
+                await _imageRepository.DeleteRangeFiles(imageNeedDeletes);
+                _imageRepository.DeleteRangeAsync(imageNeedDeletes);
+            }
+            UpdateAsync(art);
+            await SaveChangesAsync();
+            return art;
+        }
         public async Task<ArticleVm> CreateNew(ArticleVm item)
         {
             try
@@ -81,16 +193,18 @@ namespace Dentisty.Data.Repositories
                     UpdatedDate = DateTime.Now
                 };
                 
-                if (item.ImageFiles != null && item.ImageFiles.Any())
-                {
-                    foreach (var file in item.ImageFiles)
-                    {
-                        var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Article);
-                        art.Images.Add(image);
-                    }
-                }
+                //if (item.ImageFiles != null && item.ImageFiles.Any())
+                //{
+                //    foreach (var file in item.ImageFiles)
+                //    {
+                //        var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Article);
+                //        art.Images.Add(image);
+                //    }
+                //}
                 await AddAsync(art);
                 await SaveChangesAsync();
+                // update Images
+                art = await UpdateArticleImages(art, item.ImageIds);
                 return art.ReturnViewModel();
             }
             catch (Exception ex) {
@@ -105,7 +219,7 @@ namespace Dentisty.Data.Repositories
         {
             try
             {
-                var art = await GetByIdAsync(item.Id);
+                var art = await GetByIdAdminAsync(item.Id);
               
                 if (art != null)
                 {
@@ -122,8 +236,9 @@ namespace Dentisty.Data.Repositories
                     
                     UpdateAsync(art);
                     await SaveChangesAsync();
+                    art = await UpdateArticleImages(art, item.ImageIds);
                 }
-                return item;
+                return art.ReturnViewModel();
             }
             catch (Exception ex)
             {
@@ -176,11 +291,11 @@ namespace Dentisty.Data.Repositories
                 }
                 if (art != null)
                 {
-                    if (art.Images != null && art.Images.Any())
-                    {
-                        await _imageRepository.DeleteRangeFiles(art.Images);
-                        art.Images.Clear();
-                    }
+                    //if (art.Images != null && art.Images.Any())
+                    //{
+                    //    await _imageRepository.DeleteRangeFiles(art.Images);
+                    //    art.Images.Clear();
+                    //}
                     if (art.IsDraft)
                     {
                         _context.Remove(art);
@@ -189,8 +304,7 @@ namespace Dentisty.Data.Repositories
                     else
                     {
                         art.IsActive = false;
-                        art.Title += Guid.NewGuid();
-                        art.Alias = art.Title.ToSlus();
+                        art.Alias = art.Title.ToSlus() + "-deleted-" + Guid.NewGuid();
                         UpdateAsync(art);
                         await SaveChangesAsync();
                     }
@@ -207,10 +321,22 @@ namespace Dentisty.Data.Repositories
         public async Task<string> GenerateAlias(ArticleVm item)
         {
             var alias = item.Title.ToSlus();
-            var art = await CheckExistsAlias(item);
-            if (art)
+            if (item.IsActive)
             {
-                alias = DateTime.Now.GetTimestamp() + item.Title.ToSlus();
+                var art = await CheckExistsAlias(item);
+                if (art)
+                {
+                    alias = DateTime.Now.GetTimestamp() + item.Title.ToSlus();
+                }
+            } else
+            {
+                if (item.Alias.Contains("delete"))
+                {
+                    return item.Alias;
+                } else
+                {
+                    return item.Title.ToSlus() + "-deleted-" + Guid.NewGuid();
+                }
             }
             return alias;
         }

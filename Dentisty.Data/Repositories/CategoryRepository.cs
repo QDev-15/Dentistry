@@ -148,7 +148,7 @@ namespace Dentisty.Data.Repositories
                     var image = await CreateImageAsync(model.ImageFile);
                     // delete old image
                     if (category.Image != null) {
-                        await _imageRepository.DeleteFile(category.Image);
+                        _imageRepository.DeleteFileToHostingAsync(category.Image);
                         category.Image = null;
                         UpdateAsync(category);
                         await SaveChangesAsync();
@@ -227,7 +227,7 @@ namespace Dentisty.Data.Repositories
 
         private async Task DeleteCategoryAsync(Category category)
         {
-            await _imageRepository.DeleteFile(category.Image);
+            _imageRepository.DeleteFileToHostingAsync(category.Image);
             category.IsActive = false;
             category.Name += Guid.NewGuid().ToString();
             category.Alias = category.Name.ToSlus();

@@ -1,6 +1,13 @@
 ﻿$(document).ready(function () {
 
-
+    // Initialize DataTable
+    const slideTable = $('#doctorTable').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        pageLength: 5, // Mặc định hiển thị 5 dòng
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tất cả"]] // Các tùy chọn số dòng hiển thị
+    });
     // open model edit-add
     $(document).on('click', '.add-btn, .edit-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
@@ -22,6 +29,7 @@
     $(document).on('submit', '#addDoctorForm', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
+        formData.delete("formFile");
         showGlobalSpinner();
         $.ajax({
             url: '/Doctor/AddEdit',
@@ -30,10 +38,18 @@
             processData: false,
             contentType: false,
             success: function (response) {
+                debugger;
                 hideGlobalSpinner();
                 if (response.isSuccessed) {
                     $('#addEditDoctorModal').modal('hide');
-                    loadDoctorList();
+                    const fileInput = document.getElementById("item_formFile");
+                    var data = response.data;
+                    loadDoctorList().then(() => {
+                        // Nếu có file ảnh, tiếp tục upload ảnh (Bước 2)
+                        if (fileInput.files.length > 0) {
+                            uploadDoctorImage(data.id, fileInput.files[0]);
+                        }
+                    });
                 } else {
                     showInfo(response.message);
                 }
@@ -57,6 +73,34 @@
         });
 
     });
+    function uploadDoctorImage(doctorId, file) {
+        const formData = new FormData();
+        formData.append("id", doctorId);
+        formData.append("imageFile", file);
+
+        $.ajax({
+            url: '/Doctor/UploadImage',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response.isSuccessed) {
+                    var data = response.data;
+                    $(".avatar-doctor-" + data.id).css("opacity", 0).attr("src", data.avatar.path).on("load", function () {
+                        $(this).fadeTo(500, 1); // Làm mờ dần trong 500ms
+                    });
+                    /*$(".category-avatar-" + data.id).attr('src', data.coverImage);*/
+                    //showSuccess("Upload ảnh thành công");
+                } else {
+                    showError("Upload ảnh thất bại");
+                }
+            },
+            error: function (error) {
+                showError("Lỗi khi upload ảnh");
+            }
+        });
+    }
     function deleteDoctor(id) {
         showGlobalSpinner();
         $.ajax({
@@ -66,6 +110,7 @@
                 hideGlobalSpinner();
                 console.log("result delete: ", result);
                 showSuccess("Xóa thành công!");
+                loadDoctorList();
             },
             error: function (err) {
                 hideGlobalSpinner();
@@ -76,15 +121,6 @@
     }
 });
 
-function initDoctorTable() {
-    $('#doctorTable').DataTable({
-        autoWidth: false,
-        paging: true,
-        searching: true,
-        ordering: true,
-        pageLength: 5
-    });
-}
 function initDoctorTiny(editorId) {
     while (tinymce.get(editorId)) {
         tinymce.get(editorId).destroy();

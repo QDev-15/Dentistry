@@ -23,12 +23,14 @@ namespace Dentistry.Admin.Controllers
     {
         private readonly ICategoryReposiroty _categoryRepository;
         private readonly ICompositeViewEngine _compositeViewEngine;
+        private readonly IImageRepository _imageRepository;
         private readonly LoggerRepository _loggerRepository;
         private readonly CacheNotificationService _cacheNotificationService;
 
-        public CategoryController(ICategoryReposiroty categoryRepository, ICompositeViewEngine viewE,
+        public CategoryController(ICategoryReposiroty categoryRepository, ICompositeViewEngine viewE, IImageRepository imageRepository,
             LoggerRepository loggerRepository, CacheNotificationService cacheNotificationService)
         {
+            _imageRepository = imageRepository;
             _categoryRepository = categoryRepository;
             _compositeViewEngine = viewE;
             _loggerRepository = loggerRepository;
@@ -149,6 +151,8 @@ namespace Dentistry.Admin.Controllers
             try
             {
                 var category = await _categoryRepository.GetById(id);
+                await _imageRepository.DeleteFile(category.Image);
+                _imageRepository.DeleteAsync(category.Image);
                 await _categoryRepository.DeleteAsync(category);
                 await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
                 return Json(new SuccessResult<bool>());

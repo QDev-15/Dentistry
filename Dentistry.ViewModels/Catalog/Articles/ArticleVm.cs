@@ -27,6 +27,7 @@ namespace Dentistry.ViewModels.Catalog.Articles
         public UserVm CreatedBy { set; get; }
         public List<IFormFile> ImageFiles { get; set; }
         public string TagsJson { get; set; }
+        public string ImageIds { get; set; }
         public string CoverImage
         {
             get
@@ -42,6 +43,34 @@ namespace Dentistry.ViewModels.Catalog.Articles
                     value = Utilities.GetImageLink(Description);
                 }
                 return value;
+            }
+        }
+        public string CategoryName
+        {
+            get
+            {
+                if (Category != null)
+                {
+                    return Category.Name;
+                }
+                else
+                {
+                    return "Không xác định";
+                }
+            }
+        }      
+        public string CreatedByName
+        {
+            get
+            {
+                if (CreatedBy != null)
+                {
+                    return CreatedBy.DisplayName;
+                }
+                else
+                {
+                    return "Không xác định";
+                }
             }
         }
 

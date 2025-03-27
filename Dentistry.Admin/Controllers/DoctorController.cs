@@ -7,6 +7,7 @@ using Dentisty.Data.Interfaces;
 using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Dentisty.Data.Repositories;
+using Dentistry.Data.GeneratorDB.Entities;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -14,11 +15,13 @@ namespace Dentistry.Admin.Controllers
     {
 
         private readonly IDoctorRepository _doctorRepository;
+        private readonly IImageRepository _imageRepository;
         private readonly CacheNotificationService _cacheNotificationService;
-        public DoctorController(IDoctorRepository doctorRepository, CacheNotificationService cacheNotificationService)
+        public DoctorController(IDoctorRepository doctorRepository, CacheNotificationService cacheNotificationService, IImageRepository imageRepository )
         {
             _cacheNotificationService = cacheNotificationService;
             _doctorRepository = doctorRepository;
+            _imageRepository = imageRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -60,28 +63,54 @@ namespace Dentistry.Admin.Controllers
                     item.Alias = item.Name.ToSlus();
                 }
             }
+            var result = new SuccessResult<bool>();
             if (item.Id == 0)
             {
                 var doctor = await _doctorRepository.Create(item);
+                result.data = doctor;
             }
             else
             {
                 var doctor = await _doctorRepository.Update(item);
+                result.data = doctor;
             }
             await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Doctor);
-            return Json(new SuccessResult<bool>());
+            return Json(result);
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(int id, IFormFile imageFile)
+        {
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                return BadRequest(new { isSuccessed = false, message = "Không có ảnh được tải lên" });
+            }
+            var result = new SuccessResult<bool>();
+            if (id > 0)
+            {
+                var doctorUpdate = await _doctorRepository.UpLoadFile(id, imageFile);
+                result.data = doctorUpdate;
+            }
 
+
+            return Json(result);
+        }
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                var category = await _doctorRepository.GetById(id);
-                _doctorRepository.DeleteAsync(category);
-                await _doctorRepository.SaveChangesAsync();
-                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
-                return Json(new SuccessResult<bool>());
+                var doctor = await _doctorRepository.GetById(id);
+                if (doctor != null && doctor.Avatar !=null)
+                {
+                    await _imageRepository.DeleteFile(doctor.Avatar);
+                    _imageRepository.DeleteAsync(doctor.Avatar);
+                    _doctorRepository.DeleteAsync(doctor);
+                    await _doctorRepository.SaveChangesAsync();
+                    await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
+                    return Json(new SuccessResult<bool>());
+                }
+
+                return Json(new ErrorResult<bool>());
             }
             catch (Exception ex)
             {

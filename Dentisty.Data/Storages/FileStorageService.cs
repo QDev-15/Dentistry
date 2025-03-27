@@ -33,12 +33,21 @@ namespace Dentistry.Data.Storages
             _userContentFolder = Path.Combine(webHostEnvironment.WebRootPath, SystemConstants.USER_CONTENT_FOLDER_NAME);
         }
 
-        public string GetFileUrl(string fileName)
-        {
-            return $"{_config.Domain}/{_config.UploadDirectory}/{fileName}";
-        }
-       
+
+        #region Not Use for Nhien
+
+        /// <summary>
+        /// save to default folder USER_CONTENT_FOLDER_NAME
+        /// </summary>
+        /// <param name="mediaBinaryStream"></param>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        /// <exception cref="IOException"></exception>
         public async Task SaveFileAsync(Stream mediaBinaryStream, string fileName)
+        {
+            await SaveAsync(mediaBinaryStream, fileName);
+        }
+        private async Task SaveAsync(Stream mediaBinaryStream, string fileName)
         {
             try
             {
@@ -61,7 +70,13 @@ namespace Dentistry.Data.Storages
                 // Log the error or rethrow as needed
                 throw new IOException($"An error occurred while saving the file {fileName}.", ex);
             }
-        }          
+        }
+        /// <summary>
+        /// save to default folder USER_CONTENT_FOLDER_NAME
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<string> SaveFileAsync(IFormFile file)
         {
             if (file.Length > 10485760) // Limit: 10 MB
@@ -69,11 +84,31 @@ namespace Dentistry.Data.Storages
 
             var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName!.Trim('"');
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
-            await SaveFileAsync(file.OpenReadStream(), fileName);
+            await SaveAsync(file.OpenReadStream(), fileName);
             
             return fileName;
         }
+        public async Task DeleteFileAsync(string fileName)
+        {
+            var filePath = Path.Combine(_userContentFolder, fileName);
+            if (File.Exists(filePath))
+            {
+                await Task.Run(() => File.Delete(filePath));
+            }
+        }
+        #endregion
 
+        #region Save FTP Upload AppsettingConfig
+        public string GetFileToHostingUrl(string fileName)
+        {
+            return $"{_config.Domain}/{_config.UploadDirectory}/{fileName}";
+        }
+        /// <summary>
+        /// save to Directory Config
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<FileUploadResult> SaveFileToHostingAsync(IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -107,6 +142,13 @@ namespace Dentistry.Data.Storages
                 return null;
             }
         }
+        /// <summary>
+        /// save to Directory Manual
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="remoteDirectory"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public async Task<FileUploadResult> SaveFileToHostingAsync(IFormFile file, string remoteDirectory)
         {
             if (file == null || file.Length == 0)
@@ -126,11 +168,15 @@ namespace Dentistry.Data.Storages
                 throw new ArgumentException("Kích thước file vượt quá giới hạn cho phép.");
             }
 
+            if (string.IsNullOrEmpty(remoteDirectory))
+            {
+                remoteDirectory = _config.UploadDirectory;
+            }
             try
             {
                 var fileName = DateTime.Now.ToString("ddMMyyyyHHmmss") + "_" + file.FileName;
                 // Upload ảnh lên FTP và lấy URL
-                var uploadResult = _ftpUploader.UploadImageV2(file, _config.UploadDirectory);
+                var uploadResult = _ftpUploader.UploadImageV2(file, remoteDirectory);
 
                 return new FileUploadResult() { FileName = fileName, FilePath = uploadResult?.ImageUrl, FileSize = file.Length, ThumbPath = uploadResult?.ThumbUrl };
             }
@@ -140,16 +186,6 @@ namespace Dentistry.Data.Storages
                 return null;
             }
         }
-
-        public async Task DeleteFileAsync(string fileName)
-        {
-            var filePath = Path.Combine(_userContentFolder, fileName);
-            if (File.Exists(filePath))
-            {
-                await Task.Run(() => File.Delete(filePath));
-            }
-        }
-
         public bool DeleteFileToHostingAsync(string urlImage)
         {
             try
@@ -157,11 +193,16 @@ namespace Dentistry.Data.Storages
                 // Xóa file từ URL
                 bool isDeleted = _ftpUploader.DeleteFileFromUrl(urlImage);
                 return isDeleted;
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 logger.QueueLog(ex.Message, "Delete file Error");
                 return false;
             }
         }
+        #endregion
+
+
+
     }
 }

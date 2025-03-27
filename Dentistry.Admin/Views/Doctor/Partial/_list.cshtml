@@ -23,7 +23,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td class="align-middle avatar-doctor"><img src="@item.Avatar?.Path" alt="@item.Name" style="width: 100px; height: 100px; border-radius: 50%" /></td>
+                        <td class="align-middle avatar-doctor"><img class="avatar-doctor-@item.Id" src="@item.Avatar?.Path" alt="@item.Name" style="width: 100px; height: 100px; border-radius: 50%" /></td>
                         <td class="align-middle">@item.Name</td>
                         <td class="align-middle">@item.Position</td>
                         <td class="align-middle">@item.Dob</td>

@@ -8,5 +8,6 @@
         public string ThumbPath { get; set; }
         public string Type { get; set; }
         public long FileSize { get; set; }
+        public string UploadType { set; get; }
     }
 }

@@ -110,7 +110,7 @@ namespace Dentisty.Data.Repositories
                 var slide = await GetByIdAsync(id);
                 if (slide != null) {
                     if (slide.Image != null) { 
-                        await _imageRepository.DeleteFile(slide.Image);
+                        _imageRepository.DeleteFileToHostingAsync(slide.Image);
                         _imageRepository.DeleteAsync(slide.Image);
                         slide.ImageId = null;
                     }

@@ -294,6 +294,7 @@ namespace Dentisty.Data
                 CreatedById = item.CreatedById,
                 Description = item.Description,
                 Images = item.Images.Select(x => x.ReturnViewModel()).ToList(),
+                ImageIds = "",
                 IsActive = item.IsActive,
                 IsDraft = item.IsDraft,
                 Title = item.Title,

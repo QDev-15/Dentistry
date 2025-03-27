@@ -1,8 +1,10 @@
 ﻿using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.EF;
+using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Catalog.Doctors;
 using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -54,6 +56,28 @@ namespace Dentisty.Data.Repositories
                 throw new Exception(ex.Message);
             }
             
+        }
+        public async Task<DoctorVm> UpLoadFile(int id, IFormFile file)
+        {
+            var doctor = await _context.Doctors.Where(x =>x.Id == id).Include(x => x.Avatar).FirstOrDefaultAsync();
+            if (doctor != null)
+            {
+                var imageOld = doctor.Avatar;
+                if (file != null)
+                {
+                    var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Doctor);
+                    doctor.Avatar = image;
+                    // delete oldImage
+                    if (imageOld != null)
+                    {
+                        _imageRepository.DeleteFileToHostingAsync(imageOld);
+                        _imageRepository.DeleteAsync(imageOld);
+                    }
+                    UpdateAsync(doctor);
+                    await SaveChangesAsync();
+                }
+            }
+            return doctor.ReturnViewModel();
         }
         public async Task<bool> CheckExistsAlias(string alias, int id)
         {
@@ -113,7 +137,7 @@ namespace Dentisty.Data.Repositories
                         var img = await _imageRepository.CreateAsync(vm.formFile, SystemConstants.Folder.Doctor);
                         if (doctor.Avatar != null)
                         {
-                            await _imageRepository.DeleteFile(img);
+                            _imageRepository.DeleteFileToHostingAsync(img);
                             _imageRepository.DeleteAsync(doctor.Avatar);
                         }
                         doctor.Avatar = img;

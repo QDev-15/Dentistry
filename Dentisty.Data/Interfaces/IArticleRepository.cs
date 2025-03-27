@@ -3,15 +3,17 @@ using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Numerics;
 
 namespace Dentisty.Data.Interfaces
 {
     public interface IArticleRepository : IRepository<Article>
     {
-        Task<Article> GetByIdAsync(int id);
+        Task<Article> GetByIdAdminAsync(int id);
         Task<Article> GetByAliasAsync(string alias);
         Task<IEnumerable<Article>> GetAllAsync();
+        Task<DataTableResponse<ArticleVm>> GetListAsync([FromQuery] DataTableRequest request);
         Task<ArticleVm> CreateNew(ArticleVm item);
         Task<ArticleVm> UpdateArticle(ArticleVm item);
         Task<IEnumerable<ArticleVm>> GetArticleByIds(string ids);

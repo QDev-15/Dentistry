@@ -276,19 +276,17 @@ function loadBranchesList() {
 }
 function loadDoctorList() {
     showSpinnerFor();
-    $.ajax({
+    return $.ajax({
         url: '/Doctor/List',
-        type: 'GET',
-        success: function (data) {
-            $('#doctor-setting').html(data);
-            hideSpinnerFor();
-        },
-        error: function (xhr, status, error) {
-            showError("Error reloading doctor list:", error);
-            hideSpinnerFor();
-        }
+        type: 'GET'
+    }).done(function (data) {
+        $('#doctor-setting').html(data);
+    }).fail(function (xhr, status, error) {
+        showError("Error reloading doctor list:", error);
+    }).always(function () {
+        hideSpinnerFor();
     });
-} 
+}
 function loadSettingData() {
     showSpinnerFor();
     $.ajax({
@@ -394,6 +392,7 @@ function initTiny(editorId) {
                         .then(response => response.json())
                         .then(data => {
                             if (data && data.path) {
+                                selectedAllIds.add(data.id);
                                 callback(data.path, { alt: file.name }); // Provide URL to TinyMCE
                             } else {
                                 console.error('Upload failed: No URL returned');
@@ -434,7 +433,7 @@ function initTiny(editorId) {
                     reject('Invalid JSON: ' + xhr.responseText);
                     return;
                 }
-
+                selectedAllIds.add(json.id);
                 resolve(json.path);
             };
 

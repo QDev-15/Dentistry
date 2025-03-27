@@ -3,6 +3,7 @@ $(document).ready(function () {
     let tagsHidden = $("#tagsHidden");
     let tags = tagsHidden.val() ? tagsHidden.val().split(",") : [];
     let tagContainer = $("#tagContainer");
+    initTable();
     function init() {
         tagContainer = $("#tagContainer");
         tagsHidden = $("#tagsHidden");
@@ -57,6 +58,7 @@ $(document).ready(function () {
                 domStage.method = init;
                 $('#addEditArticleModal .modal-content').html(html);
                 $('#addEditArticleModal').modal('show');
+                selectedAllIds = new Set();
                 initTiny("Item_Description");
                 
             },
@@ -66,18 +68,10 @@ $(document).ready(function () {
         });
     });
 
-  
-    $(document).on('click', '#addEditArticleModal .action-close', function () {
-        const id = $('#Item_Id').val();
-        var isDraft = $('#Item_IsDraft').val()?.toLowerCase() == 'true';
-        if (isDraft) {
-            deleteArt(id);
-        }
-    });
-
     // submit modal
     $('#addEditArticleModal').on('submit', 'form', function (e) {
         e.preventDefault();
+        $('#Item_ImageIds').val(Array.from(selectedAllIds).join(","));
         const formData = new FormData(this);
         showGlobalSpinner();
         $.ajax({
@@ -106,7 +100,7 @@ $(document).ready(function () {
 
     
 });
-
+var selectedAllIds = new Set();
 
 
 
@@ -118,7 +112,7 @@ function deleteArt(id) {
         success: function (result) {
             console.log("result delete: ", result);
             loadArticle();
-            showSuccess("Xóa bài viết thành công!")
+            showSuccess("Deactive bài viết thành công!")
             hideGlobalSpinner();
         },
         error: function (err) {
@@ -128,7 +122,7 @@ function deleteArt(id) {
     });
 }
 function confirmDeleteArticle(title, id) {
-    showConfirm("Bạn có chắc chắn muốn xóa bài viết: " + title, "Xóa: " + title).then(function (resp) {
+    showConfirm("Bạn có chắc chắn muốn ẩn bài viết: " + title, "Ẩn bài viết: " + title).then(function (resp) {
         if (resp == true) {
             deleteArt(id);
         };
@@ -137,6 +131,75 @@ function confirmDeleteArticle(title, id) {
     });
 }
 
+function initTable() {
+    let searchDelayTimer;
+
+    let table = $('#articleTable').DataTable({
+        processing: true,
+        serverSide: true,
+        order: [[0, 'asc']],
+        ajax: {
+            url: '/Articles/GetDataTable',
+            type: 'GET',
+            data: function (d) {
+                d.searchValue = d.search.value || ""; // 🔥 Đảm bảo luôn gửi chuỗi rỗng nếu không có giá trị
+                d.sortColumn = d.columns[d.order[0].column].data;  // Cột đang được sort
+                d.sortDirection = d.order[0].dir; // Hướng sort (asc / desc)
+            }
+        },
+        columns: [
+            { data: 'title', name: 'Title', orderable: true }, // ✅ Cho phép sắp xếp
+            { data: 'categoryName', name: 'Category', orderable: true }, // ✅ Cho phép sắp xếp
+            { data: 'type', name: 'Type', orderable: true },
+            { data: 'createdByName', name: 'CreatedBy', orderable: false },
+            {
+                data: 'createdDate',
+                type: 'date',
+                orderable: true, // ✅ Cho phép sắp xếp
+                render: function (data) {
+                    if (!data) return "";
+                    const date = new Date(data);
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const year = date.getFullYear();
+                    const hours = date.getHours().toString().padStart(2, '0');
+                    const minutes = date.getMinutes().toString().padStart(2, '0');
+                    return `${day}/${month}/${year} ${hours}:${minutes}`; // Hiển thị theo HH:mm dd/MM/yyyy
+                }
+            },
+            {
+                data: 'isActive',
+                orderable: true, // ✅ Cho phép sắp xếp
+                render: function (data) {
+                    return data
+                        ? '<span class="badge bg-success">Active</span>'
+                        : '<span class="badge bg-danger">Inactive</span>';
+                }
+            },
+            {
+                data: 'id',
+                orderable: false, // ❌ Không cho phép sắp xếp cột Actions
+                render: function (data, type, row) {
+                    var result = `
+                        <button class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#addEditArticleModal" data-id="${data}">Edit</button>`;
+                    if (row.isActive) {
+                        result += `<button class="btn btn-sm btn-danger delete-btn" onclick="confirmDeleteArticle('${row.title}', ${data})">Delete</button>`;
+                    }
+                    return result;
+                }
+            }
+        ]
+    });
+    // 🔥 Debounce khi người dùng nhập vào ô tìm kiếm
+    $('#articleTable_filter input').off().on('keyup', function () {
+        clearTimeout(searchDelayTimer); // Xóa timer cũ
+        let searchTerm = this.value;
+
+        searchDelayTimer = setTimeout(function () {
+            table.search(searchTerm).draw();
+        }, 500); // 🔥 Delay 0.5 giây
+    });
+}
 var loadArticle = function() {
     $.ajax({
         url: `/Articles/list`,

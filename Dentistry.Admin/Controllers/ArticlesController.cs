@@ -10,6 +10,7 @@ using Dentisty.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -39,10 +40,16 @@ namespace Dentistry.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetDataTable([FromQuery] DataTableRequest request)
+        {
+            var result = await _articleRepository.GetListAsync(request);
+
+            return Json(result);
+        }
+        [HttpGet]
         public async Task<IActionResult> List()
         {
-            var articles = await _articleRepository.GetAllAsync();
-            return PartialView("~/Views/Articles/Partial/_list.cshtml", articles.Select(x => x.ReturnViewModel()).ToList());
+            return PartialView("~/Views/Articles/Partial/_list.cshtml");
         }
         [HttpGet]
         public async Task<IActionResult> AddEdit(int id)
@@ -52,19 +59,17 @@ namespace Dentistry.Admin.Controllers
             {
                 var artVm = new ArticleVm()
                 {
-                    Title = "draft",
-                    Alias = "draft-" + Guid.NewGuid(),
                     CategoryId = 1,
                     IsActive = true,
                     IsDraft = true
                 };
-                var art = await _articleRepository.CreateNew(artVm);
-                art.Title = "";
+                //var art = await _articleRepository.CreateNew(artVm);
+                //art.Title = "";
                 
-                model.Item = art;
+                model.Item = artVm;
             } else
             {
-                var artVm = await _articleRepository.GetByIdAsync(id);
+                var artVm = await _articleRepository.GetByIdAdminAsync(id);
                 model.Item = artVm.ReturnViewModel();
             }
             model.Categories = (await _categoryReposiroty.GetForSettings()).ToList();
@@ -110,7 +115,7 @@ namespace Dentistry.Admin.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var article = await _articleRepository.GetByIdAsync(id);
+            var article = await _articleRepository.GetByIdAdminAsync(id);
             var result = await _articleRepository.DeleteArticle(article);
 
             await _cacheService.InvalidateCacheAsync(SystemConstants.Cache_Article);
@@ -126,22 +131,15 @@ namespace Dentistry.Admin.Controllers
                 {
                     return BadRequest("No file uploaded.");
                 }
-                var art = await _articleRepository.GetByIdAsync(id);
-                if (art != null)
-                {
-                    var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Article);
-                    art.Images.Add(image);
-                    _articleRepository.UpdateAsync(art);
-                    await _articleRepository.SaveChangesAsync();
-                    return Json(image.ReturnViewModel());
-                }
-                else
-                {
-                    return Json(new { path = "" });
-                }
+                var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Article);
+                await _imageRepository.SaveChangesAsync();
+                var imgVm = image.ReturnViewModel();
+                imgVm.UploadType = "article";
+                return Json(imgVm);
             }
-            catch (Exception ex) { 
-                 return BadRequest(ex.Message);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
             
 

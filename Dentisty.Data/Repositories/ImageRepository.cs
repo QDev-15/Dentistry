@@ -89,7 +89,8 @@ namespace Dentisty.Data.Repositories
             try
             {
                 if (image == null) return false;
-                await _storageService.DeleteFileAsync($"{image.Path}");
+                await Task.Run(() => DeleteFileToHostingAsync(image));
+                //await _storageService.DeleteFileAsync($"{image.Path}");
                 return true;
             }
             catch (Exception ex)
@@ -105,7 +106,8 @@ namespace Dentisty.Data.Repositories
             {
                 foreach (var image in images)
                 {
-                    await _storageService.DeleteFileAsync($"{image.Path}");
+                    await Task.Run(() => DeleteFileToHostingAsync(image));
+                    //await Task.Run(() => _storageService.DeleteFileToHostingAsync($"{image.Path}"));
                 }
                 return true;
             }
