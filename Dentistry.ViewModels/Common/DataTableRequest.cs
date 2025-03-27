@@ -6,6 +6,7 @@ namespace Dentistry.ViewModels.Common
 {
     public class DataTableRequest
     {
+        public bool IsActive { get; set; } = true;
         public int Draw { get; set; } // Số lần request của DataTables
         public int PageIndex => Start / Length; // Trang hiện tại
         public int PageSize => Length; // Số lượng item mỗi trang

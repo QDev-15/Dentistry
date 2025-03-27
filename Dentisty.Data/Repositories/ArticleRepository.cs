@@ -64,7 +64,7 @@ namespace Dentisty.Data.Repositories
         }
         public async Task<DataTableResponse<ArticleVm>> GetListAsync([FromQuery] DataTableRequest request)
         {
-            var query = _context.Articles
+            var query = _context.Articles.Where(x => x.IsActive == request.IsActive)
             .Include(x => x.Category)
             .Include(x => x.CreatedBy)
             .AsQueryable();

@@ -15,7 +15,7 @@ namespace Dentistry.Admin.Controllers.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var _doctors = await _doctorRepository.GetAll();
-            return View("~/Views/Doctor/Partial/_list.cshtml", _doctors.Select(x => x.ReturnViewModel()).ToList());
+            return View("~/Views/Doctor/Partial/_list.cshtml", _doctors.OrderByDescending(x => x.UpdatedDate).Select(x => x.ReturnViewModel()).ToList());
         }
     }
 }

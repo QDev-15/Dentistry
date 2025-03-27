@@ -104,13 +104,12 @@ namespace Dentistry.Admin.Controllers
                 {
                     await _imageRepository.DeleteFile(doctor.Avatar);
                     _imageRepository.DeleteAsync(doctor.Avatar);
-                    _doctorRepository.DeleteAsync(doctor);
-                    await _doctorRepository.SaveChangesAsync();
-                    await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
-                    return Json(new SuccessResult<bool>());
+                    
                 }
-
-                return Json(new ErrorResult<bool>());
+                _doctorRepository.DeleteAsync(doctor);
+                await _doctorRepository.SaveChangesAsync();
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
+                return Json(new SuccessResult<bool>());
             }
             catch (Exception ex)
             {

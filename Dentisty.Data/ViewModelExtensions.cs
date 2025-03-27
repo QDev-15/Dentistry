@@ -142,6 +142,8 @@ namespace Dentisty.Data
                 Name = item.Name,
                 Alias = item.Alias,
                 Position = item.Position,
+                CreatedDate = item.CreatedDate,
+                UpdatedDate = item.UpdatedDate,
                 PositionExtent = item.PositionExtent,
                 Profile = item.Profile
             };

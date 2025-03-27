@@ -40,6 +40,8 @@ namespace Dentisty.Data.Repositories
                     Dob = vm.Dob,
                     Position = vm.Position,
                     PositionExtent = vm.PositionExtent,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now,
                     Profile = vm.Profile
                 };
                 if (vm.formFile != null)
@@ -132,6 +134,7 @@ namespace Dentisty.Data.Repositories
                     doctor.Alias = vm.Alias;
                     doctor.Description = vm.Description;
                     doctor.Dob = vm.Dob;
+                    doctor.UpdatedDate = DateTime.Now;
                     if (vm.formFile != null)
                     {
                         var img = await _imageRepository.CreateAsync(vm.formFile, SystemConstants.Folder.Doctor);

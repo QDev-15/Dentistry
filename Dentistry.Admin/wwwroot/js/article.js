@@ -67,6 +67,9 @@ $(document).ready(function () {
             }
         });
     });
+    $(document).on('change', '#show-active', function () {
+        refreshData();
+    });
 
     // submit modal
     $('#addEditArticleModal').on('submit', 'form', function (e) {
@@ -130,18 +133,24 @@ function confirmDeleteArticle(title, id) {
         alter(err)                        
     });
 }
-
+let tableArticle = null;
+function refreshData() {
+    if (!tableArticle || !tableArticle.ajax) return;
+    tableArticle.ajax.reload(null, false);
+}
 function initTable() {
     let searchDelayTimer;
 
-    let table = $('#articleTable').DataTable({
+    tableArticle = $('#articleTable').DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
         order: [[0, 'asc']],
         ajax: {
             url: '/Articles/GetDataTable',
             type: 'GET',
             data: function (d) {
+                d.isActive = $("#show-active").prop('checked');
                 d.searchValue = d.search.value || ""; // 🔥 Đảm bảo luôn gửi chuỗi rỗng nếu không có giá trị
                 d.sortColumn = d.columns[d.order[0].column].data;  // Cột đang được sort
                 d.sortDirection = d.order[0].dir; // Hướng sort (asc / desc)
@@ -180,11 +189,12 @@ function initTable() {
                 data: 'id',
                 orderable: false, // ❌ Không cho phép sắp xếp cột Actions
                 render: function (data, type, row) {
-                    var result = `
-                        <button class="btn btn-sm btn-warning edit-btn" data-bs-toggle="modal" data-bs-target="#addEditArticleModal" data-id="${data}">Edit</button>`;
+                    var result = `<div class="container d-flex gap-2 justify-content-center">`;
+                        result += `<button class="btn btn-sm btn-warning edit-btn px-1" data-bs-toggle="modal" data-bs-target="#addEditArticleModal" data-id="${data}">Edit</button>`;
                     if (row.isActive) {
-                        result += `<button class="btn btn-sm btn-danger delete-btn" onclick="confirmDeleteArticle('${row.title}', ${data})">Delete</button>`;
+                        result += `<button class="btn btn-sm btn-danger delete-btn px-1" onclick="confirmDeleteArticle('${row.title}', ${data})">Deactive</button>`;
                     }
+                    result += `</div>`;
                     return result;
                 }
             }

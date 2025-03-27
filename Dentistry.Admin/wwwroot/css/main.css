@@ -1,6 +1,12 @@
 ﻿html {
   font-size: 14px;
 }
+@media (max-width: 576px) {
+    .d-flex.gap-2 {
+        flex-direction: column !important; /* Xuống dòng trên mobile */
+        align-items: center;
+    }
+}
 #layoutSidenav_content {
     display: flex;
     flex-direction: column;

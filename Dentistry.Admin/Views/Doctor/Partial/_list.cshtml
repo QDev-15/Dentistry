@@ -6,7 +6,9 @@
         <h2>Danh sách bác sĩ</h2>
         <button class="btn btn-primary add-btn" data-bs-toggle="modal" data-bs-target="#addEditDoctorModal" data-id="0">Thêm mới</button>
     </div>
-
+    <div class="d-flex justify-content-end  pb-2">
+        <button class="btn btn-primary refresh-btn ">Làm mới</button>
+    </div>
     <div class="table-responsive">
         <table id="doctorTable" class="table table-striped">
             <thead>
@@ -47,11 +49,10 @@
     </div>
 </div>
 
+<script>
+    initDoctorTable();
+</script>
 
 
 
 
-
-
-
-<script src="~/js/doctor.js"></script>

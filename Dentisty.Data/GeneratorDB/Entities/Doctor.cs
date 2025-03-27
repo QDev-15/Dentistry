@@ -19,5 +19,8 @@ namespace Dentisty.Data.GeneratorDB.Entities
         public string? PositionExtent {  get; set; }
         public int? ImageId { get; set; }
         public ImageFile Avatar { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
+
     }
 }

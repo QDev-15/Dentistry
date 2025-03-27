@@ -278,7 +278,15 @@ function loadDoctorList() {
     showSpinnerFor();
     return $.ajax({
         url: '/Doctor/List',
-        type: 'GET'
+        type: 'GET',
+        //success: function (data) {
+        //    $('#doctor-setting').html(data);
+        //    hideSpinnerFor();
+        //},
+        //error: function (xhr, status, error) {
+        //    showError("Error reloading doctor list:", error);
+        //    hideSpinnerFor();
+        //}
     }).done(function (data) {
         $('#doctor-setting').html(data);
     }).fail(function (xhr, status, error) {

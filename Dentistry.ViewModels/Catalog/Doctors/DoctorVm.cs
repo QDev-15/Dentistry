@@ -17,6 +17,8 @@ namespace Dentistry.ViewModels.Catalog.Doctors
         public string Position { get; set; }
         public string PositionExtent { get; set; }
         public ImageVm Avatar { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         public IFormFile formFile { get; set; }
     }
