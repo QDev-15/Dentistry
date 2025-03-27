@@ -1252,11 +1252,12 @@
 }
 .section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-image img {
   max-width: 100%;
-  max-height: 300px;
+  /*max-height: 300px;*/
   border-radius: 10px;
-  height: 300px;
+  height: 400px;
   width: 400px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  -webkit-mask-image: radial-gradient(circle, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(circle, rgb(0, 0, 0) 60%, rgba(0, 0, 0, 0) 100%);
 }
 .section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text {
   flex: 1;
