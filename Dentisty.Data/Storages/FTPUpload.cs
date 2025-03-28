@@ -170,25 +170,34 @@ namespace Dentisty.Data.Storages
                         image.Metadata.ExifProfile = null;
                         image.Metadata.IptcProfile = null;
                         image.Metadata.XmpProfile = null;
-
-                        // 3️⃣ Giảm số lượng màu nếu là PNG (Color Quantization)
+   
+                        // 4 Giảm số lượng màu nếu là PNG (Color Quantization)
                         if (file.ContentType == "image/png")
                         {
                             image.Mutate(x => x.Quantize(new OctreeQuantizer()));
-                        }
-                        // 4️⃣ Nếu ảnh đơn sắc, chuyển sang grayscale
-                        if (IsGrayscale(image))
-                        {
-                            image.Mutate(x => x.Grayscale());
-                        }
 
-                        // 5️⃣ Lưu ảnh WebP với mã hóa tối ưu
-                        image.Save(tempFilePath, new WebpEncoder
+                            // ❌ Nếu là PNG, lưu lại dưới dạng PNG
+                            image.Save(tempFilePath, new PngEncoder
+                            {
+                                CompressionLevel = PngCompressionLevel.BestCompression // Nén tối ưu
+                            });
+                        } else
                         {
-                            Quality = 70, // Giảm chất lượng để giảm kích thước
-                            Method = WebpEncodingMethod.BestQuality, // Sử dụng nén mạnh
-                            NearLossless = true
-                        }); 
+                            // 3️⃣ Nếu ảnh đơn sắc, chuyển sang grayscale
+                            if (IsGrayscale(image))
+                            {
+                                image.Mutate(x => x.Grayscale());
+                            }
+
+                            // 4️⃣ Lưu ảnh WebP nếu không phải PNG
+                            image.Save(tempFilePath, new WebpEncoder
+                            {
+                                Quality = 70, // Giảm chất lượng để giảm kích thước
+                                Method = WebpEncodingMethod.BestQuality, // Sử dụng nén mạnh
+                                NearLossless = true
+                            });
+                        }
+                       
                     }
                 }
                 // Kết nối FTP
