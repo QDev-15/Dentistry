@@ -149,11 +149,18 @@ namespace Dentisty.Data.Storages
                 string fullRemoteDirectory = GetHostDirectory() + remoteDirectory;
                 CreateDirectoryIfNotExists(fullRemoteDirectory);
 
-                // Tạo tên file WebP tối ưu
-                string optimizedFileName = "opt_" + DateTime.Now.ToString("ddMMyyyyHHmmss_") + Path.GetFileNameWithoutExtension(file.FileName).ToLower() + ".webp";
+                // Lấy đuôi file gốc
+                string fileExtension = Path.GetExtension(file.FileName).ToLower();
+
+                // Nếu là PNG thì giữ nguyên, nếu không thì đổi sang WebP
+                bool isPng = fileExtension == ".png";
+                string optimizedFileName = "opt_" + DateTime.Now.ToString("ddMMyyyyHHmmss_")
+                                        + Path.GetFileNameWithoutExtension(file.FileName).ToLower()
+                                        + (isPng ? ".png" : ".webp");
+
                 optimizedFileName = Regex.Replace(optimizedFileName, @"\s+", "-");
 
-                // Đường dẫn file WebP tối ưu trên server
+                // Đường dẫn file trên server
                 string remoteFilePath = Path.Combine(fullRemoteDirectory, optimizedFileName);
                 string returnFilePath = Path.Combine(remoteDirectory, optimizedFileName);
 
@@ -162,7 +169,6 @@ namespace Dentisty.Data.Storages
 
                 using (var stream = file.OpenReadStream())
                 {
-                    // Xác định định dạng ảnh
                     stream.Position = 0; // Reset stream về đầu trước khi load ảnh
                     using (var image = Image.Load<Rgba32>(stream))
                     {
@@ -170,18 +176,17 @@ namespace Dentisty.Data.Storages
                         image.Metadata.ExifProfile = null;
                         image.Metadata.IptcProfile = null;
                         image.Metadata.XmpProfile = null;
-   
-                        // 4 Giảm số lượng màu nếu là PNG (Color Quantization)
-                        if (file.ContentType == "image/png")
-                        {
-                            image.Mutate(x => x.Quantize(new OctreeQuantizer()));
 
-                            // ❌ Nếu là PNG, lưu lại dưới dạng PNG
+                        if (isPng)
+                        {
+                            // ✅ Nếu là PNG, chỉ xóa metadata và giữ nguyên định dạng
                             image.Save(tempFilePath, new PngEncoder
                             {
-                                CompressionLevel = PngCompressionLevel.BestCompression // Nén tối ưu
+                                CompressionLevel = PngCompressionLevel.BestCompression, // Nén tối ưu
+                                TransparentColorMode = PngTransparentColorMode.Preserve
                             });
-                        } else
+                        }
+                        else
                         {
                             // 3️⃣ Nếu ảnh đơn sắc, chuyển sang grayscale
                             if (IsGrayscale(image))
@@ -189,7 +194,7 @@ namespace Dentisty.Data.Storages
                                 image.Mutate(x => x.Grayscale());
                             }
 
-                            // 4️⃣ Lưu ảnh WebP nếu không phải PNG
+                            // 4️⃣ Nếu không phải PNG, lưu WebP
                             image.Save(tempFilePath, new WebpEncoder
                             {
                                 Quality = 70, // Giảm chất lượng để giảm kích thước
@@ -197,9 +202,9 @@ namespace Dentisty.Data.Storages
                                 NearLossless = true
                             });
                         }
-                       
                     }
                 }
+
                 // Kết nối FTP
                 Connect();
 
@@ -230,6 +235,7 @@ namespace Dentisty.Data.Storages
                 return null;
             }
         }
+
 
         /// <summary>
         /// Kiểm tra xem ảnh có phải là grayscale không
