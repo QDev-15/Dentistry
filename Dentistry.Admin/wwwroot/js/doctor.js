@@ -26,6 +26,7 @@
         e.preventDefault();
         const formData = new FormData(this);
         formData.delete("formFile");
+        formData.delete("backgroundFile");
         showGlobalSpinner();
         $.ajax({
             url: '/Doctor/AddEdit',
@@ -38,12 +39,15 @@
                 if (response.isSuccessed) {
                     $('#addEditDoctorModal').modal('hide');
                     const fileInput = document.getElementById("item_formFile");
+                    const fileBackgInput = document.getElementById("item_backgroundFile");
                     var data = response.data;
 
                     loadDoctorList().then(() => {
                         // Nếu có file ảnh, tiếp tục upload ảnh (Bước 2)
-                        if (fileInput.files.length > 0) {
-                            uploadDoctorImage(data.id, fileInput.files[0]);
+                        var avatar = fileInput.files.length > 0 ? fileInput.files[0] : null;
+                        var background = fileBackgInput.files.length > 0 ? fileBackgInput.files[0] : null;
+                        if (background != null || avatar != null) {
+                            uploadDoctorImage(data.id, avatar, background);
                         }
                     });
 
@@ -86,10 +90,11 @@ function initDoctorTable() {
         lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tất cả"]] // Các tùy chọn số dòng hiển thị
     });
 }
-function uploadDoctorImage(doctorId, file) {
+function uploadDoctorImage(doctorId, file, backg) {
     const formData = new FormData();
     formData.append("id", doctorId);
     formData.append("imageFile", file);
+    formData.append("backgroundFile", backg);
 
     $.ajax({
         url: '/Doctor/UploadImage',
@@ -100,9 +105,17 @@ function uploadDoctorImage(doctorId, file) {
         success: function (response) {
             if (response.isSuccessed) {
                 var data = response.data;
-                $(".avatar-doctor-" + data.id).css("opacity", 0).attr("src", data.avatar.path).on("load", function () {
-                    $(this).fadeTo(500, 1); // Làm mờ dần trong 500ms
-                });
+                if (backg != null) {
+                    $(".backg-doctor-" + data.id).css("opacity", 0).attr("src", data.background.path).on("load", function () {
+                        $(this).fadeTo(500, 1); // Làm mờ dần trong 500ms
+                    });
+                }
+                if (file != null) {
+                    $(".avatar-doctor-" + data.id).css("opacity", 0).attr("src", data.avatar.path).on("load", function () {
+                        $(this).fadeTo(500, 1); // Làm mờ dần trong 500ms
+                    });
+                }
+
                 /*$(".category-avatar-" + data.id).attr('src', data.coverImage);*/
                 //showSuccess("Upload ảnh thành công");
             } else {

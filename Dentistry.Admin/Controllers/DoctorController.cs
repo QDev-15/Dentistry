@@ -78,16 +78,16 @@ namespace Dentistry.Admin.Controllers
             return Json(result);
         }
         [HttpPost]
-        public async Task<IActionResult> UploadImage(int id, IFormFile imageFile)
+        public async Task<IActionResult> UploadImage(int id, IFormFile? imageFile, IFormFile? backgroundFile)
         {
-            if (imageFile == null || imageFile.Length == 0)
+            if ((imageFile == null || imageFile.Length == 0) && (backgroundFile == null || backgroundFile.Length == 0))
             {
                 return BadRequest(new { isSuccessed = false, message = "Không có ảnh được tải lên" });
             }
             var result = new SuccessResult<bool>();
             if (id > 0)
             {
-                var doctorUpdate = await _doctorRepository.UpLoadFile(id, imageFile);
+                var doctorUpdate = await _doctorRepository.UpLoadFile(id, imageFile, backgroundFile);
                 result.data = doctorUpdate;
             }
 

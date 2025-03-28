@@ -44,11 +44,6 @@ namespace Dentisty.Data.Repositories
                     UpdatedDate = DateTime.Now,
                     Profile = vm.Profile
                 };
-                if (vm.formFile != null)
-                {
-                    var image = await _imageRepository.CreateAsync(vm.formFile, SystemConstants.Folder.Doctor);
-                    doctor.Avatar = image;
-                }
                 await AddAsync(doctor);
                 await SaveChangesAsync();
                 return doctor.ReturnViewModel();
@@ -59,15 +54,16 @@ namespace Dentisty.Data.Repositories
             }
             
         }
-        public async Task<DoctorVm> UpLoadFile(int id, IFormFile file)
+        public async Task<DoctorVm> UpLoadFile(int id, IFormFile? avatarFile, IFormFile? backgroundFile)
         {
             var doctor = await _context.Doctors.Where(x =>x.Id == id).Include(x => x.Avatar).FirstOrDefaultAsync();
             if (doctor != null)
             {
                 var imageOld = doctor.Avatar;
-                if (file != null)
+                var backOld = doctor.Background;
+                if (avatarFile != null)
                 {
-                    var image = await _imageRepository.CreateAsync(file, SystemConstants.Folder.Doctor);
+                    var image = await _imageRepository.CreateAsync(avatarFile, SystemConstants.Folder.Doctor);
                     doctor.Avatar = image;
                     // delete oldImage
                     if (imageOld != null)
@@ -75,9 +71,20 @@ namespace Dentisty.Data.Repositories
                         _imageRepository.DeleteFileToHostingAsync(imageOld);
                         _imageRepository.DeleteAsync(imageOld);
                     }
-                    UpdateAsync(doctor);
-                    await SaveChangesAsync();
                 }
+                if (backgroundFile != null)
+                {
+                    var backImage = await _imageRepository.CreateAsync(backgroundFile, SystemConstants.Folder.Doctor);
+                    doctor.Background = backImage;
+                    // delete oldImage
+                    if (backOld != null)
+                    {
+                        _imageRepository.DeleteFileToHostingAsync(backOld);
+                        _imageRepository.DeleteAsync(backOld);
+                    }
+                }
+                UpdateAsync(doctor);
+                await SaveChangesAsync();
             }
             return doctor.ReturnViewModel();
         }
@@ -91,7 +98,7 @@ namespace Dentisty.Data.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Doctor>> GetAll()
         {
-            return await _context.Doctors.Include(x => x.Avatar).ToListAsync();
+            return await _context.Doctors.Include(x => x.Avatar).Include(x => x.Background).ToListAsync();
         }
 
         /// <summary>
@@ -102,7 +109,7 @@ namespace Dentisty.Data.Repositories
         /// <exception cref="NotImplementedException"></exception>
         public async Task<Doctor> GetById(int id)
         {
-            return await _context.Doctors.Include(x => x.Avatar).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Doctors.Include(x => x.Avatar).Include(x => x.Background).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<DoctorVm>> GetDoctorForApplication()
@@ -113,7 +120,7 @@ namespace Dentisty.Data.Repositories
                 return new List<DoctorVm>();
             }
             string[] ids = setting.Doctors!.Split(',');
-            var docs = await _context.Doctors.Where(x => ids.Contains(x.Id.ToString())).Include(x => x.Avatar).Select(x => x.ReturnViewModel()).ToListAsync();
+            var docs = await _context.Doctors.Where(x => ids.Contains(x.Id.ToString())).Include(x => x.Avatar).Include(x => x.Background).Select(x => x.ReturnViewModel()).ToListAsync();
             return docs;
         }
 
@@ -135,16 +142,6 @@ namespace Dentisty.Data.Repositories
                     doctor.Description = vm.Description;
                     doctor.Dob = vm.Dob;
                     doctor.UpdatedDate = DateTime.Now;
-                    if (vm.formFile != null)
-                    {
-                        var img = await _imageRepository.CreateAsync(vm.formFile, SystemConstants.Folder.Doctor);
-                        if (doctor.Avatar != null)
-                        {
-                            _imageRepository.DeleteFileToHostingAsync(img);
-                            _imageRepository.DeleteAsync(doctor.Avatar);
-                        }
-                        doctor.Avatar = img;
-                    }
                     UpdateAsync(doctor);
                     await SaveChangesAsync();
                 }
@@ -161,7 +158,7 @@ namespace Dentisty.Data.Repositories
         {
             try
             {
-                var doctor = await _context.Doctors.Include(x => x.Avatar).FirstOrDefaultAsync(x => x.Alias.ToLower() == alias.ToLower());
+                var doctor = await _context.Doctors.Include(x => x.Avatar).Include(x => x.Background).FirstOrDefaultAsync(x => x.Alias.ToLower() == alias.ToLower());
                 return doctor!.ReturnViewModel();
             } catch(Exception ex)
             {
@@ -173,7 +170,7 @@ namespace Dentisty.Data.Repositories
         public async Task<IEnumerable<DoctorVm>> GetDoctorByIds(string ids)
         {
             string[] listIds = string.IsNullOrEmpty(ids) == true ? [] : ids.Split(",");
-            var docs = await _context.Doctors.Where(x => ids.Contains(x.Id.ToString())).Include(x => x.Avatar).Select(c => c.ReturnViewModel()).ToListAsync();
+            var docs = await _context.Doctors.Where(x => ids.Contains(x.Id.ToString())).Include(x => x.Avatar).Include(x => x.Background).Select(c => c.ReturnViewModel()).ToListAsync();
             return docs;
         }
     }

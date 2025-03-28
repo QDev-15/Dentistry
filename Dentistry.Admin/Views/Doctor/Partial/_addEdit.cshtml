@@ -63,6 +63,27 @@
                 </div>
             }
         }
+        <div class="form-group">
+            <label asp-for="@Model.backgroundFile">Upload Background Image</label>
+            <input asp-for="@Model.backgroundFile" type="file" id="item_backgroundFile" class="form-control ps-2" accept="image/*" />
+
+        </div>
+        @{
+            if (string.IsNullOrEmpty(Model.Background?.Path))
+            {
+                <div id="doctor-back-preview-container" style="display: none">
+                    <label>Image Preview:</label>
+                    <img id="doctor-back-preview-imagePreview" src="@Model.Background?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
+                </div>
+            }
+            else
+            {
+                <div id="doctor-back-preview-container" style="display: block">
+                    <label class="me-2">Image Preview:</label>
+                    <img id="doctor-back-preview-imagePreview" src="@Model.Background?.Path" alt="Current Image" class="mt-2" style="max-height: 100px;" />
+                </div>
+            }
+        }
         <div class="mb-3">
             <label asp-for="@Model.Description" class="form-label">Giới thiệu</label>
             <textarea asp-for="@Model.Description" id="doctor_Description"></textarea>
@@ -100,6 +121,22 @@
                 reader.readAsDataURL(file); // Đọc file dưới dạng URL
             } else {
                 $previewContainer.hide(); // Ẩn ảnh nếu không có file
+            }
+        });
+        $('#item_backgroundFile').on('change', function (event) {
+            const backgFile = this.files[0]; // Lấy file đầu tiên từ input
+            const $previewBackgContainer = $('#doctor-back-preview-container');
+            const $imageBackgPreview = $('#doctor-back-preview-imagePreview');
+            if (backgFile) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Gán đường dẫn ảnh vào thẻ <img>
+                    $imageBackgPreview.attr('src', e.target.result);
+                    $previewBackgContainer.show(); // Hiện ảnh
+                };
+                reader.readAsDataURL(backgFile); // Đọc file dưới dạng URL
+            } else {
+                $previewBackgContainer.hide(); // Ẩn ảnh nếu không có file
             }
         });
     });

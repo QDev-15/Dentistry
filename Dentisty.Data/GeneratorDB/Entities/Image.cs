@@ -12,7 +12,8 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public long FileSize { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public List<Doctor> Doctors { get; set; }
+        public List<Doctor> Doctors { get; set; } = new List<Doctor>();
+        public List<Doctor> DoctorsBackground { get; set; } = new List<Doctor>();
         public List<AppUser> AppUsers { get; set; }
         public List<Category> Categories { get; set; }
 

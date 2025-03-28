@@ -41,12 +41,12 @@
     <!-- Tempus Dominus (DateTimePicker) CSS -->
     <link href="~/lib/datepicker/tempus-dominus.min.css" rel="stylesheet" asp-append-version="true" />
     <!-- Slick Slider CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css">
     @* Script Lib *@
     @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
     <!-- Google Tag Manager -->
     <script>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -81,6 +81,7 @@
     <button id="backToTop" class="e-hidden" title="Lên đầu trang">
         <i class="fas fa-arrow-up"></i>
     </button>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
     @* <script src="~/js/turbo.es5-umd.js" asp-append-version="true"></script> *@
     <script src="~/plugins/carousel-01/js/owl.carousel.min.js" asp-append-version="true"></script>
     <script src="~/plugins/carousel-01/js/main.js" asp-append-version="true"></script>
@@ -94,7 +95,7 @@
     <script src="~/js/add_contact.js"></script>
     <script src="~/js/book_contact.js"></script>
     <script src="~/js/home-category.js"></script>
-    <script src="~/js/home-slide-doctor.js"></script>
+    <script src="~/js/home-slide-doctor-v2.js"></script>
     <script src="~/js/navbar-mega.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

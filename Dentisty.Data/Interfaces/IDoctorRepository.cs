@@ -18,7 +18,7 @@ namespace Dentisty.Data.Interfaces
         Task<DoctorVm> GetByAlias(string alias);
         Task<DoctorVm> Create(DoctorVm doctor);
         Task<DoctorVm> Update(DoctorVm doctor);
-        Task<DoctorVm> UpLoadFile(int id, IFormFile file);
+        Task<DoctorVm> UpLoadFile(int id, IFormFile? avatarFile, IFormFile? backgroundFile);
         Task<IEnumerable<DoctorVm>> GetDoctorByIds(string ids);
         Task<IEnumerable<DoctorVm>> GetDoctorForAppSettings();
         Task<IEnumerable<DoctorVm>> GetDoctorForApplication();

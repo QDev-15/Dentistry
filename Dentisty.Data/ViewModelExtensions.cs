@@ -138,6 +138,7 @@ namespace Dentisty.Data
                 Id = item.Id,
                 Description = item.Description,
                 Avatar = item.Avatar.ReturnViewModel(),
+                Background = item.Background.ReturnViewModel(),
                 Dob = item.Dob,
                 Name = item.Name,
                 Alias = item.Alias,
