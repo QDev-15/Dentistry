@@ -290,7 +290,7 @@
 #sideBarMenuModal {
     .modal-dialog {
         height: 100%;
-        max-width: 400px;
+        max-width: 300px;
         min-width: 300px;
         margin: 0;
         top: -1px;
@@ -305,6 +305,7 @@
 
             .modal-body {
                 padding: 0;
+                overflow: auto;
 
                 .list-group {
                     > .list-group-item {
@@ -348,6 +349,12 @@
 
                     .list-group-item:hover {
                         background-color: #575757;
+                    }
+                }
+
+                .nav-item-lv3 {
+                    a {
+                        color: #d3d3d3 !important;
                     }
                 }
 

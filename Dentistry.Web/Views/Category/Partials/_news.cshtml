@@ -26,8 +26,8 @@
                             {
                                 pathImageArt = item.Images.LastOrDefault()!.Path;
                             }
-                            <div class="search-item">
-                                <img src="@pathImageArt" alt="Ảnh bài viết">
+                            <div class="search-item d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                                <img class="img-fluid rounded w-md-auto mx-auto mx-md-0" src="@pathImageArt" alt="Ảnh bài viết">
                                 <div class="search-content">
                                     <h3>
                                         <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>

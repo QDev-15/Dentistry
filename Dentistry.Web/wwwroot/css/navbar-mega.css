@@ -222,7 +222,7 @@
 /** =============== Side bar ==============================*/
 #sideBarMenuModal .modal-dialog {
   height: 100%;
-  max-width: 400px;
+  max-width: 300px;
   min-width: 300px;
   margin: 0;
   top: -1px;
@@ -237,6 +237,7 @@
 }
 #sideBarMenuModal .modal-dialog .modal-content .modal-body {
   padding: 0;
+  overflow: auto;
 }
 #sideBarMenuModal .modal-dialog .modal-content .modal-body .list-group > .list-group-item {
   border-radius: 0;
@@ -272,6 +273,9 @@
 }
 #sideBarMenuModal .modal-dialog .modal-content .modal-body .expandable-list .list-group-item:hover {
   background-color: #575757;
+}
+#sideBarMenuModal .modal-dialog .modal-content .modal-body .nav-item-lv3 a {
+  color: #d3d3d3 !important;
 }
 #sideBarMenuModal .modal-dialog .modal-content .modal-body #sidebar-search-form {
   width: 100%;

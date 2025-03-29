@@ -12,25 +12,25 @@
                     @item.Name
                 </span>
             </a>
-            <span class="expand-btn" data-bs-toggle="collapse" href="#collapseItem1" aria-expanded="false" aria-controls="collapseItem1">
+            <span class="expand-btn" data-bs-toggle="collapse" href="@("#collapseItem" + item.Id)" aria-expanded="false" aria-controls="@("collapseItem" + item.Id)">
                 <i class="fas fa-chevron-down"></i>
             </span>
         </li>
-        <ul id="collapseItem1" class="collapse expandable-list">
+        <ul id="@("collapseItem" + item.Id)" class="collapse expandable-list">
             @foreach (var child in item.ChildCategories)
             {
                 if (child.ChildCategories.Any())
                 {
                     <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
                         <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@child.Alias">@child.Name</a>
-                        <span class="expand-btn" data-bs-toggle="collapse" href="#collapseItemChild1" aria-expanded="false" aria-controls="collapseItemChild1">
+                        <span class="expand-btn" data-bs-toggle="collapse" href="#@("collapseItemChild" + child.Id)" aria-expanded="false" aria-controls="@("collapseItemChild" + child.Id)">
                             <i class="fas fa-chevron-down"></i>
                         </span>
                     </li>
-                    <ul id="collapseItemChild1" class="collapse expandable-list">
+                    <ul id="@("collapseItemChild" + child.Id)" class="collapse expandable-list">
                         @foreach (var childItem in child.ChildCategories)
                         {
-                            <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                            <li class="nav-item nav-item-lv3 list-group-item d-flex justify-content-between align-items-center">
                                 <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@childItem.Alias">@childItem.Name</a>
                             </li>
                         }

@@ -2,13 +2,8 @@
     const MODAL_KEY = "lastModalTime";
     const ONE_HOUR = 60 * 60 * 1000;
 
-    function showModal() {
-        const modalButton = document.getElementById("openModal");
-        modalButton.click(); // Kích hoạt nút mở modal ẩn
-        localStorage.setItem(MODAL_KEY, Date.now());
-        $("#openFeedbackModal").hide();
-    }
-    $("#close_button_modalOnloadDefaul").on("click", function () {
+    
+    $(document).on("click", "#close_button_modalOnloadDefaul", function () {
         $("#openFeedbackModal").show();
     });
 
@@ -20,7 +15,7 @@
     }
 
     // Hiển thị modal search
-    $("#openFeedbackModal").on("click", function () {
+    $(document).on("click", "#openFeedbackModal", function () {
         showModal();
     });
 
@@ -29,13 +24,14 @@
         backdrop: true
     });
 
-    $('#search-modal').on('shown.bs.modal', function () {
+    $(document).on('shown.bs.modal', '#search-modal', function () {
         $('#search-input').focus();
     });
-
+                   
     // Open modal khi click vào nút
-    $('#open-modal-btn').on('click', function () {
+    $(document).on('click', '.open-search-modal-btn, #search-input', function () {
         console.log("Button clicked! Opening modal...");
+        closeAllModal();
         searchModal.show();
     });
     // category ====
@@ -73,6 +69,9 @@ document.addEventListener("DOMContentLoaded", function () {
         // kiểm tra toàn bộ ảnh đã được load hay tồn tại không. nếu không tồn tại ảnh thì load ảnh default
         mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((node) => {
+                console.log("Element added:", node); // Kiểm tra phần tử mới
+                // Bỏ qua iframe để tránh lỗi
+                if (node.tagName === 'IFRAME') return;
                 if (node.tagName === 'IMG') {
                     checkImageValidity(node);
                     observer.observe(node, { attributes: true, attributeFilter: ['src'] });
@@ -82,13 +81,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         });
+        
     });
 
     // Quan sát toàn bộ trang, kể cả các phần tử thêm vào sau
     observer.observe(document.body, { childList: true, subtree: true });
 });
-
-
 
 
 // Back to Top =================================================================================
@@ -100,6 +98,21 @@ window.onscroll = function () {
 document.getElementById("backToTop").addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+function showModal() {
+    const modalButton = document.getElementById("openModal");
+    modalButton.click(); // Kích hoạt nút mở modal ẩn
+    localStorage.setItem(MODAL_KEY, Date.now());
+    $("#openFeedbackModal").hide();
+}
+function closeAllModal() {
+    $('.modal.show').each(function () {
+        var modalInstance = bootstrap.Modal.getInstance(this);
+        if (modalInstance) {
+            modalInstance.hide();
+        }
+    });
+}
 function checkScroll() {
     const backToTopButton = document.getElementById("backToTop");
     if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -137,7 +150,7 @@ window.addEventListener("resize", showScreenSize);
 
 
 // Cookie
-             function setCookie(name, value, days) {
+function setCookie(name, value, days) {
     let expires = "";
     if (days) {
         let date = new Date();
@@ -251,14 +264,7 @@ function showError(message, title) {
     // show modal
     openInfoModal();
 }
-function closeAllModal() {
-    $('.modal.show').each(function () {
-        var modalInstance = bootstrap.Modal.getInstance(this);
-        if (modalInstance) {
-            modalInstance.hide();
-        }
-    });
-}
+
 
 function checkImageValidity(img) {
     let src = img.getAttribute("src");

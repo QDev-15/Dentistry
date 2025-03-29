@@ -21,6 +21,11 @@
     <div class="container box_breadcrumb">
         <ul class="ul-breadcrumb">
             <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
+            @{
+                <li>
+                    @Model.Doctor.Position
+                </li>
+            }
             <li>
                 @Model.Doctor.Name
             </li>
