@@ -556,7 +556,7 @@
         .image {
             width: 120px;
             height: 90px;
-            background-color: #f0f0f0; /* Màu nền khi ảnh lỗi */
+            /*background-color: #f0f0f0;*/ /* Màu nền khi ảnh lỗi */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -568,11 +568,12 @@
                 height: 100%;
                 width: 100%;
             }
-        }
 
-        .image img {
-            width: 100%;
-            height: 100%;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
         }
 
         .image img:not([src]) {
@@ -737,7 +738,7 @@
         .search-item {
             display: flex;
             align-items: stretch; /* Giúp các phần tử có chiều cao bằng nhau */
-            background: #ffffff;
+            /*background: #ffffff;*/
             padding: 5px 10px;
             border-radius: 5px;
             margin-bottom: 5px;
@@ -750,7 +751,7 @@
             min-height: 160px;
             object-fit: cover;
             border-radius: 15px;
-            background-color: #f0f0f0; /* Màu nền thay thế nếu ảnh lỗi */
+            /*background-color: #f0f0f0;*/ /* Màu nền thay thế nếu ảnh lỗi */
         }
 
         .search-content {

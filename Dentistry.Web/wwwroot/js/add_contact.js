@@ -1,6 +1,6 @@
 ﻿
 $(document).ready(function () {
-    $('#addContactMessage').on('submit', function (e) {
+    $(document).on('submit', '#addContactMessage', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
         var form = $(this);

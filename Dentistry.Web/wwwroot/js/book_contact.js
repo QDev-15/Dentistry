@@ -1,52 +1,56 @@
 ﻿
-$(document).ready(function () {
-    const picker = new tempusDominus.TempusDominus($('.input-group-datetimepicker')[0], {
-        display: {
-            components: {
-                calendar: true,
-                date: true,
-                month: true,
-                year: true,
-                clock: false,
-                //hours: false,
-                //minutes: false,
-                //seconds: false
+function initDatePicker() {
+    if ($('.input-group-datetimepicker').length) {
+        const bookContactDatePicker = new tempusDominus.TempusDominus($('.input-group-datetimepicker')[0], {
+            display: {
+                components: {
+                    calendar: true,
+                    date: true,
+                    month: true,
+                    year: true,
+                    clock: false,
+                },
             },
-        },
-        localization: {
-            locale: 'vi',
-            format: 'dd/MM/yyyy'
-        },
-        useCurrent: true,
-        restrictions: {
-            minDate: new Date(),
-            maxDate: new Date(new Date().setDate(new Date().getDate() + 365))  // Giới hạn đến 365 ngày sau
-        }
-    });
-
-    // Khi click vào icon lịch, mở DateTimePicker
-    // Đảm bảo sự kiện không bị gán nhiều lần
-    $('#calendarIcon').on('click', function () {
-        console.log("show datepicker");
-        picker.show();
-    });
-
-    function bookFormLoading() {
-        $.ajax({
-            url: '/Contact/LoadBookForm',
-            type: 'Get',
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                $("#app-contact-content").html(response);
+            localization: {
+                locale: 'vi',
+                format: 'dd/MM/yyyy'
             },
-            error: function (err) {
-                alert(error);
+            useCurrent: true,
+            restrictions: {
+                minDate: new Date(),
+                maxDate: new Date(new Date().setDate(new Date().getDate() + 365))
+            }
+        });
+
+        // Gán lại sự kiện click icon lịch
+        $(document).off('click', '#calendarIcon').on('click', '#calendarIcon', function () {
+            if (bookContactDatePicker) {
+                bookContactDatePicker.show();
             }
         });
     }
+}
+/// load form book contact for Modal
+function bookFormLoading() {
+    $.ajax({
+        url: '/Contact/LoadBookForm',
+        type: 'Get',
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            $("#app-contact-content").html(response);
+        },
+        error: function (err) {
+            alert(error);
+        }
+    });
+}
 
-    $('#frmBook').on('submit', function (e) {
+$(document).ready(function () {
+
+    initDatePicker();
+
+    $(document).on('submit', '#frmBook', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
         var form = $(this);
@@ -60,8 +64,9 @@ $(document).ready(function () {
             success: function (response) {
                 if (!response.isSuccessed) {
                     // Hiển thị lỗi validation
-                    if (response.data) {
-                        $("#app-contact-content").html(response.data);
+                    if (response) {
+                        $("#app-contact-content").html(response);
+                        initDatePicker();
                     }
                 } else {
                     form[0].reset();

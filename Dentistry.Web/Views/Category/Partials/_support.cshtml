@@ -1,4 +1,5 @@
-﻿
+﻿@using Dentistry.ViewModels.Catalog.Contacts
+
 <div class="container-fluid box_book support-view section section-contact d-flex justify-content-center align-items-center">
     <div class="container">
         <div class="row">
@@ -7,7 +8,7 @@
                     <div class="box_title">Đặt lịch khám tại Nhiên</div>
                     <div class="box_content" id="app-contact-content">
                         @{
-                            Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml");
+                            Html.RenderPartial("~/Views/Contact/Partials/BookForm.cshtml", new BookFormVm());
                         }
                     </div>
                 </div>

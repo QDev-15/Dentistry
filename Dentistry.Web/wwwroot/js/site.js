@@ -62,23 +62,24 @@ $(document).ready(function () {
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM đã tải xong!");
     checkScroll();
+    document.querySelectorAll("img").forEach(checkImageValidity);
     // Observer để kiểm tra khi DOM thay đổi
     let observer = new MutationObserver((mutations, observerInstance) => {
         // kiểm tra toàn bộ ảnh đã được load hay tồn tại không. nếu không tồn tại ảnh thì load ảnh default
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                console.log("Element added:", node); // Kiểm tra phần tử mới
-                // Bỏ qua iframe để tránh lỗi
-                if (node.tagName === 'IFRAME') return;
-                if (node.tagName === 'IMG') {
-                    checkImageValidity(node);
-                    observer.observe(node, { attributes: true, attributeFilter: ['src'] });
-                } else {
-                    // Nếu không phải img, tìm trong tất cả các thẻ con
-                    node.querySelectorAll && node.querySelectorAll("img").forEach(checkImageValidity);
-                }
-            });
-        });
+        //mutations.forEach((mutation) => {
+        //    mutation.addedNodes.forEach((node) => {
+        //        console.log("Element added:", node); // Kiểm tra phần tử mới
+        //        // Bỏ qua iframe để tránh lỗi
+        //        if (node.tagName === 'IFRAME') return;
+        //        if (node.tagName === 'IMG') {
+        //            checkImageValidity(node);
+        //            observer.observe(node, { attributes: true, attributeFilter: ['src'] });
+        //        } else {
+        //            // Nếu không phải img, tìm trong tất cả các thẻ con
+        //            node.querySelectorAll && node.querySelectorAll("img").forEach(checkImageValidity);
+        //        }
+        //    });
+        //});
         
     });
 
@@ -266,7 +267,7 @@ function showError(message, title) {
 
 function checkImageValidity(img) {
     let src = img.getAttribute("src");
-    let imgDefault = "/assets/img/loading/loading2.webp";
+    let imgDefault = "/assets/img/logo_image.png";
 
     // Nếu ảnh không có src hoặc src rỗng -> Gán ảnh mặc định
     if (!src || src.trim() === "") {
@@ -280,12 +281,12 @@ function checkImageValidity(img) {
 
     newImg.onload = function () {
         // Ảnh hợp lệ, giữ nguyên
-        console.log(`✅ Ảnh tồn tại: ${src}`);
+        //console.log(`✅ Ảnh tồn tại: ${src}`);
     };
 
     newImg.onerror = function () {
         // Ảnh lỗi, thay thế bằng ảnh mặc định
-        console.log(`❌ Ảnh lỗi: ${src} -> Chuyển sang ảnh mặc định`);
+        //console.log(`❌ Ảnh lỗi: ${src} -> Chuyển sang ảnh mặc định`);
         img.setAttribute("src", imgDefault);
     };
 }

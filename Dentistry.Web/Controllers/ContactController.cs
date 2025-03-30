@@ -22,10 +22,7 @@ namespace Dentistry.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> LoadBookForm()
         {
-            BookFormVm vm = new BookFormVm();
-            var branches = await _branchesRepository.GetActive();
-            vm.branches = branches.ToList();
-            return PartialView("~/Views/Contact/Partials/BookForm.cshtml", vm);
+            return PartialView("~/Views/Contact/Partials/BookForm.cshtml", new BookFormVm());
         }
 
         [HttpPost]
@@ -35,15 +32,25 @@ namespace Dentistry.Web.Controllers
             {
                 if (!ModelState.IsValid || model == null)
                 {
-                    var branches = await _branchesRepository.GetActive();
-                    model.branches = branches.ToList();
-                    // Render HTML từ PartialView và trả về trong JSON
-                    var partialViewHtml = await RenderViewToStringAsync("Partials/BookForm", model);
-                    return Json(new ErrorResult<string>
-                    {
-                        data = partialViewHtml,
-                        Message = "Validation failed"
-                    });
+                    return PartialView("~/Views/Contact/Partials/BookForm.cshtml", model);
+                    //var branches = await _branchesRepository.GetActive();
+                    //model.branches = branches.ToList();
+                    //// Render HTML từ PartialView và trả về trong JSON
+                    //var partialViewHtml = await RenderViewToStringAsync("Partials/BookForm", model);
+                    //return Json(new ErrorResult<string>
+                    //{
+                    //    data = partialViewHtml,
+                    //    Message = "Validation failed"
+                    //});
+                    //var errors = ModelState
+                    //    .Where(x => x.Value.Errors.Count > 0)
+                    //    .ToDictionary(k => k.Key, v => v.Value.Errors.Select(e => e.ErrorMessage).ToArray());
+
+                    //return Json(new
+                    //{
+                    //    success = false,
+                    //    errors = errors
+                    //});
                 }
 
 

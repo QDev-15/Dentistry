@@ -37,7 +37,7 @@ namespace Dentistry.ViewModels.Catalog.Contacts
                 .WithMessage("Thời gian đặt lịch không được trống.");
             // Branches is required
             RuleFor(x => x.contact.BranchesId)
-                .Must(x => x.Value > 0)
+                .Must(x => x != null && x.Value != null && x.Value > 0)
                 .WithMessage("Cơ sở khám không được trống.");
         }
     }
