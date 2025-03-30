@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carousel Phong Cảnh - Fade</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .carousel-item {
+            position: relative;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+		.carousel-indicators li::marker {
+			content: none !important;
+		}
+        .carousel-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .carousel-image {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .carousel-image img {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel-text {
+            flex: 1;
+            padding: 20px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            margin-left: 15px;
+        }
+
+        .carousel-text h5 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .carousel-text h6 {
+            font-size: 1.2rem;
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+
+        .carousel-text p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .slide-list {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .slide-item {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slide-item.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+        <!-- Chỉ báo (DOT) -->
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2"></li>
+        </ol>
+
+        <!-- Nội dung các slide -->
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800');">
+                <div class="carousel-content container">
+                    <!-- Phần ảnh -->
+                    <div class="carousel-image">
+                        <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Phong Cảnh Núi Non">
+                    </div>
+                    <!-- Phần text -->
+                    <div class="carousel-text">
+                        <h5>Phong Cảnh Núi Non</h5>
+                        <h6>Subtitle: Khám phá thiên nhiên</h6>
+                        <p>Khám phá vẻ đẹp thiên nhiên hùng vĩ của những dãy núi cao, tận hưởng không gian yên bình và trong lành.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800');">
+                <div class="carousel-content container">
+                    <!-- Phần ảnh -->
+                    <div class="carousel-image">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Biển Xanh Và Cát Trắng">
+                    </div>
+                    <!-- Phần text -->
+                    <div class="carousel-text">
+                        <h5>Biển Xanh Và Cát Trắng</h5>
+                        <h6>Subtitle: Thư giãn bên bờ biển</h6>
+                        <p>Thư giãn bên bờ biển trong lành, tận hưởng ánh nắng dịu nhẹ và tiếng sóng vỗ êm đềm của đại dương.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800');">
+                <div class="carousel-content container">
+                    <!-- Phần ảnh -->
+                    <div class="carousel-image">
+                        <img src="https://images.unsplash.com/photo-1519638399535-1b036603ac77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400" alt="Rừng Xanh Bạt Ngàn">
+                    </div>
+                    <!-- Phần text -->
+                    <div class="carousel-text">
+                        <h5>Rừng Xanh Bạt Ngàn</h5>
+                        <h6>Subtitle: Cảm nhận thiên nhiên</h6>
+                        <p>Cảm nhận hơi thở của thiên nhiên, hòa mình giữa khu rừng xanh ngát và tận hưởng bầu không khí tươi mát.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Danh sách bài viết -->
+    <div class="slide-list">
+        <div class="slide-item active" data-bs-slide-to="0">Phong Cảnh Núi</div>
+        <div class="slide-item" data-bs-slide-to="1">Biển Và Cát</div>
+        <div class="slide-item" data-bs-slide-to="2">Rừng Xanh</div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript xử lý tương tác như trước
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@{
+    var setting = await _applicationService.GetAppSetting();
+    var hotNews = await _applicationService.GetArticlesHotNews();
+}
+@model CategoryVm
+
+
+<div class="container-fluid">
+    <div class="container search-page-content">
+        <div class="row">
+            <div class="col-12 col-md-8 d-flex flex-column search-result-container">
+                <div class="search-result-content d-flex flex-column flex-grow-1 py-5">
+                    <div class="search-results flex-grow-1">
+                        @if (Model.Articles.Count == 0)
+                        {
+                            <span class="not-result-found">Chưa có bài viết về chuyên mục này.</span>
+                        }
+                        @foreach (var item in Model.Articles)
+                        {
+                            string pathImageArt = "/assets/img/no-image.jpg";
+                            if (item.Images.Any())
+                            {
+                                pathImageArt = item.Images.LastOrDefault()!.Path;
+                            }
+                            <div class="search-item">
+                                <img src="@pathImageArt" alt="Ảnh bài viết">
+                                <div class="search-content">
+                                    <h3>
+                                        <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
+                                    </h3>
+                                    <p>@item.Description.LimitTo(200, "...")</p>
+                                    <div class="search-meta">
+                                        <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
+                                        <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <!-- Lặp lại search-item cho nhiều bài viết -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 py-5 search-hotnew flex-column d-none d-md-flex">
+                <div class="box_title_v1 py-3">Chủ đề mới nhất</div>
+                <div class="box_right_content flex-column">
+                    @foreach (var item in hotNews)
+                    {
+                        string pathImage = "/assets/img/no-image.jpg";
+                        if (item.Images.Any())
+                        {
+                            pathImage = item.Images.LastOrDefault()!.Path;
+                        }
+                        <div class="item">
+                            <div class="image">
+                                <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">
+                                    <img src="@pathImage" alt="@item.Title">
+                                </a>
+                            </div>
+                            <div class="info">
+                                <h2 class="title">
+                                    <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title.LimitTo(200, "...")</a>
+                                </h2>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

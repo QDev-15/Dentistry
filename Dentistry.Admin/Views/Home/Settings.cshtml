@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model SettingsViewModel
+@{
+    ViewData["Title"] = "Cài đặt Trang Chủ";
+}
+<div class="home-settint-container">
+    <div class="container-fluid home-settint-content px-0 py-0 d-flex flex-column">
+        <ul class="nav nav-tabs pt-2" id="tabSettingMenu" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" id="slide-tab" data-bs-toggle="tab" data-tab="slide-setting" data-bs-target="#slide-setting" type="button" role="tab">
+                    <i class="fa-solid fa-sliders me-2"></i>Slides
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="category-tab" data-bs-toggle="tab" data-tab="category-setting" data-bs-target="#category-setting" type="button" role="tab">
+                    <i class="fa fa-solid fa-list me-2"></i> Danh mục
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="branches-tab" data-bs-toggle="tab" data-tab="branches-setting" data-bs-target="#branches-setting" type="button" role="tab">
+                    <i class="fa fa-solid fa-list me-2"></i> Cơ sở
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="doctor-tab" data-bs-toggle="tab" data-tab="doctor-setting" data-bs-target="#doctor-setting" type="button" role="tab">
+                    <i class="fas fa-user-md"></i> Bác sĩ 
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="app-setting-tab" data-bs-toggle="tab" data-tab="app-setting" data-bs-target="#app-setting" type="button" role="tab">
+                    <i class="fa-solid fa-gears"></i> Cài đặt
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content flex-grow-1" id="tabSettingContent">
+            <!-- Slide -->
+            <div class="tab-pane p-2 fade show active" id="slide-setting" role="tabpanel">
+                @* @await Component.InvokeAsync("SlideList") *@
+            </div>
+            <!-- category -->
+            <div class="tab-pane p-2 fade" id="category-setting" role="tabpanel">
+                @* @await Component.InvokeAsync("CategoryList") *@
+            </div>
+            <!-- branches -->
+            <div class="tab-pane p-2 fade" id="branches-setting" role="tabpanel">
+                @* @await Component.InvokeAsync("BranchesList") *@
+            </div>
+            <!-- doctor -->
+            <div class="tab-pane p-2 fade" id="doctor-setting" role="tabpanel">
+                @* @await Component.InvokeAsync("DoctorList") *@
+            </div>
+            <!-- app-setting -->
+            <div class="tab-pane p-2 fade" id="app-setting" role="tabpanel">
+                @* @await Component.InvokeAsync("AppSettings") *@
+            </div>
+        </div>
+</div>
+</div>
+<script type="text/javascript" src="~/js/home-settings.js"></script>
+
+
+<script src="~/js/doctor.js"></script>
+<script src="~/js/category_v2.js" asp-append-version="true"></script>

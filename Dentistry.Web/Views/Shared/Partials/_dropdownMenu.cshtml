@@ -1,0 +1,71 @@
+﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
+@model List<CategoryVm>
+
+@foreach (var (item, index) in Model.Select((item, index) => (item, index)))
+{
+    if (item.ChildCategories.Any())
+    {
+        <li class="nav-item nav-li-0 has-child dropdown">
+            <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@item.Alias">
+                <span class="title dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @item.Name
+                </span>
+            </a>
+            <div class="dropdown-menu d-flex flex-column container" aria-labelledby="navbarDropdown">
+                <div class="container d-flex flex-column flex-grow-1">
+                    <div class="row flex-grow-1">
+                        <div class="menu-lv2">
+                            <ul class="nav flex-column">
+                                @foreach (var child in item.ChildCategories)
+                                {
+                                    string hover = child.ChildCategories.Any() ? "li-lv2-hover-" + child.Id : "";
+                                    <li class="nav-item li-lv2 @hover">
+                                        <i class="fa-solid fa-circle-dot li-dot"></i>
+                                        <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@child.Alias">@child.Name</a>
+                                        <span class="cadet">
+                                            @if(child.ChildCategories.Any()) {
+                                                <i class="fa-solid fa-caret-right i-visible i-caret-r-@child.Id"></i>
+                                                <i class="fa-solid fa-caret-left i-hidden i-caret-l-@child.Id"></i>
+                                            }
+                                        </span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="menu-lv3">
+
+                            @foreach (var child in item.ChildCategories)
+                            {
+                                if (child.ChildCategories.Any())
+                                {
+                                    <ul class="nav flex-column ul-lv3 ul-lv3-@child.Id" style="display: none">
+                                        @foreach (var child3 in child.ChildCategories)
+                                        {
+                                            <li class="nav-item li-lv3">
+                                                <i class="fa-solid fa-circle-dot li-dot"></i>
+                                                <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail"
+                                                   asp-route-alias="@child3.Alias">@child3.Name</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            }
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item nav-li-0">
+            <a class="nav-link menu-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@item.Alias">
+                <span class="title">
+                    @item.Name
+                </span>
+            </a>
+        </li>
+    }
+}

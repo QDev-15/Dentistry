@@ -1,0 +1,125 @@
+﻿@using Dentistry.ViewModels.Catalog.Contacts
+@model ContactVm
+@{
+    Layout = null;
+}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:last-child {
+        border-bottom: none;
+    }
+
+    td {
+        padding: 12px 20px;
+    }
+
+    .col-name {
+        background-color: #f1f1f1;
+        font-weight: bold;
+        width: 30%;
+        color: #333;
+    }
+
+    .col-des {
+        color: #555;
+    }
+
+    tr:nth-child(even) .col-des {
+        background-color: #fafafa;
+    }
+
+    tr:hover {
+        background-color: #f0f8ff;
+    }
+</style>
+<div class="modal-header">
+    <h5 class="modal-title">Yêu cầu: @Model.Name</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="add-edit-category p-3">
+        <form id="viewContactForm" asp-action="View" asp-controller="Contact" enctype="multipart/form-data" method="post">
+            <input type="hidden" asp-for="@Model.Id" />
+            <input type="hidden" id="contact-isactive" asp-for="@Model.IsActive" />
+            <table>
+                <tr>
+                    <td class="col-name">Tên:</td>
+                    <td class="col-des">@Model.Name</td>
+                </tr>
+                @{
+                    if (Model.TimeBook == null) {
+                        <tr>
+                            <td class="col-name">Loại Yêu cầu:</td>
+                            <td class="col-des">Tư vấn</td>
+                        </tr>
+                    } else {
+                        <tr>
+                            <td class="col-name">Loại Yêu cầu:</td>
+                            <td class="col-des">Đặt lịch khám</td>
+                        </tr>
+                        <tr>
+                            <td class="col-name">Cơ sở khám:</td>
+                            <td class="col-des">@Model.Branch.Name</td>
+                        </tr>
+                        <tr>
+                            <td class="col-name">Thời gian:</td>
+                            <td class="col-des">@Model.TimeBook?.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    }
+                }
+                <tr>
+                    <td class="col-name">Điện thoại:</td>
+                    <td class="col-des">@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <td class="col-name">Email:</td>
+                    <td class="col-des">@Model.Email</td>
+                </tr>
+                @{
+                    if (Model.TimeBook == null) {
+                        <tr>
+                            <td class="col-name">Nội dung:</td>
+                            <td class="col-des">@Model.Message</td>
+                        </tr>
+                    }
+                }
+                @if (!Model.IsActive) { 
+                    <tr>
+                        <td class="col-name">Ghi chú:</td>
+                        <td class="col-des">@Model.Note</td>
+                    </tr>
+                }
+            </table>
+            @if (Model.IsActive) {
+                <div class="mb-3">
+                    <label asp-for="@Model.Note" class="form-label">Ghi chú:</label>
+                    <textarea asp-for="@Model.Note" class="form-control" rows="3"></textarea>
+                </div>
+            }
+
+
+        </form>
+    </div>
+</div>
+<div class="modal-footer  d-flex justify-content-center">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+    @if (Model.IsActive)
+    {
+        <button type="button" class="btn btn-primary contact-save">Lưu</button>
+        <button type="button" class="btn btn-warning contact-accept">Duyệt</button>
+    }
+</div>

@@ -1,0 +1,4 @@
+host: 103.131.74.10
+user: annhienmedical_ftp 
+pass: Anhienmedical@86
+port: 21

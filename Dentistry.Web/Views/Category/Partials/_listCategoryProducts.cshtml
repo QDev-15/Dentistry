@@ -1,0 +1,38 @@
+﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@{
+    var setting = await _applicationService.GetAppSetting();
+}
+@model CategoryBox
+
+
+<div class="container categories-content section-category product-container py-4 mt-5 mb-5">
+        <h1 class="actor-list-header box_title text-center actor-item">@(string.IsNullOrEmpty(Model.Title) ? setting.CategoryListProductTitle : Model.Title)</h1>
+        <div class="box_title_sub">
+            @(string.IsNullOrEmpty(Model.SubTitle) ? setting.CategoryListProductSubTitle : Model.SubTitle)
+        </div>
+        <div class="container">
+            <div class="row actor-list actor-list-product justify-content-center">
+                <!-- Actor 1 -->
+                @foreach (var item in Model.Items)
+                {
+                    <div class="col-6 col-sm-4 col-md-3 slide-item text-center actor-item">
+                        <div class="image">
+                            <a asp-controller="Category" asp-action="Detail"  asp-route-alias="@item.Alias">
+                                <img src="@item.CoverImage" loading="lazy" alt="@item.Name" class="actor-image">
+                            </a>
+                        </div>
+                        <div class="info">
+                            <h3 class="title">
+                                <a asp-controller="Category" asp-action="Detail" asp-route-alias="@item.Alias" title="@item.Name">
+                                    @item.Name
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>

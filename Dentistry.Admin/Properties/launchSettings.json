@@ -9,22 +9,45 @@
     }
   },
   "profiles": {
-    "http": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "http://localhost:5192",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "https": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7226;http://localhost:5192",
+      "applicationUrl": "https://localhost:7226;",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "nhienadmin": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://nhien.quynhvpit.io.vn;",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
+    "nhienweb": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://nhienadmin.quynhvpit.io.vn;",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
+    "annhienmedical": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://annhienmedical.vn;",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    },
+    "adminannhienmedical": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://admin.annhienmedical.vn;",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     },
     "IIS Express": {

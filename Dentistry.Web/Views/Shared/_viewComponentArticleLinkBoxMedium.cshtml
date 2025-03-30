@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CustomBox
+
+    <div class="custom-box-medium">
+        <div class="image-container">
+            <a href="@Model.Link">
+                <img src="@Model.ImgPath" alt="@Model.Title">
+            </a>
+        </div>
+        <div class="text-container">
+            <div class="title">
+                <a href="@Model.Link">@Model.Title</a>
+            </div>
+            <div class="description">
+                @Model.Description.RemoveHtml()
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,62 @@
+﻿@using Dentistry.ViewModels.Catalog.Branches
+@model List<BranchesVm>
+
+<div class="container-fluid p-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Cơ sở</h2>
+        <button class="btn btn-primary add-branch-btn" data-bs-toggle="modal" data-bs-target="#addEditBranchesModal" data-id="0">Thêm mới</button>
+    </div>
+
+    <div class="table-responsive">
+        <table id="branchesTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="branch-name">Tên</th>
+                    <th class="branch-phone">Điện thoại</th>
+                    <th class="branch-status">Trạng thái</th>
+                    <th class="">Địa chỉ</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example Rows -->
+                @foreach (var item in Model)
+                {
+                    var status = @item.IsActive ? "Hoạt động" : "Không hoạt động";
+                    <tr>
+                        <td class="align-middle branch-name">@item.Name</td>
+                        <td class="align-middle branch-phone">@item.PhoneNumber</td>
+                        <td class="align-middle branch-status @item.IsActive ? 'active' : 'none-active'">@status</td>
+                        <td class="align-middle">@item.Address</td>
+                        <td class="align-middle">
+                            <button class="btn btn-sm btn-warning edit-branch-btn" data-bs-toggle="modal" data-bs-target="#addEditBranchesModal" data-id="@item.Id">Sửa</button>
+                            @if (item.IsActive) {
+                                <button class="btn btn-sm btn-danger deactivated-btn" data-id="@item.Id" data-IsActive="false">Dừng hoạt động</button>
+                            } else {
+                                <button class="btn btn-sm btn-success activated-btn" data-id="@item.Id" data-IsActive="true">Kích hoạt</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Add Article Modal -->
+<div class="modal fade" id="addEditBranchesModal" tabindex="-1" aria-labelledby="addEditBranchesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script src="~/js/branches.js"></script>

@@ -1,0 +1,12 @@
+﻿@using Dentistry.ViewModels.Catalog.Categories
+@model CategoryVm
+@{
+    Html.RenderPartial("~/Views/Category/Partials/_showCategoryDescription.cshtml", Model);
+}
+
+@{
+    if (Model.ChildCategories.Any())
+    {
+        Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", new CategoryBox() { Items = Model.ChildCategories, Title = Model.Name });
+    }
+}

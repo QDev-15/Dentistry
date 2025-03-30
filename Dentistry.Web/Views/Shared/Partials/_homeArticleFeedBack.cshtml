@@ -1,0 +1,112 @@
+﻿@using Dentistry.Common
+@using Dentistry.ViewModels.Catalog.Articles
+@using Dentistry.ViewModels.Enums
+@using Dentistry.Common;
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<ArticleVm>
+@{
+    var setting = await _applicationService.GetAppSetting();
+    var artilies = new List<ArticleVm>();
+    if(Model != null && Model.Any())
+    {
+        artilies = Model.OrderByDescending(x => x.UpdatedDate).ToList();
+    }
+    <div class="section section-feedback">
+        <div class="container">
+            <div class="box_title">
+                @setting.FeedbackListTitle
+            </div>
+            <div class="box_desc"></div>
+            <div class="box_content box_list_item">
+                <div class="row">
+                    @foreach (var article in artilies)
+                    {
+                        // var imgPath = article.CoverImage;
+
+                    // <div class="col-sm-4 col-6">
+                        //     <div class="item pt-5">
+                        //         <div class="image" style="background: url('@imgPath') no-repeat; background-size: cover;">
+                        //             <a asp-action="Articles" asp-controller="Article" asp-route-alias="@article.Alias" title="@article.Title">
+                        //                 <span>Xem thêm</span>
+                        //             </a>
+                        //         </div>
+                        //         <div class="info">
+                        //             <h3 class="title"><a asp-action="Articles" asp-controller="Article" asp-route-alias="@article.Alias" title="@article.Title">@article.Title.LimitTo(50, "...")</a></h3>
+                        //             <div class="desc">@article.Description.LimitTo(200, "...")</div>
+                        //         </div>
+                        //     </div>
+                        // </div>
+                    }
+
+                </div>
+                @{
+                    if (artilies.Any()) {
+                        <div class="row">
+                            <div class="container mt-4">
+                                <div class="row g-3">
+                                    <!-- Cột trái: Item lớn -->
+                                    <div class="col-lg-4 col-md-12">
+                                        @{
+                                            var item = artilies.First();
+                                            var customBoxMedium = new CustomBox()
+                                                {
+                                                    Title = item.Title,
+                                                    ImgPath = item.CoverImage,
+                                                    Description = item.Description,
+                                                    Link = "/bai-viet/" + item.Alias
+                                                };
+                                        }
+                                        @Html.Partial("_viewComponentArticleLinkBoxMedium", customBoxMedium)
+                                    </div>
+
+                                    <!-- Cột phải: Danh sách item nhỏ -->
+                                    <div class="col-lg-8 col-md-12">
+                                        <div class="row row-cols-1 row-cols-lg-1 row-cols-xl-2 g-3">
+                                            @foreach (var art in artilies.Take(7))
+                                            {
+                                                if (art != artilies.First())
+                                                {
+                                                    var customBoxSmall = new CustomBox()
+                                                        {
+                                                            Title = art.Title,
+                                                            ImgPath = art.CoverImage,
+                                                            Description = art.Description,
+                                                            Link = "/bai-viet/" + art.Alias
+                                                        };
+                                                    <div class="col">
+                                                        @Html.Partial("_viewComponentArticleLinkBoxSmall", customBoxSmall)
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                
+            </div>
+            @if (Model.Any() && Model.First().Category != null)
+            {
+                string alias = Model.First().Category.Alias;
+                foreach (var artItem in Model)
+                {
+                    if (artItem.Category.Type == CategoryType.FeedBack)
+                    {
+                        alias = artItem.Category.Alias;
+                    }
+                }
+                <div class="control d-flex justify-content-center">
+                    <a asp-controller="Category" asp-action="Article" asp-route-alias="@alias" class="btn_yellow">Xem tất cả</a>
+                </div>
+            }
+        </div>
+    </div>
+    
+
+}

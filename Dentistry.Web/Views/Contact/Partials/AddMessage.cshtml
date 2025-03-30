@@ -1,0 +1,30 @@
+﻿@using Dentistry.ViewModels.Catalog.Contacts
+@model ContactVm
+<style>
+    .btn_submit {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+</style>
+<form id="addContactMessage" novalidate>
+    <div class="mb-3">
+        <input type="text" asp-for="Name" class="form-control" placeholder="Họ tên *">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <input type="tel" asp-for="PhoneNumber" class="form-control" placeholder="Số điện thoại *">
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <input type="email" asp-for="Email" class="form-control" placeholder="Email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <textarea class="form-control" asp-for="Message" placeholder="Nội dung *" rows="3"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn_submit w-100">Đăng ký tư vấn miễn phí!</button>
+</form>
+
+
+

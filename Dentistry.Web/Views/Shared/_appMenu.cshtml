@@ -1,0 +1,68 @@
+﻿@using Dentistry.ViewModels.Enums
+@model MenuView
+
+
+<nav class="navbar navbar-mega navbar-expand-lg navbar-toggleable-lg box-shadow navbar-light ">
+    <div class="navbar-mega-container container-lg container-fluid">
+        <a class="navbar-brand logo-brand justify-content-sm-center d-lg-none mx-auto" asp-area="" asp-controller="Home" asp-action="index">
+            <img src="~/assets/logo/LOGO.png" loading="lazy" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="modal" data-bs-target="#sideBarMenuModal" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        @* <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> *@
+
+        <div class="collapse navbar-collapse d-flex justify-content-between d-none d-lg-block" id="navbarSupportedContent">
+            <ul class="navbar-nav d-flex justify-content-evenly">
+                @Html.Partial("~/Views/Shared/Partials/_dropdownMenu.cshtml", Model.LeftMenu)
+            </ul>
+            <a class="navbar-brand logo-brand justify-content-sm-center m-0 d-none d-lg-block" asp-area="" asp-controller="Home" asp-action="index">
+                <img src="~/assets/logo/LOGO NHIEN DENTAL CLINIC.png" loading="lazy" />
+            </a>
+            <ul class="navbar-nav d-flex justify-content-evenly">
+                @Html.Partial("~/Views/Shared/Partials/_dropdownMenu.cshtml", Model.RightMenu)
+            </ul>
+        </div>
+    </div>
+
+</nav>
+<!-- Sidebar Modal -->
+<div class="modal fade" id="sideBarMenuModal" tabindex="-1" aria-labelledby="sideBarMenuModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <img src="~/assets/logo/LOGO.png" style="height: 40px; width: 40px" loading="lazy" />
+            </div>
+            <div class="modal-body">
+                <div class="sidebar">
+                    <ul class="list-group">
+                        @{
+                            var categories = Model.LeftMenu;
+                            categories.AddRange(Model.RightMenu);
+                        }
+                        @Html.Partial("~/Views/Shared/Partials/_dropdownMobileMenu.cshtml", categories)
+                        
+                        <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                            <form id="sidebar-search-form" asp-action="Search" asp-controller="Home" method="get">
+                                <input type="text" name="keyWord" id="search-input"
+                                       class="form-control sidebar-search-input shadow" @Context.Request.Query["keyWord"]
+                                       placeholder="Tìm kiếm..." />
+                                <button type="submit" class="sidebar-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                Nhiên Dentistry
+            </div>
+
+        </div>
+    </div>
+</div>
+

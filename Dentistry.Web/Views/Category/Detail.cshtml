@@ -1,0 +1,74 @@
+﻿@using Dentistry.ViewModels.Enums
+@using Dentistry.ViewModels.Catalog.Categories
+@using Dentisty.Data
+@model CategoryVm
+
+<div class="category-detail-container">
+    @* <div class="container-fluid justify-content-center image-banner p-0">
+        <img src="@Model.Image?.Path" loading="lazy" />
+    </div> *@
+
+    @*
+        Breadcrum
+    *@
+    <div class="container-fluid breadcrumb">
+        <div class="container box_breadcrumb">
+            <ul class="ul-breadcrumb">
+                <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
+                @if (Model.Parent != null && Model.Parent.Parent != null)
+                {
+                    <li>
+                        <a asp-controller="Category" asp-action="Detail" asp-route-alias="@Model.Parent.Parent.Alias"
+                        title="@Model.Parent.Parent.Name">
+                            @Model.Parent.Parent.Name
+                        </a>
+                    </li>
+                }
+                @if (Model.Parent != null)
+                {
+                    <li>
+                        <a asp-controller="Category" asp-action="Detail" asp-route-alias="@Model.Parent.Alias"
+                        title="@Model.Parent.Name">
+                            @Model.Parent.Name
+                        </a>
+                    </li>
+                }
+                <li>
+                    @Model.Name
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    @* Descriptin *@
+    @{
+        string partial = "~/Views/Category/Partials/";
+        if (Model.Type == CategoryType.About)
+        {
+            Html.RenderPartial(partial + "_about.cshtml", Model);
+        } else if (Model.Type == CategoryType.Service)
+        {
+            Html.RenderPartial(partial + "_services.cshtml", Model);
+        } else if (Model.Type == CategoryType.Products)
+        {
+            Html.RenderPartial(partial + "_product.cshtml", Model);
+        } else if (Model.Type == CategoryType.advise)
+        {
+            Html.RenderPartial(partial + "_advise.cshtml", Model);
+        } else if (Model.Type == CategoryType.FeedBack)
+        {
+            Html.RenderPartial(partial + "_feedBack.cshtml", Model);
+        } else if (Model.Type == CategoryType.News)
+        {
+            Html.RenderPartial(partial + "_news.cshtml", Model);
+        }
+        else if (Model.Type == CategoryType.Support)
+        {
+            Html.RenderPartial(partial + "_support.cshtml", Model);
+        }
+    }
+
+</div>
+
+
+

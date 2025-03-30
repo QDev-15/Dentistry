@@ -1,0 +1,315 @@
+﻿html {
+  font-size: 14px;
+}
+@media (max-width: 576px) {
+    .d-flex.gap-2 {
+        flex-direction: column !important; /* Xuống dòng trên mobile */
+        align-items: center;
+    }
+}
+#layoutSidenav_content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.layout-main-content {
+   flex: 1;
+   overflow: auto;
+   position: relative;
+}
+.home-settint-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+.home-settint-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0; /* Tránh tràn layout */
+}
+
+#tabSettingMenu {
+    flex-shrink: 0; /* Giữ cố định trên cùng */
+}
+
+#tabSettingContent {
+    flex: 1; /* Chiếm phần còn lại */
+    overflow-y: auto; /* Scroll nếu nội dung quá dài */
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+    #tabSettingContent .tab-pane {
+        height: 100%;
+    }
+.sticky-footer {
+    position: sticky;
+    bottom: -5px;
+    background: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+footer {
+    height: 80px;
+    background-color: #dfdfdf !important;
+}
+.btn-primary {
+    box-shadow: 1px 3px 5px 1px rgba(0,0,0,.25) !important;
+}
+@media (min-width: 768px) {
+    html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.sb-topnav a img {
+    height: 40px;
+}
+.sb-topnav .navbar-brand {
+    width: auto !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 0;
+    max-width: 225px !important;
+}
+.sb-topnav span {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    padding-left: 10px;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
+    color: white;
+}
+.show-slide-bar {
+    direction: rtl;
+}
+    .show-slide-bar a {
+        width: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+        .show-slide-bar a span {
+            display: none;
+        }
+
+
+.slide-page {
+    padding: 15px;
+}
+
+#sidebarToggle {
+    margin-left: 10px;
+}
+#viewContactForm .col-name {
+    padding: 5px 10px;
+    text-align: right;
+}
+
+#section-contact td.align-middle .btn {
+    margin: 2px;
+}
+#tabMenu {
+    background: #efefed;
+}
+
+/** key frames*/
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/** ================================= Dialog ================================= */
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
+    .modal-content .modal-body {
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+/** ================================= spinner All Page ======================= */
+#global-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Màu nền mờ */
+    z-index: 999999999; /* Luôn ở trên cùng */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    #global-spinner img {
+        width: 80px; /* Tùy chỉnh kích thước */
+        height: 80px;
+    }
+
+/** Tiny */
+button[title="Browse links"] {
+    display: none !important;
+}
+
+.tox-editor-header .tox-promotion {
+    display: none !important;
+}
+.tox-statusbar .tox-statusbar__right-container .tox-statusbar__branding {
+    display: none !important;
+}
+/** Modal */
+.modal-header, .modal-footer {
+    background: #ebebeb;
+}
+
+
+/** ================================== Spinner custom =======================*/
+
+/* CSS cho spinner */
+.spinner-container {
+    position: relative;
+}
+
+    .spinner-container .spinner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.14); /* Màu nền mờ */
+        z-index: 1050; /* Đảm bảo nó nằm trên cùng */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .spinner-container .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border: 0.25rem solid #ccc;
+        border-top-color: #007bff;
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+    }
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/** ============================= Setting App ===================*/
+.avatar-doctor {
+    width: 120px !important;
+}
+.setting-category-cell-checkbox, .setting-doctor-cell-checkbox, .setting-article-cell-checkbox, .setting-categoryProduct-cell-checkbox,
+.setting-news-cell-checkbox, .setting-product-cell-checkbox, .setting-feedback-cell-checkbox {
+    width: 50px !important;
+    text-align: center !important;
+}
+    .setting-category-cell-checkbox input, .setting-doctor-cell-checkbox input, .setting-article-cell-checkbox input, .setting-categoryProduct-cell-checkbox input,
+    .setting-news-cell-checkbox input, .setting-product-cell-checkbox input, .setting-feedback-cell-checkbox input {
+        cursor: pointer;
+        width: 15px; /* Chiều rộng của checkbox */
+        height: 15px; /* Chiều cao của checkbox */
+        transform: scale(1.2); /* Phóng to hoặc thu nhỏ */
+        margin: 0 auto; /* Căn giữa trong cột */
+    }
+.setting-actor-cell {
+    width: 250px;
+}
+
+/** ================================= Table =============================*/
+.dataTables_filter .form-control {
+    border: 1px solid #ced4da !important;
+    border-radius: 6px !important;
+}
+
+
+#categoryAccordion .draggable {
+    cursor: grab;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    background-color: #f8f9fa;
+}
+
+#categoryAccordion .dragging {
+    opacity: 0.5;
+}
+
+#categoryAccordion .category-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+    #categoryAccordion .category-item span {
+        line-height: 1.5;
+    }
+
+#categoryAccordion .category-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#categoryAccordion .Level1, #categoryAccordion .Level2, #categoryAccordion .Level3 {
+    margin-bottom: 5px;
+    box-shadow: 1px 3px 5px 1px rgba(0,0,0,.15) !important;
+}
+
+    #categoryAccordion .Level1 h2 > button, #categoryAccordion .Level2 h2 > button, #categoryAccordion .Level3 h2 > button {
+        background-color: #d6e9ff;
+    }
+
+#categoryAccordion .nested-accordion .accordion-item h2 > button {
+    background-color: #d6e9ff;
+}
+
+#categoryAccordion .accordion-button:focus {
+    box-shadow: none !important;
+    border-color: transparent !important;
+    outline: none !important;
+}
+
+#categoryAccordion .accordion-body {
+    background: #f1f1f1;
+    border: 1px solid #cbcbcb;
+}

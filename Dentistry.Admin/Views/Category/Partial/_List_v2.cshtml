@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
+@model List<CategoryVm>
+
+
+<style>
+    .add-category-btn, .btn-secondary {
+        box-shadow: 1px 3px 5px 1px rgba(0,0,0,.25) !important
+    }
+</style>
+<h2>Quản lý Danh mục</h2>
+<div class="d-flex justify-content-between mb-3">
+    <button class="btn btn-primary add-category-btn mb-3" data-id="0" data-level="0" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Thêm Danh Mục Chính</button>
+    <button class="btn btn-secondary mb-3" id="btnRefreshCategory">Làm mới</button>
+</div>
+
+
+<div class="accordion" id="categoryAccordion">
+    <!-- Danh mục động sẽ được thêm vào đây -->
+    @{
+        if (Model.Any())
+        {
+            foreach (var (item, index) in Model.Select((item, index) => (item, index)))
+            {
+                @Html.Partial("~/Views/Category/Partial/_accordionItem.cshtml", item);
+            }
+        }
+    }
+</div>
+
+
+<!-- Modal Thêm Danh Mục -->
+<div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content category_addedit_content">
+            
+        </div>
+    </div>
+</div>
+
+

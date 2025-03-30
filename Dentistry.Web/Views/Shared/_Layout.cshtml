@@ -1,49 +1,102 @@
-﻿<!DOCTYPE html>
+﻿@using Dentistry.ViewModels.Catalog.Contacts
+@using Dentistry.ViewModels.Enums
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@{
+    var settings = await _applicationService.GetAppSetting();
+    var categories = await _applicationService.GetAllCategories();
+    var branches = await _applicationService.GetBranches();
+    MenuView menu = new MenuView();
+    menu.RightMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuRight).OrderBy(x => x.Sort).ToList();
+    menu.LeftMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuLef).OrderBy(x => x.Sort).ToList();
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Dentistry.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"]</title>
+    <meta name="logs" content="@settings.Name" />
+    <meta name="description" content="@ViewData["Description"]" />
+    <meta name="keywords" content="@ViewData["Keywords"]" />
+    <meta name="author" content="Nha Khoa Nhiên" />
+    <meta property="og:title" content="@ViewData["Title"]" />
+    <meta property="og:description" content="@ViewData["Description"]" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@Context.Request.Host@Context.Request.Path" />
+    <link rel="icon" type="image/x-icon" href="~/logo.ico" />
+
+    @* Css Lib *@
+    <link rel="stylesheet" href="~/lib/bootstrap-5.0.2/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Dentistry.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/navbar-mega.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/plugins/carousel-01/css/owl.carousel.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/plugins/carousel-01/css/owl.theme.default.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/plugins/carousel-01/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Tempus Dominus (DateTimePicker) CSS -->
+    <link href="~/lib/datepicker/tempus-dominus.min.css" rel="stylesheet" asp-append-version="true" />
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css">
+    @* Script Lib *@
+    @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-NWMV5QHJ');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Dentistry.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWMV5QHJ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    @Html.Partial("_appToolbarTop", settings)
+    @Html.Partial("_appMenu", menu)
+    <div class="container-fluid container-main m-0 p-0">
+        <main id="main-container" role="main" class="">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Dentistry.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @Html.Partial("_appContact")
+    @Html.Partial("_appFooter", new AppFooter() { setting = settings, branches = branches })
+    @Html.Partial("_onLoadPageModal", settings)
+    
+
+    @* Script Lib *@
+    <button id="backToTop" class="e-hidden" title="Lên đầu trang">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+    @* <script src="~/js/turbo.es5-umd.js" asp-append-version="true"></script> *@
+    <script src="~/plugins/carousel-01/js/owl.carousel.min.js" asp-append-version="true"></script>
+    <script src="~/plugins/carousel-01/js/main.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+
+    <!-- Tempus Dominus (DateTimePicker) JS -->
+    <script src="~/lib/datepicker/popper.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datepicker/tempus-dominus.min.js" asp-append-version="true"></script>
+    @* script *@
+    <script src="~/js/add_contact.js"></script>
+    <script src="~/js/book_contact.js"></script>
+    <script src="~/js/home-category.js"></script>
+    <script src="~/js/home-slide-doctor-v2.js"></script>
+    <script src="~/js/navbar-mega.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

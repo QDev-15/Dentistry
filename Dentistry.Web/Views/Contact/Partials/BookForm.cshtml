@@ -1,0 +1,62 @@
+﻿@using Dentistry.ViewModels.Catalog.Contacts
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@{
+    var bookFm = new BookFormVm();
+    var branches = await _applicationService.GetBranches();
+    var setting = await _applicationService.GetAppSetting();
+    bookFm.branches = branches;
+}
+
+<form name="frmBook" id="frmBook" novalidate>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group" id="input-name">
+                <input type="text" asp-for="@bookFm.contact.Name" class="form-control" placeholder="Họ tên khách hàng *">
+                <span asp-validation-for="@bookFm.contact.Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group" id="input-phone">
+                <input type="text" asp-for=@bookFm.contact.PhoneNumber class="form-control" placeholder="Số điện thoại liên hệ *">
+                <span asp-validation-for="@bookFm.contact.PhoneNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="input-group-datetimepicker">
+                    <input type="text" asp-for="@bookFm.contact.TimeBook" class="form-control" placeholder="Ngày đặt lịch *">
+                    <span class="input-group-text" id="calendarIcon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </span>
+                </div>
+                <span asp-validation-for="@bookFm.contact.TimeBook" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group" id="input-location">
+                <select asp-for="@bookFm.contact.BranchesId" class="form-control custom-dropdown">
+                    <option value="0">Chọn cơ sở gần bạn *</option>
+                    @{
+                        foreach (var item in branches)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="@bookFm.contact.BranchesId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="note">* Thông tin của bạn sẽ được bảo mật!</div>
+            <div class="btnSuccess">
+                <button type="submit" class="btn_yellow submit">Đặt lịch</button>
+                <span class="open">
+                    <span style="color: #404040;">Giờ làm việc: </span><br>
+                    <span>@setting.StartWork đến @setting.EndWork</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+

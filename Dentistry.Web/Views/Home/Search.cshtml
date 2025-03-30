@@ -1,0 +1,156 @@
+﻿@using Dentistry.Common
+@using Dentistry.ViewModels.Catalog.Articles
+@using Dentistry.ViewModels.Catalog.Home
+@using Dentistry.ViewModels.Enums
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model SearchVm
+
+<div class="container-fluid breadcrumb">
+    <div class="container box_breadcrumb">
+        <ul class="ul-breadcrumb">
+            <li><a asp-controller="Home" asp-action="index">Trang chủ</a></li>
+            <li>
+                Tìm kiếm
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="container search-page-content">
+        <div class="row">
+            <div class="col-12 col-md-8 d-flex flex-column search-result-container">
+                <div class="search-result-content d-flex flex-column flex-grow-1 py-5">
+                    <div class="search-form-input d-flex d-md-none flex-column pb-3">
+                        <form method="get" class="search-form d-flex flex-grow-1 w-100" action="/tim-kiem">
+                            <input type="text" name="keyWord" class="form-control search-input shadow flex-grow-1"
+                                   placeholder="Tìm kiếm..." value="@Context.Request.Query["keyWord"]">
+                            <button type="submit" class="search-btn btn btn-primary ms-2">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="box_title">
+                        Kết quả tìm kiếm <span>"@ViewData["keyWord"]"</span>
+                    </div>
+                    <div class="search-results flex-grow-1">
+                        @if (Model.Items.Count == 0)
+                        {
+                            <span class="not-result-found">Có 0 kết quả được tìm thấy.</span>
+                        }
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="search-item shadow d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                                <img class="img-fluid rounded w-md-auto mx-auto mx-md-0" src="@item.CoverImage" alt="Ảnh bài viết">
+                                <div class="search-content">
+                                    <h3>
+                                        <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
+                                    </h3>
+                                    <p>@item.Description.LimitTo(200, "...")</p>
+                                    <div class="search-meta">
+                                        <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
+                                        <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <!-- Lặp lại search-item cho nhiều bài viết -->
+                    </div>
+
+                    <div class="pagination-custom">
+                    @{
+                        int totalPages = (int)ViewData["TotalPages"];
+                        int currentPage = (int)ViewData["CurrentPage"];
+                        string keyWord = ViewData["keyWord"] as string ?? "";
+                        if (totalPages > 1) {
+                            <a href="@Url.Action("Search", new { keyWord = keyWord, page = currentPage - 1 })"
+                            class="first @(currentPage == 1 ? "disabled" : "")">Trước</a>
+
+                            @if (totalPages <= 10)
+                            {
+                                @for (int i = 1; i <= totalPages; i++)
+                                {
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = i })"
+                                    class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                                }
+                            }
+                            else
+                            {
+                                if (currentPage <= 4)
+                                {
+                                    @for (int i = 1; i <= 4; i++)
+                                    {
+                                        <a href="@Url.Action("Search", new { keyWord = keyWord, page = i })"
+                                        class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                                    }
+                                    <span>...</span>
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = totalPages })" class="page-number">@totalPages</a>
+                                }
+                                else if (currentPage >= totalPages - 3)
+                                {
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = 1 })" class="page-number">1</a>
+                                    <span>...</span>
+                                    @for (int i = totalPages - 3; i <= totalPages; i++)
+                                    {
+                                        <a href="@Url.Action("Search", new { keyWord = keyWord, page = i })"
+                                        class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = 1 })" class="page-number">1</a>
+                                    <span>...</span>
+                                    @for (int i = currentPage - 1; i <= currentPage + 1; i++)
+                                    {
+                                        <a href="@Url.Action("Search", new { keyWord = keyWord, page = i })"
+                                        class="page-number @(currentPage == i ? "active" : "")">@i</a>
+                                    }
+                                    <span>...</span>
+                                    <a href="@Url.Action("Search", new { keyWord = keyWord, page = totalPages })" class="page-number">@totalPages</a>
+                                }
+                            }
+
+                            <a href="@Url.Action("Search", new { keyWord = keyWord, page = currentPage + 1 })"
+                            class="last @(currentPage == (int)ViewData["TotalPages"] ? "disabled" : "")">Sau</a>
+                        }
+                    }
+                </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 py-5 search-hotnew flex-column d-none d-md-flex">
+                <div class="search-form-input">
+                    <form asp-action="Search" asp-controller="Home" method="get" class="search-form d-flex py-0 pb-3">
+                        <input type="text" name="keyWord" id="search-input"
+                               class="form-control search-input shadow" value="@Context.Request.Query["keyWord"]"
+                               placeholder="Tìm kiếm..." />
+                        <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+                
+                <div class="box_title_v1 py-3">Chủ đề mới nhất</div>
+                <div class="box_right_content flex-column">
+                    @foreach (var item in Model.HotNews)
+                    {
+                        string pathImage = item.CoverImage;
+                        <div class="item">
+                            <div class="image">
+                                <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">
+                                    <img src="@pathImage" alt="@item.Title">
+                                </a>
+                            </div>
+                            <div class="info">
+                                <h2 class="title">
+                                    <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title.LimitTo(200, "...")</a>
+                                </h2>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,57 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Dentistry.ViewModels.Catalog.AppSettings
+@using Dentistry.ViewModels.Catalog.Categories
+@using Dentisty.Web.Services
+@inject ApplicationService _applicationService
+@{
+    var settingApp = await _applicationService.GetAppSetting();
+    var slides = await _applicationService.GetMainSlides();
+    var doctors = await _applicationService.GetDoctorSlides();
+    var feedbacks = await _applicationService.GetArticlesFeddback();
+    var categoryServices = await _applicationService.GetCategoryServices();
+    var categoryProducts = await _applicationService.GetCategoryProducts();
+}
+@{
+    Html.RenderPartial("~/Views/Shared/Partials/_homeMainSlide.cshtml", slides);
+
+    if (settingApp.ShowCategoryList)
+    {
+        <div class="container-fluid py-4 mt-5 mb-5 section category-list-slick">
+            @{
+                Html.RenderPartial("~/Views/Category/Partials/_listCategoryServices.cshtml", new CategoryBox() { Items = categoryServices });
+            }
+        </div>
+    }
+    if (settingApp.ShowCategoryProductList)
+    {
+        <div class="container-fluid py-4 mt-5 mb-5 section product-list-slick">
+            @{
+                Html.RenderPartial("~/Views/Category/Partials/_listCategoryProducts.cshtml", new CategoryBox() { Items = categoryProducts });
+            }
+        </div>
+    }
+
+    if (settingApp.ShowDoctorSlideList)
+    {
+        Html.RenderPartial("~/Views/Shared/Partials/_homeDoctorSlideV2.cshtml", doctors);
+    }
+    // if (settingApp.ShowArtileSlideList)
+    // {
+    //     @await Component.InvokeAsync("HomeArticleSlide")
+    // } 
+    // if (settingApp.ShowNewsList)
+    // {
+    //     @await Component.InvokeAsync("HomeArticleNews")
+    // }
+    // if (settingApp.ShowProductList)
+    // {
+    //     @await Component.InvokeAsync("HomeArticleProduct")
+    // }
+    if (settingApp.ShowFeedbackList)
+    {
+        Html.RenderPartial("~/Views/Shared/Partials/_homeArticleFeedBack.cshtml", feedbacks);
+    }
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+

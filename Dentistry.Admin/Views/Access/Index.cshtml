@@ -1,0 +1,90 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<style>
+    .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    }
+
+    .form-switch:hover {
+        cursor: pointer;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-refresh {
+        display: flex;
+        justify-content: end;
+        padding-right: 5px;
+    }
+    .form-check-input:not(:checked) {
+    background-color: gray;
+    border-color: gray;
+    }
+</style>
+<div class="container mt-4">
+    <form id="tracking-form">
+        <label class="form-check form-switch">
+            @if (ViewBag.AccessValue)
+            {
+                <input type="checkbox" id="track-visitors" checked class="form-check-input">
+            } else
+            {
+                <input type="checkbox" id="track-visitors" class="form-check-input">
+            }
+
+            <span class="form-check-label">Theo dõi lượng truy cập</span>
+        </label>
+    </form>
+</div>
+<div class="container mt-4">
+    <div class="row text-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Tổng số lượng truy cập</h5>
+                    <h3 id="total-visits">0</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Số lượng online</h5>
+                    <h3 id="online-users">0</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <div class="btn-refresh">
+            <button id="refresh-button" class="btn btn-primary my-2">Làm mới</button>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>IP Address</th>
+                    <th>Last Visit</th>
+                </tr>
+            </thead>
+            <tbody id="active-users-list">
+                <!-- Data will be populated here -->
+            </tbody>
+        </table>
+        <nav>
+            <ul class="pagination" id="pagination">
+                <!-- Pagination will be handled dynamically -->
+            </ul>
+        </nav>
+    </div>
+
+
+</div>
+<script src="~/js/access.js" asp-append-version="true"></script>

@@ -1,0 +1,60 @@
+﻿@using Dentistry.ViewModels.Catalog.Categories
+@using Dentistry.ViewModels.Enums
+@model List<CategoryVm>
+
+@foreach (var (item, index) in Model.Select((item, index) => (item, index)))
+{
+    if (item.ChildCategories.Any())
+    {
+        <li class="nav-item has-child list-group-item d-flex justify-content-between align-items-center">
+            <a class="nav-link menu-link" dropdown-toggle asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@item.Alias">
+                <span>
+                    @item.Name
+                </span>
+            </a>
+            <span class="expand-btn" data-bs-toggle="collapse" href="@("#collapseItem" + item.Id)" aria-expanded="false" aria-controls="@("collapseItem" + item.Id)">
+                <i class="fas fa-chevron-down"></i>
+            </span>
+        </li>
+        <ul id="@("collapseItem" + item.Id)" class="collapse expandable-list">
+            @foreach (var child in item.ChildCategories)
+            {
+                if (child.ChildCategories.Any())
+                {
+                    <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                        <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@child.Alias">@child.Name</a>
+                        <span class="expand-btn" data-bs-toggle="collapse" href="#@("collapseItemChild" + child.Id)" aria-expanded="false" aria-controls="@("collapseItemChild" + child.Id)">
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </li>
+                    <ul id="@("collapseItemChild" + child.Id)" class="collapse expandable-list">
+                        @foreach (var childItem in child.ChildCategories)
+                        {
+                            <li class="nav-item nav-item-lv3 list-group-item d-flex justify-content-between align-items-center">
+                                <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@childItem.Alias">@childItem.Name</a>
+                            </li>
+                        }
+                    </ul>
+                } else
+                {
+                    <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+                        <a class="nav-link menu-link" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@child.Alias">@child.Name</a>
+                    </li>
+                }
+                
+            }
+        </ul>
+    }
+    else
+    {
+        <li class="nav-item list-group-item d-flex justify-content-between align-items-center">
+            <a class="nav-link menu-link" role="button" asp-area="" asp-controller="Category" asp-action="Detail" asp-route-alias="@item.Alias">
+                <span>
+                    @item.Name
+                </span>
+            </a>
+        </li>
+    }
+}
+
+

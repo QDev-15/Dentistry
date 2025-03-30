@@ -1,0 +1,57 @@
+﻿@using Dentistry.ViewModels.Catalog.AppSettings
+@using Dentistry.ViewModels.Catalog.Contacts
+@model AppSettingVm
+
+<!-- Nút để kích hoạt modal -->
+<button type="button" class="btn btn-primary d-none" id="openModal" data-bs-toggle="modal" data-bs-target="#box_popup_tuvan">
+    Open Modal
+</button>
+
+<!-- Modal Bootstrap -->
+<div class="modal fade" id="box_popup_tuvan" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="cover">
+                <button type="button" id="close_button_modalOnloadDefaul" class="btn-close position-absolute end-0 m-2" style="z-index: 999;" data-bs-dismiss="modal" aria-label="Close"></button>
+                <img src="~/assets/logo/logo nhiên dental clinic done-03.png" loading="lazy" alt="Logo">
+            </div>
+            <div class="modal-body">
+                <div id="add_contact_message">
+                    @{
+                        Html.RenderPartial("~/Views/Contact/partials/AddMessage.cshtml", new ContactVm());
+                    }
+                </div>
+                <div class="mt-3 hotline">
+                    Hotline tư vấn: <a href="tel:@Model.HotlineHaNoi">@Model.HotlineHaNoi</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Popup -->
+<div id="popup_tuvan">
+    <div class="btn_popup" id="openFeedbackModal">
+        <span>Đăng ký tư vấn</span>
+        <i class="fa-solid fa-clipboard-list"></i>
+    </div>
+</div>
+
+<!-- Info Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header infoModal-header">
+                <h5 class="modal-title" id="infoModalLabel">Thông báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="message-content">
+                Thông báo.
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="infoModal-close" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" id="infoModal-confirm" data-bs-dismiss="modal" class="btn btn-warning">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/onload-page.js" asp-append-version="true"></script>

@@ -1,0 +1,132 @@
+﻿@using Dentistry.ViewModels.Catalog.AppSettings
+@model AppFooter
+
+<footer class="footer">
+    <div class="container">
+        <div class="row content">
+            <!-- Logo -->
+             <div class="col-12 col-md-4 order-1 order-md-0 mb-3 mb-md-0 pb-md-5 pt-md-3 d-flex justify-content-center align-items-center">
+                @* <a asp-controller="Home" asp-action="index" class="footer__logo">
+                    <img src="~/assets/logo/LOGO NHIÊN DENTAL CLINIC DONE-01.jpg" loading="lazy" alt="Logo">
+                </a> *@
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4416.316236394585!2d105.7865448!3d21.069247999999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abf585c2b369%3A0xcc560e32f0c3b01e!2zQ1RDUCBDw7RuZyBOZ2jhu4cgeSBLaG9hIEFuIE5oacOqbg!5e1!3m2!1svi!2s!4v1742888486926!5m2!1svi!2s" 
+                    width="100%" height="100%" style="border:0; min-height: 300px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+            <!-- Navigation -->
+            <div class="col-12 col-md-8 order-2">
+                <div class="row footer__nav">
+                    <div class="col-md-4 p-3 footer_address">
+                        <h5 class="mb-3 footer_title">@Model.setting.CompanyTitle</h5>
+                        <ul>
+                            @* <li> <span><a href="tel:@Model.setting.HotlineHaNoi">Hà Nội: @Model.setting.HotlineHaNoi</a></span></li> *@
+                            
+                            @{
+                                if (!string.IsNullOrEmpty(Model.setting.CompanyName))
+                                {
+                                    <li class="branches">
+                                        <span>@Model.setting.CompanyName</span>
+                                    </li>
+                                }
+                                if (!string.IsNullOrEmpty(Model.setting.CompanyAddress))
+                                {
+                                    <li class="branches-address">
+                                        Địa chỉ: <span>@Model.setting.CompanyAddress</span>
+                                    </li>
+                                }
+                                if (!string.IsNullOrEmpty(Model.setting.CompanyPhone))
+                                {
+                                    <li class="branches-phone">
+                                        Điện thoại: <span>@Model.setting.CompanyPhone</span>
+                                    </li>
+                                }
+                                if (!string.IsNullOrEmpty(Model.setting.CompanyEmail))
+                                {
+                                    <li class="branches-phone">
+                                        Email: <span><a href="mailto:@Model.setting.CompanyEmail">@Model.setting.CompanyEmail</a></span>
+                                    </li>
+                                }
+                                if (!string.IsNullOrEmpty(Model.setting.CompanyWebsite))
+                                {
+                                    <li class="branches-phone">
+                                        Website: <span><a href="@Model.setting.CompanyWebsite">@Model.setting.CompanyWebsite</a></span>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-md-4 p-3 footer_address">
+                        <h5 class="mb-3 footer_title">@Model.setting.BranchesTitle</h5>
+                        <ul>
+                            @foreach (var item in Model.branches)
+                            {
+                                <li class="branches">
+                                    <span>@item.Name</span>
+                                </li>
+                                <li class="branches-address">
+                                    Địa chỉ: <span>@item.Address</span>
+                                </li>
+                                <li class="branches-phone">
+                                    Điện thoại: <span>@item.PhoneNumber</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="col-md-4 p-3 footer_follow">
+                        <h5 class="mb-3 footer_title">Follow us</h5>
+                        <div class="social-icons">
+                            @if (!string.IsNullOrEmpty(Model.setting.Instagram))
+                            {
+                                <a href="@Model.setting.Instagram" class="social-icon instagram" target="_blank" aria-label="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.setting.Facebook)) {
+                                <a href="@Model.setting.Facebook" class="social-icon facebook" target="_blank" aria-label="Facebook">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.setting.Twitter)) {
+                                <a href="@Model.setting.Twitter" target="_blank" aria-label="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.setting.Youtube)) {
+                                <a href="@Model.setting.Youtube" class="social-icon youtube" target="_blank" aria-label="Youtube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.setting.Tiktok))
+                            {
+                                <a href="@Model.setting.Tiktok" class="social-icon tiktok" target="_blank" aria-label="TikTok">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- Footer Bottom -->
+    <div class="footer__bottom">
+        <p class="m-0">Copyright © Nhien Dentistry 2024. All rights reserved.</p>
+    </div>
+</footer>
+@{
+    if (!string.IsNullOrEmpty(Model.setting.HotlineHaNoi))
+    {
+        <a href="tel:@Model.setting.HotlineHaNoi" class="call-phone" target="_blank">
+            <i class="fa-solid fa-phone"></i>
+        </a>
+    }
+    if (!string.IsNullOrEmpty(Model.setting.ZaloHotline))
+    {
+        <a href="https://zalo.me/@Model.setting.ZaloHotline" class="zalo-chat" target="_blank">
+            <img src="/assets/img/zalo.svg" alt="Chat Zalo">
+        </a>
+    }
+}
