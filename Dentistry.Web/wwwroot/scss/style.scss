@@ -109,7 +109,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    background-color: #f8f9fa;
+    background-color: #f8f9fab8;
     align-items: stretch;
 
     .image-container {
@@ -183,7 +183,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    background-color: #f8f9fa;
+    background-color: #f8f9fab8;
 
     .image-container {
         width: 100%;
@@ -211,22 +211,28 @@
         flex-direction: column;
         justify-content: center;
         text-align: justify;
+        max-height: 210px;
 
-        .title a {
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: $color-main;
-            display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 5px;
+        .title {
+            padding: 0 !important;
+
+            a {
+                font-size: 1.2rem;
+                font-weight: bold;
+                text-decoration: none;
+                color: $color-main;
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 5px;
+            }
+
+            a:hover {
+                color: $color-main-50;
+            }
         }
 
-        .title a:hover {
-            color: $color-main-50;
-        }
 
         .description {
             font-size: 1.25rem;
@@ -234,7 +240,7 @@
             flex-grow: 1;
             overflow: hidden;
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+            -webkit-line-clamp: 7; /* Giới hạn 7 dòng */
             -webkit-box-orient: vertical;
         }
     }
@@ -1469,6 +1475,16 @@
                         p {
                             font-size: 1.2rem;
                             line-height: 1.5;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 10;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            position: relative;
+                            word-break: break-word;
+                            cursor: pointer;
+                            text-align: justify;
+                            white-space: pre-line;
                         }
                     }
                 }

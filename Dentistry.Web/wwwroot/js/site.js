@@ -1,27 +1,25 @@
-﻿$(document).ready(function () {
-    const MODAL_KEY = "lastModalTime";
-    const ONE_HOUR = 60 * 60 * 1000;
+﻿const MODAL_KEY = "lastModalTime";
+const ONE_HOUR = 60 * 60 * 1000;
+const lastTime = localStorage.getItem(MODAL_KEY);
+const currentTime = Date.now();
+var searchModal = null;
 
-    
+$(document).ready(function () {  
     $(document).on("click", "#close_button_modalOnloadDefaul", function () {
         $("#openFeedbackModal").show();
     });
-
-    const lastTime = localStorage.getItem(MODAL_KEY);
-    const currentTime = Date.now();
-
     if (!lastTime || currentTime - lastTime > ONE_HOUR) {
         showModal();
     }
-
+    if (!searchModal) {
+        searchModal = new bootstrap.Modal($('#search-modal')[0], {
+            keyboard: true,
+            backdrop: true
+        });
+    }
     // Hiển thị modal search
     $(document).on("click", "#openFeedbackModal", function () {
         showModal();
-    });
-
-    const searchModal = new bootstrap.Modal($('#search-modal')[0], {
-        keyboard: true,
-        backdrop: true
     });
 
     $(document).on('shown.bs.modal', '#search-modal', function () {

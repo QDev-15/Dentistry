@@ -98,7 +98,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #f8f9fa;
+  background-color: rgba(248, 249, 250, 0.7215686275);
   align-items: stretch;
 }
 .custom-box-small .image-container {
@@ -165,7 +165,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #f8f9fa;
+  background-color: rgba(248, 249, 250, 0.7215686275);
 }
 .custom-box-medium .image-container {
   width: 100%;
@@ -190,6 +190,10 @@
   flex-direction: column;
   justify-content: center;
   text-align: justify;
+  max-height: 210px;
+}
+.custom-box-medium .text-container .title {
+  padding: 0 !important;
 }
 .custom-box-medium .text-container .title a {
   font-size: 1.2rem;
@@ -211,7 +215,7 @@
   flex-grow: 1;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+  -webkit-line-clamp: 7; /* Giới hạn 7 dòng */
   -webkit-box-orient: vertical;
 }
 
@@ -1307,6 +1311,16 @@
 .section-slide-doctor-articles #carouselExampleAutoplaying .carousel-item .carousel-content .carousel-text .carousel-text-description p {
   font-size: 1.2rem;
   line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  word-break: break-word;
+  cursor: pointer;
+  text-align: justify;
+  white-space: pre-line;
 }
 .section-slide-doctor-articles .slider {
   /*max-height: 300px;*/
