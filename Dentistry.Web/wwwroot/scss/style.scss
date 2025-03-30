@@ -541,7 +541,8 @@
     padding-left: 0;
 }
 .article-content, .search-result-content, .category-content {
-    background: $background;
+    background-color: transparent;
+    padding-top: 0 !important;
 }
 .box_right_content {
     .item {

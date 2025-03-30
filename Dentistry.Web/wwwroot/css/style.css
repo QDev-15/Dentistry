@@ -480,7 +480,8 @@
 }
 
 .article-content, .search-result-content, .category-content {
-  background: #fff;
+  background-color: transparent;
+  padding-top: 0 !important;
 }
 
 .box_right_content .item {
