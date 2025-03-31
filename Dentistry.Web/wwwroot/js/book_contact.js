@@ -39,6 +39,7 @@ function bookFormLoading() {
         contentType: false,
         success: function (response) {
             $("#app-contact-content").html(response);
+            initDatePicker();
         },
         error: function (err) {
             showError(error);
@@ -69,14 +70,12 @@ $(document).ready(function () {
                         initDatePicker();
                     }
                 } else {
-                    form[0].reset();
-                    $("#frmBook").find("input, textarea").val("");
-                    $("#frmBook").find("select").val("0");
                     showSuccess("Gửi thông tin thành công!");
+                    bookFormLoading();
                 }
             },
             error: function (err) {
-                alert('Lưu thất bại.');
+                showError('Lưu thất bại.');
             }
         });
     }); 

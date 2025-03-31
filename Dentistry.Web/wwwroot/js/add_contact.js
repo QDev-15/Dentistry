@@ -21,6 +21,7 @@ $(document).ready(function () {
                     form[0].reset();
                     $("#close_button_modalOnloadDefaul").click();
                     showSuccess("Gửi thông tin thành công!");
+                    addAddressLoading();
                 }
             },
             error: function (err) {
@@ -29,3 +30,17 @@ $(document).ready(function () {
         });
     });
 });
+function addAddressLoading() {
+    $.ajax({
+        url: '/Contact/AddMessage',
+        type: 'Get',
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            $("#add_contact_message").html(response);
+        },
+        error: function (err) {
+            showError(error);
+        }
+    });
+}
