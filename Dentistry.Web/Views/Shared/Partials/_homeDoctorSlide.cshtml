@@ -4,10 +4,10 @@
 @model List<DoctorVm>
 @{
     var setting = await _applicationService.GetAppSetting();
-    while (Model.Count > 0 && Model.Count < 6)
-    {
-        Model.AddRange(Model);
-    }
+    // while (Model.Count > 0 && Model.Count < 6)
+    // {
+    //     Model.AddRange(Model);
+    // }
 }
 <div class="section section-slide-doctor-articles py-4 mt-5 mb-5">
     <div class="container">
@@ -18,14 +18,14 @@
         @* Nhiên Nha Khoa khao khát xây dựng đội ngũ nhân viên, y bác sĩ phục vụ tận tâm, trách nhiệm đảm bảo yếu tố an toàn và chuyên nghiệp trong từng dịch vụ *@
     </div>
 
-    <div class="container-fluid p-0 mt-5">
+    <div class="container p-0 mt-5">
         <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="2000">
             <!-- Chỉ báo (DOT) -->
             <ol class="carousel-indicators">
                 @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
                 {
                     var activeDot = index == 0 ? "active" : "";
-                    <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="@index" class="@activeDot"></li>
+                    <li data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="@index" class="carousel-li-item @activeDot"></li>
                 }
 
 
@@ -35,20 +35,20 @@
                 @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
                 {
                     var activeInner = index == 0 ? "active" : "";
-                    <div class="carousel-item @activeInner" style="background-image: url('');">
-                        <div class="carousel-content container">
+                    <div class="carousel-item @activeInner" >
+                        <div class="carousel-content container d-flex flex-column flex-md-row align-items-center">
                             <!-- Phần ảnh -->
-                            <div class="carousel-image">
+                            <div class="carousel-image text-center mb-3 mb-md-0">
                                 <a asp-action="Detail" asp-controller="Doctor" asp-route-alias="@item.Alias">
                                     <img src="@item.Avatar.Path" loading="lazy" alt="@item.Name">
                                 </a>
                             </div>
                             <!-- Phần text -->
-                            <div class="carousel-text">
+                            <div class="carousel-text text-center text-md-start ms-md-4">
                                 <h5>@item.Name</h5>
                                 <h6>@item.Position</h6>
                                 <div class="carousel-text-description">
-                                    <p>@item.Description.LimitTo(400, "...")</p>
+                                    <p>@item.PositionExtent</p>
                                 </div>
 
                                 <a asp-action="Detail" asp-controller="Doctor" asp-route-alias="@item.Alias" class="btn_yellow">Xem thêm</a>
@@ -59,15 +59,16 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid p-0">
+    <div class="container p-0">
         <!-- Danh sách bài viết -->
-        <div class="container slider">
+        <div class="doctor-list-item slider">
             @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
             {
-                var activeSlider = index == 0 ? "active" : "";
-                <div class="slide-item slide-item-@index @activeSlider">
-                    <div class="slide-item-content">
-                        <img src="@item.Avatar.Path" loading="lazy" alt="@item.Name">
+                <div class="slide-item" data-slide-item="@index">
+                    <div class="slide-item-content shadow-sm">
+                        <div class="image-container" style="background: url('@item.BackgroundPath');">
+                            <img src="@item.Avatar.Path" loading="lazy" alt="@item.Name">
+                        </div>
                         <div class="slide-item-footer">
                             <div class="title">@item.Name</div>
                             <div class="sub-title">@item.Position</div>
@@ -77,6 +78,34 @@
             }
         
         </div>
+        @* <div class="container doctor-list-test">
+            <div class="slick-slider">
+                <div class="box">
+                    <div class="image-container">
+                        <img src="https://nhien.quynhvpit.io.vn/uploads/user-content/opt_25032025000929_3.webp" alt="Slide 1">
+                    </div>
+                    <div class="text">Bác sĩ 1</div>
+                </div>
+                <div class="box">
+                    <div class="image-container">
+                        <img src="https://annhienmedical.vn/uploads/user-content/opt_27032025134619_bs-huyen.webp" alt="Slide 2">
+                    </div>
+                    <div class="text">Bác sĩ 2</div>
+                </div>
+                <div class="box">
+                    <div class="image-container">
+                        <img src="https://winsmile.vn/public/files/upload/202405/images/Chuyen-gia-bui-bich-uyen-crop.png" alt="Slide 3">
+                    </div>
+                    <div class="text">Bác sĩ 3</div>
+                </div>
+                <div class="box">
+                    <div class="image-container">
+                        <img src="https://winsmile.vn/public/files/upload/202501/medium/images/Bac-si-Dinh-Dinh-Duc(1).jpg" alt="Slide 4">
+                    </div>
+                    <div class="text">Bác sĩ 4</div>
+                </div>
+            </div>
+        </div> *@
     </div>
 </div>
 

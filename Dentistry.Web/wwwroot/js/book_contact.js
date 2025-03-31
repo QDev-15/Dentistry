@@ -41,7 +41,7 @@ function bookFormLoading() {
             $("#app-contact-content").html(response);
         },
         error: function (err) {
-            alert(error);
+            showError(error);
         }
     });
 }

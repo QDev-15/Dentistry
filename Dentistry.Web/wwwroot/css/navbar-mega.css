@@ -191,7 +191,7 @@
 .navbar-mega .dropdown .dropdown-menu ul .fa-caret-right.i-hidden {
   opacity: 0;
   transform: translateX(10px);
-  pointer-events: none; /* Ngăn chặn thao tác */
+  pointer-events: none; 
 }
 .navbar-mega .dropdown .dropdown-menu ul .fa-caret-left {
   opacity: 0;
@@ -319,7 +319,7 @@
     height: 45px !important;
   }
   .navbar-mega {
-    background-color: #ffa242 !important;
+    background-color: #e8d873 !important;
     height: 50px !important;
   }
   .navbar-mega .dropdown-menu {

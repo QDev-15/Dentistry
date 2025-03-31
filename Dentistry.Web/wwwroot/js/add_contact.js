@@ -20,7 +20,7 @@ $(document).ready(function () {
                 } else {
                     form[0].reset();
                     $("#close_button_modalOnloadDefaul").click();
-                    alert("Gửi thông tin thành công!");
+                    showSuccess("Gửi thông tin thành công!");
                 }
             },
             error: function (err) {

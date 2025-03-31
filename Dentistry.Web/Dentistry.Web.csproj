@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BuildWebCompiler2022" Version="1.14.10" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.72" />
@@ -53,7 +53,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\bundle\" />
     <Folder Include="wwwroot\dist\" />
   </ItemGroup>
+  <Target Name="AutoBundling" AfterTargets="AfterCompile;Build">
+  
+  </Target>
+
 
 </Project>

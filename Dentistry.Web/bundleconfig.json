@@ -1,0 +1,25 @@
+[
+  {
+    "outputFileName": "wwwroot/bundle/main-site.min.js",
+    "inputFiles": [
+      "wwwroot/plugins/carousel-01/js/main.js",
+      "wwwroot/js/site.js",
+      "wwwroot/js/article.js",
+      "wwwroot/js/add_contact.js",
+      "wwwroot/js/book_contact.js",
+      "wwwroot/js/home-category.js",
+      "wwwroot/js/home-slide-doctor.js",
+      "wwwroot/js/navbar-mega.js"
+    ],
+    "minify": { "enabled": true }
+  },
+  {
+    "outputFileName": "wwwroot/bundle/main-site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css",
+      "wwwroot/css/style.css",
+      "wwwroot/css/navbar-mega.css"
+    ],
+    "minify": { "enabled": true }
+  }
+]

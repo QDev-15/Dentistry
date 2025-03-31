@@ -21,6 +21,7 @@ body {
   flex: 1;
 }
 
+
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
@@ -33,7 +34,7 @@ body {
   border: 1px solid #dc3545 !important;
 }
 
-/* Tùy chỉnh cho summary lỗi */
+
 .validation-summary-errors {
   color: #ff0000; /* Màu đỏ cho lỗi tổng quát */
   background-color: #ffe6e6; /* Nền nhạt để nổi bật */
