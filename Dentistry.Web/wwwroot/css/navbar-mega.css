@@ -191,7 +191,7 @@
 .navbar-mega .dropdown .dropdown-menu ul .fa-caret-right.i-hidden {
   opacity: 0;
   transform: translateX(10px);
-  pointer-events: none; 
+  pointer-events: none; /* Ngăn chặn thao tác */
 }
 .navbar-mega .dropdown .dropdown-menu ul .fa-caret-left {
   opacity: 0;
