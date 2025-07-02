@@ -4,8 +4,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>6b8138e0-4c34-4a43-94ee-35f92d9c450d</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,10 +11,6 @@
     <Content Remove="Views\Shared\components\**" />
     <EmbeddedResource Remove="Views\Shared\components\**" />
     <None Remove="Views\Shared\components\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Dockerfile.Web" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +22,6 @@
     <PackageReference Include="LigerShark.WebOptimizer.Core" Version="3.0.433" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1-Preview.1" />
   </ItemGroup>
 
   <ItemGroup>
