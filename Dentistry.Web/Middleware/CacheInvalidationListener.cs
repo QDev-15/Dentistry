@@ -31,13 +31,25 @@ namespace Dentistry.Web.Middleware
             {
                 LogCaches("remove caches: " + key, "Remove caches");
                 _cacheService.RemoveAsync(key);
-                if (key == SystemConstants.Cache_Category) {
-                    // sau khi remove cache thì cập nhập lại cache của category all
+                // Nếu key là một trong những key cần cập nhật lại cache thì gọi lại service để cập nhật cache
+                if (key == SystemConstants.Cache_Category || key == SystemConstants.Cache_Slide)
+                {
                     using var scope = _serviceProvider.CreateScope(); // Tạo Scope mới
                     var appService = scope.ServiceProvider.GetRequiredService<ApplicationService>(); // Lấy Application service 
-                    await appService.GetAllCategories();
+                  
+
+                    if (key == SystemConstants.Cache_Category)
+                    {
+                        // sau khi remove cache thì cập nhập lại cache của category all
+                       await appService.GetAllCategories();
+                    }
+                    else if (key == SystemConstants.Cache_Slide)
+                    {
+                       await appService.GetMainSlides();
+                    }
                 }
             });
+
 
 
             _hubConnection.Closed += async (error) =>
