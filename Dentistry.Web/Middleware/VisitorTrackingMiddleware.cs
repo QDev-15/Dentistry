@@ -18,13 +18,6 @@ namespace Dentistry.Web.Middleware
         public async Task Invoke(HttpContext context)
         {
             // Chỉ xử lý khi request là HEAD và có header vị trí
-            if (context.Request.Method != "HEAD" ||
-                !context.Request.Headers.ContainsKey("X-Visitor-Latitude") ||
-                !context.Request.Headers.ContainsKey("X-Visitor-Longitude"))
-            {
-                await _next(context); // Bỏ qua các request khác
-                return;
-            }
 
             var userIp = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
             var userAgent = context.Request.Headers["User-Agent"].FirstOrDefault() ?? "unknown";
