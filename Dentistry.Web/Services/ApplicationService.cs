@@ -1,5 +1,6 @@
 ﻿using Dentistry.Common;
 using Dentistry.ViewModels.Catalog;
+using Dentistry.ViewModels.Catalog.Accesss;
 using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Branches;
@@ -8,10 +9,14 @@ using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.Enums;
+using Dentistry.Web.Models;
 using Dentisty.Data;
+using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
+using Microsoft.CodeAnalysis.Operations;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System.Diagnostics;
 
@@ -19,6 +24,7 @@ namespace Dentisty.Web.Services
 {
     public class ApplicationService
     {
+        private readonly IAccessRepository _access;
         private readonly ICategoryReposiroty _cat;
         private readonly IAppSettingRepository _setting;
         private readonly ICacheService _cache;
@@ -30,7 +36,7 @@ namespace Dentisty.Web.Services
 
         public ApplicationService(IArticleRepository article, IDoctorRepository doctor,
             ISlideRepository slideRepository, IBranchesRepository branchesRepository, IWebHostEnvironment env,
-            ICategoryReposiroty cat, IAppSettingRepository setting, ICacheService cache)
+            ICategoryReposiroty cat, IAppSettingRepository setting, ICacheService cache, IAccessRepository accessRepository)
         {
             _env = env;
             _cat = cat;
@@ -39,6 +45,7 @@ namespace Dentisty.Web.Services
             _branchesRepository = branchesRepository;
             _slide = slideRepository;
             _doctor = doctor;
+            _access = accessRepository;
             _article = article;
         }
         // app setting
@@ -335,6 +342,16 @@ namespace Dentisty.Web.Services
 
         }
 
+        public async void UpdateActiveUser(string visitorId, string ip, TrackStatus trackStatus)
+        {
+            var userActive = new ActiveUserVm()
+            {
+                VisitorId = visitorId,
+                IpAddress = ip,
+                IsOnline = trackStatus.Status == "online",
+            };
+            await _access.UpdateActiveUser(userActive);
+        }
         public void InvalidateCache(string key)
         {
             _cache.RemoveAsync(key); // Xóa cache khi có cập nhật từ DB

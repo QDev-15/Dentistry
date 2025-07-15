@@ -1,6 +1,7 @@
 ﻿using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Catalog;
+using Dentistry.ViewModels.Catalog.Accesss;
 using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Branches;
@@ -50,6 +51,25 @@ namespace Dentisty.Data
                 PhoneNumber = branches.PhoneNumber,
                 UpdatedAt = branches.UpdatedAt
             };
+        }
+        public static ActiveUserVm ReturnViewModel(this ActiveUser item)
+        {
+            if (item == null)
+            {
+                return new ActiveUserVm();
+            }
+            var vm = new ActiveUserVm()
+            {
+                Id = item.Id,
+                IpAddress = item.IpAddress,
+                LastActive = item.LastActive,
+                VisitorId = item.VisitorId,
+                UserAgent = item.UserAgent,
+                Latitude = item.Latitude,
+                Longitude = item.Longitude,
+                IsOnline = item.IsOnline
+            };
+            return vm;
         }
         public static AppSettingVm ReturnViewModel(this AppSetting item)
         {

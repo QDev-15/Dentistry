@@ -35,8 +35,43 @@ function loadVisitorLogs(pageIndex) {
             let tableBody = $("#active-users-list");
             tableBody.empty();
             $.each(data.items, function (index, user) {
-                tableBody.append(`<tr><td>${user.ipAddress}</td><td>${user.visitTime}</td></tr>`);
+                let visitDate = new Date(user.visitTime);
+
+                // Dùng định dạng theo trình duyệt (ngôn ngữ và múi giờ của người dùng)
+                let localTime = new Intl.DateTimeFormat(navigator.language || 'vi-VN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                }).format(visitDate);
+
+                let location = "Không có";
+                if (user.latitude !== null && user.longitude !== null) {
+                    location = `${user.latitude}, ${user.longitude}` + `<a
+                        href="https://www.google.com/maps?q=${user.latitude},${user.longitude}"
+                        class="btn btn-access-link"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        Xem trên Google Maps
+                    </a>`;
+                }
+                let ipAddress = user.ipAddress || "Không xác định";
+                if (ipAddress != "Không xác định") {
+                    ipAddress += ` <a class="btn btn-access-link" href="https://ipinfo.io/${user.ipAddress}" target="_blank"> Chi tiết</a>`;
+                }
+
+                tableBody.append(`
+                    <tr>
+                        <td>${ipAddress}</td>
+                        <td>${location}</td>
+                        <td style="vertical-align: middle;">${localTime}</td>
+                    </tr>
+                `);
             });
+
 
             renderPagination(data.pageIndex, data.pageCount);
         },
@@ -94,4 +129,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.getElementById('refresh-button').addEventListener('click', function () {
     loadVisitorLogs(currentPage);
+});
+document.getElementById('delete-access-button').addEventListener('click', function () {
+    $.ajax({
+        url: "/Access/ClearAccessLogs",
+        type: "POST",
+        success: function (data) {
+            console.log("Done");
+            loadVisitorLogs(currentPage);
+        },
+        error: function (xhr) {
+            console.error("Lỗi khi tải dữ liệu:", xhr.responseText);
+        }
+    });
 });
