@@ -13,6 +13,7 @@ using Dentisty.Data.Services.System;
 using Dentisty.Web.Services;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,10 @@ builder.Configuration
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
 var hostingConfig = builder.Configuration.GetSection("HostingConfig").Get<HostingConfig>();
 
+var cultureInfo = new CultureInfo("vi-VN");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 // Add SignalR
 builder.Services.AddSignalR();
 
@@ -34,6 +39,7 @@ builder.Services.AddDbContext<DentistryDbContext>(options =>
 // Register Repository  add services
 builder.Services.AddSingleton<Logs>();
 builder.Services.AddSingleton<CacheInvalidationListener>();
+builder.Services.AddSingleton<ITimezoneService, TimezoneService>();
 builder.Services.AddScoped<ApplicationService>();
 builder.Services.AddSingleton<ICacheService, CacheService>();
 builder.Services.AddScoped<DentistryDbContext>();
@@ -47,6 +53,7 @@ builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IAppSettingRepository, AppSettingRepository>();
 builder.Services.AddScoped<IContactRepository, ContactRepository>();
 builder.Services.AddScoped<IBranchesRepository, BranchesRepository>();
+builder.Services.AddScoped<IAccessRepository, AccessRepository>();
 builder.Services.AddScoped<LoggerRepository>();
 
 // Background Services

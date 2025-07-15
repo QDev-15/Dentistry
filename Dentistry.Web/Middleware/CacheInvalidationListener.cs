@@ -30,13 +30,20 @@ namespace Dentistry.Web.Middleware
             _hubConnection.On<string>("CacheInvalidated", async (key) =>
             {
                 LogCaches("remove caches: " + key, "Remove caches");
-                _cacheService.RemoveAsync(key);
-                if (key == SystemConstants.Cache_Category) {
-                    // sau khi remove cache thì cập nhập lại cache của category all
-                    using var scope = _serviceProvider.CreateScope(); // Tạo Scope mới
-                    var appService = scope.ServiceProvider.GetRequiredService<ApplicationService>(); // Lấy Application service 
-                    await appService.GetAllCategories();
+                if (key == SystemConstants.Cache_Setting) {
+                    _cacheService.RemoveAllAsync();
+                } else
+                {
+                    _cacheService.RemoveAsync(key);
+                    if (key == SystemConstants.Cache_Category)
+                    {
+                        // sau khi remove cache thì cập nhập lại cache của category all
+                        using var scope = _serviceProvider.CreateScope(); // Tạo Scope mới
+                        var appService = scope.ServiceProvider.GetRequiredService<ApplicationService>(); // Lấy Application service 
+                        await appService.GetAllCategories();
+                    }
                 }
+                    
             });
 
 

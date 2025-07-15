@@ -29,5 +29,20 @@ namespace Dentistry.Admin.Controllers
             var result = await _accessRepository.GetVisitorLogs(requestBase);
             return Ok(result);
         }
+        // xóa toàn bộ visitor log và active user
+        [HttpPost]
+        public async Task<IActionResult> ClearAccessLogs()
+        {
+            try
+            {
+                await _accessRepository.ClearVisitorLogs();
+                await _accessRepository.ClearActiveUsers();
+                return Json(new SuccessResult<bool>());
+            }
+            catch (Exception ex)
+            {
+                return Json(new ErrorResult<bool> { Message = ex.Message });
+            }
+        }
     }
 }

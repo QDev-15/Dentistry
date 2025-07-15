@@ -17,9 +17,38 @@ namespace Dentistry.Web.Middleware
 
         public async Task Invoke(HttpContext context)
         {
+            // Chỉ xử lý khi request là HEAD và có header vị trí
+            if (context.Request.Method != "HEAD" ||
+                !context.Request.Headers.ContainsKey("X-Visitor-Latitude") ||
+                !context.Request.Headers.ContainsKey("X-Visitor-Longitude"))
+            {
+                await _next(context); // Bỏ qua các request khác
+                return;
+            }
+
             var userIp = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            var userAgent = context.Request.Headers["User-Agent"].FirstOrDefault() ?? "unknown";
+            // Lấy hoặc tạo VisitorId từ cookie
+            string visitorId;
+            if (context.Request.Cookies.ContainsKey("VisitorId"))
+            {
+                visitorId = context.Request.Cookies["VisitorId"];
+            }
+            else
+            {
+                visitorId = Guid.NewGuid().ToString();
+                context.Response.Cookies.Append("VisitorId", visitorId, new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddYears(1),
+                    HttpOnly = false,
+                    IsEssential = true
+                });
+            }
             var now = DateTime.UtcNow;
             var today = now.Date;
+
+            var latHeader = context.Request.Headers["X-Visitor-Latitude"].FirstOrDefault();
+            var lngHeader = context.Request.Headers["X-Visitor-Longitude"].FirstOrDefault();
 
             using (var scope = _scopeFactory.CreateScope())
             {
@@ -32,23 +61,33 @@ namespace Dentistry.Web.Middleware
                         await _next(context);
                     }
                     // Kiểm tra xem IP này đã truy cập trong ngày chưa
-                    bool hasVisitedToday = await dbContext.VisitorLogs.AnyAsync(v => v.IpAddress == userIp && v.VisitTime >= today);
+                    bool hasVisitedToday = await dbContext.VisitorLogs.AnyAsync(v => v.VisitorId == visitorId && v.VisitTime >= today);
                     if (!hasVisitedToday)
                     {
-                        dbContext.VisitorLogs.Add(new VisitorLog { IpAddress = userIp, VisitTime = now });
+                        dbContext.VisitorLogs.Add(new VisitorLog { 
+                            IpAddress = userIp, 
+                            VisitTime = now,
+                            VisitorId = visitorId,
+                            UserAgent = userAgent,
+                            Latitude = latHeader, 
+                            Longitude = lngHeader
+                        });
                         await dbContext.SaveChangesAsync();
                     }
 
                     // Kiểm tra và cập nhật danh sách người đang online
-                    var existingUser = await dbContext.ActiveUsers.FirstOrDefaultAsync(x => x.IpAddress == userIp);
+                    var existingUser = await dbContext.ActiveUsers.FirstOrDefaultAsync(x => x.VisitorId == visitorId);
                     if (existingUser == null)
                     {
-                        dbContext.ActiveUsers.Add(new ActiveUser { IpAddress = userIp, LastActive = now });
-                        await dbContext.SaveChangesAsync();
-                    }
-                    else if ((now - existingUser.LastActive).TotalSeconds > 60) // Chỉ cập nhật nếu quá 60s
-                    {
-                        existingUser.LastActive = now;
+                        dbContext.ActiveUsers.Add(new ActiveUser { 
+                            IpAddress = userIp, 
+                            LastActive = now,
+                            UserAgent = userAgent,
+                            Latitude = latHeader,
+                            Longitude = lngHeader,
+                            IsOnline = true,
+                            VisitorId = visitorId
+                        });
                         await dbContext.SaveChangesAsync();
                     }
                 }

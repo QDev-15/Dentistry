@@ -11,5 +11,10 @@ namespace Dentisty.Data.GeneratorDB.Entities
         public int Id { set; get; }
         public string IpAddress { get; set; }
         public DateTime LastActive { get; set; }
+        public string? VisitorId { get; set; }
+        public string? UserAgent { get; set; }
+        public string? Latitude { get; set; }
+        public string? Longitude { get; set; }
+        public bool IsOnline { get; set; } = false;
     }
 }
