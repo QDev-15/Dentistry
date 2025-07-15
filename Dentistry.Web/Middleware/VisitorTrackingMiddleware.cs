@@ -54,8 +54,8 @@ namespace Dentistry.Web.Middleware
                         await _next(context);
                     }
                     // Kiểm tra xem IP này đã truy cập trong ngày chưa
-                    bool hasVisitedToday = await dbContext.VisitorLogs.AnyAsync(v => v.VisitorId == visitorId && v.VisitTime >= today);
-                    if (!hasVisitedToday)
+                    var hasVisitedToday = await dbContext.VisitorLogs.FirstOrDefaultAsync(v => v.VisitorId == visitorId && v.IpAddress == userIp);
+                    if (hasVisitedToday == null)
                     {
                         dbContext.VisitorLogs.Add(new VisitorLog { 
                             IpAddress = userIp, 
@@ -65,11 +65,17 @@ namespace Dentistry.Web.Middleware
                             Latitude = latHeader, 
                             Longitude = lngHeader
                         });
-                        await dbContext.SaveChangesAsync();
                     }
+                    else if (lngHeader != null && latHeader != null)
+                    {
+                        hasVisitedToday.Longitude = lngHeader;
+                        hasVisitedToday.Latitude = latHeader;
+                        dbContext.VisitorLogs.Update(hasVisitedToday);
+                    }
+                    await dbContext.SaveChangesAsync();
 
                     // Kiểm tra và cập nhật danh sách người đang online
-                    var existingUser = await dbContext.ActiveUsers.FirstOrDefaultAsync(x => x.VisitorId == visitorId);
+                    var existingUser = await dbContext.ActiveUsers.FirstOrDefaultAsync(x => x.VisitorId == visitorId && x.IpAddress == userIp);
                     if (existingUser == null)
                     {
                         dbContext.ActiveUsers.Add(new ActiveUser { 
@@ -81,8 +87,14 @@ namespace Dentistry.Web.Middleware
                             IsOnline = true,
                             VisitorId = visitorId
                         });
-                        await dbContext.SaveChangesAsync();
                     }
+                    else if (lngHeader != null && latHeader != null)
+                    {
+                        existingUser.Longitude = lngHeader;
+                        existingUser.Latitude = latHeader;
+                        dbContext.VisitorLogs.Update(hasVisitedToday);
+                    }
+                    await dbContext.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {
