@@ -292,26 +292,26 @@ function checkImageValidity(img) {
 }
 
 
-// Lấy vị trí người dùng và gửi request ẩn để server middleware đọc được
-window.addEventListener("load", function () {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
+//// Lấy vị trí người dùng và gửi request ẩn để server middleware đọc được
+//window.addEventListener("load", function () {
+//    if (navigator.geolocation) {
+//        navigator.geolocation.getCurrentPosition(function (position) {
+//            const lat = position.coords.latitude;
+//            const lng = position.coords.longitude;
 
-            // Gửi HEAD request lên server, middleware sẽ xử lý
-            fetch("/", {
-                method: "HEAD", // không load lại trang
-                headers: {
-                    "X-Visitor-Latitude": lat.toString(),
-                    "X-Visitor-Longitude": lng.toString()
-                }
-            });
-        }, function (error) {
-            console.warn("Không lấy được vị trí", error);
-        });
-    }
-});
+//            // Gửi HEAD request lên server, middleware sẽ xử lý
+//            fetch("/", {
+//                method: "HEAD", // không load lại trang
+//                headers: {
+//                    "X-Visitor-Latitude": lat.toString(),
+//                    "X-Visitor-Longitude": lng.toString()
+//                }
+//            });
+//        }, function (error) {
+//            console.warn("Không lấy được vị trí", error);
+//        });
+//    }
+//});
 
 // Gửi thông tin disconnect khi người dùng rời khỏi trang
 
