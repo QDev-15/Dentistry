@@ -1,5 +1,6 @@
 ﻿using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.Entities;
+using Dentistry.ViewModels.Catalog.Accesss;
 using Dentistry.ViewModels.Catalog.Articles;
 using Dentistry.ViewModels.Catalog.Home;
 using Dentistry.Web.Models;
@@ -8,8 +9,10 @@ using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Dentistry.Web.Controllers
 {
@@ -21,10 +24,12 @@ namespace Dentistry.Web.Controllers
         private readonly ICacheService _cacheService;
         private readonly IMemoryCache _memoryCache;
         private readonly ICategoryReposiroty _categoryReposiroty;
+        private readonly IAccessRepository _accessRepository;
 
-        public HomeController(ILogger<HomeController> logger, IAppSettingRepository appSettingRepository,
+        public HomeController(ILogger<HomeController> logger, IAppSettingRepository appSettingRepository, IAccessRepository accessRepository,
             IArticleRepository articleRepository, IMemoryCache memoryCache, ICacheService cacheService, ICategoryReposiroty categoryReposiroty)
         {
+            _accessRepository = accessRepository;
             _categoryReposiroty = categoryReposiroty;
             _cacheService = cacheService;
             _appSettingRepository = appSettingRepository;
@@ -155,6 +160,32 @@ namespace Dentistry.Web.Controllers
                 _categoryReposiroty.RefreshCategory();
                 return Ok("Done");
             }
+        }
+        [HttpPost("/tracking")]
+        public async Task<IActionResult> Track([FromBody] TrackStatus model)
+        {
+            var visitorId = Request.Cookies["VisitorId"] ?? Guid.NewGuid().ToString();
+            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+            // Đảm bảo cookie tồn tại
+            if (!Request.Cookies.ContainsKey("VisitorId"))
+            {
+                Response.Cookies.Append("VisitorId", visitorId, new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddDays(7),
+                    HttpOnly = true,
+                    SameSite = SameSiteMode.Lax
+                });
+            }
+
+            var userActive = new ActiveUserVm()
+            {
+                VisitorId = visitorId,
+                IpAddress = ip,
+                IsOnline = model.Status == "online",
+            };
+            await _accessRepository.UpdateActiveUser(userActive);
+            return Ok();
         }
     }
 }

@@ -216,6 +216,7 @@ var loadArticle = function() {
         type: 'GET',
         success: function (html) {
             $('#article-list').html(html);
+            initTable();
         },
         error: function () {
             showError('Tải lại danh sách bài viết thất bại!');

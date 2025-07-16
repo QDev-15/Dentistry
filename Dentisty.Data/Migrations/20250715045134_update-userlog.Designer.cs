@@ -4,6 +4,7 @@ using Dentistry.Data.GeneratorDB.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dentisty.Data.Migrations
 {
     [DbContext(typeof(DentistryDbContext))]
-    partial class DentistryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250715045134_update-userlog")]
+    partial class updateuserlog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,7 +193,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4788a499-148b-42cf-92f9-5cf428c33b5a",
+                            ConcurrencyStamp = "f50beff3-ffd3-4795-9675-3e986534528c",
                             DisplayName = "Nhiên",
                             Dob = new DateTime(1990, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "nhienadmin@gmail.com",
@@ -201,7 +204,7 @@ namespace Dentisty.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "nhienadmin@gmail.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC0Z7MctXXckqizSKajoSBQdrCyAAxy0SzzT432q6gp0OJW0kzOmLYbHnbj49NbDvg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEgCvcRdV3Ot5TQcU0VLn+iNBvrsMC43bDVLLHG7j8qVtqsX7aw4JESd+CWIvdaB8Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -350,7 +353,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 1,
                             Alias = "dich-vu",
-                            CreatedDate = new DateTime(2025, 7, 15, 14, 41, 35, 972, DateTimeKind.Local).AddTicks(7159),
+                            CreatedDate = new DateTime(2025, 7, 15, 11, 51, 33, 485, DateTimeKind.Local).AddTicks(9301),
                             IsActive = true,
                             IsParent = true,
                             Level = 0,
@@ -365,7 +368,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 2,
                             Alias = "san-pham",
-                            CreatedDate = new DateTime(2025, 7, 15, 14, 41, 35, 972, DateTimeKind.Local).AddTicks(7183),
+                            CreatedDate = new DateTime(2025, 7, 15, 11, 51, 33, 485, DateTimeKind.Local).AddTicks(9325),
                             IsActive = true,
                             IsParent = true,
                             Level = 0,
@@ -380,7 +383,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 3,
                             Alias = "kien-thuc",
-                            CreatedDate = new DateTime(2025, 7, 15, 14, 41, 35, 972, DateTimeKind.Local).AddTicks(7186),
+                            CreatedDate = new DateTime(2025, 7, 15, 11, 51, 33, 485, DateTimeKind.Local).AddTicks(9328),
                             IsActive = true,
                             IsParent = true,
                             Level = 0,
@@ -395,7 +398,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 4,
                             Alias = "tin-tuc",
-                            CreatedDate = new DateTime(2025, 7, 15, 14, 41, 35, 972, DateTimeKind.Local).AddTicks(7189),
+                            CreatedDate = new DateTime(2025, 7, 15, 11, 51, 33, 485, DateTimeKind.Local).AddTicks(9331),
                             IsActive = true,
                             IsParent = true,
                             Level = 0,
@@ -410,7 +413,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 5,
                             Alias = "tu-van",
-                            CreatedDate = new DateTime(2025, 7, 15, 14, 41, 35, 972, DateTimeKind.Local).AddTicks(7191),
+                            CreatedDate = new DateTime(2025, 7, 15, 11, 51, 33, 485, DateTimeKind.Local).AddTicks(9333),
                             IsActive = true,
                             IsParent = true,
                             Level = 0,
@@ -425,7 +428,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 6,
                             Alias = "lien-he",
-                            CreatedDate = new DateTime(2025, 7, 15, 14, 41, 35, 972, DateTimeKind.Local).AddTicks(7194),
+                            CreatedDate = new DateTime(2025, 7, 15, 11, 51, 33, 485, DateTimeKind.Local).AddTicks(9336),
                             IsActive = true,
                             IsParent = true,
                             Level = 0,
@@ -440,7 +443,7 @@ namespace Dentisty.Data.Migrations
                         {
                             Id = 7,
                             Alias = "gioi-thieu",
-                            CreatedDate = new DateTime(2025, 7, 15, 14, 41, 35, 972, DateTimeKind.Local).AddTicks(7196),
+                            CreatedDate = new DateTime(2025, 7, 15, 11, 51, 33, 485, DateTimeKind.Local).AddTicks(9338),
                             IsActive = true,
                             IsParent = true,
                             Level = 0,
@@ -732,9 +735,6 @@ namespace Dentisty.Data.Migrations
                     b.Property<string>("IpAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsOnline")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LastActive")
                         .HasColumnType("datetime2");

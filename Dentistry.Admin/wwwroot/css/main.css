@@ -65,14 +65,26 @@ footer {
 .btn-primary {
     box-shadow: 1px 3px 5px 1px rgba(0,0,0,.25) !important;
 }
+.btn-access-link {
+    display: inline-block !important;
+    margin: 0.5rem !important;
+    padding: 0.6rem 1rem !important;
+    background: #007bff !important;
+    color: white !important;
+    text-decoration: none !important;
+    border-radius: 5px !important;
+}
 @media (min-width: 768px) {
     html {
     font-size: 16px;
   }
 }
 
+.tox-edit-area {
+    padding: 10px;
+}
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
