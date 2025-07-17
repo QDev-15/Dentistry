@@ -6,6 +6,7 @@ using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Admin.Controllers
@@ -115,7 +116,7 @@ namespace Dentistry.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             Response.Cookies.Delete(SystemConstants.AppSettings.Token);
             return RedirectToAction("Index", "Login");
         }

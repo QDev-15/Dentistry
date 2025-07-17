@@ -1,4 +1,5 @@
 ﻿using Dentistry.Admin.Common;
+using Dentistry.Admin.Middlewares;
 using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentistry.Data.GeneratorDB.Entities;
@@ -11,7 +12,6 @@ using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Catalog.Slide;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data;
-using Dentisty.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;
@@ -19,6 +19,7 @@ using Dentisty.Data.Services.Interfaces;
 using Dentisty.Data.Services.System;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -42,37 +43,18 @@ builder.Configuration
 
 // Tải cấu hình UploadSettings từ appsettings
 builder.Services.Configure<HostingConfig>(builder.Configuration.GetSection("HostingConfig"));
+builder.Services.Configure<JwtTokens>(builder.Configuration.GetSection("JwtTokens"));
 var hostingConfig = builder.Configuration.GetSection("HostingConfig").Get<HostingConfig>();
+var jwtTokens = builder.Configuration.GetSection("JwtTokens").Get<JwtTokens>();
 
 
-var issuer = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Issuer);
-var audience = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Audience);
-var signingKey = builder.Configuration.GetValue<string>(SystemConstants.JwtTokens.Key);
-byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(signingKey!);
+byte[] signingKeyBytes = System.Text.Encoding.UTF8.GetBytes(jwtTokens!.Key);
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Login/Index";
-        options.LogoutPath = "/User/Logout";
-        options.AccessDeniedPath = "/User/Forbidden/";
-        options.Events = new CookieAuthenticationEvents
-        {
-            OnRedirectToLogin = context =>
-            {
-                context.Response.Redirect("/Login"); // Custom login path
-                return Task.CompletedTask;
-            },
-            OnRedirectToAccessDenied = context =>
-            {
-                context.Response.Redirect("/Home/AccessDenied"); // Custom access denied path
-                return Task.CompletedTask;
-            }
-        };
-    }).AddJwtBearer(options =>
+    .AddJwtBearer(options =>
     {
 
         options.RequireHttpsMetadata = false;
@@ -83,20 +65,13 @@ builder.Services.AddAuthentication(options =>
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = issuer,
-            ValidAudience = audience,
+            ValidIssuer = jwtTokens.Issuer,
+            ValidAudience = jwtTokens.Audience,
             ClockSkew = System.TimeSpan.Zero,
             IssuerSigningKey = new SymmetricSecurityKey(signingKeyBytes)
         };
     });
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.HttpOnly = true;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Chỉ hoạt động với HTTPS
-    options.Cookie.SameSite = SameSiteMode.None; // Quan trọng để hỗ trợ nhiều tab/domain
-    options.ExpireTimeSpan = TimeSpan.FromDays(10);
-    options.SlidingExpiration = true;
-});
+
 // add controller views
 builder.Services.AddControllersWithViews(options =>
 {
@@ -120,18 +95,12 @@ builder.Services.AddControllersWithViews(options =>
 // add resource validator
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromDays(10);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
-
 // Đăng ký SignalR
 builder.Services.AddSignalR();
 
 // Register Repository  add services
 builder.Services.AddSingleton<Logs>();
+builder.Services.AddSingleton<AppConfigService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSingleton<ITimezoneService, TimezoneService>();
 builder.Services.AddScoped<DentistryDbContext>();
@@ -159,15 +128,14 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigins",
         policy =>
         {
-            //policy.WithOrigins("https://localhost:7278") // Cho phép website kết nối     // https://nhien.quynhvpit.io.vn
-            //policy.WithOrigins("https://nhien.quynhvpit.io.vn") // Cho phép website kết nối     // 
-            //policy.WithOrigins("https://annhienmedical.vn") // Cho phép website kết nối     // 
             policy.WithOrigins(hostingConfig!.WebHost) // Cho phép website kết nối     // 
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials(); // Cần thiết cho SignalR
         });
 });
+builder.Services.AddHttpContextAccessor();
+
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -184,13 +152,21 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
     dbContext.Database.Migrate();
 }
+app.Use(async (context, next) =>
+{
+    await next();
 
+    if (context.Response.StatusCode == 401)
+    {
+        context.Response.Redirect("/Login");
+    }
+});
 app.UseForwardedHeaders();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession();
+app.UseMiddleware<JwtFromCookieMiddleware>();
 app.UseMiddleware<TimeZoneMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();

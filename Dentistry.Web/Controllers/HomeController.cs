@@ -165,7 +165,7 @@ namespace Dentistry.Web.Controllers
         public async Task<IActionResult> Track([FromBody] TrackStatus model)
         {
             var visitorId = Request.Cookies["VisitorId"] ?? Guid.NewGuid().ToString();
-            var ip = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var ip = await Utilities.GetIpAddress();
 
             // Đảm bảo cookie tồn tại
             if (!Request.Cookies.ContainsKey("VisitorId"))

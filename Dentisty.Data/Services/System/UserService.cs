@@ -21,19 +21,19 @@ namespace Dentisty.Data.Services.System
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
-        private readonly IConfiguration _config;
+        private readonly AppConfigService _appConfigService;
         private readonly JwtTokenHelper _jwtTokenHelper;
 
         public UserService(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             RoleManager<AppRole> roleManager,
-            IConfiguration config)
+            AppConfigService appConfigService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _config = config;
-            _jwtTokenHelper = new JwtTokenHelper(config);
+            _appConfigService = appConfigService;
+            _jwtTokenHelper = new JwtTokenHelper(_appConfigService);
         }
 
         public async Task<Result<string>> Authencate(LoginRequest request)
@@ -41,7 +41,7 @@ namespace Dentisty.Data.Services.System
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null) return new ErrorResult<string>("Tài khoản không tồn tại");
 
-            var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
+            var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, true);
             if (!result.Succeeded)
             {
                 return new ErrorResult<string>("Đăng nhập không đúng");

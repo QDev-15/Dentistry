@@ -1,5 +1,6 @@
 ﻿using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.Entities;
+using Dentisty.Data.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,18 +12,18 @@ namespace Dentisty.Data
 {
     public class JwtTokenHelper
     {
-        private readonly IConfiguration _config;
+        private readonly AppConfigService _appConfigService;
 
-        public JwtTokenHelper(IConfiguration configuration)
+        public JwtTokenHelper(AppConfigService appConfigService)
         {
-            _config = configuration;
+            _appConfigService = appConfigService;
         }
 
         public string GenerateToken(AppUser user, List<string> roles)
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email!),
                 new Claim(ClaimTypes.GivenName,user.FirstName),
                 new Claim(ClaimTypes.Role, string.Join(";",roles)),
@@ -30,17 +31,17 @@ namespace Dentisty.Data
                 new Claim("DisplayName", user.DisplayName),
                 new Claim("FullName", $"{user.FirstName} {user.LastName}"),
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config[SystemConstants.JwtTokens.Key]!));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appConfigService.JwtTokens.Key));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),  // Thêm claim vào Subject
-                Expires = DateTime.Now.AddDays(10),  // Thời gian hết hạn
+                Expires = DateTime.Now.AddMinutes(_appConfigService.JwtTokens.ExpiresInMinutes),  // Thời gian hết hạn
                 SigningCredentials = creds,
-                Issuer = _config[SystemConstants.JwtTokens.Issuer],  // Người phát hành
-                Audience = _config[SystemConstants.JwtTokens.Audience]  // Đối tượng nhận token
+                Issuer = _appConfigService.JwtTokens.Issuer,  // Người phát hành
+                Audience = _appConfigService.JwtTokens.Audience  // Đối tượng nhận token
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

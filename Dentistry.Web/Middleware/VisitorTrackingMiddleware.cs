@@ -1,4 +1,5 @@
-﻿using Dentistry.Data.GeneratorDB.EF;
+﻿using Dentistry.Common;
+using Dentistry.Data.GeneratorDB.EF;
 using Dentisty.Data.GeneratorDB.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,7 @@ namespace Dentistry.Web.Middleware
         {
             // Chỉ xử lý khi request là HEAD và có header vị trí
 
-            var userIp = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            var userIp = await Utilities.GetIpAddress();
             var userAgent = context.Request.Headers["User-Agent"].FirstOrDefault() ?? "unknown";
             // Lấy hoặc tạo VisitorId từ cookie
             string visitorId;

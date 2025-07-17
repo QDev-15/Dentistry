@@ -154,9 +154,21 @@ namespace Dentisty.Data.Storages
 
                 // Nếu là PNG thì giữ nguyên, nếu không thì đổi sang WebP
                 bool isPng = fileExtension == ".png";
+                bool isGif = fileExtension == ".gif";
                 string optimizedFileName = "opt_" + DateTime.Now.ToString("ddMMyyyyHHmmss_")
-                                        + Path.GetFileNameWithoutExtension(file.FileName).ToLower()
-                                        + (isPng ? ".png" : ".webp");
+                                        + Path.GetFileNameWithoutExtension(file.FileName).ToLower();
+                if (isGif)
+                {
+                    optimizedFileName += ".gif"; // Thêm hậu tố nếu là GIF
+                }
+                else if (isPng)
+                {
+                    optimizedFileName += ".png"; // Thêm hậu tố nếu là PNG
+                }
+                else
+                {
+                    optimizedFileName += ".webp";
+                }
 
                 optimizedFileName = Regex.Replace(optimizedFileName, @"\s+", "-");
 
@@ -186,7 +198,7 @@ namespace Dentisty.Data.Storages
                                 TransparentColorMode = PngTransparentColorMode.Preserve
                             });
                         }
-                        else
+                        else if (!isGif)
                         {
                             // 3️⃣ Nếu ảnh đơn sắc, chuyển sang grayscale
                             if (IsGrayscale(image))
@@ -264,7 +276,7 @@ namespace Dentisty.Data.Storages
                 // Xử lý URL để lấy đường dẫn file từ xa
                 if (string.IsNullOrEmpty(imageUrl))
                 {
-                    throw new ArgumentException("URL không hợp lệ.");
+                    return true; // Không có URL, coi như đã xóa
                 }
 
                 // Loại bỏ phần host để lấy đường dẫn file
