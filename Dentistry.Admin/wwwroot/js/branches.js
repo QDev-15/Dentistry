@@ -49,7 +49,7 @@
         });
     });
     // submit modal
-    $('#addEditBranchesModal').on('submit', 'form', function (e) {
+    $(document).on('submit', '#addBranchesForm', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
 

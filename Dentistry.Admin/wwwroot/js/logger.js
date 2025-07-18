@@ -3,6 +3,7 @@
         processing: true,
         serverSide: true,
         stateSave: true,
+        responsive: true,
         order: [[1, 'desc']],
         ajax: {
             url: '/Logger/GetLogs',
@@ -25,12 +26,14 @@
             {
                 data: "body",
                 title: "Body",
-                className: "text-wrap text-primary fw-bold"
+                className: "text-wrap text-primary fw-bold",
+                width: null // ✅ Cho phép body tự động co giãn
             },
             {
                 data: "createdDate",
                 title: "Date",
                 className: "text-center",
+                width: "180px", // ✅ Vừa đủ cho định dạng DD/MM/YYYY HH:mm:ss
                 render: function (data) {
                     if (!data) return "";
                     return moment(data).format("DD/MM/YYYY HH:mm:ss");
@@ -54,6 +57,30 @@
         pageLength: 10
     });
 
+    // Refresh table get data again
+    $('#refreshLoggerTable').on('click', function () {
+        $('#loggerTable').DataTable().ajax.reload();
+    });
+    // Delete log call to server Logger/Delete, and reload table
+    $(document).on('click', '#deleteAllLogs', function () {
+        if (confirm('Are you sure you want to delete this log?')) {
+            $.ajax({
+                url: `/Logger/Delete`,
+                type: 'DELETE',
+                success: function (response) {
+                    if (response.isSuccessed) {
+                        $('#loggerTable').DataTable().ajax.reload();
+                        showSuccess('Log deleted successfully');
+                    } else {
+                        showError(response.message || 'Failed to delete log');
+                    }
+                },
+                error: function (err) {
+                    showError('Failed to delete log');
+                }
+            });
+        }
+    });
     $(document).on('click', '.logger-view-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
 

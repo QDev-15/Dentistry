@@ -16,7 +16,7 @@
 </div>
 <div class="modal-body">
     <div class="add-edit-slide p-3">
-        <form asp-action="AddEdit" id="slide-add-edit" asp-controllder="Slide" enctype="multipart/form-data" method="post">
+        <form asp-action="AddEdit" id="slide-add-edit" asp-controller="Slide" enctype="multipart/form-data" method="post">
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name">Tên</label>
@@ -46,7 +46,7 @@
                 <input type="number" class="form-control ps-2" id="SortOrder" name="SortOrder" asp-for="SortOrder" value="@Model.SortOrder" />
             </div>
             <div class="form-group">
-                <label asp-for="ImageFile">Upload Image</label>
+                <label asp-for="ImageFile">Upload Image (1750 x 700) or (2.5:1)</label>
                 <input asp-for="ImageFile" type="file" class="form-control ps-2" id="ImageFile" accept="image/*" />
             
             </div>

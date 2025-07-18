@@ -1,7 +1,9 @@
 ﻿using Dentistry.ViewModels.Catalog.Logger;
+using Dentistry.ViewModels.Common;
 using Dentisty.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Dentistry.Admin.Controllers
 {
@@ -30,6 +32,13 @@ namespace Dentistry.Admin.Controllers
                 recordsFiltered = result.Total,
                 data = result.Items
             });
+        }
+        // Delete log   
+        [HttpDelete]
+        public async Task<IActionResult> Delete()
+        {
+            _loggerRepository.DeleteAll();
+            return Json(new SuccessResult<string>("Log deleted successfully."));
         }
         [AllowAnonymous]
         [HttpGet]

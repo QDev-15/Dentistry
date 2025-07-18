@@ -70,9 +70,8 @@ $(document).ready(function () {
     $(document).on('change', '#show-active', function () {
         refreshData();
     });
-
     // submit modal
-    $('#addEditArticleModal').on('submit', 'form', function (e) {
+    $(document).on('submit', '#addArticleForm', function (e) {
         e.preventDefault();
         $('#Item_ImageIds').val(Array.from(selectedAllIds).join(","));
         const formData = new FormData(this);
