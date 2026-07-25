@@ -45,14 +45,27 @@ namespace Dentistry.ViewModels
         }
         public static string ConvertToSlug(string text)
         {
+            text = text ?? "";
+            text = text.Trim();
+
+            text = text.ConvertToSlug();
             // Chuyển thành chữ thường
             text = text.ToLowerInvariant();
+
+            // "đ" không được NormalizationForm.FormD tách dấu nên phải xử lý riêng
+            text = text.Replace("đ", "d");
 
             // Loại bỏ dấu
             text = RemoveDiacritics(text);
 
-            // Thay thế khoảng trắng bằng dấu gạch ngang
-            text = Regex.Replace(text, @"\s+", "-");
+            // Loại bỏ ký tự không phải chữ, số, khoảng trắng hoặc gạch ngang
+            text = Regex.Replace(text, @"[^a-z0-9\s-]", "");
+
+            // Gộp khoảng trắng và các gạch ngang liên tiếp thành một gạch ngang
+            text = Regex.Replace(text, @"[\s-]+", "-");
+
+            // Xóa gạch ngang thừa ở đầu/cuối
+            text = text.Trim('-');
 
             return text;
         }
