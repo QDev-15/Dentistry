@@ -29,6 +29,12 @@ namespace Dentistry.Admin.Controllers
             await _appSettingRepository.UpdateAssess(id, value);
             return Json(new SuccessResult<bool>());
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateVisitorLocation(int id, bool value)
+        {
+            await _appSettingRepository.UpdateLocationTracking(id, value);
+            return Json(new SuccessResult<bool>());
+        }
         [HttpGet]
         public IActionResult GetSetting()
         {

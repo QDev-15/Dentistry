@@ -42,7 +42,7 @@ function bookFormLoading() {
             initDatePicker();
         },
         error: function (err) {
-            showError(error);
+            showError(err);
         }
     });
 }

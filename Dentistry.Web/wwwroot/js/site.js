@@ -63,27 +63,21 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM đã tải xong!");
     checkScroll();
     document.querySelectorAll("img").forEach(checkImageValidity);
-    // Observer để kiểm tra khi DOM thay đổi
-    let observer = new MutationObserver((mutations, observerInstance) => {
-        // kiểm tra toàn bộ ảnh đã được load hay tồn tại không. nếu không tồn tại ảnh thì load ảnh default
-        //mutations.forEach((mutation) => {
-        //    mutation.addedNodes.forEach((node) => {
-        //        console.log("Element added:", node); // Kiểm tra phần tử mới
-        //        // Bỏ qua iframe để tránh lỗi
-        //        if (node.tagName === 'IFRAME') return;
-        //        if (node.tagName === 'IMG') {
-        //            checkImageValidity(node);
-        //            observer.observe(node, { attributes: true, attributeFilter: ['src'] });
-        //        } else {
-        //            // Nếu không phải img, tìm trong tất cả các thẻ con
-        //            node.querySelectorAll && node.querySelectorAll("img").forEach(checkImageValidity);
-        //        }
-        //    });
-        //});
-        
+    // Observer để kiểm tra khi DOM thay đổi — áp dụng ảnh mặc định cho node mới
+    let observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType !== Node.ELEMENT_NODE) return;
+                if (node.tagName === 'IFRAME') return;
+                if (node.tagName === 'IMG') {
+                    checkImageValidity(node);
+                } else {
+                    node.querySelectorAll && node.querySelectorAll("img").forEach(checkImageValidity);
+                }
+            });
+        });
     });
 
-    // Quan sát toàn bộ trang, kể cả các phần tử thêm vào sau
     observer.observe(document.body, { childList: true, subtree: true });
 });
 
@@ -126,7 +120,7 @@ function checkScroll() {
 }
 //Resize Screen
 function getBootstrapBreakpoint(width) {
-    width = width | window.innerWidth;
+    width = width || window.innerWidth;
     if (width < 576) return "xs";      // Extra small
     if (width < 768) return "sm";      // Small
     if (width < 992) return "md";      // Medium
@@ -172,11 +166,7 @@ function getCookie(name) {
 // End Cookie
 
 function openInfoModal() {
-    // Open modal 
-    const modal = new bootstrap.Modal(document.getElementById('infoModal'));
-    if (bootstrap.Modal.getInstance(modal)) {
-        bootstrap.Modal.getInstance(modal).dispose();
-    }
+    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('infoModal'));
     modal.show();
 }
 function resetFooterBtn() {

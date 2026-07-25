@@ -15,9 +15,7 @@ using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
-using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 using System.Diagnostics;
 
 namespace Dentisty.Web.Services
@@ -342,7 +340,7 @@ namespace Dentisty.Web.Services
 
         }
 
-        public async void UpdateActiveUser(string visitorId, string ip, TrackStatus trackStatus)
+        public async Task UpdateActiveUser(string visitorId, string ip, TrackStatus trackStatus)
         {
             var userActive = new ActiveUserVm()
             {

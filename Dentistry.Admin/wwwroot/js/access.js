@@ -125,6 +125,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    document.getElementById('track-visitor-location').addEventListener('change', function () {
+        $.ajax({
+            url: "/AppSetting/UpdateVisitorLocation",
+            type: "POST",
+            data: { id: 1, value: this.checked },
+            success: function (data) {
+                console.log("Done");
+            },
+            error: function (xhr) {
+                console.error("Lỗi khi tải dữ liệu:", xhr.responseText);
+            }
+        });
+    });
 });
 
 document.getElementById('refresh-button').addEventListener('click', function () {

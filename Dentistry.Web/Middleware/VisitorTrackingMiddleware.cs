@@ -1,4 +1,4 @@
-﻿using Dentistry.Data.GeneratorDB.EF;
+using Dentistry.Data.GeneratorDB.EF;
 using Dentisty.Data.GeneratorDB.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +9,12 @@ namespace Dentistry.Web.Middleware
         private readonly RequestDelegate _next;
         private readonly IServiceScopeFactory _scopeFactory;
 
+        private static readonly string[] _staticPrefixes =
+        [
+            "/js/", "/css/", "/lib/", "/plugins/",
+            "/assets/", "/uploads/", "/bundle/", "/scss/"
+        ];
+
         public VisitorTrackingMiddleware(RequestDelegate next, IServiceScopeFactory scopeFactory)
         {
             _next = next;
@@ -17,11 +23,16 @@ namespace Dentistry.Web.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            // Chỉ xử lý khi request là HEAD và có header vị trí
+            var path = context.Request.Path.Value ?? string.Empty;
+            if (_staticPrefixes.Any(p => path.StartsWith(p, StringComparison.OrdinalIgnoreCase)))
+            {
+                await _next(context);
+                return;
+            }
 
             var userIp = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
             var userAgent = context.Request.Headers["User-Agent"].FirstOrDefault() ?? "unknown";
-            // Lấy hoặc tạo VisitorId từ cookie
+
             string visitorId;
             if (context.Request.Cookies.ContainsKey("VisitorId"))
             {
@@ -37,9 +48,8 @@ namespace Dentistry.Web.Middleware
                     IsEssential = true
                 });
             }
-            var now = DateTime.UtcNow;
-            var today = now.Date;
 
+            var now = DateTime.UtcNow;
             var latHeader = context.Request.Headers["X-Visitor-Latitude"].FirstOrDefault();
             var lngHeader = context.Request.Headers["X-Visitor-Longitude"].FirstOrDefault();
 
@@ -48,57 +58,64 @@ namespace Dentistry.Web.Middleware
                 try
                 {
                     var dbContext = scope.ServiceProvider.GetRequiredService<DentistryDbContext>();
-                    var appsetting = dbContext.AppSettings.FirstOrDefault();
-                    if (appsetting !=null && appsetting.TrackVisitors == false)
+                    var appsetting = await dbContext.AppSettings.FirstOrDefaultAsync();
+                    if (appsetting != null && appsetting.TrackVisitors == false)
                     {
                         await _next(context);
+                        return;
                     }
-                    // Kiểm tra xem IP này đã truy cập trong ngày chưa
+
+                    var trackLocation = appsetting == null || appsetting.TrackVisitorLocation;
+                    var visitorLat = trackLocation ? latHeader : null;
+                    var visitorLng = trackLocation ? lngHeader : null;
+
                     var hasVisitedToday = await dbContext.VisitorLogs.FirstOrDefaultAsync(v => v.VisitorId == visitorId && v.IpAddress == userIp);
                     if (hasVisitedToday == null)
                     {
-                        dbContext.VisitorLogs.Add(new VisitorLog { 
-                            IpAddress = userIp, 
+                        dbContext.VisitorLogs.Add(new VisitorLog {
+                            IpAddress = userIp,
                             VisitTime = now,
                             VisitorId = visitorId,
                             UserAgent = userAgent,
-                            Latitude = latHeader, 
-                            Longitude = lngHeader
+                            Latitude = visitorLat,
+                            Longitude = visitorLng
                         });
                     }
-                    else if (lngHeader != null && latHeader != null)
+                    else if (visitorLat != null && visitorLng != null)
                     {
-                        hasVisitedToday.Longitude = lngHeader;
-                        hasVisitedToday.Latitude = latHeader;
+                        hasVisitedToday.Latitude = visitorLat;
+                        hasVisitedToday.Longitude = visitorLng;
                         dbContext.VisitorLogs.Update(hasVisitedToday);
                     }
-                    await dbContext.SaveChangesAsync();
 
-                    // Kiểm tra và cập nhật danh sách người đang online
                     var existingUser = await dbContext.ActiveUsers.FirstOrDefaultAsync(x => x.VisitorId == visitorId && x.IpAddress == userIp);
                     if (existingUser == null)
                     {
-                        dbContext.ActiveUsers.Add(new ActiveUser { 
-                            IpAddress = userIp, 
+                        dbContext.ActiveUsers.Add(new ActiveUser {
+                            IpAddress = userIp,
                             LastActive = now,
                             UserAgent = userAgent,
-                            Latitude = latHeader,
-                            Longitude = lngHeader,
+                            Latitude = visitorLat,
+                            Longitude = visitorLng,
                             IsOnline = true,
                             VisitorId = visitorId
                         });
                     }
-                    else if (lngHeader != null && latHeader != null)
+                    else
                     {
-                        existingUser.Longitude = lngHeader;
-                        existingUser.Latitude = latHeader;
-                        dbContext.VisitorLogs.Update(hasVisitedToday);
+                        existingUser.LastActive = now;
+                        if (visitorLat != null && visitorLng != null)
+                        {
+                            existingUser.Latitude = visitorLat;
+                            existingUser.Longitude = visitorLng;
+                        }
+                        dbContext.ActiveUsers.Update(existingUser);
                     }
+
                     await dbContext.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {
-                    // Log lỗi nếu cần (ví dụ: dùng ILogger)
                     Console.WriteLine($"[Error] Middleware failed: {ex.Message}");
                 }
             }

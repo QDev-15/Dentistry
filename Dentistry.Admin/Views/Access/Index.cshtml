@@ -41,6 +41,17 @@
 
             <span class="form-check-label">Theo dõi lượng truy cập</span>
         </label>
+        <label class="form-check form-switch">
+            @if (ViewBag.LocationValue)
+            {
+                <input type="checkbox" id="track-visitor-location" checked class="form-check-input">
+            } else
+            {
+                <input type="checkbox" id="track-visitor-location" class="form-check-input">
+            }
+
+            <span class="form-check-label">Lưu vị trí truy cập</span>
+        </label>
     </form>
 </div>
 <div class="container mt-4">

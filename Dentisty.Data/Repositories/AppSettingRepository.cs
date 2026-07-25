@@ -98,9 +98,22 @@ namespace Dentisty.Data.Repositories
                 await SaveChangesAsync();
             } catch(Exception ex)
             {
-                
+
             }
-            
+
+        }
+
+        public async Task UpdateLocationTracking(int id, bool value)
+        {
+            try
+            {
+                var updateAppSetting = await GetByIdAsync(id);
+                updateAppSetting.TrackVisitorLocation = value;
+                await SaveChangesAsync();
+            } catch(Exception ex)
+            {
+
+            }
         }
     }
 }

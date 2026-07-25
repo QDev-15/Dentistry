@@ -46,6 +46,7 @@ namespace Dentistry.ViewModels.Catalog.AppSettings
         public bool ShowNewsList { get; set; } = true;
         public bool ShowFeedbackList { get; set; } = true;
         public bool TrackVisitors { get; set; } = true;
+        public bool TrackVisitorLocation { get; set; } = true;
         public string? Categories { set; get; } = "";
         public string? CategoryProducts { set; get; } = "";
         public string? Doctors { set; get; } = "";

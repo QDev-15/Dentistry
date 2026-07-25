@@ -19,6 +19,7 @@ namespace Dentistry.Admin.Controllers
         {
             var appsetting = await _appSetting.GetById(1);
             ViewBag.AccessValue = appsetting.TrackVisitors;
+            ViewBag.LocationValue = appsetting.TrackVisitorLocation;
             ViewBag.VisitorCount = await _accessRepository.CountVistorLogs();
             ViewBag.ActiveCount = await _accessRepository.CountActiveUsers();
             return View();

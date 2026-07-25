@@ -14,5 +14,6 @@ namespace Dentisty.Data.Interfaces
         Task<AppSettingVm> GetById(int id);
         Task<AppSettingVm> GetFirst();
         Task UpdateAssess(int id, bool value);
+        Task UpdateLocationTracking(int id, bool value);
     }
 }

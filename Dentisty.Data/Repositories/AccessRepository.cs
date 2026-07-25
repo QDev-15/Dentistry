@@ -25,44 +25,28 @@ namespace Dentisty.Data.Repositories
 
         public async Task<bool> ClearActiveUsers()
         {
-            bool result = false;
             try
             {
-                var activeUsers = await _context.ActiveUsers.ToListAsync();
-                if (activeUsers.Count > 0)
-                {
-                    _context.ActiveUsers.RemoveRange(activeUsers);
-                    _context.SaveChanges();
-                    result = true;
-                }
+                await _context.ActiveUsers.ExecuteDeleteAsync();
+                return true;
             }
             catch (Exception ex)
             {
-                // Log the exception (not implemented here)
-                result = false;
+                return false;
             }
-            return result;
         }
 
         public async Task<bool> ClearVisitorLogs()
         {
-            bool result = false;    
             try
             {
-                var visitorLogs = await _context.VisitorLogs.ToListAsync();
-                if (visitorLogs.Count > 0)
-                {
-                    _context.VisitorLogs.RemoveRange(visitorLogs);
-                    _context.SaveChanges();
-                    result = true;
-                }
+                await _context.VisitorLogs.ExecuteDeleteAsync();
+                return true;
             }
             catch (Exception ex)
             {
-                // Log the exception (not implemented here)
-                result = false;
+                return false;
             }
-            return result;
         }
 
         public async Task<int> CountActiveUsers()

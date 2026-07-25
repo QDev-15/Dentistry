@@ -95,20 +95,22 @@
 }
 .navbar-mega .dropdown .dropdown-menu {
   margin: 0 auto;
-  padding: 15px 30px 30px 30px;
-  width: 100%;
-  min-height: 400px;
-  left: 0;
-  right: 0;
-  top: calc(120px - 1px);
-  display: block;
-  visibility: hidden;
-  opacity: 0.95;
-  border: 1px solid rgba(188, 142, 46, 0.5) !important;
-  border-radius: 0px 0px 20px 20px;
-  background-color: rgb(255, 254, 253);
-  transition: visibility 0s, opacity 0.3s linear;
-  box-shadow: 2px 2px 10px 0px rgba(14, 14, 14, 0.2);
+    padding: 15px 30px 30px 30px;
+    width: 100%;
+    min-height: 400px;
+    left: 0;
+    right: 0;
+    top: calc(120px - 1px);
+    display: block !important;
+    visibility: hidden;
+    opacity: 0;
+    border: 1px solid rgba(188, 142, 46, .5) !important;
+    border-radius: 0 0 20px 20px;
+    background-color: #fffefd;
+    box-shadow: 2px 2px 10px 0 rgba(14, 14, 14, .2);
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: visibility .5s cubic-bezier(.68, -.55, .27, 1.55);
 }
 .navbar-mega .dropdown .dropdown-menu .row {
   display: flex;
@@ -213,10 +215,11 @@
   transition: visibility 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) !important;
 }
 .navbar-mega .dropdown:hover .dropdown-menu {
-  display: block;
-  visibility: visible;
-  opacity: 0.95;
-  transition: visibility 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) !important;
+	opacity: 0.9;
+	visibility: visible;
+	transform: translateY(0);
+	pointer-events: auto;
+	transition: opacity .3s ease, transform .3s ease, visibility .3s !important;
 }
 
 /** =============== Side bar ==============================*/
