@@ -19,7 +19,7 @@ namespace Dentistry.Common
         public string UserFTP { get; set; }
         public string PassWordFTP { get; set; }
         public string PortFTP { get; set; }
-
+        public string ServerType { get; set; } = "server";
 
     }
 }

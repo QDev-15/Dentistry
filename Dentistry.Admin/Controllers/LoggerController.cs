@@ -1,10 +1,13 @@
 ﻿using Dentistry.ViewModels.Catalog.Logger;
+using Dentistry.ViewModels.Common;
 using Dentisty.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Dentistry.Admin.Controllers
 {
-    public class LoggerController : BaseController
+    public class LoggerController : Controller
     {
         private readonly LoggerRepository _loggerRepository; // Thêm Repository hoặc Service để lấy dữ liệu từ DB
 
@@ -12,10 +15,12 @@ namespace Dentistry.Admin.Controllers
         {
             _loggerRepository = loggerRepository;
         }
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetLogs(LoggerRequrestVm request)
         {
@@ -28,6 +33,14 @@ namespace Dentistry.Admin.Controllers
                 data = result.Items
             });
         }
+        // Delete log   
+        [HttpDelete]
+        public async Task<IActionResult> Delete()
+        {
+            _loggerRepository.DeleteAll();
+            return Json(new SuccessResult<string>("Log deleted successfully."));
+        }
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Detail(string id)
         {

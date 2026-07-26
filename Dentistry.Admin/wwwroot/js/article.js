@@ -145,7 +145,7 @@ $(document).ready(function () {
     });
 
     // submit modal
-    $('#addEditArticleModal').on('submit', 'form', function (e) {
+    $(document).on('submit', '#addArticleForm', function (e) {
         e.preventDefault();
         const avatarFile = document.getElementById('item_avatarFile');
         const avatarUrl = $('#item_avatarUrl').val().trim();

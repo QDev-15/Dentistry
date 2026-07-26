@@ -190,6 +190,10 @@ namespace Dentistry.Data.Storages
         {
             try
             {
+                if (string.IsNullOrEmpty(urlImage))
+                {
+                    return true; // Không có URL, coi như đã xóa
+                }
                 // Xóa file từ URL
                 bool isDeleted = _ftpUploader.DeleteFileFromUrl(urlImage);
                 return isDeleted;

@@ -18,16 +18,7 @@ namespace Dentistry.Admin.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            var sessions = context.HttpContext.Request.Cookies[SystemConstants.AppSettings.Token];
-            //var sessions = context.HttpContext.Session.GetString(Constants.AppSettings.Token);
-            if (sessions == null)
-            {
-                context.Result = new RedirectToActionResult("Index", "Login", null);
-            }
-            base.OnActionExecuting(context);
-        }
+       
         public List<string> GetRoles()
         {
             var roles = User.Claims

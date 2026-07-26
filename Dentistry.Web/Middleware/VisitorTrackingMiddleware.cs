@@ -30,7 +30,7 @@ namespace Dentistry.Web.Middleware
                 return;
             }
 
-            var userIp = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+            var userIp = await Utilities.GetIpAddress();
             var userAgent = context.Request.Headers["User-Agent"].FirstOrDefault() ?? "unknown";
 
             string visitorId;

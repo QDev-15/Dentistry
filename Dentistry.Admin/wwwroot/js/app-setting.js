@@ -3,7 +3,7 @@
 
     }
     // submit modal
-    $('#app-setting-form').on('submit', 'form', function (e) {
+    $(document).on('submit', '#updateForm', function (e) {
         e.preventDefault();
         var formData = $('#updateForm').serialize();
         // AJAX request

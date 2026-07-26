@@ -47,6 +47,7 @@ namespace Dentistry.Web.Middleware
             });
 
 
+
             _hubConnection.Closed += async (error) =>
             {
                 Console.WriteLine($"Connection closed: {error?.Message}. Trying to reconnect...");

@@ -153,9 +153,21 @@ namespace Dentisty.Data.Storages
 
                 // Nếu là PNG thì giữ nguyên, nếu không thì đổi sang WebP
                 bool isPng = fileExtension == ".png";
+                bool isGif = fileExtension == ".gif";
                 string optimizedFileName = "opt_" + DateTime.Now.ToString("ddMMyyyyHHmmss_")
-                                        + Path.GetFileNameWithoutExtension(file.FileName).ToLower()
-                                        + (isPng ? ".png" : ".webp");
+                                        + Path.GetFileNameWithoutExtension(file.FileName).ToLower();
+                if (isGif)
+                {
+                    optimizedFileName += ".gif"; // Thêm hậu tố nếu là GIF
+                }
+                else if (isPng)
+                {
+                    optimizedFileName += ".png"; // Thêm hậu tố nếu là PNG
+                }
+                else
+                {
+                    optimizedFileName += ".webp";
+                }
 
                 optimizedFileName = Regex.Replace(optimizedFileName, @"\s+", "-");
 
@@ -166,40 +178,47 @@ namespace Dentisty.Data.Storages
                 // Lưu file tạm thời
                 string tempFilePath = Path.GetTempFileName();
 
-                using (var stream = file.OpenReadStream())
+                if (isGif)
                 {
-                    stream.Position = 0; // Reset stream về đầu trước khi load ảnh
-                    using (var image = Image.Load<Rgba32>(stream))
+                    // ✅ GIF giữ nguyên – chỉ copy không xử lý
+                    using (var output = new FileStream(tempFilePath, FileMode.Create))
                     {
-                        // 1️⃣ Xóa metadata để giảm dung lượng
-                        image.Metadata.ExifProfile = null;
-                        image.Metadata.IptcProfile = null;
-                        image.Metadata.XmpProfile = null;
+                        file.CopyTo(output);
+                    }
+                }
+                else
+                {
+                    using (var stream = file.OpenReadStream())
+                    {
+                        stream.Position = 0;
+                        using (var image = Image.Load<Rgba32>(stream))
+                        {
+                            image.Metadata.ExifProfile = null;
+                            image.Metadata.IptcProfile = null;
+                            image.Metadata.XmpProfile = null;
 
-                        if (isPng)
-                        {
-                            // ✅ Nếu là PNG, chỉ xóa metadata và giữ nguyên định dạng
-                            image.Save(tempFilePath, new PngEncoder
+                            if (isPng)
                             {
-                                CompressionLevel = PngCompressionLevel.BestCompression, // Nén tối ưu
-                                TransparentColorMode = PngTransparentColorMode.Preserve
-                            });
-                        }
-                        else
-                        {
-                            // 3️⃣ Nếu ảnh đơn sắc, chuyển sang grayscale
-                            if (IsGrayscale(image))
-                            {
-                                image.Mutate(x => x.Grayscale());
+                                image.Save(tempFilePath, new PngEncoder
+                                {
+                                    CompressionLevel = PngCompressionLevel.BestCompression,
+                                    TransparentColorMode = PngTransparentColorMode.Preserve
+                                });
                             }
-
-                            // 4️⃣ Nếu không phải PNG, lưu WebP
-                            image.Save(tempFilePath, new WebpEncoder
+                            else
                             {
-                                Quality = 70, // Giảm chất lượng để giảm kích thước
-                                Method = WebpEncodingMethod.BestQuality, // Sử dụng nén mạnh
-                                NearLossless = true
-                            });
+                                if (IsGrayscale(image))
+                                {
+                                    image.Mutate(x => x.Grayscale());
+                                }
+
+                                image.Save(tempFilePath, new WebpEncoder
+                                {
+                                    Quality = 70,
+                                    Method = WebpEncodingMethod.BestQuality,
+                                    NearLossless = true
+                                });
+                            }
                         }
                     }
                 }
@@ -262,7 +281,7 @@ namespace Dentisty.Data.Storages
                 // Xử lý URL để lấy đường dẫn file từ xa
                 if (string.IsNullOrEmpty(imageUrl))
                 {
-                    throw new ArgumentException("URL không hợp lệ.");
+                    return true; // Không có URL, coi như đã xóa
                 }
 
                 // Loại bỏ phần host để lấy đường dẫn file

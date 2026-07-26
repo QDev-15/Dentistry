@@ -22,6 +22,13 @@ namespace Dentisty.Data.Repositories
             _loggerRepository = repository;
             _logQueue = logQueue;
         }
+        public void DeleteAll()
+        {
+            // Xóa tất cả các bản ghi trong bảng Logger
+            _context.Loggers.RemoveRange(_context.Loggers);
+            // Lưu thay đổi vào cơ sở dữ liệu
+            _context.SaveChanges();
+        }
         public LoggerResult GetLogger(LoggerRequrestVm request)
         {
             var logs = _context.Loggers.AsQueryable();
