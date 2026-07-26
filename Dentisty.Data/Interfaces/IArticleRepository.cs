@@ -33,6 +33,8 @@ namespace Dentisty.Data.Interfaces
         /// <returns></returns>
         Task<bool> CheckExistsAlias(ArticleVm item);
         Task<string> GenerateAlias(ArticleVm item);
+        Task<ArticleVm> UploadAvatar(int id, IFormFile avatarFile);
+        Task<ArticleVm> UploadAvatarFromUrl(int id, string avatarUrl);
 
     }
 }

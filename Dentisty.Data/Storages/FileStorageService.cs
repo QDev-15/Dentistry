@@ -139,7 +139,7 @@ namespace Dentistry.Data.Storages
             catch (Exception ex)
             {
                 logger.QueueLog(ex.Message, "Upload file");
-                return null;
+                throw;
             }
         }
         /// <summary>
@@ -183,7 +183,7 @@ namespace Dentistry.Data.Storages
             catch (Exception ex)
             {
                 logger.QueueLog(ex.Message, "Upload file");
-                return null;
+                throw;
             }
         }
         public bool DeleteFileToHostingAsync(string urlImage)

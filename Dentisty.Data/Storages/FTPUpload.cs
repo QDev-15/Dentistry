@@ -115,8 +115,7 @@ namespace Dentisty.Data.Storages
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {ex.Message}");
-                return null;
+                throw new Exception($"Lỗi khi upload ảnh lên FTP: {ex.Message}", ex);
             }
         }
         public class UploadResult
@@ -231,8 +230,7 @@ namespace Dentisty.Data.Storages
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {ex.Message}");
-                return null;
+                throw new Exception($"Lỗi khi upload ảnh lên FTP: {ex.Message}", ex);
             }
         }
 

@@ -38,6 +38,23 @@
         flex-grow: 1;
         min-width: 100px;
     }
+
+    .unsplash-thumb {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 2px solid transparent;
+    }
+
+    .unsplash-thumb:hover {
+        border-color: #0d6efd;
+    }
+
+    .unsplash-thumb.selected {
+        border-color: #198754;
+    }
 </style>
 <div class="modal-header">
     @if (Model.Item.Alias.Contains("draft"))
@@ -81,6 +98,47 @@
         <label>
             <input type="checkbox" asp-for="Item.IsActive" /> Kích hoạt
         </label>
+        <div class="form-group">
+            <label class="form-label">Ảnh đại diện <span class="text-danger">*</span></label>
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="avatar-tab-upload-btn" data-bs-toggle="tab" data-bs-target="#avatar-tab-upload" type="button" role="tab">Tải ảnh lên</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="avatar-tab-url-btn" data-bs-toggle="tab" data-bs-target="#avatar-tab-url" type="button" role="tab">Dán link ảnh</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="avatar-tab-unsplash-btn" data-bs-toggle="tab" data-bs-target="#avatar-tab-unsplash" type="button" role="tab">Tìm trên Unsplash</button>
+                </li>
+            </ul>
+            <div class="tab-content border border-top-0 p-3">
+                <div class="tab-pane fade show active" id="avatar-tab-upload" role="tabpanel">
+                    <input asp-for="@Model.Item.AvatarFile" type="file" id="item_avatarFile" class="form-control ps-2" accept="image/*" />
+                </div>
+                <div class="tab-pane fade" id="avatar-tab-url" role="tabpanel">
+                    <div class="input-group">
+                        <input type="url" id="avatarUrlInput" class="form-control" placeholder="Dán đường dẫn ảnh (https://...)">
+                        <button type="button" id="btn-preview-avatar-url" class="btn btn-outline-secondary">Xem trước</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="avatar-tab-unsplash" role="tabpanel">
+                    <div class="input-group mb-2">
+                        <input type="text" id="unsplashQuery" class="form-control" placeholder="Nhập từ khóa (vd: dental clinic)">
+                        <button type="button" id="btn-search-unsplash" class="btn btn-outline-secondary">Tìm kiếm</button>
+                    </div>
+                    <div id="unsplash-results" class="d-flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+            <input type="hidden" asp-for="@Model.Item.AvatarUrl" id="item_avatarUrl" />
+            <span id="avatarFile-error" class="text-danger"></span>
+        </div>
+        @{
+            var hasAvatar = !string.IsNullOrEmpty(Model.Item.Avatar?.Path);
+            <div id="article-avatar-preview-container" style="display: @(hasAvatar ? "block" : "none")">
+                <label>Xem trước:</label>
+                <img id="article-avatar-preview" src="@Model.Item.Avatar?.Path" alt="Ảnh đại diện" class="mt-2" style="max-height: 100px;" />
+            </div>
+        }
         <div class="form-group">
             <label for="tags" class="form-label">Tags</label>
             <div class="tag-container" id="tagContainer">

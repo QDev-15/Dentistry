@@ -18,6 +18,7 @@ namespace Dentistry.Data.GeneratorDB.Entities
         public List<Category> Categories { get; set; }
 
         public List<Article> Articles { get; set; } = new List<Article>();
+        public List<Article> ArticleAvatars { get; set; } = new List<Article>();
         public List<Slide> Slides { get; set; } = new List<Slide>();
     }
 }

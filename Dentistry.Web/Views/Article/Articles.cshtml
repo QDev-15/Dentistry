@@ -16,15 +16,10 @@
 <div class="container-fluid image-banner p-0">
     @{
         var imgArtPath = "/assets/img/no-image.jpg";
-        if (Model.item.Images.Any())
+        
+        if (Model.item.Avatar != null)
         {
-            imgArtPath = Model.item.Images.LastOrDefault()?.Path;
-        } else
-        {
-            var images = Utilities.ExtractImageLinks(Model.item.Description);
-            if (images.Any()) {
-                imgArtPath = images.FirstOrDefault();
-            }
+            imgArtPath = Model.item.Avatar.Path;
         }
     }
     <img src="@imgArtPath" loading="lazy" />

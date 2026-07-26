@@ -32,6 +32,7 @@ bld/
 [Ll]og/
 [Ll]ogs/
 user-content/
+Deployed/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -399,6 +400,8 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /Data
-*.rar  
-*.mp4  
+*.rar 
+ 
+*.mp4 
+ 
  

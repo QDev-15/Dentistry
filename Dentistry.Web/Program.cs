@@ -35,7 +35,8 @@ builder.Services.AddSignalR();
 
 // Register DbContext
 builder.Services.AddDbContext<DentistryDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString), sql => sql.UseCompatibilityLevel(120)));
+builder.Services.AddHttpClient();
 // Register Repository  add services
 builder.Services.AddSingleton<Logs>();
 builder.Services.AddSingleton<CacheInvalidationListener>();

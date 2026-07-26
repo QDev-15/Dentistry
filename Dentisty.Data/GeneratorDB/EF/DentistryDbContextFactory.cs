@@ -22,7 +22,7 @@ namespace Dentistry.Data.GeneratorDB.EF
             var connectionString = configuration.GetConnectionString(SystemConstants.MainConnectionString);
 
             var optionsBuilder = new DbContextOptionsBuilder<DentistryDbContext>();
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(connectionString, sql => sql.UseCompatibilityLevel(120));
             return new DentistryDbContext(optionsBuilder.Options);
         }
     }

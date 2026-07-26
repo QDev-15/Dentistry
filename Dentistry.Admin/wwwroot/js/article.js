@@ -71,9 +71,89 @@ $(document).ready(function () {
         refreshData();
     });
 
+    // preview ảnh đại diện - tab tải ảnh lên
+    $(document).on('change', '#item_avatarFile', function () {
+        const file = this.files[0];
+        const $previewContainer = $('#article-avatar-preview-container');
+        const $imagePreview = $('#article-avatar-preview');
+        if (file) {
+            $('#item_avatarUrl').val('');
+            $('.unsplash-thumb').removeClass('selected');
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $imagePreview.attr('src', e.target.result);
+                $previewContainer.show();
+            };
+            reader.readAsDataURL(file);
+        }
+        $('#avatarFile-error').text('');
+    });
+
+    // preview ảnh đại diện - tab dán link ảnh
+    $(document).on('click', '#btn-preview-avatar-url', function () {
+        const url = $('#avatarUrlInput').val().trim();
+        if (!url) return;
+        $('#item_avatarFile').val('');
+        $('.unsplash-thumb').removeClass('selected');
+        $('#item_avatarUrl').val(url);
+        $('#article-avatar-preview').attr('src', url);
+        $('#article-avatar-preview-container').show();
+        $('#avatarFile-error').text('');
+    });
+
+    // tìm kiếm ảnh trên Unsplash
+    $(document).on('click', '#btn-search-unsplash', function () {
+        const query = $('#unsplashQuery').val().trim();
+        if (!query) return;
+        const $results = $('#unsplash-results');
+        $results.html('<span>Đang tìm kiếm...</span>');
+        $.ajax({
+            url: '/Articles/SearchUnsplash',
+            type: 'GET',
+            data: { query: query },
+            success: function (photos) {
+                $results.empty();
+                if (!photos || photos.length === 0) {
+                    $results.html('<span>Không tìm thấy ảnh phù hợp.</span>');
+                    return;
+                }
+                photos.forEach(function (photo) {
+                    const $img = $('<img>')
+                        .addClass('unsplash-thumb')
+                        .attr('src', photo.thumb)
+                        .attr('title', photo.description || '')
+                        .attr('data-full', photo.regular);
+                    $results.append($img);
+                });
+            },
+            error: function () {
+                $results.html('<span>Tìm kiếm thất bại, vui lòng thử lại.</span>');
+            }
+        });
+    });
+
+    // chọn 1 ảnh Unsplash làm ảnh đại diện
+    $(document).on('click', '.unsplash-thumb', function () {
+        $('.unsplash-thumb').removeClass('selected');
+        $(this).addClass('selected');
+        $('#item_avatarFile').val('');
+        const fullUrl = $(this).data('full');
+        $('#item_avatarUrl').val(fullUrl);
+        $('#article-avatar-preview').attr('src', fullUrl);
+        $('#article-avatar-preview-container').show();
+        $('#avatarFile-error').text('');
+    });
+
     // submit modal
     $('#addEditArticleModal').on('submit', 'form', function (e) {
         e.preventDefault();
+        const avatarFile = document.getElementById('item_avatarFile');
+        const avatarUrl = $('#item_avatarUrl').val().trim();
+        const hasExistingAvatar = $('#article-avatar-preview-container').is(':visible');
+        if (avatarFile.files.length === 0 && !avatarUrl && !hasExistingAvatar) {
+            $('#avatarFile-error').text('Vui lòng chọn ảnh đại diện cho bài viết.');
+            return;
+        }
         $('#Item_ImageIds').val(Array.from(selectedAllIds).join(","));
         const formData = new FormData(this);
         showGlobalSpinner();
@@ -90,6 +170,7 @@ $(document).ready(function () {
                     showSuccess("Thành công");
                     hideGlobalSpinner();
                 } else {
+                    $('#addEditArticleModal').modal('hide');
                     window.alert(response.message);
                     hideGlobalSpinner();
                 }
@@ -157,9 +238,17 @@ function initTable() {
             }
         },
         columns: [
-            { data: 'title', name: 'Title', orderable: true }, // ✅ Cho phép sắp xếp
-            { data: 'categoryName', name: 'Category', orderable: true }, // ✅ Cho phép sắp xếp
-            { data: 'type', name: 'Type', orderable: true },
+            { data: 'coverImage', name: 'CoverImage', orderable: false, render: function (data, type, row) {
+                    if (type === 'display') {
+                        const isImage = data?.startsWith('http') || data?.startsWith('/');
+                        return isImage ? `<img src="${data}" style="width:50px; height:50px; object-fit:cover;" />` : '';
+                    }
+                    return data;
+                }
+            },
+            { data: 'title', name: 'Title', orderable: true },
+            { data: 'categoryName', name: 'Category', orderable: true },
+            { data: 'displayType', name: 'DisplayType', orderable: false },
             { data: 'createdByName', name: 'CreatedBy', orderable: false },
             {
                 data: 'createdDate',

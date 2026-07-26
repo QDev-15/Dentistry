@@ -25,6 +25,7 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.Property(x => x.CreatedDate).IsRequired();
             builder.Property(x => x.IsActive).HasDefaultValue(true);
             builder.HasOne(x => x.Category).WithMany(x => x.Articles).HasForeignKey(x => x.CategoryId).IsRequired(false).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Avatar).WithMany(x => x.ArticleAvatars).HasForeignKey(x => x.AvatarId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
             builder.HasMany(x => x.Images).WithMany(x => x.Articles).UsingEntity<Dictionary<string, object>>(
                 "ArticlesImage",
             j => j

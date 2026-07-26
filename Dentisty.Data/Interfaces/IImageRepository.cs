@@ -24,6 +24,13 @@ namespace Dentisty.Data.Interfaces
         /// <returns></returns>
         Task<ImageFile> CreateAsync(IFormFile file, string directory);
         /// <summary>
+        /// Download an image from a remote URL and store it via the same hosting pipeline as an uploaded file
+        /// </summary>
+        /// <param name="imageUrl">Absolute http/https URL pointing to an image</param>
+        /// <param name="directory">Save to folder</param>
+        /// <returns></returns>
+        Task<ImageFile> CreateFromUrlAsync(string imageUrl, string directory);
+        /// <summary>
         /// Delete a file in location
         /// </summary>
         /// <param name="image"></param>

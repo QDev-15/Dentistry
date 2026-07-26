@@ -319,6 +319,8 @@ namespace Dentisty.Data
                 Description = item.Description,
                 Images = item.Images.Select(x => x.ReturnViewModel()).ToList(),
                 ImageIds = "",
+                AvatarId = item.AvatarId,
+                Avatar = item.Avatar.ReturnViewModel(),
                 IsActive = item.IsActive,
                 IsDraft = item.IsDraft,
                 Title = item.Title,

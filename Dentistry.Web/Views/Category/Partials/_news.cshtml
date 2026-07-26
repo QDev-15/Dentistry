@@ -21,13 +21,8 @@
                         }
                         @foreach (var item in Model.Articles)
                         {
-                            string pathImageArt = "/assets/img/no-image.jpg";
-                            if (item.Images.Any())
-                            {
-                                pathImageArt = item.Images.LastOrDefault()!.Path;
-                            }
                             <div class="search-item d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                                <img class="img-fluid rounded w-md-auto mx-auto mx-md-0" src="@pathImageArt" alt="Ảnh bài viết">
+                                <img class="img-fluid rounded w-md-auto mx-auto mx-md-0" src="@item.CoverImage" alt="Ảnh bài viết">
                                 <div class="search-content">
                                     <h3>
                                         <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title</a>
@@ -49,15 +44,10 @@
                 <div class="box_right_content flex-column">
                     @foreach (var item in hotNews)
                     {
-                        string pathImage = "/assets/img/no-image.jpg";
-                        if (item.Images.Any())
-                        {
-                            pathImage = item.Images.LastOrDefault()!.Path;
-                        }
                         <div class="item">
                             <div class="image">
                                 <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">
-                                    <img src="@pathImage" alt="@item.Title">
+                                    <img src="@item.CoverImage" alt="@item.Title">
                                 </a>
                             </div>
                             <div class="info">

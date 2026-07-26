@@ -26,7 +26,8 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 // Add DbContext
 builder.Services.AddDbContext<DentistryDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString)));
+    options.UseSqlServer(builder.Configuration.GetConnectionString(SystemConstants.MainConnectionString), sql => sql.UseCompatibilityLevel(120)));
+builder.Services.AddHttpClient();
 
 builder.Services.AddIdentity<AppUser, AppRole>()
 .AddEntityFrameworkStores<DentistryDbContext>()

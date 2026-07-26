@@ -1,5 +1,4 @@
-﻿using Dentistry.Common;
-using Dentistry.ViewModels.Catalog.Categories;
+﻿using Dentistry.ViewModels.Catalog.Categories;
 using Dentistry.ViewModels.Enums;
 using Dentistry.ViewModels.System.Users;
 using Microsoft.AspNetCore.Http;
@@ -22,27 +21,47 @@ namespace Dentistry.ViewModels.Catalog.Articles
         public DateTime UpdatedDate { get; set; }
         public string Tags { get; set; }
         public List<ImageVm> Images { get; set; } = new List<ImageVm>();
+        public int? AvatarId { get; set; }
+        public ImageVm Avatar { get; set; }
+        public IFormFile? AvatarFile { get; set; }
+        public string? AvatarUrl { get; set; }
 
         public CategoryVm Category { get; set; }
         public UserVm CreatedBy { set; get; }
         public List<IFormFile> ImageFiles { get; set; }
         public string TagsJson { get; set; }
         public string ImageIds { get; set; }
+        public string DisplayType 
+        {
+            get
+            {
+                if (Type == ArticleType.News)
+                {
+                    return "Tin tức";
+                }
+                else if (Type == ArticleType.FeedBack)
+                {
+                    return "Phản hồi";
+                }
+                else if (Type == ArticleType.Products)
+                {
+                    return "Sản phẩm";
+                }
+                else if (Type == ArticleType.Article)
+                {
+                    return "Bài viết";
+                }
+                else
+                {
+                    return "Không xác định";
+                }
+            }
+        }
         public string CoverImage
         {
             get
             {
-                var value = "/assets/img/no-image.jpg";
-                if (Images.Any())
-                {
-                    value = Images.FirstOrDefault().Path;
-                    //value = Images.FirstOrDefault().ThumbPath??Images.FirstOrDefault().Path;
-                }
-                else
-                {
-                    value = Utilities.GetImageLink(Description);
-                }
-                return value;
+                return Avatar?.Path ?? "/assets/img/no-image.jpg";
             }
         }
         public string CategoryName

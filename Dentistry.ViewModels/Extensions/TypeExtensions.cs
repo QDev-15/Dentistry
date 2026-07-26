@@ -48,7 +48,6 @@ namespace Dentistry.ViewModels
             text = text ?? "";
             text = text.Trim();
 
-            text = text.ConvertToSlug();
             // Chuyển thành chữ thường
             text = text.ToLowerInvariant();
 
