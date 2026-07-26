@@ -1,3 +1,4 @@
+using Dentistry.Common;
 using Dentistry.Data.GeneratorDB.EF;
 using Dentisty.Data.GeneratorDB.Entities;
 using Microsoft.EntityFrameworkCore;

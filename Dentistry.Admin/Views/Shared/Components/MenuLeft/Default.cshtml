@@ -22,12 +22,15 @@
 
 
         <div class="sb-sidenav-menu-heading">Hệ thống</div>
-        <a class="nav-link" asp-controller="User" asp-action="Index">
-            <div class="sb-nav-link-icon">
-                <i class="fa-solid fa-user"></i>
-            </div>
-            Người dùng
-        </a>
+        @if (User.IsInRole("admin"))
+        {
+            <a class="nav-link" asp-controller="User" asp-action="Index">
+                <div class="sb-nav-link-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                Người dùng
+            </a>
+        }
         <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#collapsedanhmuc" aria-expanded="true" aria-controls="collapsedanhmuc">
             <div class="sb-nav-link-icon">
                 <i class="fas fa-cogs"></i>

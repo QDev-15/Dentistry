@@ -1,24 +1,26 @@
-﻿@model Dentistry.ViewModels.System.Users.UserUpdateRequest
+@model Dentistry.ViewModels.System.Users.UserUpdateRequest
 
 @{
-    ViewData["Title"] = "Cập nhật người dùng";
+    ViewData["Title"] = "Thông tin cá nhân";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container-fluid">
-    <h1 class="mt-4">Cập nhật người dùng</h1>
+    <h1 class="mt-4">Thông tin cá nhân</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-        <li class="breadcrumb-item active">Cập nhật người dùng</li>
+        <li class="breadcrumb-item active">Thông tin cá nhân</li>
     </ol>
     <div class="card mb-4">
-        <div class="card-header">
-            <a class="btn btn-success" asp-action="Index" asp-controller="User">Về danh sách</a>
-        </div>
-
         <div class="card-body">
+            @if (ViewBag.SuccessMsg != null)
+            {
+                <div id="msgAlert" class="alert alert-success" role="alert">
+                    @ViewBag.SuccessMsg
+                </div>
+            }
             <div class="col-md-4">
-                <form asp-action="Edit" id="editUserForm">
+                <form asp-action="Index" id="profileForm">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
 
@@ -124,7 +126,7 @@
         return "";
     }
 
-    document.getElementById("editUserForm").addEventListener("submit", function (e) {
+    document.getElementById("profileForm").addEventListener("submit", function (e) {
         const password = document.getElementById("Password").value;
         const confirmPassword = document.getElementById("ConfirmPassword").value;
         const passwordErrorEl = document.getElementById("passwordError");

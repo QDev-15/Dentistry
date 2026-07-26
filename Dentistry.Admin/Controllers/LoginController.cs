@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -43,7 +44,7 @@ namespace Dentistry.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(request);
 
-            request.IpAddress = await Utilities.GetIpAddress();
+            request.IpAddress = _logs.GetClientIpAddress();
             var result = await _userService.Authencate(request); // kiểm tra đăng nhập return resultObj là token jwt
             if (!result.IsSuccessed)
             {
@@ -60,7 +61,11 @@ namespace Dentistry.Admin.Controllers
                 SameSite = SameSiteMode.Lax
             });
             HttpContext.Response.Cookies.Append(SystemConstants.AppSettings.DefaultLanguageId, _appConfigService.DefaultLanguageId.ToString());
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            // User.FindFirst không dùng được ở đây vì token vừa tạo chưa được middleware xác thực lại trong cùng request này.
+            // ReadJwtToken chỉ parse thô, không áp dụng inbound claim mapping, nên type trong token là tên rút gọn ("nameid"),
+            // không phải ClaimTypes.NameIdentifier (URI dài).
+            var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(result.ResultObj);
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
             await _userService.UpdateIpTimeZone(new Guid(userId), request.IpAddress, request.TimeZone);
             _logs.QueueLog("login done");
             return RedirectToAction("Index", "Home");

@@ -1,4 +1,5 @@
-﻿using Dentistry.Data.GeneratorDB.Entities;
+﻿using Dentistry.Common;
+using Dentistry.Data.GeneratorDB.Entities;
 using Dentistry.ViewModels.Common;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Common;
@@ -59,6 +60,10 @@ namespace Dentisty.Data.Services.System
             if (user == null)
             {
                 return new ErrorResult<bool>("User không tồn tại");
+            }
+            if (user.UserName == SystemConstants.DefaultAdminUserName)
+            {
+                return new ErrorResult<bool>("Không thể xóa tài khoản quản trị mặc định.");
             }
             var reult = await _userManager.DeleteAsync(user);
             if (reult.Succeeded)
@@ -179,6 +184,10 @@ namespace Dentisty.Data.Services.System
             {
                 return new ErrorResult<bool>("Tài khoản không tồn tại");
             }
+            if (user.UserName == SystemConstants.DefaultAdminUserName)
+            {
+                return new ErrorResult<bool>("Không thể thay đổi quyền của tài khoản quản trị mặc định.");
+            }
             // remove role not check
             var removedRoles = await _userManager.GetRolesAsync(user);
             removedRoles = removedRoles.Except(request.Roles.Where(x => x.Selected).Select(x => x.Name)).ToList();
@@ -204,6 +213,10 @@ namespace Dentisty.Data.Services.System
             {
                 return new ErrorResult<bool>("Emai đã tồn tại");
             }
+            if (!string.IsNullOrWhiteSpace(request.Password) && request.Password != request.ConfirmPassword)
+            {
+                return new ErrorResult<bool>("Nhập lại mật khẩu mới không đúng.");
+            }
             var user = await _userManager.FindByIdAsync(id.ToString());
             user.Dob = request.Dob;
             user.Email = request.Email;
@@ -212,11 +225,26 @@ namespace Dentisty.Data.Services.System
             user.PhoneNumber = request.PhoneNumber;
 
             var result = await _userManager.UpdateAsync(user);
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                return new SuccessResult<bool>();
+                return new ErrorResult<bool>("Cập nhật không thành công");
             }
-            return new ErrorResult<bool>("Cập nhật không thành công");
+
+            if (!string.IsNullOrWhiteSpace(request.Password))
+            {
+                var removeResult = await _userManager.RemovePasswordAsync(user);
+                if (!removeResult.Succeeded)
+                {
+                    return new ErrorResult<bool>(string.Join("; ", removeResult.Errors.Select(e => e.Description)));
+                }
+                var addResult = await _userManager.AddPasswordAsync(user, request.Password);
+                if (!addResult.Succeeded)
+                {
+                    return new ErrorResult<bool>(string.Join("; ", addResult.Errors.Select(e => e.Description)));
+                }
+            }
+
+            return new SuccessResult<bool>();
         }
         public async Task<Result<bool>> UpdateIpTimeZone(Guid id, string ip, string timezone)
         {

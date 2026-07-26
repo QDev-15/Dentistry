@@ -1,5 +1,6 @@
-﻿using Dentisty.Common;
+using Dentisty.Common;
 using Dentistry.Data.GeneratorDB.Entities;
+using Dentisty.Data.Services;
 using Dentisty.Data.Services.System;
 using Microsoft.AspNetCore.Identity;
 using Moq;
@@ -21,8 +22,6 @@ namespace Dentistry.Tests
         private readonly Mock<UserManager<AppUser>> _userManagerMock;
         private readonly Mock<SignInManager<AppUser>> _signInManagerMock;
         private readonly Mock<RoleManager<AppRole>> _roleManagerMock;
-        private readonly Mock<IConfiguration> _configMock;
-        private readonly Mock<JwtTokenHelper> _jwtTokenHelperMock;
         private readonly UserService _userService;
         public UserTests()
         {
@@ -41,14 +40,22 @@ namespace Dentistry.Tests
                 Mock.Of<IRoleStore<AppRole>>(), null, null, null, null
             );
 
-            _configMock = new Mock<IConfiguration>();
-            _jwtTokenHelperMock = new Mock<JwtTokenHelper>(_configMock.Object);
+            var configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?>
+                {
+                    ["JwtTokens:Key"] = "unit-test-signing-key-please-make-it-long-enough",
+                    ["JwtTokens:Issuer"] = "TestIssuer",
+                    ["JwtTokens:Audience"] = "TestAudience",
+                    ["JwtTokens:ExpiresInMinutes"] = "60"
+                })
+                .Build();
+            var appConfigService = new AppConfigService(configuration);
 
             _userService = new UserService(
                 _userManagerMock.Object,
                 _signInManagerMock.Object,
                 _roleManagerMock.Object,
-                _configMock.Object
+                appConfigService
             );
         }
         [Fact]
@@ -62,9 +69,15 @@ namespace Dentistry.Tests
                 RememberMe = true
             };
 
-            var user = new AppUser { UserName = loginRequest.UserName };
+            var user = new AppUser
+            {
+                UserName = loginRequest.UserName,
+                Email = "admin@test.com",
+                FirstName = "Admin",
+                LastName = "User",
+                DisplayName = "Admin User"
+            };
             var roles = new List<string> { "Admin", "User" };
-            string fakeToken = "mocked-jwt-token";
 
             _userManagerMock.Setup(u => u.FindByNameAsync(loginRequest.UserName))
                             .ReturnsAsync(user);
@@ -75,15 +88,12 @@ namespace Dentistry.Tests
             _userManagerMock.Setup(u => u.GetRolesAsync(user))
                             .ReturnsAsync(roles);
 
-            _jwtTokenHelperMock.Setup(j => j.GenerateToken(user, roles))
-                               .Returns(fakeToken);
-
             // Act
             Result<string> result = await _userService.Authencate(loginRequest);
 
             // Assert
             Assert.True(result.IsSuccessed);
-            Assert.Equal(fakeToken, result.data);
+            Assert.False(string.IsNullOrEmpty(result.ResultObj));
         }
     }
 }

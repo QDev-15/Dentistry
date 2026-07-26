@@ -2,6 +2,7 @@
 using Dentistry.Admin.Models;
 using Dentistry.ViewModels.System.Users;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Claims;
 
 namespace Dentistry.Admin.Controllers.Components
@@ -24,7 +25,7 @@ namespace Dentistry.Admin.Controllers.Components
                 Email = claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value!,
                 FirstName = claimsPrincipal.FindFirst(ClaimTypes.GivenName)?.Value!,
                 UserName = claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value!,
-                Roles = claimsPrincipal.FindFirst(ClaimTypes.Role)?.Value!.Split(';'),
+                Roles = claimsPrincipal.FindAll(ClaimTypes.Role).Select(c => c.Value).ToList(),
             };
             var navigationVm = new NavigationViewModel()
             {

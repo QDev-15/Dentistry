@@ -24,5 +24,13 @@ namespace Dentistry.ViewModels.System.Users
 
         [Display(Name = "Số điện thoại")]
         public string PhoneNumber { get; set; }
+
+        [Display(Name = "Mật khẩu mới")]
+        [DataType(DataType.Password)]
+        public string? Password { get; set; }
+
+        [Display(Name = "Xác nhận mật khẩu mới")]
+        [DataType(DataType.Password)]
+        public string? ConfirmPassword { get; set; }
     }
 }

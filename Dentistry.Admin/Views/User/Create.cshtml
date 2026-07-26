@@ -39,7 +39,7 @@
 
         <div class="card-body">
             <div class="col-md-4">
-                <form asp-action="Create">
+                <form asp-action="Create" id="createUserForm">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="FirstName" class="control-label"></label>
@@ -77,7 +77,9 @@
                             <input asp-for="Password" class="form-control password-input" id="Password" type="password" />
                             <i class="fas fa-eye input-icon" onclick="togglePassword('Password', this)"></i>
                         </div>
+                        <small class="form-text text-muted">Ít nhất 6 ký tự, gồm chữ hoa, chữ thường, số và ký tự đặc biệt.</small>
                         <span asp-validation-for="Password" class="text-danger"></span>
+                        <div id="passwordError" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
@@ -87,6 +89,7 @@
                             <i class="fas fa-eye input-icon" onclick="togglePassword('ConfirmPassword', this)"></i>
                         </div>
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        <div id="confirmPasswordError" class="text-danger"></div>
                     </div>
 
                     <div class="form-group">
@@ -113,5 +116,46 @@
         }
     }
 
+    // Quy tắc mật khẩu phải khớp với policy của ASP.NET Core Identity (Program.cs)
+    // để tránh trường hợp validate qua được ở form nhưng bị server từ chối.
+    function getPasswordRequirementError(password) {
+        if (!password || password.length < 6) {
+            return "Mật khẩu ít nhất có 6 ký tự.";
+        }
+        if (!/[a-z]/.test(password)) {
+            return "Mật khẩu phải có ít nhất 1 chữ thường.";
+        }
+        if (!/[A-Z]/.test(password)) {
+            return "Mật khẩu phải có ít nhất 1 chữ hoa.";
+        }
+        if (!/[0-9]/.test(password)) {
+            return "Mật khẩu phải có ít nhất 1 chữ số.";
+        }
+        if (!/[^a-zA-Z0-9]/.test(password)) {
+            return "Mật khẩu phải có ít nhất 1 ký tự đặc biệt.";
+        }
+        return "";
+    }
 
+    document.getElementById("createUserForm").addEventListener("submit", function (e) {
+        const password = document.getElementById("Password").value;
+        const confirmPassword = document.getElementById("ConfirmPassword").value;
+        const passwordErrorEl = document.getElementById("passwordError");
+        const confirmErrorEl = document.getElementById("confirmPasswordError");
+
+        passwordErrorEl.textContent = "";
+        confirmErrorEl.textContent = "";
+
+        const passwordError = getPasswordRequirementError(password);
+        if (passwordError) {
+            passwordErrorEl.textContent = passwordError;
+            e.preventDefault();
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            confirmErrorEl.textContent = "Nhập lại mật khẩu không đúng.";
+            e.preventDefault();
+        }
+    });
 </script>

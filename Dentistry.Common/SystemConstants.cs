@@ -12,6 +12,8 @@ namespace Dentistry.Common
         public const string NA = "N/A";
         public const string USER_CONTENT_FOLDER_NAME = "user-content";
         public const string TimeZoneUTC = "UTC";
+        public const string AdminRoleName = "admin";
+        public const string DefaultAdminUserName = "admin";
         private static string _timeZoneDefaultId;
         // Cache Keys
         public static string Cache_Setting { 

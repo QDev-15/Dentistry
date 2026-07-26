@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = SystemConstants.AdminRoleName)]
     public class UserController : BaseController
     {
         private readonly UserService _userService;
@@ -49,6 +49,10 @@ namespace Dentistry.Admin.Controllers
         public async Task<IActionResult> Details(Guid id)
         {
             var result = await _userService.GetById(id);
+            if (!result.IsSuccessed)
+            {
+                return RedirectToAction("Error", "Home");
+            }
             return View(result.ResultObj);
         }
 
@@ -113,6 +117,7 @@ namespace Dentistry.Admin.Controllers
             return View(request);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
