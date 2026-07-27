@@ -40,7 +40,7 @@ namespace Dentistry.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewData["Title"] = "Nhiên Dentistry";
+            ViewData["Title"] = "Nha Khoa Nhiên";
             ViewData["Description"] = $"Trang chủ Nhiên Nha Khoa - Cơ sở uy tín trao gửi niềm tin.";
             ViewData["Keywords"] = "Nhiên, Nha Khoa, Cơ sở uy tín, làm răng, răng sứ";
             return View();
@@ -90,7 +90,6 @@ namespace Dentistry.Web.Controllers
                 string titles = string.Join(", ", result.Items.Select(x => x.Title).ToList());
                 string tags = string.Join(",", result.Items.Select(x => x.Tags).ToList());
                 tags = string.Join(", ", tags.Split(",").Distinct());
-                ViewData["Title"] = SystemConstants.ApplicationTitle;
                 ViewData["Description"] = $"Đọc ngay bài viết '{titles}' để hiểu hơn về {tags}";
                 ViewData["Keywords"] = keyWord ?? SystemConstants.ApplicationTitle;
             }

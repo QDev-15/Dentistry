@@ -28,7 +28,6 @@ namespace Dentistry.Web.Controllers
                 detail.Doctor = doctor;
                 detail.Doctors = doctors.Where(x => x.Id != doctor.Id).ToList();
 
-                ViewData["Title"] = doctor.Name;
                 ViewData["Description"] = $"Trang chủ Nhiên Nha Khoa - Cơ sở uy tín trao gửi niềm tin.";
                 ViewData["Keywords"] = "Nhiên, Nha Khoa, Cơ sở uy tín, làm răng, răng sứ";
 

@@ -33,6 +33,7 @@ bld/
 [Ll]ogs/
 user-content/
 Deployed/
+dist/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

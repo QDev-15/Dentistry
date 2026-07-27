@@ -36,7 +36,6 @@ namespace Dentistry.Web.Controllers
                 baivietDetail.item = baiviet.ReturnViewModel();
                 baivietDetail.items = baiviets.Where(x => x.Id != baiviet.Id).ToList();
 
-                ViewData["Title"] = baiviet.Title;
                 ViewData["Description"] = $"Đọc ngay bài viết '{baiviet.Title}' để hiểu hơn về {baiviet.Tags}";
                 ViewData["Keywords"] = baiviet.Tags;
                 return View(baivietDetail);

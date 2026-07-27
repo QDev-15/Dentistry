@@ -456,7 +456,9 @@ namespace Dentisty.Data.Repositories
         }  
         public async Task<List<ArticleVm>> GetArticleNew()
         {
-            var articles = await _context.Articles.Where(x => x.IsActive).OrderBy(x => x.CreatedDate)
+            var articles = await _context.Articles.Where(x => x.IsActive)
+                .OrderByDescending(x => x.UpdatedDate)
+                .ThenByDescending(x => x.CreatedDate)
                 .Include(x => x.Category)
                 .Include(x => x.Images)
                 .Include(x => x.Avatar)

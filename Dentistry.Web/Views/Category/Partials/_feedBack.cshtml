@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-4 py-5 search-hotnew flex-column d-none d-md-flex">
+            <div class="col-12 col-md-4 py-0 search-hotnew flex-column d-none d-md-flex">
                 <div class="box_title_v1 py-3">Chủ đề mới nhất</div>
                 <div class="box_right_content flex-column">
                     @foreach (var item in hotNews)
@@ -54,6 +54,10 @@
                                 <h2 class="title">
                                     <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title.LimitTo(200, "...")</a>
                                 </h2>
+                                <div class="search-meta">
+                                    <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
+                                    <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                </div>
                             </div>
                         </div>
                     }

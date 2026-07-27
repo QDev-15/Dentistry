@@ -32,7 +32,6 @@ namespace Dentistry.Web.Controllers
 
             if (category == null) { 
                 category = new CategoryVm();
-                ViewData["Title"] = "Not found";
                 return View("Detail", category);
             }
 

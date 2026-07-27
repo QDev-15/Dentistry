@@ -44,7 +44,7 @@
                         }
                         @foreach (var item in Model.Items)
                         {
-                            <div class="search-item shadow d-flex flex-column flex-md-row align-items-start align-items-md-center">
+                            <div class="search-item d-flex flex-column flex-md-row align-items-start align-items-md-center">
                                 <img class="img-fluid rounded w-md-auto mx-auto mx-md-0" src="@item.CoverImage" alt="Ảnh bài viết">
                                 <div class="search-content">
                                     <h3>
@@ -121,7 +121,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-12 col-md-4 py-5 search-hotnew flex-column d-none d-md-flex">
+            <div class="col-12 col-md-4 py-3 search-hotnew flex-column d-none d-md-flex">
                 <div class="search-form-input">
                     <form asp-action="Search" asp-controller="Home" method="get" class="search-form d-flex py-0 pb-3">
                         <input type="text" name="keyWord" id="search-input"
@@ -146,6 +146,10 @@
                                 <h2 class="title">
                                     <a asp-action="Articles" asp-controller="Article" asp-route-alias="@item.Alias">@item.Title.LimitTo(200, "...")</a>
                                 </h2>
+                                <div class="search-meta">
+                                    <span>Chuyên mục: <a asp-action="Detail" asp-controller="Category" asp-route-alias="@item.Category?.Alias">@item.Category?.Name</a></span>
+                                    <span>Ngày: @item.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                </div>
                             </div>
                         </div>
                     }
