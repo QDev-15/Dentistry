@@ -48,6 +48,9 @@ namespace Dentisty.Data.Repositories
                 updateAppSetting.ShowNewsList = appSettingVm.ShowNewsList;
                 updateAppSetting.ShowCategoryProductList = appSettingVm.ShowCategoryProductList;
 
+                updateAppSetting.Description = appSettingVm.Description;
+                updateAppSetting.HomeImageUrl = appSettingVm.HomeImageUrl;
+
                 updateAppSetting.CompanyName = appSettingVm.CompanyName;
                 updateAppSetting.CompanyAddress = appSettingVm.CompanyAddress;
                 updateAppSetting.CompanyEmail = appSettingVm.CompanyEmail;

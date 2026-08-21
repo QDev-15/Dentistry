@@ -26,6 +26,58 @@
         });
     });
 
+    // preview ảnh trang chủ - tab dán link ảnh
+    $(document).on('click', '#btn-preview-home-image-url', function () {
+        const url = $('#homeImageUrlInput').val().trim();
+        if (!url) return;
+        $('#home-image-unsplash-results .unsplash-thumb').removeClass('selected');
+        $('#homeImageUrlHidden').val(url);
+        $('#home-image-preview').attr('src', url);
+        $('#home-image-preview-container').show();
+    });
+
+    // tìm kiếm ảnh trên Unsplash cho ảnh trang chủ
+    $(document).on('click', '#btn-search-home-image-unsplash', function () {
+        const query = $('#homeImageUnsplashQuery').val().trim();
+        if (!query) return;
+        const $results = $('#home-image-unsplash-results');
+        $results.html('<span>Đang tìm kiếm...</span>');
+        $.ajax({
+            url: '/AppSetting/SearchUnsplash',
+            type: 'GET',
+            data: { query: query },
+            success: function (photos) {
+                $results.empty();
+                if (!photos || photos.length === 0) {
+                    $results.html('<span>Không tìm thấy ảnh phù hợp.</span>');
+                    return;
+                }
+                photos.forEach(function (photo) {
+                    const $img = $('<img>')
+                        .addClass('unsplash-thumb')
+                        .attr('src', photo.thumb)
+                        .attr('title', photo.description || '')
+                        .attr('data-full', photo.regular);
+                    $results.append($img);
+                });
+            },
+            error: function () {
+                $results.html('<span>Tìm kiếm thất bại, vui lòng thử lại.</span>');
+            }
+        });
+    });
+
+    // chọn 1 ảnh Unsplash làm ảnh trang chủ
+    $(document).on('click', '#home-image-unsplash-results .unsplash-thumb', function () {
+        $('#home-image-unsplash-results .unsplash-thumb').removeClass('selected');
+        $(this).addClass('selected');
+        const fullUrl = $(this).data('full');
+        $('#homeImageUrlInput').val('');
+        $('#homeImageUrlHidden').val(fullUrl);
+        $('#home-image-preview').attr('src', fullUrl);
+        $('#home-image-preview-container').show();
+    });
+
     function initTableList(type) {
         $('#' + type +'TableList').DataTable({
             autoWidth: false,

@@ -10,6 +10,8 @@ namespace Dentisty.Data.GeneratorDB.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string? Description { get; set; }
+        public string? HomeImageUrl { get; set; }
         public string? CompanyName { set; get; }
         public string? CompanyAddress { set; get; }
         public string? CompanyEmail { set; get; }

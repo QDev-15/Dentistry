@@ -8,6 +8,7 @@ using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
+using Dentisty.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -25,8 +26,9 @@ namespace Dentistry.Web.Controllers
         private readonly IMemoryCache _memoryCache;
         private readonly ICategoryReposiroty _categoryReposiroty;
         private readonly IAccessRepository _accessRepository;
+        private readonly ApplicationService _app;
 
-        public HomeController(ILogger<HomeController> logger, IAppSettingRepository appSettingRepository, IAccessRepository accessRepository,
+        public HomeController(ILogger<HomeController> logger, IAppSettingRepository appSettingRepository, IAccessRepository accessRepository, ApplicationService app,
             IArticleRepository articleRepository, IMemoryCache memoryCache, ICacheService cacheService, ICategoryReposiroty categoryReposiroty)
         {
             _accessRepository = accessRepository;
@@ -36,13 +38,21 @@ namespace Dentistry.Web.Controllers
             _logger = logger;
             _articleRepository = articleRepository;
             _memoryCache = memoryCache;
+            _app = app;
         }
 
         public async Task<IActionResult> Index()
         {
-            ViewData["Title"] = "Nha Khoa Nhiên";
-            ViewData["Description"] = $"Trang chủ Nhiên Nha Khoa - Cơ sở uy tín trao gửi niềm tin.";
+            var settings = await _app.GetAppSetting();
+            ViewData["Title"] = settings.Name;
+            ViewData["Description"] = !string.IsNullOrEmpty(settings.Description)
+                ? settings.Description
+                : $"Trang chủ Nhiên Nha Khoa - Cơ sở uy tín trao gửi niềm tin.";
             ViewData["Keywords"] = "Nhiên, Nha Khoa, Cơ sở uy tín, làm răng, răng sứ";
+            if (!string.IsNullOrEmpty(settings.HomeImageUrl))
+            {
+                ViewData["Image"] = settings.HomeImageUrl;
+            }
             return View();
         }
 
@@ -90,8 +100,9 @@ namespace Dentistry.Web.Controllers
                 string titles = string.Join(", ", result.Items.Select(x => x.Title).ToList());
                 string tags = string.Join(",", result.Items.Select(x => x.Tags).ToList());
                 tags = string.Join(", ", tags.Split(",").Distinct());
-                ViewData["Description"] = $"Đọc ngay bài viết '{titles}' để hiểu hơn về {tags}";
-                ViewData["Keywords"] = keyWord ?? SystemConstants.ApplicationTitle;
+                ViewData["Description"] = result.Items.First().Description;
+                ViewData["Keywords"] = tags;
+                ViewData["Image"] = result.Items.First().CoverImage;
             }
             return View(model);
         }

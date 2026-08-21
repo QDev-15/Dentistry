@@ -53,6 +53,54 @@
                 </div>
             </div>
         </div>
+        <!-- SEO chia sẻ link trang chủ -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">SEO chia sẻ link (Trang chủ)</div>
+                <div class="card-body row g-3">
+                    <div class="col-md-12">
+                        <label asp-for="@Model.Setting.Description" class="form-label">Mô tả website (hiển thị khi gửi link)</label>
+                        <textarea class="form-control" rows="3" asp-for="@Model.Setting.Description" placeholder="Mô tả ngắn gọn hiển thị khi chia sẻ link trang chủ"></textarea>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Ảnh mặc định trang chủ (hiển thị khi gửi link)</label>
+                        <div class="form-text mb-2">Nếu để trống, hệ thống sẽ dùng logo làm ảnh mặc định.</div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="home-image-tab-url-btn" data-bs-toggle="tab" data-bs-target="#home-image-tab-url" type="button" role="tab">Dán link ảnh</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="home-image-tab-unsplash-btn" data-bs-toggle="tab" data-bs-target="#home-image-tab-unsplash" type="button" role="tab">Tìm trên Unsplash</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content border border-top-0 p-3">
+                            <div class="tab-pane fade show active" id="home-image-tab-url" role="tabpanel">
+                                <div class="input-group">
+                                    <input type="url" id="homeImageUrlInput" class="form-control" placeholder="Dán đường dẫn ảnh (https://...)">
+                                    <button type="button" id="btn-preview-home-image-url" class="btn btn-outline-secondary">Xem trước</button>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="home-image-tab-unsplash" role="tabpanel">
+                                <div class="input-group mb-2">
+                                    <input type="text" id="homeImageUnsplashQuery" class="form-control" placeholder="Nhập từ khóa (vd: dental clinic)">
+                                    <button type="button" id="btn-search-home-image-unsplash" class="btn btn-outline-secondary">Tìm kiếm</button>
+                                </div>
+                                <div id="home-image-unsplash-results" class="d-flex flex-wrap gap-2"></div>
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="@Model.Setting.HomeImageUrl" id="homeImageUrlHidden" />
+                        @{
+                            var hasHomeImage = !string.IsNullOrEmpty(Model.Setting.HomeImageUrl);
+                            <div id="home-image-preview-container" class="mt-2" style="display: @(hasHomeImage ? "block" : "none")">
+                                <label>Xem trước:</label>
+                                <img id="home-image-preview" src="@Model.Setting.HomeImageUrl" alt="Ảnh trang chủ" class="mt-2 d-block" style="max-height: 120px;" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Hotline Group -->
         <div class="col-12">
             <div class="card">

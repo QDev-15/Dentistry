@@ -81,6 +81,8 @@ namespace Dentisty.Data
             {
                 Id = item.Id,
                 Name = item.Name,
+                Description = item.Description,
+                HomeImageUrl = item.HomeImageUrl,
                 EndWork = item.EndWork,
                 StartWork = item.StartWork,
                 HotlineHaNoi = item.HotlineHaNoi,

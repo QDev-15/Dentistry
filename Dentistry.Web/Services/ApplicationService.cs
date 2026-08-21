@@ -17,6 +17,8 @@ using Dentisty.Data.Repositories;
 using Dentisty.Data.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Drawing;
+using System.Text;
 
 namespace Dentisty.Web.Services
 {
@@ -45,6 +47,11 @@ namespace Dentisty.Web.Services
             _doctor = doctor;
             _access = accessRepository;
             _article = article;
+        }
+        public async Task<string> GetApplicationName()
+        {
+            var appSetting = await GetAppSetting();
+            return appSetting.Name;
         }
         // app setting
         public async Task<AppSettingVm> GetAppSetting()

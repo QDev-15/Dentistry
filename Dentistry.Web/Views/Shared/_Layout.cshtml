@@ -9,6 +9,17 @@
     MenuView menu = new MenuView();
     menu.RightMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuRight).OrderBy(x => x.Sort).ToList();
     menu.LeftMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuLef).OrderBy(x => x.Sort).ToList();
+
+    // SEO: ảnh hiển thị khi chia sẻ link (og:image / twitter:image)
+    var siteOrigin = $"{Context.Request.Scheme}://{Context.Request.Host}";
+    var ogImagePath = ViewData["Image"] as string;
+    if (string.IsNullOrEmpty(ogImagePath))
+    {
+        ogImagePath = "/assets/logo/LOGO.png";
+    }
+    var ogImageUrl = ogImagePath.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+        ? ogImagePath
+        : $"{siteOrigin}{ogImagePath}";
 }
 
 <!DOCTYPE html>
@@ -16,7 +27,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nha Khoa Nhiên</title>
+    <title>@ViewData["Title"]</title>
     <meta name="logs" content="@settings.Name" />
     <meta name="description" content="@ViewData["Description"]" />
     <meta name="keywords" content="@ViewData["Keywords"]" />
@@ -24,7 +35,15 @@
     <meta property="og:title" content="Nha Khoa Nhiên" />
     <meta property="og:description" content="@ViewData["Description"]" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="@Context.Request.Host@Context.Request.Path" />
+    <meta property="og:url" content="@siteOrigin@Context.Request.Path" />
+    <meta property="og:image" content="@ogImageUrl" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="@settings.Name" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@ViewData["Title"]" />
+    <meta name="twitter:description" content="@ViewData["Description"]" />
+    <meta name="twitter:image" content="@ogImageUrl" />
     <link rel="icon" type="image/x-icon" href="~/logo.ico" />
 
     @* Css Lib *@

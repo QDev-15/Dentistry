@@ -1,6 +1,7 @@
 ﻿using Dentistry.ViewModels.Catalog.Doctors;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data.Interfaces;
+using Dentisty.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,9 +10,11 @@ namespace Dentistry.Web.Controllers
     public class DoctorController : Controller
     {
         private readonly IDoctorRepository _doctorRepository;
-        public DoctorController(IDoctorRepository doctorRepository)    
+        private readonly ApplicationService _app;
+        public DoctorController(IDoctorRepository doctorRepository, ApplicationService app)    
         {
             _doctorRepository = doctorRepository;
+            _app = app;
         }
 
         public IActionResult Index()
@@ -27,9 +30,11 @@ namespace Dentistry.Web.Controllers
                 var doctors = await _doctorRepository.GetDoctorForApplication();
                 detail.Doctor = doctor;
                 detail.Doctors = doctors.Where(x => x.Id != doctor.Id).ToList();
-
-                ViewData["Description"] = $"Trang chủ Nhiên Nha Khoa - Cơ sở uy tín trao gửi niềm tin.";
-                ViewData["Keywords"] = "Nhiên, Nha Khoa, Cơ sở uy tín, làm răng, răng sứ";
+                var title = await _app.GetApplicationName() + " - " + doctor.Name;
+                ViewData["Title"] = title;
+                ViewData["Description"] = doctor.PositionExtent;
+                ViewData["Keywords"] = doctor.Name;
+                ViewData["Image"] = doctor.AvatarPath;
 
 
                 return View(detail);

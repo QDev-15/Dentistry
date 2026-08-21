@@ -1,12 +1,4 @@
 ﻿$(document).ready(function () {
-    // Initialize DataTable
-    const slideTable = $('#dataTableSlide').DataTable({
-        paging: true,
-        searching: true,
-        ordering: true,
-        pageLength: 5, // Mặc định hiển thị 5 dòng
-        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tất cả"]] // Các tùy chọn số dòng hiển thị
-    });
     // Open Edit - Add button click
     $(document).on('click', '.slide-edit-btn, .slide-add-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới
@@ -60,8 +52,8 @@
     });
 
     // Delete Confirm action
-    $('#deleteSlideConfirm').on('click', function (e) {
-        e.preventDefault();
+    $(document).on('click', '#deleteSlideConfirm', function (event) {
+        event.preventDefault();
         var id = $('#deleteId').val();
         showGlobalSpinner();
         $.ajax({
@@ -81,8 +73,7 @@
         });
     });
 
-    const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-    confirmDeleteModal.addEventListener('show.bs.modal', function (event) {
+    $(document).on('show.bs.modal', '#confirmDeleteModal', function (event) {
         // Lấy nút đã kích hoạt modal
         const button = event.relatedTarget;
         // Lấy giá trị ID từ data-id của nút

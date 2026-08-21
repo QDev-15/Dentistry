@@ -228,6 +228,15 @@ function hideSpinnerFor(className) {
     });
 
 }
+function loadDataTable() {
+    return $('#dataTableSlide').DataTable({
+        paging: true,
+        searching: true,
+        ordering: true,
+        pageLength: 5, // Mặc định hiển thị 5 dòng
+        lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tất cả"]] // Các tùy chọn số dòng hiển thị
+    });
+}
 /// ======================= End Spinner =============================
 function loadSlideList() {
     showSpinnerFor();
@@ -236,6 +245,7 @@ function loadSlideList() {
         type: 'GET',
         success: function (data) {
             $('#slide-setting').html(data);
+            loadDataTable();
             hideSpinnerFor();
         },
         error: function (xhr, status, error) {
@@ -266,6 +276,14 @@ function loadBranchesList() {
         type: 'GET',
         success: function (data) {
             $('#branches-setting').html(data);
+            $('#branchesTable').DataTable({
+                autoWidth: false,
+                paging: true,
+                searching: true,
+                ordering: true,
+                pageLength: 5,
+                order: [[2, 'asc']]
+            });
             hideSpinnerFor();
         },
         error: function (xhr, status, error) {

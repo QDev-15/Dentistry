@@ -6,6 +6,7 @@ using Dentistry.ViewModels.Enums;
 using Dentisty.Data;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Repositories;
+using Dentisty.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.Web.Controllers
@@ -14,9 +15,11 @@ namespace Dentistry.Web.Controllers
     {
         private readonly IArticleRepository _articleRepository;
         private readonly LoggerRepository _loggerRepository;
-        public ArticleController(IArticleRepository articleRepository, LoggerRepository loggerRepository) {
+        private readonly ApplicationService _app;
+        public ArticleController(IArticleRepository articleRepository, LoggerRepository loggerRepository, ApplicationService app) {
             _articleRepository = articleRepository;
             _loggerRepository = loggerRepository;
+            _app = app;
         }
         public IActionResult Index()
         {
@@ -35,9 +38,11 @@ namespace Dentistry.Web.Controllers
                 var baiviets = await _articleRepository.GetForApplication(ArticleType.Article);
                 baivietDetail.item = baiviet.ReturnViewModel();
                 baivietDetail.items = baiviets.Where(x => x.Id != baiviet.Id).ToList();
-
-                ViewData["Description"] = $"Đọc ngay bài viết '{baiviet.Title}' để hiểu hơn về {baiviet.Tags}";
+                var title = await _app.GetApplicationName() + " - " + baiviet.Title;
+                ViewData["Title"] = title;
+                ViewData["Description"] = baiviet.Description;
                 ViewData["Keywords"] = baiviet.Tags;
+                ViewData["Image"] = baivietDetail.item.CoverImage;
                 return View(baivietDetail);
             } catch (Exception ex)
             {

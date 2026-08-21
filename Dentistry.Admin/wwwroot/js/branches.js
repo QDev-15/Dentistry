@@ -1,13 +1,4 @@
 ﻿$(document).ready(function () {
-    $('#branchesTable').DataTable({
-        autoWidth: false,
-        paging: true,
-        searching: true,
-        ordering: true,
-        pageLength: 5,
-        order: [[2, 'asc']]
-    });
-
     // open model edit-add
     $(document).on('click', '.add-branch-btn, .edit-branch-btn', function () {
         const id = $(this).data('id') || 0; // Nếu không có ID, thì tạo mới

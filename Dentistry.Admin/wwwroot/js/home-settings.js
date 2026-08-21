@@ -39,6 +39,7 @@ function loadContentSelectedTab(tabId) {
             break;
     }
 }
+
 function setActiveTab() {
     const urlParams = new URLSearchParams(window.location.search);
     const tabContentId = urlParams.get('selectedTab') || "slide-setting";

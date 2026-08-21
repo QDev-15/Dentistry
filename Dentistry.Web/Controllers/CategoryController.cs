@@ -36,9 +36,12 @@ namespace Dentistry.Web.Controllers
             }
 
             // SEO ==================
+            var title = await _app.GetApplicationName() + " - " + category.Name;
+            ViewData["Title"] = title;
             ViewData["Support"] = category.Type == CategoryType.Support;
             ViewData["Description"] = $"Đọc ngay danh mục '{category.Name}' để hiểu hơn về {category.Alias}";
             ViewData["Keywords"] = category.Alias;
+            ViewData["Image"] = category.CoverImage;
             return View("Detail", category);
         }
 
@@ -55,8 +58,11 @@ namespace Dentistry.Web.Controllers
             ViewData["TotalPages"] = result.PageCount;
             ViewData["CurrentPage"] = page;
             // SEO ==================
-            ViewData["Description"] = $"Đọc ngay danh mục '{category.Name}' để hiểu hơn về {category.Alias}";
+            var title = await _app.GetApplicationName() + " - " + category.Name;
+            ViewData["Title"] = title;
+            ViewData["Description"] = category.Description;
             ViewData["Keywords"] = category.Alias;
+            ViewData["Image"] = category.CoverImage;
             return View("Article", result);
         }
     }

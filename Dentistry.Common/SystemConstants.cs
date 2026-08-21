@@ -6,7 +6,7 @@ namespace Dentistry.Common
 {
     public static class SystemConstants
     {
-        public const string ApplicationTitle = "Nhiên Nha Khoa";
+        public const string ApplicationTitle = "Nha Khoa Nhiên";
         public const string MainConnectionString = "DentistryDbConnection";
         public const string CartSession = "CartSession";
         public const string NA = "N/A";
