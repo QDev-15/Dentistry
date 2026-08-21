@@ -100,7 +100,10 @@ namespace Dentistry.Web.Controllers
                 string titles = string.Join(", ", result.Items.Select(x => x.Title).ToList());
                 string tags = string.Join(",", result.Items.Select(x => x.Tags).ToList());
                 tags = string.Join(", ", tags.Split(",").Distinct());
-                ViewData["Description"] = result.Items.First().Description;
+                var searchDescription = result.Items.First().Description.LimitTo(160, "...");
+                ViewData["Description"] = !string.IsNullOrWhiteSpace(searchDescription)
+                    ? searchDescription
+                    : $"Đọc ngay bài viết '{titles}' để hiểu hơn về {tags}";
                 ViewData["Keywords"] = tags;
                 ViewData["Image"] = result.Items.First().CoverImage;
             }

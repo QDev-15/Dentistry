@@ -32,7 +32,7 @@ namespace Dentistry.Web.Controllers
                 detail.Doctors = doctors.Where(x => x.Id != doctor.Id).ToList();
                 var title = await _app.GetApplicationName() + " - " + doctor.Name;
                 ViewData["Title"] = title;
-                ViewData["Description"] = doctor.PositionExtent;
+                ViewData["Description"] = doctor.PositionExtent.LimitTo(160, "...");
                 ViewData["Keywords"] = doctor.Name;
                 ViewData["Image"] = doctor.AvatarPath;
 

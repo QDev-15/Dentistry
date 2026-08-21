@@ -23,12 +23,28 @@ namespace Dentistry.Web
 
         public static string RemoveHtml(this string html)
         {
+            if (string.IsNullOrEmpty(html))
+            {
+                return "";
+            }
+
             // Load HTML content
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            // Extract plain text and decode HTML entities
-            return HtmlEntity.DeEntitize(doc.DocumentNode.InnerText);
+            // Bỏ hẳn nội dung <script>/<style> - InnerText vẫn giữ text bên trong 2 thẻ này
+            var nonTextNodes = doc.DocumentNode.SelectNodes("//script|//style");
+            if (nonTextNodes != null)
+            {
+                foreach (var node in nonTextNodes)
+                {
+                    node.Remove();
+                }
+            }
+
+            // Extract plain text, decode HTML entities, gộp khoảng trắng/xuống dòng thừa
+            var text = HtmlEntity.DeEntitize(doc.DocumentNode.InnerText);
+            return System.Text.RegularExpressions.Regex.Replace(text, @"\s+", " ").Trim();
         }
     }
 }

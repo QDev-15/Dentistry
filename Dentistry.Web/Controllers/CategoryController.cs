@@ -39,7 +39,10 @@ namespace Dentistry.Web.Controllers
             var title = await _app.GetApplicationName() + " - " + category.Name;
             ViewData["Title"] = title;
             ViewData["Support"] = category.Type == CategoryType.Support;
-            ViewData["Description"] = $"Đọc ngay danh mục '{category.Name}' để hiểu hơn về {category.Alias}";
+            var categoryDescription = category.Description.LimitTo(160, "...");
+            ViewData["Description"] = !string.IsNullOrWhiteSpace(categoryDescription)
+                ? categoryDescription
+                : $"Đọc ngay danh mục '{category.Name}' để hiểu hơn về {category.Alias}";
             ViewData["Keywords"] = category.Alias;
             ViewData["Image"] = category.CoverImage;
             return View("Detail", category);
@@ -60,7 +63,10 @@ namespace Dentistry.Web.Controllers
             // SEO ==================
             var title = await _app.GetApplicationName() + " - " + category.Name;
             ViewData["Title"] = title;
-            ViewData["Description"] = category.Description;
+            var categoryDescription = category.Description.LimitTo(160, "...");
+            ViewData["Description"] = !string.IsNullOrWhiteSpace(categoryDescription)
+                ? categoryDescription
+                : $"Đọc ngay danh mục '{category.Name}' để hiểu hơn về {category.Alias}";
             ViewData["Keywords"] = category.Alias;
             ViewData["Image"] = category.CoverImage;
             return View("Article", result);

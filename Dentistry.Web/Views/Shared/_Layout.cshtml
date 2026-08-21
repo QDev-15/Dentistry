@@ -20,6 +20,15 @@
     var ogImageUrl = ogImagePath.StartsWith("http", StringComparison.OrdinalIgnoreCase)
         ? ogImagePath
         : $"{siteOrigin}{ogImagePath}";
+
+    // og:description/twitter:description phải là text 1 dòng - gộp xuống dòng/khoảng trắng thừa
+    var rawDescription = ViewData["Description"] as string ?? "";
+    var metaDescription = System.Text.RegularExpressions.Regex.Replace(rawDescription, @"\s+", " ").Trim();
+    var pageTitle = ViewData["Title"] as string;
+    if (string.IsNullOrEmpty(pageTitle))
+    {
+        pageTitle = settings.Name;
+    }
 }
 
 <!DOCTYPE html>
@@ -29,11 +38,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <meta name="logs" content="@settings.Name" />
-    <meta name="description" content="@ViewData["Description"]" />
+    <meta name="description" content="@metaDescription" />
     <meta name="keywords" content="@ViewData["Keywords"]" />
     <meta name="author" content="Nha Khoa Nhiên" />
-    <meta property="og:title" content="Nha Khoa Nhiên" />
-    <meta property="og:description" content="@ViewData["Description"]" />
+    <meta property="og:title" content="@pageTitle" />
+    <meta property="og:description" content="@metaDescription" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="@siteOrigin@Context.Request.Path" />
     <meta property="og:image" content="@ogImageUrl" />
@@ -41,8 +50,8 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="@settings.Name" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="@ViewData["Title"]" />
-    <meta name="twitter:description" content="@ViewData["Description"]" />
+    <meta name="twitter:title" content="@pageTitle" />
+    <meta name="twitter:description" content="@metaDescription" />
     <meta name="twitter:image" content="@ogImageUrl" />
     <link rel="icon" type="image/x-icon" href="~/logo.ico" />
 
