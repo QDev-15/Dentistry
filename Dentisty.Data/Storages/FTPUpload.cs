@@ -197,6 +197,18 @@ namespace Dentisty.Data.Storages
                             image.Metadata.IptcProfile = null;
                             image.Metadata.XmpProfile = null;
 
+                            // Giới hạn kích thước tối đa - ảnh gốc chụp từ điện thoại thường rất lớn,
+                            // khiến og:image/trang chi tiết tải chậm dù đã nén webp. Khớp chuẩn og:image 1200x630
+                            const int maxDimension = 1200;
+                            if (image.Width > maxDimension || image.Height > maxDimension)
+                            {
+                                image.Mutate(x => x.Resize(new ResizeOptions
+                                {
+                                    Mode = ResizeMode.Max,
+                                    Size = new Size(maxDimension, maxDimension)
+                                }));
+                            }
+
                             if (isPng)
                             {
                                 image.Save(tempFilePath, new PngEncoder
@@ -216,7 +228,7 @@ namespace Dentisty.Data.Storages
                                 {
                                     Quality = 70,
                                     Method = WebpEncodingMethod.BestQuality,
-                                    NearLossless = true
+                                    FileFormat = WebpFileFormatType.Lossy
                                 });
                             }
                         }

@@ -51,7 +51,7 @@ namespace Dentisty.Web.Services
         public async Task<string> GetApplicationName()
         {
             var appSetting = await GetAppSetting();
-            return appSetting.Name;
+            return appSetting.Name ?? SystemConstants.ApplicationTitle;
         }
         // app setting
         public async Task<AppSettingVm> GetAppSetting()
