@@ -3,8 +3,8 @@ using FluentFTP;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
-using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing.Processors.Quantization;
 using System.Text.RegularExpressions;
@@ -151,7 +151,7 @@ namespace Dentisty.Data.Storages
                 // Lấy đuôi file gốc
                 string fileExtension = Path.GetExtension(file.FileName).ToLower();
 
-                // Nếu là PNG thì giữ nguyên, nếu không thì đổi sang WebP
+                // Nếu là PNG/GIF thì giữ nguyên định dạng, còn lại đổi sang JPG
                 bool isPng = fileExtension == ".png";
                 bool isGif = fileExtension == ".gif";
                 string optimizedFileName = "opt_" + DateTime.Now.ToString("ddMMyyyyHHmmss_")
@@ -166,7 +166,7 @@ namespace Dentisty.Data.Storages
                 }
                 else
                 {
-                    optimizedFileName += ".webp";
+                    optimizedFileName += ".jpg";
                 }
 
                 optimizedFileName = Regex.Replace(optimizedFileName, @"\s+", "-");
@@ -224,11 +224,9 @@ namespace Dentisty.Data.Storages
                                     image.Mutate(x => x.Grayscale());
                                 }
 
-                                image.Save(tempFilePath, new WebpEncoder
+                                image.Save(tempFilePath, new JpegEncoder
                                 {
-                                    Quality = 70,
-                                    Method = WebpEncodingMethod.BestQuality,
-                                    FileFormat = WebpFileFormatType.Lossy
+                                    Quality = 80
                                 });
                             }
                         }

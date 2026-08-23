@@ -98,11 +98,11 @@ namespace Dentisty.Data.Repositories
                     throw new ArgumentException("Ảnh không hợp lệ hoặc vượt quá dung lượng cho phép (10MB).");
                 }
 
+                // Ảnh cuối cùng luôn được lưu jpg (trừ png/gif giữ nguyên) qua UploadImageV2,
+                // nên webp/các định dạng khác cũng gắn đuôi .jpg để qua được kiểm tra AllowedExtensions.
                 var extension = contentType switch
                 {
-                    "image/jpeg" => ".jpg",
                     "image/png" => ".png",
-                    "image/webp" => ".webp",
                     "image/gif" => ".gif",
                     _ => ".jpg"
                 };
