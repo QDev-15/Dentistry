@@ -1,0 +1,100 @@
+@using Dentisty.Data.Storages
+@model List<DatabaseBackupFileInfo>
+
+<div class="container-fluid p-2">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Sao lưu Database</h2>
+        <button class="btn btn-primary" id="btn-create-backup">
+            <i class="fa-solid fa-database"></i> Tạo bản sao lưu mới
+        </button>
+    </div>
+
+    <div class="alert alert-info">
+        File sao lưu (.bacpac) chứa toàn bộ dữ liệu, được lưu trên server web. Có thể tải về và phục hồi (Import Data-tier Application) bằng SQL Server Management Studio.
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped" id="backupTable">
+            <thead>
+                <tr>
+                    <th>Tên file</th>
+                    <th>Thời gian tạo</th>
+                    <th>Dung lượng</th>
+                    <th class="text-center">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted">Chưa có bản sao lưu nào.</td>
+                    </tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FileName</td>
+                        <td>@item.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                        <td>@((item.FileSizeBytes / 1024.0 / 1024.0).ToString("N2")) MB</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-success" asp-action="Download" asp-route-fileName="@item.FileName">
+                                <i class="fa-solid fa-download"></i> Tải về
+                            </a>
+                            <button class="btn btn-sm btn-danger btn-delete-backup" data-file="@item.FileName">
+                                <i class="fa-solid fa-trash"></i> Xóa
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).on('click', '#btn-create-backup', function () {
+        var $btn = $(this);
+        $btn.prop('disabled', true).html('<i class="fa-solid fa-spinner fa-spin"></i> Đang tạo bản sao lưu...');
+        $.ajax({
+            url: '@Url.Action("Create", "Backup")',
+            type: 'POST',
+            success: function (response) {
+                if (response.isSuccessed) {
+                    showSuccess('Tạo bản sao lưu thành công.');
+                    location.reload();
+                } else {
+                    showError(response.message || 'Tạo bản sao lưu thất bại.');
+                }
+            },
+            error: function (xhr) {
+                showError(xhr.responseText || 'Tạo bản sao lưu thất bại.');
+            },
+            complete: function () {
+                $btn.prop('disabled', false).html('<i class="fa-solid fa-database"></i> Tạo bản sao lưu mới');
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-delete-backup', function () {
+        var fileName = $(this).data('file');
+        if (!confirm('Xóa bản sao lưu "' + fileName + '"?')) {
+            return;
+        }
+        $.ajax({
+            url: '@Url.Action("Delete", "Backup")',
+            type: 'POST',
+            data: { fileName: fileName },
+            success: function (response) {
+                if (response.isSuccessed) {
+                    showSuccess('Đã xóa.');
+                    location.reload();
+                } else {
+                    showError(response.message || 'Xóa thất bại.');
+                }
+            },
+            error: function (xhr) {
+                showError(xhr.responseText || 'Xóa thất bại.');
+            }
+        });
+    });
+</script>
