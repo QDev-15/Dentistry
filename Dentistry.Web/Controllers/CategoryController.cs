@@ -36,7 +36,7 @@ namespace Dentistry.Web.Controllers
             }
 
             // SEO ==================
-            var title = await _app.GetApplicationName() + " - " + category.Name;
+            var title = category.Name;
             ViewData["Title"] = title;
             ViewData["Support"] = category.Type == CategoryType.Support;
             var categoryDescription = category.Description.LimitTo(160, "...");
@@ -61,7 +61,7 @@ namespace Dentistry.Web.Controllers
             ViewData["TotalPages"] = result.PageCount;
             ViewData["CurrentPage"] = page;
             // SEO ==================
-            var title = await _app.GetApplicationName() + " - " + category.Name;
+            var title = category.Name;
             ViewData["Title"] = title;
             var categoryDescription = category.Description.LimitTo(160, "...");
             ViewData["Description"] = !string.IsNullOrWhiteSpace(categoryDescription)

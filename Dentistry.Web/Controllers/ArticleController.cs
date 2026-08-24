@@ -38,7 +38,7 @@ namespace Dentistry.Web.Controllers
                 var baiviets = await _articleRepository.GetForApplication(ArticleType.Article);
                 baivietDetail.item = baiviet.ReturnViewModel();
                 baivietDetail.items = baiviets.Where(x => x.Id != baiviet.Id).ToList();
-                var title = await _app.GetApplicationName() + " - " + baiviet.Title;
+                var title = baiviet.Title;
                 ViewData["Title"] = title;
                 ViewData["Description"] = baiviet.Description.LimitTo(160, "...");
                 ViewData["Keywords"] = baiviet.Tags;
