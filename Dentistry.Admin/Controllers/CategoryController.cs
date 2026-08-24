@@ -145,6 +145,20 @@ namespace Dentistry.Admin.Controllers
 
             return Json(result);
         }
+        [HttpPost]
+        public async Task<IActionResult> UpdateSortOrder([FromBody] List<int> orderedIds)
+        {
+            try
+            {
+                await _categoryRepository.UpdateSortOrder(orderedIds);
+                await _cacheNotificationService.InvalidateCacheAsync(SystemConstants.Cache_Category);
+                return Json(new SuccessResult<bool>());
+            }
+            catch (Exception ex)
+            {
+                return Json(new ErrorResult<bool>() { Message = ex.Message });
+            }
+        }
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {

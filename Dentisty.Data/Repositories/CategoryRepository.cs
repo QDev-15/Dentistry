@@ -172,6 +172,24 @@ namespace Dentisty.Data.Repositories
             if (string.IsNullOrEmpty(alias)) return true;
             return await _context.Categories.Where(x => x.IsActive).AnyAsync(c => c.Alias == alias && c.Id != id);
         }
+
+        public async Task UpdateSortOrder(List<int> orderedIds)
+        {
+            var categories = await _context.Categories
+                .Where(x => orderedIds.Contains(x.Id))
+                .ToListAsync();
+
+            for (int i = 0; i < orderedIds.Count; i++)
+            {
+                var category = categories.FirstOrDefault(x => x.Id == orderedIds[i]);
+                if (category != null)
+                {
+                    category.Sort = i;
+                }
+            }
+
+            await _context.SaveChangesAsync();
+        }
         private async Task<ImageFile> CreateImageAsync(IFormFile formFile)
         {
             if (formFile == null) { return null; }

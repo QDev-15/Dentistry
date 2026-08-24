@@ -8,8 +8,9 @@
 @model CategoryVm
 
 <div id="accordion-item-@Model.Id" class="accordion-item @Model.Level.ToString()">
-    <h2 class="accordion-header" id="@("headingcategory" + @Model.Id)">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="@("#collapsecategory" + @Model.Id)" aria-expanded="false" aria-controls="@("collapsecategory" + @Model.Id)">
+    <h2 class="accordion-header d-flex align-items-stretch" id="@("headingcategory" + @Model.Id)">
+        <span class="drag-handle px-2 d-flex align-items-center" title="Kéo để đổi thứ tự"><i class="fas fa-grip-vertical"></i></span>
+        <button class="accordion-button collapsed flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target="@("#collapsecategory" + @Model.Id)" aria-expanded="false" aria-controls="@("collapsecategory" + @Model.Id)">
             <div class="category-item">
                 <img src="@Model.CoverImage" class="category-avatar category-avatar-@Model.Id" alt="Avatar">
                 @if(!string.IsNullOrEmpty(Model.SubName)) {

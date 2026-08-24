@@ -1,5 +1,43 @@
-﻿$(document).ready(function () {
+﻿// Kéo thả đổi thứ tự danh mục - gọi lại mỗi khi accordion được render/thêm mới
+function initAllCategorySortables() {
+    $('#categoryAccordion, .nested-accordion').each(function () {
+        var $container = $(this);
+        if ($container.hasClass('ui-sortable')) {
+            $container.sortable('refresh');
+            return;
+        }
+        $container.sortable({
+            items: '> .accordion-item',
+            handle: '.drag-handle',
+            placeholder: 'category-sort-placeholder',
+            axis: 'y',
+            update: function () {
+                var orderedIds = $(this).children('.accordion-item').map(function () {
+                    return parseInt($(this).attr('id').replace('accordion-item-', ''), 10);
+                }).get();
+
+                $.ajax({
+                    url: '/Category/UpdateSortOrder',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(orderedIds),
+                    success: function (response) {
+                        if (!response.isSuccessed) {
+                            showError(response.message || 'Cập nhật thứ tự thất bại.');
+                        }
+                    },
+                    error: function () {
+                        showError('Cập nhật thứ tự thất bại.');
+                    }
+                });
+            }
+        });
+    });
+}
+
+$(document).ready(function () {
     let categoryCount = 0;
+    initAllCategorySortables();
 
 
     function createElement(id, img, levelName, levelValue, subName, name, position, type, sort) {
@@ -8,8 +46,9 @@
             dmCap = "cấp 3";
         }
         var element = `<div id="accordion-item-${id}" class="accordion-item ${levelName}">
-            <h2 class="accordion-header" id="headingcategory${id}">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsecategory${id}" aria-expanded="false" aria-controls="collapsecategory${id}">
+            <h2 class="accordion-header d-flex align-items-stretch" id="headingcategory${id}">
+                <span class="drag-handle px-2 d-flex align-items-center" title="Kéo để đổi thứ tự"><i class="fas fa-grip-vertical"></i></span>
+                <button class="accordion-button collapsed flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapsecategory${id}" aria-expanded="false" aria-controls="collapsecategory${id}">
                     <div class="category-item">
                         <img src="${img}" class="category-avatar category-avatar-${id}" alt="Avatar">
                         <span>&ensp;<b class="category-accordion-name-${id}">${name}</b> &emsp; <span class="category-accordion-subname-${id}">${subName}</span></span>    
@@ -137,6 +176,7 @@
                         } else {
                             $("#nested-accordion-" + data.parentId).append(newCategoryElement);
                         }
+                        initAllCategorySortables();
                         //loadCategoryList();
                     }
                     // Nếu có file ảnh, tiếp tục upload ảnh (Bước 2)

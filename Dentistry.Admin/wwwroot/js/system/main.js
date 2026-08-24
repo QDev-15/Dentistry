@@ -261,6 +261,9 @@ function loadCategoryList() {
         type: 'GET',
         success: function (data) {
             $('#category-setting').html(data);
+            if (typeof initAllCategorySortables === 'function') {
+                initAllCategorySortables();
+            }
             hideSpinnerFor();
         },
         error: function (xhr, status, error) {
