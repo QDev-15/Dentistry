@@ -30,7 +30,7 @@ namespace Dentisty.Data.Repositories
             var category = await _context.Categories.Where(x => x.IsActive && x.Id == id)
                 .Include(i => i.Image)
                 .Include(i => i.Parent)
-                .Include(i => i.Categories.Where(x => x.IsActive))
+                .Include(i => i.Categories.Where(x => x.IsActive).OrderBy(x => x.Sort))
                 .FirstOrDefaultAsync();
             return category;
         }
@@ -60,7 +60,7 @@ namespace Dentisty.Data.Repositories
         {
             var category = await _context.Categories.Where(x => x.IsActive && x.Alias.ToString() == alias.ToString())
                 .Include(i => i.Parent)
-                .Include(i => i.Categories.Where(x => x.IsActive))
+                .Include(i => i.Categories.Where(x => x.IsActive).OrderBy(x => x.Sort))
                 .Include(i => i.Articles.Where(x => x.IsActive).Take(10))
                     .ThenInclude(x => x.Images)
                 .FirstOrDefaultAsync();
@@ -69,9 +69,10 @@ namespace Dentisty.Data.Repositories
         public new async Task<IEnumerable<Category>> GetAllAsync()
         {
             var categories = await _context.Categories.Where(x => x.IsActive)
+                .OrderBy(x => x.Sort)
                 .Include(i => i.Image)
                 .Include(x=>x.Parent)
-                .Include(x=>x.Categories)
+                .Include(x=>x.Categories.OrderBy(c => c.Sort))
                 .ToListAsync();
             return categories;
         }
@@ -183,11 +184,12 @@ namespace Dentisty.Data.Repositories
         {
             var categories = await _context.Categories
                 .Where(x => x.IsActive == true && (x.Level == CategoryLevel.Level1 || x.ParentId == null))
+                .OrderBy(x => x.Sort)
                 .Include(c => c.Image) // Ảnh của cấp 1
-                .Include(c => c.Categories.Where(sub => sub.IsActive == true)) // Lấy cấp 2
+                .Include(c => c.Categories.Where(sub => sub.IsActive == true).OrderBy(sub => sub.Sort)) // Lấy cấp 2
                     .ThenInclude(sub => sub.Image) // Ảnh của cấp 2
-                .Include(c => c.Categories) // Đảm bảo cấp 2 được Include trước khi lấy cấp 3
-                    .ThenInclude(sub => sub.Categories.Where(subsub => subsub.IsActive == true)) // Lấy cấp 3
+                .Include(c => c.Categories.Where(sub => sub.IsActive == true).OrderBy(sub => sub.Sort)) // Đảm bảo cấp 2 được Include (cùng filter/sort) trước khi lấy cấp 3
+                    .ThenInclude(sub => sub.Categories.Where(subsub => subsub.IsActive == true).OrderBy(subsub => subsub.Sort)) // Lấy cấp 3
                         .ThenInclude(subsub => subsub.Image) // Ảnh của cấp 3
                 .ToListAsync();
 
@@ -195,15 +197,19 @@ namespace Dentisty.Data.Repositories
         }
         public async Task<IEnumerable<Category>> GetChilds()
         {
-            var categories = await _context.Categories.Where(x => x.IsActive == true && x.Level != CategoryLevel.Level1).Include(i => i.Image)
+            var categories = await _context.Categories.Where(x => x.IsActive == true && x.Level != CategoryLevel.Level1)
+                .OrderBy(x => x.Sort)
+                .Include(i => i.Image)
                 .Include(i => i.Parent)
-                .Include(i => i.Categories.Where(x => x.IsActive)).ToListAsync();
+                .Include(i => i.Categories.Where(x => x.IsActive).OrderBy(x => x.Sort)).ToListAsync();
             return categories;
         }
 
         public async Task<IEnumerable<CategoryVm>> GetForSettings()
         {
-            return await _context.Categories.Where(x => x.IsActive).OrderBy(x => x.Level == CategoryLevel.Level1).Select(x => new CategoryVm() { Id = x.Id, Name = x.Name, Type = x.Type }).ToListAsync();
+            return await _context.Categories.Where(x => x.IsActive)
+                .OrderBy(x => x.Level == CategoryLevel.Level1).ThenBy(x => x.Sort)
+                .Select(x => new CategoryVm() { Id = x.Id, Name = x.Name, Type = x.Type }).ToListAsync();
         }
 
         public async Task<bool> DeleteAsync(Category category)
@@ -283,7 +289,8 @@ namespace Dentisty.Data.Repositories
 
         public async Task<List<CategoryVm>> GetCategoryByType(CategoryType type)
         {
-            var categories = await _context.Categories.Where(x => x.IsActive == true && x.Type == type).OrderBy(x => x.Level == CategoryLevel.Level1).ToListAsync();
+            var categories = await _context.Categories.Where(x => x.IsActive == true && x.Type == type)
+                .OrderBy(x => x.Level == CategoryLevel.Level1).ThenBy(x => x.Sort).ToListAsync();
             if (categories != null)
             {
                 return categories.Select(x => x.ReturnViewModel()).ToList();

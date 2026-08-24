@@ -7,8 +7,8 @@
     var categories = await _applicationService.GetAllCategories();
     var branches = await _applicationService.GetBranches();
     MenuView menu = new MenuView();
-    menu.RightMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuRight).OrderBy(x => x.Sort).ToList();
-    menu.LeftMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuLef).OrderBy(x => x.Sort).ToList();
+    menu.RightMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuRight).ToList();
+    menu.LeftMenu = categories.Where(e => e.IsActive == true && e.Position == CategoryPosition.MenuLef).ToList();
 
     // SEO: ảnh hiển thị khi chia sẻ link (og:image / twitter:image)
     var siteOrigin = $"{Context.Request.Scheme}://{Context.Request.Host}";
