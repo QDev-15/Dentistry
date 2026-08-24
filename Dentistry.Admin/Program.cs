@@ -17,6 +17,7 @@ using Dentisty.Data.Repositories;
 using Dentisty.Data.Services;
 using Dentisty.Data.Services.Interfaces;
 using Dentisty.Data.Services.System;
+using Dentisty.Data.Storages;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -124,6 +125,7 @@ builder.Services.AddHostedService<LoggerBackgroundService>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<RoleService>();
+builder.Services.AddScoped<DatabaseBackupService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",

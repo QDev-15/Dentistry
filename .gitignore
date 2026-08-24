@@ -401,8 +401,12 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /Data
-*.rar 
- 
-*.mp4 
+*.rar
+
+*.mp4
+
+# Database backups (chứa dữ liệu thật, không commit)
+**/db-backups/
+*.bacpac 
  
  
