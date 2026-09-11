@@ -56,6 +56,25 @@ namespace Dentistry.ViewModels.Catalog.AppSettings
         public string? Articles { set; get; } = "";
         public string? News { set; get; } = "";
         public string? Feedbacks { set; get; } = "";
+
+        // Email notification (contact/booking) SMTP configuration
+        public string? SmtpProvider { get; set; } // "Hosting" or "Gmail"
+        public string? SmtpHost { get; set; }
+        public int? SmtpPort { get; set; }
+        public bool SmtpUseSsl { get; set; } = true;
+        public string? SmtpUsername { get; set; }
+        // Write-only: a new plaintext password to encrypt & store. Left blank on read, and
+        // left blank/unchanged on submit means "keep the currently stored password".
+        public string? SmtpPassword { get; set; }
+        // Read-only: whether a password is already stored, so the UI can show a placeholder
+        // instead of ever sending the real secret back to the browser.
+        public bool HasSmtpPassword { get; set; }
+        public string? SmtpSenderName { get; set; }
+        public string? NotificationEmails { get; set; }
+
+        // Optional confirmation email sent back to the customer who submitted the form
+        public bool SendCustomerConfirmationEmail { get; set; } = false;
+        public string? CustomerEmailTemplate { get; set; }
     }
 }
 

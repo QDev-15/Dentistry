@@ -3,6 +3,7 @@ using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.Common;
 using Dentisty.Data.Interfaces;
 using Dentisty.Data.Services;
+using Dentisty.Data.Services.Email;
 using Dentisty.Data.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,13 +21,15 @@ namespace Dentistry.Admin.Controllers
         private readonly CacheNotificationService _cache;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
         public AppSettingController(IAppSettingRepository appSettingRepository, CacheNotificationService cacheService,
-            IHttpClientFactory httpClientFactory, IConfiguration configuration)
+            IHttpClientFactory httpClientFactory, IConfiguration configuration, IEmailService emailService)
         {
             _cache = cacheService;
             _appSettingRepository = appSettingRepository;
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            _emailService = emailService;
         }
 
         public IActionResult Index()
@@ -59,6 +62,24 @@ namespace Dentistry.Admin.Controllers
             await _cache.InvalidateCacheAsync(SystemConstants.Cache_Article);
             await _cache.InvalidateCacheAsync(SystemConstants.Cache_Branches);
             return Json(new SuccessResult<bool>());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> TestSmtp([FromBody] SmtpTestSettings model)
+        {
+            if (model == null)
+            {
+                return Json(new ErrorResult<bool>("Dữ liệu gửi lên không hợp lệ."));
+            }
+            // Tests whatever is currently typed on the form (not yet saved) - that's the point
+            // of testing before hitting Cập nhật. An empty password falls back to the one
+            // already stored in the DB (handled inside SendTestAsync).
+            var result = await _emailService.SendTestAsync(model);
+            if (result.Success)
+            {
+                return Json(new SuccessResult<bool>());
+            }
+            return Json(new ErrorResult<bool>(result.ErrorMessage));
         }
 
         [HttpGet]

@@ -3,6 +3,7 @@ using Dentistry.ViewModels.Catalog.AppSettings;
 using Dentistry.ViewModels.System.Users;
 using Dentisty.Data.GeneratorDB.Entities;
 using Dentisty.Data.Interfaces;
+using Dentisty.Data.Services.Email;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,11 @@ namespace Dentisty.Data.Repositories
     public class AppSettingRepository : Repository<AppSetting>, IAppSettingRepository
     {
         private readonly DentistryDbContext _dbContext;
-        public AppSettingRepository(DentistryDbContext context) : base(context)
+        private readonly ISmtpCredentialProtector _smtpCredentialProtector;
+        public AppSettingRepository(DentistryDbContext context, ISmtpCredentialProtector smtpCredentialProtector) : base(context)
         {
             _dbContext = context;
+            _smtpCredentialProtector = smtpCredentialProtector;
         }
 
         public async Task<AppSettingVm> GetById(int id)
@@ -86,6 +89,23 @@ namespace Dentisty.Data.Repositories
                 updateAppSetting.Tiktok = appSettingVm.Tiktok;
                 updateAppSetting.StartWork = appSettingVm.StartWork;
                 updateAppSetting.EndWork = appSettingVm.EndWork;
+
+                updateAppSetting.SmtpProvider = appSettingVm.SmtpProvider;
+                updateAppSetting.SmtpHost = appSettingVm.SmtpHost;
+                updateAppSetting.SmtpPort = appSettingVm.SmtpPort;
+                updateAppSetting.SmtpUseSsl = appSettingVm.SmtpUseSsl;
+                updateAppSetting.SmtpUsername = appSettingVm.SmtpUsername;
+                updateAppSetting.SmtpSenderName = appSettingVm.SmtpSenderName;
+                updateAppSetting.NotificationEmails = appSettingVm.NotificationEmails;
+                updateAppSetting.SendCustomerConfirmationEmail = appSettingVm.SendCustomerConfirmationEmail;
+                updateAppSetting.CustomerEmailTemplate = appSettingVm.CustomerEmailTemplate;
+                // Only re-encrypt & overwrite when the admin actually typed a new password;
+                // an empty field on submit means "keep the currently stored one".
+                if (!string.IsNullOrEmpty(appSettingVm.SmtpPassword))
+                {
+                    updateAppSetting.SmtpPasswordEncrypted = _smtpCredentialProtector.Protect(appSettingVm.SmtpPassword);
+                }
+
                 UpdateAsync(updateAppSetting);
                 await SaveChangesAsync();
                 return updateAppSetting.ReturnViewModel();

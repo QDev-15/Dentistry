@@ -124,7 +124,17 @@ namespace Dentisty.Data
                 DoctorListTitle = item.DoctorListTitle,
                 NewsListTitle = item.NewsListTitle,
                 FeedbackListTitle = item.FeedbackListTitle,
-                ShowCategoryProductList = item.ShowCategoryProductList
+                ShowCategoryProductList = item.ShowCategoryProductList,
+                SmtpProvider = item.SmtpProvider,
+                SmtpHost = item.SmtpHost,
+                SmtpPort = item.SmtpPort,
+                SmtpUseSsl = item.SmtpUseSsl,
+                SmtpUsername = item.SmtpUsername,
+                HasSmtpPassword = !string.IsNullOrEmpty(item.SmtpPasswordEncrypted),
+                SmtpSenderName = item.SmtpSenderName,
+                NotificationEmails = item.NotificationEmails,
+                SendCustomerConfirmationEmail = item.SendCustomerConfirmationEmail,
+                CustomerEmailTemplate = item.CustomerEmailTemplate
             };
             return model;
         }

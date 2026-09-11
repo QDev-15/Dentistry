@@ -17,6 +17,9 @@ namespace Dentistry.Data.GeneratorDB.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn().IsRequired(true); ;
             builder.HasIndex(x => x.VisitTime).HasDatabaseName("ix_visitorlog_time");
+            // Cùng lý do với ActiveUserConfiguration: VisitorTrackingMiddleware tra cứu theo
+            // (VisitorId, IpAddress) trên mọi request, thiếu index gây quét toàn bảng.
+            builder.HasIndex(x => new { x.VisitorId, x.IpAddress }).HasDatabaseName("ix_visitorlog_visitor_ip");
 
         }
     }

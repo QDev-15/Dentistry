@@ -23,9 +23,19 @@
             </div>
         </div>
         <div class="col-sm-6">
+            <div class="form-group" id="input-email">
+                <input type="email" asp-for="@Model.contact.Email" class="form-control" placeholder="Email (để nhận xác nhận đặt lịch)">
+                <span asp-validation-for="@Model.contact.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-sm-6">
             <div class="form-group">
                 <div class="input-group-datetimepicker">
-                    <input type="text" asp-for="@Model.contact.TimeBook" class="form-control" placeholder="Ngày đặt lịch *">
+                    @* FluentValidation không tự sinh data-val-required cho DateTime? (NotEmpty trên
+                       kiểu ngày không được adapter phía client hỗ trợ) nên phải khai báo tay ở đây,
+                       khớp đúng nội dung lỗi bên BookFormVmValidator.cs để 2 bên nhất quán. *@
+                    <input type="text" asp-for="@Model.contact.TimeBook" class="form-control" placeholder="Ngày đặt lịch *"
+                           data-val="true" data-val-required="Thời gian đặt lịch không được trống.">
                     <span class="input-group-text" id="calendarIcon">
                         <i class="fas fa-calendar-alt"></i>
                     </span>
@@ -35,8 +45,14 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group" id="input-location">
-                <select asp-for="@Model.contact.BranchesId" class="form-control custom-dropdown">
-                    <option value="0">Chọn cơ sở gần bạn *</option>
+                @* Ô placeholder dùng value="" (không phải "0") để jQuery Validate coi đây là
+                   "chưa chọn" một cách chuẩn (rule "required" mặc định của select) - value="0"
+                   cũ vẫn được jQuery Validate tính là "đã có giá trị" nên không validate được.
+                   Model binding value="" -> BranchesId=null, khớp đúng điều kiện Must() đang có
+                   ở BookFormVmValidator.cs và điều kiện .Value > 0 ở ContactController.cs. *@
+                <select asp-for="@Model.contact.BranchesId" class="form-control custom-dropdown"
+                        data-val="true" data-val-required="Cơ sở khám không được trống.">
+                    <option value="">Chọn cơ sở gần bạn *</option>
                     @{
                         foreach (var item in Model.branches)
                         {

@@ -137,6 +137,9 @@
     <script src="~/js/home-slide-doctor.js"></script>
     <script src="~/js/navbar-mega.js" asp-append-version="true"></script> *@
 
+    <!-- jQuery Validate + Unobtrusive: cần cho form.valid() kiểm tra hợp lệ trước khi gửi -->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js" asp-append-version="true"></script>
 
     <script src="~/bundle/main-site.min.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

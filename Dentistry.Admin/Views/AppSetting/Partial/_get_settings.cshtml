@@ -551,6 +551,89 @@
         </div>
 
 
+        @* Cấu hình Email thông báo *@
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">Cấu hình Email thông báo</div>
+                <div class="card-body row g-3">
+                    <div class="col-12">
+                        <label class="form-label d-block">Loại nhà cung cấp email</label>
+                        <div class="btn-group" role="group" aria-label="Loại nhà cung cấp email">
+                            <input type="radio" class="btn-check" name="Setting.SmtpProvider" id="smtp-provider-hosting" value="Hosting" autocomplete="off" checked="@(Model.Setting.SmtpProvider != "Gmail")">
+                            <label class="btn btn-outline-primary" for="smtp-provider-hosting">Email theo tên miền (Hosting)</label>
+
+                            <input type="radio" class="btn-check" name="Setting.SmtpProvider" id="smtp-provider-gmail" value="Gmail" autocomplete="off" checked="@(Model.Setting.SmtpProvider == "Gmail")">
+                            <label class="btn btn-outline-primary" for="smtp-provider-gmail">Gmail</label>
+                        </div>
+                    </div>
+
+                    <div id="smtp-manual-fields" class="col-12 row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="@Model.Setting.SmtpHost" class="form-label">SMTP Host</label>
+                            <input type="text" class="form-control" asp-for="@Model.Setting.SmtpHost" placeholder="vd: mail.tenmien.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="@Model.Setting.SmtpPort" class="form-label">Port</label>
+                            <input type="number" class="form-control" asp-for="@Model.Setting.SmtpPort" placeholder="vd: 587">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.SmtpUseSsl">
+                                <label class="form-check-label" asp-for="@Model.Setting.SmtpUseSsl">Bật SSL/TLS</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="@Model.Setting.SmtpUsername" class="form-label">Tài khoản</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.SmtpUsername" placeholder="vd: noreply@tenmien.com hoặc tenban@gmail.com">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="@Model.Setting.SmtpPassword" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" asp-for="@Model.Setting.SmtpPassword" autocomplete="new-password"
+                               placeholder="@(Model.Setting.HasSmtpPassword ? "•••••••• (đã lưu — để trống nếu không đổi)" : "Nhập mật khẩu")">
+                    </div>
+
+                    <div class="col-12" id="smtp-note-hosting">
+                        <div class="form-text">Lấy thông tin này trong cPanel/Plesk của hosting → mục Email Accounts → Connect Devices.</div>
+                    </div>
+                    <div class="col-12" id="smtp-note-gmail" style="display:none">
+                        <div class="form-text">Bật Xác minh 2 bước rồi tạo App Password tại <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> — dán mã 16 ký tự vào đây, không dùng mật khẩu Gmail thường.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="@Model.Setting.SmtpSenderName" class="form-label">Tên hiển thị người gửi</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.SmtpSenderName" placeholder="vd: Phòng khám Nha khoa ABC">
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="@Model.Setting.NotificationEmails" class="form-label">Email nhận thông báo (cách nhau bằng dấu phẩy)</label>
+                        <input type="text" class="form-control" asp-for="@Model.Setting.NotificationEmails" placeholder="vd: admin@abc.com, letan@abc.com">
+                    </div>
+
+                    <div class="col-12 d-flex align-items-center gap-2 flex-wrap">
+                        <button type="button" id="btn-test-smtp" class="btn btn-outline-secondary">Gửi thử</button>
+                        <span id="smtp-test-result" class="d-none"></span>
+                    </div>
+
+                    <div class="col-12"><hr></div>
+
+                    <div class="col-12">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.SendCustomerConfirmationEmail" id="smtp-send-customer-email">
+                            <label class="form-check-label" asp-for="@Model.Setting.SendCustomerConfirmationEmail">Gửi email xác nhận cho khách hàng</label>
+                        </div>
+                        <div class="form-text">Khi bật, hệ thống sẽ tự gửi thêm 1 email cảm ơn/xác nhận tới email khách hàng đã nhập trên form liên hệ hoặc đặt lịch (nếu khách có nhập email).</div>
+                    </div>
+                    <div class="col-12" id="smtp-customer-template-wrap">
+                        <label asp-for="@Model.Setting.CustomerEmailTemplate" class="form-label">Nội dung email gửi khách hàng</label>
+                        <textarea class="form-control" asp-for="@Model.Setting.CustomerEmailTemplate" rows="4"
+                                  placeholder="Xin chào {Name},&#10;&#10;Cảm ơn quý khách đã liên hệ với chúng tôi. Chúng tôi đã nhận được thông tin và sẽ phản hồi trong thời gian sớm nhất.&#10;&#10;Trân trọng!"></textarea>
+                        <div class="form-text">Dùng <code>{Name}</code> để tự động chèn tên khách hàng. Để trống sẽ dùng nội dung mặc định ở trên.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Submit Button -->
         <div class="col-12 text-center sticky-footer">
             <button type="submit" form="updateForm" id="btn-setting-update" class="btn btn-primary shadow">Cập nhật</button>
@@ -560,3 +643,105 @@
 
 
 <script src="~/js/app-setting.js"></script>
+<script>
+    (function () {
+        var $manualFields = $('#smtp-manual-fields');
+        var $noteHosting = $('#smtp-note-hosting');
+        var $noteGmail = $('#smtp-note-gmail');
+        var $host = $('#Setting_SmtpHost');
+        var $port = $('#Setting_SmtpPort');
+        var $ssl = $('#Setting_SmtpUseSsl');
+        var $username = $('#Setting_SmtpUsername');
+        var $password = $('#Setting_SmtpPassword');
+        var $senderName = $('#Setting_SmtpSenderName');
+        var $notificationEmails = $('#Setting_NotificationEmails');
+
+        // Giá trị Host/Port/SSL do admin tự nhập cho Hosting - lưu tạm để khôi phục khi chuyển qua lại Gmail rồi quay về
+        var savedHostingValues = null;
+
+        function applyBranch(provider) {
+            if (provider === 'Gmail') {
+                if (savedHostingValues === null) {
+                    savedHostingValues = { host: $host.val(), port: $port.val(), ssl: $ssl.prop('checked') };
+                }
+                if (!$host.val()) { $host.val('smtp.gmail.com'); }
+                if (!$port.val()) { $port.val('587'); }
+                $ssl.prop('checked', true);
+                $manualFields.hide();
+                $noteHosting.hide();
+                $noteGmail.show();
+            } else {
+                if (savedHostingValues !== null) {
+                    $host.val(savedHostingValues.host);
+                    $port.val(savedHostingValues.port);
+                    $ssl.prop('checked', savedHostingValues.ssl);
+                    savedHostingValues = null;
+                }
+                $manualFields.show();
+                $noteGmail.hide();
+                $noteHosting.show();
+            }
+        }
+
+        $(document).on('change', 'input[name="Setting.SmtpProvider"]', function () {
+            applyBranch($(this).val());
+        });
+
+        // Hiển thị đúng nhánh theo giá trị đã lưu khi tải trang / tải lại cài đặt
+        applyBranch($('input[name="Setting.SmtpProvider"]:checked').val() || 'Hosting');
+
+        // Chỉ cho sửa nội dung email khách hàng khi đã bật checkbox gửi email cho khách
+        var $sendCustomerEmail = $('#smtp-send-customer-email');
+        var $customerTemplateWrap = $('#smtp-customer-template-wrap');
+        function applyCustomerEmailToggle() {
+            // Dùng readonly thay vì disabled - input bị disabled sẽ KHÔNG được gửi lên khi submit
+            // form, dẫn tới nội dung mẫu đã lưu bị ghi đè thành rỗng mỗi khi tắt checkbox rồi lưu.
+            var isOff = !$sendCustomerEmail.is(':checked');
+            $customerTemplateWrap.toggleClass('opacity-50', isOff);
+            $customerTemplateWrap.find('textarea').prop('readonly', isOff);
+        }
+        $sendCustomerEmail.on('change', applyCustomerEmailToggle);
+        applyCustomerEmailToggle();
+
+        // Gửi thử với đúng giá trị đang gõ trên form (chưa cần bấm Cập nhật trước) - nếu để
+        // trống Mật khẩu thì server sẽ tự dùng lại mật khẩu đã lưu trong DB (nếu có).
+        $(document).on('click', '#btn-test-smtp', function () {
+            var $btn = $(this);
+            var $result = $('#smtp-test-result');
+            $result.addClass('d-none').removeClass('alert alert-success alert-danger').text('');
+            $btn.prop('disabled', true).text('Đang gửi...');
+            var payload = {
+                smtpProvider: $('input[name="Setting.SmtpProvider"]:checked').val(),
+                smtpHost: $host.val(),
+                smtpPort: parseInt($port.val(), 10) || null,
+                smtpUseSsl: $ssl.prop('checked'),
+                smtpUsername: $username.val(),
+                smtpPassword: $password.val(),
+                smtpSenderName: $senderName.val(),
+                notificationEmails: $notificationEmails.val()
+            };
+            $.ajax({
+                url: '/AppSetting/TestSmtp',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(payload),
+                success: function (response) {
+                    if (response.isSuccessed) {
+                        $result.removeClass('d-none alert-danger').addClass('alert alert-success py-1 px-2 mb-0')
+                            .text('Gửi email thử nghiệm thành công.');
+                    } else {
+                        $result.removeClass('d-none alert-success').addClass('alert alert-danger py-1 px-2 mb-0')
+                            .text(response.message || 'Gửi email thử nghiệm thất bại.');
+                    }
+                },
+                error: function (xhr) {
+                    $result.removeClass('d-none alert-success').addClass('alert alert-danger py-1 px-2 mb-0')
+                        .text('Gửi email thử nghiệm thất bại: ' + xhr.responseText);
+                },
+                complete: function () {
+                    $btn.prop('disabled', false).text('Gửi thử');
+                }
+            });
+        });
+    })();
+</script>

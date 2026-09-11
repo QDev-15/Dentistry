@@ -56,5 +56,19 @@ namespace Dentisty.Data.GeneratorDB.Entities
         public string? Articles {set;get;}
         public string? News {set;get;}
         public string? Feedbacks {set;get;}
+
+        // Email notification (contact/booking) SMTP configuration
+        public string? SmtpProvider { get; set; } // "Hosting" or "Gmail" - drives which UI branch is shown/prefilled
+        public string? SmtpHost { get; set; }
+        public int? SmtpPort { get; set; }
+        public bool SmtpUseSsl { get; set; } = true;
+        public string? SmtpUsername { get; set; }
+        public string? SmtpPasswordEncrypted { get; set; }
+        public string? SmtpSenderName { get; set; }
+        public string? NotificationEmails { get; set; }
+
+        // Optional confirmation email sent back to the customer who submitted the form
+        public bool SendCustomerConfirmationEmail { get; set; } = false;
+        public string? CustomerEmailTemplate { get; set; } // supports {Name} placeholder; falls back to a built-in default when empty
     }
 }

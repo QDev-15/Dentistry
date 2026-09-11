@@ -191,6 +191,13 @@ function showInfo(message, title) {
     // show modal
     openInfoModal();
 }
+// Form được chèn lại vào DOM qua AJAX không tự có jQuery Validate gắn vào - phải parse lại
+// thì form.valid() và các thông báo lỗi mới hoạt động. Dùng chung cho add_contact.js/book_contact.js.
+function parseUnobtrusiveValidation(selector) {
+    if (window.jQuery && $.validator && $.validator.unobtrusive) {
+        $.validator.unobtrusive.parse(selector);
+    }
+}
 function showSuccess(message, title) {
     if (title && title.length > 0) {
         $('#infoModalLabel').text(title)
