@@ -1,0 +1,447 @@
+<title>Email Thông Báo Liên Hệ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#F5F7F6;
+    --surface:#FFFFFF;
+    --surface-2:#EEF2F1;
+    --ink:#141A1C;
+    --muted:#57656A;
+    --line:#DBE3E1;
+    --accent:#0E7C6B;
+    --accent-ink:#075C4F;
+    --accent-soft:#E2F2EE;
+    --warn:#93590C;
+    --warn-soft:#FBF0DC;
+    --warn-line:#E8CE9C;
+    --shadow: 0 1px 2px rgba(20,26,28,.04), 0 8px 24px rgba(20,26,28,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#10151A;
+      --surface:#171D22;
+      --surface-2:#1D242A;
+      --ink:#E8EDEC;
+      --muted:#93A2A6;
+      --line:#293338;
+      --accent:#49D6BF;
+      --accent-ink:#B7F2E6;
+      --accent-soft:#173430;
+      --warn:#E8B458;
+      --warn-soft:#302710;
+      --warn-line:#4A3B18;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#10151A;
+    --surface:#171D22;
+    --surface-2:#1D242A;
+    --ink:#E8EDEC;
+    --muted:#93A2A6;
+    --line:#293338;
+    --accent:#49D6BF;
+    --accent-ink:#B7F2E6;
+    --accent-soft:#173430;
+    --warn:#E8B458;
+    --warn-soft:#302710;
+    --warn-line:#4A3B18;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height:1.6;
+    padding-inline:clamp(18px, 5vw, 40px);
+    padding-block: 44px 80px;
+  }
+  ::selection{ background:var(--accent-soft); color:var(--accent-ink); }
+  a{ color:var(--accent-ink); }
+
+  .wrap{ max-width:800px; margin:0 auto; display:flex; flex-direction:column; gap:52px; }
+
+  h1,h2,h3{ font-family:'Be Vietnam Pro', 'IBM Plex Sans', sans-serif; text-wrap:balance; color:var(--ink); margin:0; }
+  .prose{ max-width:65ch; }
+  .muted{ color:var(--muted); }
+  .mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+  .tnum{ font-variant-numeric: tabular-nums; }
+
+  /* header */
+  .doc-header{ display:flex; flex-direction:column; gap:16px; padding-bottom:32px; border-bottom:1px solid var(--line); }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent-ink); font-weight:500;
+  }
+  .doc-header h1{ font-size:clamp(26px,4.4vw,38px); font-weight:700; letter-spacing:-.01em; }
+  .doc-header .sub{ font-size:15.5px; color:var(--muted); max-width:60ch; }
+  .meta-row{ display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:6px; }
+  .meta-item{ font-size:13px; color:var(--muted); display:flex; gap:6px; align-items:baseline; }
+  .meta-item b{ color:var(--ink); font-weight:600; }
+
+  /* toc */
+  .toc{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:20px 22px; box-shadow:var(--shadow);
+  }
+  .toc-title{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:12px; font-weight:600; }
+  .toc ol{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:8px 24px; }
+  @media (max-width:560px){ .toc ol{ grid-template-columns:1fr; } }
+  .toc a{
+    display:flex; gap:10px; text-decoration:none; color:var(--ink); font-size:14.5px;
+    padding:4px 0; border-bottom:1px dashed transparent;
+  }
+  .toc a:hover{ border-color:var(--accent); color:var(--accent-ink); }
+  .toc .n{ font-family:'IBM Plex Mono',monospace; color:var(--accent-ink); font-size:13px; min-width:20px; }
+
+  /* section */
+  section{ display:flex; flex-direction:column; gap:18px; scroll-margin-top:20px; }
+  .sec-head{ display:flex; align-items:baseline; gap:14px; padding-bottom:14px; border-bottom:2px solid var(--line); }
+  .sec-head .n{ font-family:'IBM Plex Mono', monospace; color:var(--accent); font-size:14px; font-weight:500; }
+  .sec-head h2{ font-size:clamp(19px,3vw,23px); font-weight:600; }
+
+  p{ margin:0; }
+
+  /* diagram */
+  .diagram-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:22px clamp(10px,3vw,24px); box-shadow:var(--shadow); overflow-x:auto;
+  }
+  .diagram-card svg{ display:block; min-width:640px; width:100%; height:auto; }
+  .diagram-note{ font-size:13.5px; color:var(--muted); margin-top:14px; padding-top:14px; border-top:1px dashed var(--line); }
+
+  /* tables */
+  .tbl-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); box-shadow:var(--shadow); }
+  table{ width:100%; border-collapse:collapse; font-size:14px; min-width:560px; }
+  thead th{
+    text-align:left; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--muted); font-weight:600; padding:12px 16px; border-bottom:1px solid var(--line);
+    background:var(--surface-2);
+  }
+  tbody td{ padding:12px 16px; border-bottom:1px solid var(--line); vertical-align:top; color:var(--ink); }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover{ background:var(--surface-2); }
+  td.num, th.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  tfoot td{ padding:12px 16px; font-weight:700; border-top:2px solid var(--line); }
+
+  .field-name{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--accent-ink); }
+  .path{
+    display:inline-flex; font-family:'IBM Plex Mono',monospace; font-size:12.5px;
+    background:var(--surface-2); border:1px solid var(--line); border-radius:5px;
+    padding:2px 7px; color:var(--ink); white-space:nowrap;
+  }
+
+  /* code change groups */
+  .grp{ display:flex; flex-direction:column; gap:10px; }
+  .grp-title{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--accent-ink); font-weight:500; }
+  .grp ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px; }
+  .grp li{ display:flex; flex-direction:column; gap:4px; padding:12px 14px; background:var(--surface); border:1px solid var(--line); border-radius:8px; }
+  .grp li .desc{ font-size:13.5px; color:var(--muted); }
+  .tag{
+    font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; font-weight:600;
+    padding:1px 7px; border-radius:20px; display:inline-block;
+  }
+  .tag.new{ background:var(--accent-soft); color:var(--accent-ink); }
+  .tag.edit{ background:var(--surface-2); color:var(--muted); border:1px solid var(--line); }
+  .tag.req{ background:var(--warn-soft); color:var(--warn); border:1px solid var(--warn-line); }
+  .tag.opt{ background:var(--surface-2); color:var(--muted); border:1px solid var(--line); }
+
+  /* roadmap */
+  .phase-list{ display:flex; flex-direction:column; gap:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--surface); box-shadow:var(--shadow); }
+  .phase{ display:grid; grid-template-columns:44px 1fr auto; gap:16px; align-items:center; padding:16px 18px; border-bottom:1px solid var(--line); }
+  .phase:last-child{ border-bottom:none; }
+  .phase .pn{ font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:15px; font-weight:600; }
+  .phase .pt{ font-weight:600; font-size:14.5px; }
+  .phase .pd{ font-size:13px; color:var(--muted); margin-top:2px; }
+  .phase .ph{ font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--ink); text-align:right; white-space:nowrap; }
+  @media (max-width:520px){
+    .phase{ grid-template-columns:32px 1fr; }
+    .phase .ph{ grid-column:2; text-align:left; margin-top:4px; color:var(--muted); }
+  }
+
+  /* quote card */
+  .quote-card{
+    background:var(--accent-soft); border:1px solid var(--accent); border-radius:12px;
+    padding:26px clamp(18px,4vw,32px); display:flex; flex-wrap:wrap; gap:24px; justify-content:space-between; align-items:center;
+  }
+  .quote-card .label{ font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); font-weight:600; }
+  .quote-card .price{ font-family:'Be Vietnam Pro',sans-serif; font-size:clamp(28px,5vw,38px); font-weight:800; color:var(--accent-ink); font-variant-numeric:tabular-nums; margin-top:4px; }
+  .quote-card .price small{ font-size:14px; font-weight:500; }
+  .quote-card .note{ font-size:13px; color:var(--accent-ink); opacity:.85; max-width:32ch; }
+
+  .addon-list{ display:flex; flex-direction:column; gap:8px; }
+  .addon{ display:flex; justify-content:space-between; gap:14px; font-size:13.5px; padding:10px 14px; background:var(--surface); border:1px solid var(--line); border-radius:8px; }
+  .addon .price{ font-family:'IBM Plex Mono',monospace; color:var(--muted); white-space:nowrap; }
+
+  /* callout */
+  .callout{
+    display:flex; flex-direction:column; gap:10px;
+    background:var(--warn-soft); border:1px solid var(--warn-line); border-left:4px solid var(--warn);
+    border-radius:8px; padding:18px 20px;
+  }
+  .callout h3{ font-size:14px; color:var(--warn); font-weight:600; }
+  .callout ul{ margin:0; padding-left:18px; display:flex; flex-direction:column; gap:6px; font-size:13.5px; color:var(--ink); }
+
+  footer{ border-top:1px solid var(--line); padding-top:20px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; font-size:12.5px; color:var(--muted); }
+
+  @media (prefers-reduced-motion: no-preference){
+    section{ animation: rise .5s ease both; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:none; } }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="doc-header">
+    <div class="eyebrow">Tài liệu kỹ thuật · Dự án Dentistry</div>
+    <h1>Email thông báo khi có tin nhắn &amp; đặt lịch mới</h1>
+    <p class="sub">Đặc tả thay đổi cơ sở dữ liệu, mã nguồn và lộ trình triển khai cho tính năng tự động gửi email khi khách hàng gửi liên hệ hoặc đặt lịch — kèm báo giá đề xuất.</p>
+    <div class="meta-row">
+      <div class="meta-item">Ngày lập <b class="tnum">11/09/2026</b></div>
+      <div class="meta-item">Phạm vi <b>Dentistry.Web · Dentistry.Admin · Dentisty.Data</b></div>
+      <div class="meta-item">Hiệu lực báo giá <b>30 ngày</b></div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-title">Mục lục</div>
+    <ol>
+      <li><a href="#boi-canh"><span class="n">01</span>Bối cảnh &amp; mục tiêu</a></li>
+      <li><a href="#giai-phap"><span class="n">02</span>Giải pháp &amp; nguyên lý hoạt động</a></li>
+      <li><a href="#dau-vao"><span class="n">03</span>Đầu vào cần khách hàng cung cấp</a></li>
+      <li><a href="#database"><span class="n">04</span>Thay đổi cơ sở dữ liệu</a></li>
+      <li><a href="#code"><span class="n">05</span>Thay đổi mã nguồn</a></li>
+      <li><a href="#lo-trinh"><span class="n">06</span>Lộ trình triển khai</a></li>
+      <li><a href="#bao-gia"><span class="n">07</span>Báo giá đề xuất</a></li>
+      <li><a href="#rui-ro"><span class="n">08</span>Rủi ro &amp; lưu ý kỹ thuật</a></li>
+    </ol>
+  </nav>
+
+  <section id="boi-canh">
+    <div class="sec-head"><span class="n">01</span><h2>Bối cảnh &amp; mục tiêu</h2></div>
+    <p class="prose"><b>Hiện trạng:</b> khi khách hàng gửi form liên hệ hoặc đặt lịch trên website, hệ thống chỉ lưu bản ghi vào bảng <span class="field-name">Contact</span> (qua <span class="path">Dentistry.Web/Controllers/ContactController.cs</span>, action <span class="field-name">AddMessage</span> và <span class="field-name">Book</span>). Quản trị viên phải chủ động vào trang quản trị để phát hiện tin nhắn mới.</p>
+    <p class="prose"><b>Mục tiêu:</b> ngay khi có tin nhắn hoặc lịch hẹn mới, hệ thống tự động gửi email báo về (các) địa chỉ được cấu hình sẵn. Địa chỉ email gửi/nhận và máy chủ SMTP được quản lý ngay trong màn hình <b>Cài đặt chung</b> của Admin — không cần lập trình viên can thiệp khi cần đổi.</p>
+  </section>
+
+  <section id="giai-phap">
+    <div class="sec-head"><span class="n">02</span><h2>Giải pháp &amp; nguyên lý hoạt động</h2></div>
+    <p class="prose">Việc gửi mail dùng giao thức SMTP tiêu chuẩn — cùng một cơ chế hoạt động với <b>email theo tên miền của hosting</b> lẫn <b>Gmail cá nhân</b>. Đổi nhà cung cấp chỉ là đổi 4 thông số cấu hình, không đụng đến code.</p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 920 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sơ đồ luồng gửi email thông báo">
+        <style>
+          .box{ fill:var(--surface); stroke:var(--line); stroke-width:1.4; }
+          .box.accent{ stroke:var(--accent); }
+          .lbl{ font-family:'IBM Plex Sans',sans-serif; font-size:13px; fill:var(--ink); font-weight:500; }
+          .sub{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; fill:var(--muted); }
+          .arrow{ stroke:var(--accent); stroke-width:1.6; fill:none; marker-end:url(#arrowhead); }
+          .arrow.dash{ stroke:var(--muted); stroke-dasharray:4 4; }
+        </style>
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--accent)"/>
+          </marker>
+        </defs>
+
+        <rect class="box" x="10" y="50" width="150" height="66" rx="8"/>
+        <text class="lbl" x="85" y="78" text-anchor="middle">Khách hàng</text>
+        <text class="sub" x="85" y="96" text-anchor="middle">gửi form / đặt lịch</text>
+
+        <path class="arrow" d="M160,83 H208"/>
+
+        <rect class="box" x="210" y="50" width="150" height="66" rx="8"/>
+        <text class="lbl" x="285" y="78" text-anchor="middle">Lưu Database</text>
+        <text class="sub" x="285" y="96" text-anchor="middle">bảng Contact</text>
+
+        <path class="arrow" d="M360,83 H408"/>
+
+        <rect class="box accent" x="410" y="50" width="150" height="66" rx="8"/>
+        <text class="lbl" x="485" y="78" text-anchor="middle">Đọc cấu hình</text>
+        <text class="sub" x="485" y="96" text-anchor="middle">bảng AppSetting</text>
+
+        <path class="arrow" d="M560,83 H608"/>
+
+        <rect class="box" x="610" y="50" width="150" height="66" rx="8"/>
+        <text class="lbl" x="685" y="72" text-anchor="middle">Máy chủ SMTP</text>
+        <text class="sub" x="685" y="90" text-anchor="middle">Hosting hoặc Gmail</text>
+        <text class="sub" x="685" y="103" text-anchor="middle">(tuỳ cấu hình)</text>
+
+        <path class="arrow" d="M760,83 H808"/>
+
+        <rect class="box" x="810" y="50" width="105" height="66" rx="8"/>
+        <text class="lbl" x="862" y="78" text-anchor="middle" style="font-size:12.5px">Hộp thư</text>
+        <text class="sub" x="862" y="96" text-anchor="middle">quản trị viên</text>
+
+        <path class="arrow dash" d="M285,116 V150 H685 V116"/>
+        <text class="sub" x="485" y="168" text-anchor="middle">Nếu gửi mail lỗi: tin nhắn vẫn đã lưu ở bước này — chỉ ghi log lỗi, không mất dữ liệu</text>
+      </svg>
+    </div>
+    <p class="diagram-note">Vì dùng chung một chuẩn SMTP, admin có thể đổi qua lại giữa email hosting và Gmail bất cứ lúc nào từ màn Cài đặt mà không cần deploy lại ứng dụng.</p>
+  </section>
+
+  <section id="dau-vao">
+    <div class="sec-head"><span class="n">03</span><h2>Đầu vào cần khách hàng cung cấp</h2></div>
+    <p class="prose">Trước khi bắt tay vào code, cần chị xác nhận/cung cấp các thông tin sau. Việc cấu hình được làm qua giao diện Cài đặt nên không cần bàn giao mật khẩu vĩnh viễn cho dev — có thể đổi lại sau khi triển khai xong.</p>
+
+    <div class="grp">
+      <div class="grp-title">Luôn cần — bất kể chọn phương án nào</div>
+      <ul>
+        <li><span class="tag req">Bắt buộc</span><div><b>Quyết định phương án gửi mail:</b> email theo tên miền của hosting, hay Gmail cá nhân/công ty.</div></li>
+        <li><span class="tag req">Bắt buộc</span><div><b>Danh sách email nhận thông báo</b> — một hoặc nhiều địa chỉ nội bộ sẽ nhận mail khi có tin nhắn/đặt lịch mới.</div></li>
+        <li><span class="tag req">Bắt buộc</span><div><b>Tên hiển thị người gửi</b> mà khách sẽ thấy trong hộp thư nội bộ, vd "Phòng khám Nha khoa ABC".</div></li>
+        <li><span class="tag req">Bắt buộc</span><div><b>Quyền truy cập server/hosting production</b> (tài khoản FTP/SSH hoặc control panel, hoặc uỷ quyền tạm cho dev) để triển khai bản cập nhật.</div></li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title">Nếu chọn dùng email của hosting</div>
+      <ul>
+        <li><span class="tag opt">Tuỳ phương án</span><div><b>Tài khoản email trên hosting</b> dùng để gửi (địa chỉ + mật khẩu), hoặc quyền vào <span class="mono">cPanel/Plesk</span> để tự tạo và lấy thông tin SMTP (host, port).</div></li>
+        <li><span class="tag opt">Tuỳ phương án</span><div><b>Quyền chỉnh DNS tên miền</b> (hoặc thông tin nhà cung cấp domain) để khai báo bản ghi <span class="mono">SPF</span>/<span class="mono">DKIM</span>, giảm khả năng mail rơi vào Spam.</div></li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title">Nếu chọn dùng Gmail</div>
+      <ul>
+        <li><span class="tag opt">Tuỳ phương án</span><div><b>Tài khoản Gmail</b> dùng để gửi (Gmail cá nhân hoặc Google Workspace).</div></li>
+        <li><span class="tag opt">Tuỳ phương án</span><div>Bật <b>Xác minh 2 bước</b> cho tài khoản đó và tạo <b>App Password</b> (mã 16 ký tự) để cung cấp cho dev — không dùng mật khẩu đăng nhập thường.</div></li>
+      </ul>
+    </div>
+    <p class="prose muted" style="font-size:13.5px">Lưu ý bảo mật: nên gửi thông tin đăng nhập qua kênh riêng tư (không qua chat công khai), và đổi lại mật khẩu sau khi bàn giao nếu đã chia sẻ tạm cho dev.</p>
+  </section>
+
+  <section id="database">
+    <div class="sec-head"><span class="n">04</span><h2>Thay đổi cơ sở dữ liệu</h2></div>
+    <p class="prose">Mở rộng bảng cấu hình sẵn có <span class="field-name">AppSetting</span> (đang chứa <span class="field-name">CompanyEmail</span>, <span class="field-name">CompanyPhone</span>…) thêm các cột sau, thực hiện qua một migration Entity Framework:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Cột mới</th><th>Kiểu dữ liệu</th><th>Mô tả</th></tr></thead>
+        <tbody>
+          <tr><td class="field-name">SmtpProvider</td><td class="mono">nvarchar(20)</td><td>Loại nhà cung cấp đang chọn — <span class="mono">Hosting</span> hoặc <span class="mono">Gmail</span> — quyết định UI hiển thị nhánh nào và có tự điền sẵn giá trị hay không</td></tr>
+          <tr><td class="field-name">SmtpHost</td><td class="mono">nvarchar(200)</td><td>Địa chỉ máy chủ SMTP — vd <span class="mono">smtp.gmail.com</span> hoặc <span class="mono">mail.tenmien.com</span></td></tr>
+          <tr><td class="field-name">SmtpPort</td><td class="mono">int</td><td>Cổng kết nối — thường <span class="mono">587</span> (TLS) hoặc <span class="mono">465</span> (SSL)</td></tr>
+          <tr><td class="field-name">SmtpUseSsl</td><td class="mono">bit</td><td>Bật/tắt mã hoá kết nối khi gửi</td></tr>
+          <tr><td class="field-name">SmtpUsername</td><td class="mono">nvarchar(200)</td><td>Tài khoản đăng nhập máy chủ gửi mail</td></tr>
+          <tr><td class="field-name">SmtpPasswordEncrypted</td><td class="mono">nvarchar(max)</td><td>Mật khẩu / App Password — <b>mã hoá</b> trước khi lưu, không lưu dạng thô</td></tr>
+          <tr><td class="field-name">SmtpSenderName</td><td class="mono">nvarchar(200)</td><td>Tên hiển thị người gửi — vd "Phòng khám Nha khoa ABC"</td></tr>
+          <tr><td class="field-name">NotificationEmails</td><td class="mono">nvarchar(500)</td><td>Danh sách email nhận thông báo, cách nhau bằng dấu phẩy</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prose muted" style="font-size:13.5px">Tuỳ chọn mở rộng (không bắt buộc trong gói cơ bản): thêm cột <span class="field-name">IsEmailSent</span> (bit) vào bảng <span class="field-name">Contact</span> để theo dõi trạng thái gửi và phục vụ thử lại khi lỗi — xem mục 07, hạng mục phát sinh thêm.</p>
+  </section>
+
+  <section id="code">
+    <div class="sec-head"><span class="n">05</span><h2>Thay đổi mã nguồn</h2></div>
+    <p class="prose">Nhóm theo từng project trong solution, theo đúng ranh giới hiện có (<span class="path">Dentisty.Data</span> là tầng dùng chung cho cả hai ứng dụng Web và Admin):</p>
+
+    <div class="grp">
+      <div class="grp-title">Dentisty.Data — tầng dữ liệu &amp; dịch vụ dùng chung</div>
+      <ul>
+        <li><span class="tag new">Mới</span><span class="path">Services/Email/IEmailService.cs</span><span class="path">EmailService.cs</span><div class="desc">Dịch vụ build &amp; gửi email qua SMTP, dùng thư viện MailKit.</div></li>
+        <li><span class="tag new">Mới</span><span class="path">Services/Email/SmtpOptions.cs</span><div class="desc">Đọc cấu hình SMTP từ bảng AppSetting, giải mã mật khẩu trước khi dùng.</div></li>
+        <li><span class="tag edit">Sửa</span><span class="path">GeneratorDB/Entities/AppSetting.cs</span><div class="desc">Thêm 8 thuộc tính cấu hình SMTP nêu ở mục 04, gồm cả <span class="mono">SmtpProvider</span> để phân biệt Hosting/Gmail.</div></li>
+        <li><span class="tag edit">Sửa</span><span class="path">Repositories/AppSettingRepository.cs</span><div class="desc">Map các trường mới khi đọc/ghi cấu hình, mã hoá mật khẩu trước khi lưu.</div></li>
+        <li><span class="tag new">Mới</span><span class="path">Migrations/xxxx_AddSmtpSettingsToAppSetting.cs</span><div class="desc">Migration EF Core sinh tự động cho các cột mới.</div></li>
+        <li><span class="tag edit">Sửa</span><span class="path">Dentisty.Data.csproj</span><div class="desc">Thêm gói NuGet <span class="mono">MailKit</span>.</div></li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title">Dentistry.ViewModels</div>
+      <ul>
+        <li><span class="tag edit">Sửa</span><span class="path">Catalog/AppSettings/AppSettingVm.cs</span><div class="desc">Thêm các trường tương ứng để hiển thị/nhận dữ liệu từ form Cài đặt.</div></li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title">Dentistry.Admin — giao diện quản trị</div>
+      <ul>
+        <li><span class="tag edit">Sửa</span><span class="path">Views/AppSetting/Partial/_get_settings.cshtml</span><div class="desc">Thêm khối "Cấu hình Email thông báo": bước chọn Hosting/Gmail, 2 nhánh form riêng (Gmail tự điền sẵn Host/Port/SSL), kèm nút <b>Gửi thử</b>.</div></li>
+        <li><span class="tag edit">Sửa</span><span class="path">Controllers/Components/AppSettingsViewComponent.cs</span><div class="desc">Truyền dữ liệu cấu hình SMTP ra view (giấu mật khẩu thật, chỉ hiện placeholder).</div></li>
+        <li><span class="tag edit">Sửa</span><span class="path">Controllers/AppSettingController.cs</span><div class="desc">Thêm action <span class="mono">TestSmtp(...)</span> xử lý nút Gửi thử.</div></li>
+        <li><span class="tag edit">Sửa</span><span class="path">Program.cs</span><div class="desc">Đăng ký <span class="mono">IEmailService</span> vào DI container.</div></li>
+      </ul>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title">Dentistry.Web — trang khách hàng</div>
+      <ul>
+        <li><span class="tag edit">Sửa</span><span class="path">Controllers/ContactController.cs</span><div class="desc">Inject <span class="mono">IEmailService</span>; sau khi <span class="mono">_contactRepository.Create(...)</span> thành công trong cả hai action <span class="mono">AddMessage</span> và <span class="mono">Book</span>, gửi email nền (không chặn phản hồi cho khách), ghi log nếu gửi lỗi.</div></li>
+        <li><span class="tag edit">Sửa</span><span class="path">Program.cs</span><div class="desc">Đăng ký <span class="mono">IEmailService</span> vào DI container.</div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="lo-trinh">
+    <div class="sec-head"><span class="n">06</span><h2>Lộ trình triển khai</h2></div>
+    <p class="prose">5 giai đoạn thực hiện tuần tự, mỗi giai đoạn có thể kiểm tra độc lập trước khi sang bước kế tiếp:</p>
+    <div class="phase-list">
+      <div class="phase"><span class="pn">01</span><div><div class="pt">Cơ sở dữ liệu &amp; tầng dữ liệu</div><div class="pd">Thêm cột AppSetting (gồm SmtpProvider), migration, cập nhật repository</div></div><span class="ph tnum">2,5 giờ</span></div>
+      <div class="phase"><span class="pn">02</span><div><div class="pt">Dịch vụ gửi email (EmailService)</div><div class="pd">Tích hợp MailKit, đọc &amp; giải mã cấu hình SMTP</div></div><span class="ph tnum">3 giờ</span></div>
+      <div class="phase"><span class="pn">03</span><div><div class="pt">Giao diện Cài đặt trong Admin</div><div class="pd">2 nhánh form Hosting/Gmail, tự điền sẵn giá trị Gmail, mã hoá mật khẩu, nút Gửi thử báo lỗi theo ngữ cảnh</div></div><span class="ph tnum">5,5 giờ</span></div>
+      <div class="phase"><span class="pn">04</span><div><div class="pt">Tích hợp vào luồng liên hệ / đặt lịch</div><div class="pd">Gọi gửi mail sau khi lưu Contact, cô lập lỗi gửi mail</div></div><span class="ph tnum">2 giờ</span></div>
+      <div class="phase"><span class="pn">05</span><div><div class="pt">Kiểm thử &amp; triển khai production</div><div class="pd">Test 2 luồng, test lỗi SMTP, cấu hình server thật</div></div><span class="ph tnum">2 giờ</span></div>
+    </div>
+  </section>
+
+  <section id="bao-gia">
+    <div class="sec-head"><span class="n">07</span><h2>Báo giá đề xuất</h2></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Giai đoạn</th><th class="num">Công sức</th><th class="num">Thành tiền tham khảo</th></tr></thead>
+        <tbody>
+          <tr><td>01 · Cơ sở dữ liệu &amp; tầng dữ liệu</td><td class="num tnum">2,5 giờ</td><td class="num tnum">900.000đ</td></tr>
+          <tr><td>02 · Dịch vụ gửi email</td><td class="num tnum">3 giờ</td><td class="num tnum">1.050.000đ</td></tr>
+          <tr><td>03 · Giao diện Cài đặt (2 nhánh Hosting/Gmail)</td><td class="num tnum">5,5 giờ</td><td class="num tnum">1.950.000đ</td></tr>
+          <tr><td>04 · Tích hợp luồng liên hệ / đặt lịch</td><td class="num tnum">2 giờ</td><td class="num tnum">700.000đ</td></tr>
+          <tr><td>05 · Kiểm thử &amp; triển khai</td><td class="num tnum">2 giờ</td><td class="num tnum">700.000đ</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td>Tổng cộng</td><td class="num tnum">15 giờ</td><td class="num tnum">5.300.000đ</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="quote-card">
+      <div>
+        <div class="label">Giá trọn gói đề xuất</div>
+        <div class="price">5.300.000<small>đ</small></div>
+      </div>
+      <p class="note">Bao gồm toàn bộ 5 giai đoạn ở trên, kể cả UI phân biệt Hosting/Gmail. Không phát sinh thêm nếu phạm vi không đổi. Chi phí vận hành hằng tháng: <b>0đ</b> nếu dùng email hosting sẵn có hoặc Gmail cá nhân.</p>
+    </div>
+
+    <div class="grp">
+      <div class="grp-title">Hạng mục phát sinh thêm (tuỳ chọn, chưa gồm trong giá trên)</div>
+      <div class="addon-list">
+        <div class="addon"><span>Theo dõi trạng thái gửi mail + tự động thử lại khi lỗi (cột <span class="field-name">IsEmailSent</span>, hàng đợi nền)</span><span class="price tnum">+ 1.500.000đ</span></div>
+        <div class="addon"><span>Gửi kèm thông báo qua Zalo OA / Telegram song song với email</span><span class="price tnum">+ 3.000.000đ</span></div>
+        <div class="addon"><span>Nâng cấp dịch vụ email thương mại (SendGrid/Brevo) khi vượt hạn mức miễn phí</span><span class="price tnum">~ 350–500k / tháng</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rui-ro">
+    <div class="sec-head"><span class="n">08</span><h2>Rủi ro &amp; lưu ý kỹ thuật</h2></div>
+    <div class="callout">
+      <h3>Cần lưu ý trước khi vận hành thật</h3>
+      <ul>
+        <li>Mật khẩu SMTP <b>phải được mã hoá</b> khi lưu vào database — tuyệt đối không lưu dạng văn bản thô.</li>
+        <li>Nên cấu hình bản ghi <span class="mono">SPF</span>/<span class="mono">DKIM</span> cho tên miền để email không bị rơi vào mục Spam của người nhận — áp dụng cho cả email hosting và Gmail gửi thay mặt tên miền riêng.</li>
+        <li>Nếu dùng Gmail cá nhân: cần bật xác minh 2 bước và tạo <b>App Password</b> riêng; giới hạn khoảng 500 mail/ngày — dư sức cho nhu cầu thông báo nội bộ.</li>
+        <li>Cổng SMTP (587 hoặc 465) cần được mở chiều outbound trên server production; một số hosting giá rẻ có thể chặn mặc định.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span>Tài liệu nội bộ phục vụ báo giá khách hàng — Dự án Dentistry</span>
+    <span class="tnum">Cập nhật 11/09/2026</span>
+  </footer>
+
+</div>

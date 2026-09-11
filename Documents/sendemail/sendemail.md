@@ -92,3 +92,4 @@ Khối "Cấu hình Email thông báo" trong `Dentistry.Admin/Views/AppSetting/P
 
 - 2026-09-11: Tạo file plan, chốt phương án 2 (cấu hình qua UI Admin).
 - 2026-09-11: Cập nhật plan — bổ sung yêu cầu UI phải phân biệt rõ 2 nhánh cấu hình Hosting/Gmail (field `SmtpProvider`, form 2 nhánh, JS điền sẵn giá trị Gmail, thông báo lỗi test theo ngữ cảnh). Tổng công sức tăng 13h → 15h.
+- 2026-09-11: Khách hàng đồng ý mức tăng công sức. Đã cập nhật artifact báo giá khớp 15h — tổng **5.300.000đ** trọn gói.
