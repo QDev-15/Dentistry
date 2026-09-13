@@ -125,6 +125,7 @@ namespace Dentisty.Data
                 NewsListTitle = item.NewsListTitle,
                 FeedbackListTitle = item.FeedbackListTitle,
                 ShowCategoryProductList = item.ShowCategoryProductList,
+                EmailNotificationEnabled = item.EmailNotificationEnabled,
                 SmtpProvider = item.SmtpProvider,
                 SmtpHost = item.SmtpHost,
                 SmtpPort = item.SmtpPort,

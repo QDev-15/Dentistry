@@ -55,6 +55,12 @@ namespace Dentistry.Admin.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> UpdateSetting(AppSettingDataVm model) {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToArray();
+                return Json(new ErrorResult<bool>(errors));
+            }
+
             var result = await _appSettingRepository.Update(model.Setting);
             await _cache.InvalidateCacheAsync(SystemConstants.Cache_Setting);
             await _cache.InvalidateCacheAsync(SystemConstants.Cache_Category);

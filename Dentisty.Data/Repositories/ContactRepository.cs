@@ -13,6 +13,8 @@ namespace Dentisty.Data.Repositories
 {
     public class ContactRepository : Repository<Contact>, IContactRepository
     {
+        private const string BookingMessage = "Đặt lịch khám";
+
         private readonly DentistryDbContext _context;
         private readonly IImageRepository _imageRepository;
         private readonly LoggerRepository _loggerRepository;
@@ -20,7 +22,7 @@ namespace Dentisty.Data.Repositories
         {
             _context = context;
             _imageRepository = imageRepository;
-            _loggerRepository = loggerRepository;   
+            _loggerRepository = loggerRepository;
         }
 
         public async Task<ContactVm> Create(ContactVm vm)
@@ -32,7 +34,7 @@ namespace Dentisty.Data.Repositories
                     CreatedDate = DateTime.Now,
                     Email = vm.Email,
                     IsActive = true,
-                    Message = vm.TimeBook == null ? vm.Message : "Đặt lịch khám",
+                    Message = vm.TimeBook == null ? vm.Message : BookingMessage,
                     Name = vm.Name,
                     TimeBook = vm.TimeBook,
                     BranchesId = vm.BranchesId,
@@ -49,6 +51,20 @@ namespace Dentisty.Data.Repositories
                 throw new Exception(ex.Message);
             }
             
+        }
+
+        // Chặn tạo bản ghi trùng khi người dùng bấm gửi nhiều lần trong khoảng thời gian ngắn
+        // (mạng lag, double-click...). Trùng = cùng SĐT + cùng nội dung/thời gian đặt lịch, tạo
+        // trong vòng windowSeconds giây gần nhất.
+        public async Task<bool> ExistsRecentDuplicate(ContactVm vm, int windowSeconds)
+        {
+            var threshold = DateTime.Now.AddSeconds(-windowSeconds);
+            var message = vm.TimeBook == null ? vm.Message : BookingMessage;
+            return await _context.Contacts.AnyAsync(x =>
+                x.PhoneNumber == vm.PhoneNumber &&
+                x.Message == message &&
+                x.TimeBook == vm.TimeBook &&
+                x.CreatedDate >= threshold);
         }
 
         public async Task<IEnumerable<Contact>> GetAll(bool isActive)

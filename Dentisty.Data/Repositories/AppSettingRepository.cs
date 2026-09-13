@@ -90,6 +90,7 @@ namespace Dentisty.Data.Repositories
                 updateAppSetting.StartWork = appSettingVm.StartWork;
                 updateAppSetting.EndWork = appSettingVm.EndWork;
 
+                updateAppSetting.EmailNotificationEnabled = appSettingVm.EmailNotificationEnabled;
                 updateAppSetting.SmtpProvider = appSettingVm.SmtpProvider;
                 updateAppSetting.SmtpHost = appSettingVm.SmtpHost;
                 updateAppSetting.SmtpPort = appSettingVm.SmtpPort;

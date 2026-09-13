@@ -58,6 +58,8 @@ namespace Dentistry.ViewModels.Catalog.AppSettings
         public string? Feedbacks { set; get; } = "";
 
         // Email notification (contact/booking) SMTP configuration
+        // Master switch: when off, no email is sent for real contact/booking events.
+        public bool EmailNotificationEnabled { get; set; } = true;
         public string? SmtpProvider { get; set; } // "Hosting" or "Gmail"
         public string? SmtpHost { get; set; }
         public int? SmtpPort { get; set; }

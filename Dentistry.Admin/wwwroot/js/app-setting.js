@@ -12,12 +12,14 @@
             method: 'POST',
             data: formData,
             success: function (response) {
-                // Hiển thị thông báo thành công
                 if (response.isSuccessed) {
                     showSuccess("Thành công.");
                     loadSettingData();
+                } else {
+                    // response.message (lỗi đơn) hoặc response.validationErrors (lỗi validate form)
+                    var message = response.message || (response.validationErrors && response.validationErrors.join(' ')) || "Có lỗi xảy ra, vui lòng kiểm tra lại thông tin.";
+                    showError(message);
                 }
-
             },
             error: function (xhr, status, error) {
                 // Hiển thị thông báo lỗi

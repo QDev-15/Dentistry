@@ -8,16 +8,116 @@
         height: 100%;
         position: relative;
     }
+
+    .app-setting-layout {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .app-setting-toc {
+        flex: 0 0 230px;
+        width: 230px;
+        position: sticky;
+        top: 0;
+        max-height: 75vh;
+        overflow-y: auto;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .5rem;
+    }
+    .app-setting-toc-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .6rem .9rem;
+        border-bottom: 1px solid #eee;
+        font-weight: 600;
+    }
+    .app-setting-toc-toggle-btn,
+    .app-setting-toc-open-btn {
+        border: none;
+        background: transparent;
+        color: #6c757d;
+        cursor: pointer;
+        padding: .2rem .4rem;
+        line-height: 1;
+    }
+    .app-setting-toc-open-btn {
+        flex: 0 0 auto;
+        position: sticky;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: .5rem;
+    }
+    .app-setting-toc-list {
+        margin: 0;
+        padding: .4rem 0;
+    }
+    .app-setting-toc-list a {
+        display: block;
+        padding: .45rem .9rem;
+        font-size: .92rem;
+        color: #495057;
+        text-decoration: none;
+        border-left: 3px solid transparent;
+    }
+    .app-setting-toc-list a:hover {
+        background: #f8f9fa;
+    }
+    .app-setting-toc-list a.active {
+        background: #e7f1ff;
+        color: #0d6efd;
+        font-weight: 600;
+        border-left-color: #0d6efd;
+    }
+    .app-setting-content {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
 </style>
 <div id="app-setting-form" class="container-fluid mt-4">
     <!-- Name hiển thị và căn giữa -->
     <h3 class="text-center mb-4">@Model.Setting.Name</h3>
 
+    <div class="app-setting-layout">
+        <!-- Mục lục các mục cài đặt - highlight mục đang xem khi cuộn, click để nhảy tới -->
+        <nav class="app-setting-toc" id="appSettingToc">
+            <div class="app-setting-toc-header">
+                <span><i class="fa-solid fa-list-ul me-1"></i> Mục lục</span>
+                <button type="button" id="appSettingTocToggle" class="app-setting-toc-toggle-btn" title="Ẩn mục lục">
+                    <i class="fa-solid fa-angles-left"></i>
+                </button>
+            </div>
+            <ul class="app-setting-toc-list list-unstyled">
+                <li><a href="#setting-section-company" class="app-setting-toc-link" data-target="setting-section-company">Thông tin công ty</a></li>
+                <li><a href="#setting-section-seo" class="app-setting-toc-link" data-target="setting-section-seo">SEO chia sẻ link</a></li>
+                <li><a href="#setting-section-hotline" class="app-setting-toc-link" data-target="setting-section-hotline">Hotline</a></li>
+                <li><a href="#setting-section-worktime" class="app-setting-toc-link" data-target="setting-section-worktime">Giờ làm việc</a></li>
+                <li><a href="#setting-section-social" class="app-setting-toc-link" data-target="setting-section-social">Mạng xã hội</a></li>
+                <li><a href="#setting-section-contact" class="app-setting-toc-link" data-target="setting-section-contact">Đăng ký liên hệ</a></li>
+                <li><a href="#setting-section-category" class="app-setting-toc-link" data-target="setting-section-category">Danh mục nổi bật</a></li>
+                <li><a href="#setting-section-categoryProduct" class="app-setting-toc-link" data-target="setting-section-categoryProduct">Danh mục Sản phẩm</a></li>
+                <li><a href="#setting-section-doctor" class="app-setting-toc-link" data-target="setting-section-doctor">Slide bác sĩ</a></li>
+                <li><a href="#setting-section-feedback" class="app-setting-toc-link" data-target="setting-section-feedback">Phản hồi khách hàng</a></li>
+                <li><a href="#setting-section-email" class="app-setting-toc-link" data-target="setting-section-email">Email thông báo</a></li>
+            </ul>
+        </nav>
+        <button type="button" id="appSettingTocOpenBtn" class="app-setting-toc-open-btn d-none" title="Hiện mục lục">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="app-setting-content">
     <!-- Form cập nhật -->
     <form id="updateForm" asp-action="UpdateSetting" asp-controller="AppSetting" method="post" class="row g-3">
         <input asp-for="@Model.Setting.Id" type="hidden" />
         <!-- Company info -->
-        <div class="col-12">
+        <div class="col-12" id="setting-section-company">
             <div class="card">
                 <div class="card-header">Thông tin công ty</div>
                 <div class="card-body row g-3">
@@ -58,7 +158,7 @@
             </div>
         </div>
         <!-- SEO chia sẻ link trang chủ -->
-        <div class="col-12">
+        <div class="col-12" id="setting-section-seo">
             <div class="card">
                 <div class="card-header">SEO chia sẻ link (Trang chủ)</div>
                 <div class="card-body row g-3">
@@ -106,7 +206,7 @@
         </div>
 
         <!-- Hotline Group -->
-        <div class="col-12">
+        <div class="col-12" id="setting-section-hotline">
             <div class="card">
                 <div class="card-header">Hotline</div>
                 <div class="card-body row g-3">
@@ -123,7 +223,7 @@
         </div>
 
         <!-- Work Time Group -->
-        <div class="col-12">
+        <div class="col-12" id="setting-section-worktime">
             <div class="card">
                 <div class="card-header">Giờ làm việc</div>
                 <div class="card-body row g-3">
@@ -140,7 +240,7 @@
         </div>
 
         <!-- Social Group -->
-        <div class="col-12">
+        <div class="col-12" id="setting-section-social">
             <div class="card">
                 <div class="card-header">Mạng xã hội</div>
                 <div class="card-body row g-3">
@@ -169,7 +269,7 @@
         </div>
 
         @* Liên hệ *@
-        <div class="col-12">
+        <div class="col-12" id="setting-section-contact">
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
@@ -182,7 +282,7 @@
             </div>
         </div>
         @* Danh mục dịch vụ *@
-        <div class="col-12">
+        <div class="col-12" id="setting-section-category">
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
@@ -234,7 +334,7 @@
             </div>
         </div>
         @* Danh mục Sản phẩm *@
-        <div class="col-12">
+        <div class="col-12" id="setting-section-categoryProduct">
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
@@ -291,7 +391,7 @@
 
 
         @* Bác sĩ *@
-        <div class="col-12">
+        <div class="col-12" id="setting-section-doctor">
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
@@ -499,7 +599,7 @@
         }
 
         @* Phản hồi *@
-        <div class="col-12">
+        <div class="col-12" id="setting-section-feedback">
             <div class="card">
                 <div class="card-header">
                     <div class="col-12">
@@ -552,10 +652,19 @@
 
 
         @* Cấu hình Email thông báo *@
-        <div class="col-12">
+        <div class="col-12" id="setting-section-email">
             <div class="card">
                 <div class="card-header">Cấu hình Email thông báo</div>
                 <div class="card-body row g-3">
+                    <div class="col-12">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" asp-for="@Model.Setting.EmailNotificationEnabled" id="smtp-notification-enabled">
+                            <label class="form-check-label" asp-for="@Model.Setting.EmailNotificationEnabled">Bật gửi email thông báo</label>
+                        </div>
+                        <div class="form-text">Khi tắt, hệ thống sẽ <strong>không gửi bất kỳ email nào</strong> khi có tin nhắn liên hệ/đặt lịch mới (cả email cho nhân viên lẫn email xác nhận cho khách hàng), dù đã cấu hình SMTP đầy đủ. Nút "Gửi thử" bên dưới vẫn hoạt động bình thường để kiểm tra cấu hình.</div>
+                    </div>
+                    <div class="col-12" id="smtp-config-wrap">
+                    <div class="row g-3">
                     <div class="col-12">
                         <label class="form-label d-block">Loại nhà cung cấp email</label>
                         <div class="btn-group" role="group" aria-label="Loại nhà cung cấp email">
@@ -607,7 +716,7 @@
                     </div>
                     <div class="col-md-6">
                         <label asp-for="@Model.Setting.NotificationEmails" class="form-label">Email nhận thông báo (cách nhau bằng dấu phẩy)</label>
-                        <input type="text" class="form-control" asp-for="@Model.Setting.NotificationEmails" placeholder="vd: admin@abc.com, letan@abc.com">
+                        <textarea class="form-control" asp-for="@Model.Setting.NotificationEmails" rows="5" style="resize: vertical;" placeholder="vd: admin@abc.com, letan@abc.com"></textarea>
                     </div>
 
                     <div class="col-12 d-flex align-items-center gap-2 flex-wrap">
@@ -630,6 +739,8 @@
                                   placeholder="Xin chào {Name},&#10;&#10;Cảm ơn quý khách đã liên hệ với chúng tôi. Chúng tôi đã nhận được thông tin và sẽ phản hồi trong thời gian sớm nhất.&#10;&#10;Trân trọng!"></textarea>
                         <div class="form-text">Dùng <code>{Name}</code> để tự động chèn tên khách hàng. Để trống sẽ dùng nội dung mặc định ở trên.</div>
                     </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -639,6 +750,8 @@
             <button type="submit" form="updateForm" id="btn-setting-update" class="btn btn-primary shadow">Cập nhật</button>
         </div>
     </form>
+        </div>
+    </div>
 </div>
 
 
@@ -689,6 +802,16 @@
 
         // Hiển thị đúng nhánh theo giá trị đã lưu khi tải trang / tải lại cài đặt
         applyBranch($('input[name="Setting.SmtpProvider"]:checked').val() || 'Hosting');
+
+        // Làm mờ (không khoá input) phần cấu hình SMTP khi tắt công tắc tổng - admin vẫn có
+        // thể chỉnh sửa/lưu cấu hình trong lúc tắt, chỉ là email sẽ không được gửi đi.
+        var $notificationEnabled = $('#smtp-notification-enabled');
+        var $configWrap = $('#smtp-config-wrap');
+        function applyNotificationEnabledToggle() {
+            $configWrap.toggleClass('opacity-50', !$notificationEnabled.is(':checked'));
+        }
+        $notificationEnabled.on('change', applyNotificationEnabledToggle);
+        applyNotificationEnabledToggle();
 
         // Chỉ cho sửa nội dung email khách hàng khi đã bật checkbox gửi email cho khách
         var $sendCustomerEmail = $('#smtp-send-customer-email');
@@ -742,6 +865,70 @@
                     $btn.prop('disabled', false).text('Gửi thử');
                 }
             });
+        });
+
+        // ===== Mục lục (TOC): highlight mục đang xem khi cuộn, click để nhảy tới, ẩn/hiện =====
+        // Container cuộn thật sự là #tabSettingContent (bên ngoài partial này) - #app-setting-form
+        // chỉ là 1 tab-pane bên trong nó, không tự cuộn.
+        var $scrollContainer = $('#tabSettingContent').length ? $('#tabSettingContent') : $(window);
+        var $toc = $('#appSettingToc');
+        var $tocLinks = $toc.find('.app-setting-toc-link');
+
+        // Dùng .offset() (toạ độ tuyệt đối trên trang) thay vì .offsetTop (phụ thuộc ancestor
+        // gần nhất có position != static, có thể không phải là chính scroll container) để tính
+        // đúng vị trí của từng section so với gốc nội dung cuộn, bất kể CSS positioning bên trên.
+        function getContainerOffsetTop() {
+            var off = $scrollContainer.offset && $scrollContainer.offset();
+            return off ? off.top : 0;
+        }
+
+        function getTocSections() {
+            var containerOffsetTop = getContainerOffsetTop();
+            var containerScrollTop = $scrollContainer.scrollTop() || 0;
+            return $tocLinks.map(function () {
+                var el = document.getElementById($(this).data('target'));
+                if (!el) return null;
+                return { id: el.id, top: $(el).offset().top - containerOffsetTop + containerScrollTop };
+            }).get().filter(Boolean);
+        }
+
+        function updateActiveTocLink() {
+            var scrollTop = ($scrollContainer.scrollTop() || 0) + 24; // offset nhỏ để chuyển mục sớm hơn 1 chút
+            var sections = getTocSections();
+            var currentId = sections.length ? sections[0].id : null;
+            sections.forEach(function (section) {
+                if (section.top <= scrollTop) {
+                    currentId = section.id;
+                }
+            });
+            $tocLinks.removeClass('active');
+            if (currentId) {
+                $toc.find('.app-setting-toc-link[data-target="' + currentId + '"]').addClass('active');
+            }
+        }
+
+        // Namespaced để lần load lại (loadSettingData chèn lại HTML) không bị cộng dồn handler
+        $scrollContainer.off('scroll.appSettingToc').on('scroll.appSettingToc', updateActiveTocLink);
+        updateActiveTocLink();
+
+        $toc.on('click', '.app-setting-toc-link', function (e) {
+            e.preventDefault();
+            var target = document.getElementById($(this).data('target'));
+            if (!target) return;
+            var targetTop = $(target).offset().top - getContainerOffsetTop() + ($scrollContainer.scrollTop() || 0);
+            $scrollContainer.animate({ scrollTop: targetTop - 10 }, 300, function () {
+                updateActiveTocLink();
+            });
+        });
+
+        // Ẩn/hiện mục lục
+        $('#appSettingTocToggle').on('click', function () {
+            $toc.addClass('d-none');
+            $('#appSettingTocOpenBtn').removeClass('d-none');
+        });
+        $(document).on('click', '#appSettingTocOpenBtn', function () {
+            $toc.removeClass('d-none');
+            $(this).addClass('d-none');
         });
     })();
 </script>

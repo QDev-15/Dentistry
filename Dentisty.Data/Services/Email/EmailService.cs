@@ -28,6 +28,10 @@ namespace Dentisty.Data.Services.Email
             {
                 return EmailSendResult.Fail("Chưa cấu hình SMTP. Vào Cài đặt chung > Cấu hình Email thông báo để thiết lập trước.");
             }
+            if (!setting.EmailNotificationEnabled)
+            {
+                return EmailSendResult.Fail("Tính năng gửi email thông báo đang bị tắt trong Cài đặt chung.");
+            }
 
             var password = _credentialProtector.Unprotect(setting.SmtpPasswordEncrypted);
             return await SendCoreAsync(
@@ -47,6 +51,10 @@ namespace Dentisty.Data.Services.Email
             if (setting == null)
             {
                 return EmailSendResult.Fail("Chưa cấu hình SMTP. Vào Cài đặt chung > Cấu hình Email thông báo để thiết lập trước.");
+            }
+            if (!setting.EmailNotificationEnabled)
+            {
+                return EmailSendResult.Fail("Tính năng gửi email thông báo đang bị tắt trong Cài đặt chung.");
             }
 
             var password = _credentialProtector.Unprotect(setting.SmtpPasswordEncrypted);

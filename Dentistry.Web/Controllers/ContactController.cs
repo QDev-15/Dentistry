@@ -32,6 +32,11 @@ namespace Dentistry.Web.Controllers
             return PartialView("~/Views/Contact/Partials/BookForm.cshtml", new BookFormVm());
         }
 
+        // Bản ghi tạo trong khoảng thời gian này (giây) với cùng SĐT + cùng nội dung/thời gian đặt
+        // lịch bị coi là gửi trùng (double-click, mạng lag bấm lại...) và sẽ không tạo bản ghi mới
+        // / không gửi lại email, nhưng vẫn trả về thành công cho client.
+        private const int DuplicateSubmitWindowSeconds = 15;
+
         [HttpPost]
         public async Task<IActionResult> Book(BookFormVm model)
         {
@@ -42,6 +47,10 @@ namespace Dentistry.Web.Controllers
                     return PartialView("~/Views/Contact/Partials/BookForm.cshtml", model);
                 }
 
+                if (await _contactRepository.ExistsRecentDuplicate(model.contact, DuplicateSubmitWindowSeconds))
+                {
+                    return Json(new SuccessResult<bool>());
+                }
 
                 var contact = await _contactRepository.Create(model.contact);
 
@@ -81,6 +90,11 @@ namespace Dentistry.Web.Controllers
 
             try
             {
+                if (await _contactRepository.ExistsRecentDuplicate(model, DuplicateSubmitWindowSeconds))
+                {
+                    return Json(new SuccessResult<bool>());
+                }
+
                 var contact = await _contactRepository.Create(model);
 
                 SendContactEmails(model.Name, model.PhoneNumber, model.Email, model.Message);

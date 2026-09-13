@@ -58,6 +58,10 @@ namespace Dentisty.Data.GeneratorDB.Entities
         public string? Feedbacks {set;get;}
 
         // Email notification (contact/booking) SMTP configuration
+        // Master switch: when false, no email is sent for real contact/booking events
+        // (employee notification nor customer confirmation) regardless of SMTP config.
+        // Does not gate the "Gui thu" (test) button - that always uses whatever is on the form.
+        public bool EmailNotificationEnabled { get; set; } = true;
         public string? SmtpProvider { get; set; } // "Hosting" or "Gmail" - drives which UI branch is shown/prefilled
         public string? SmtpHost { get; set; }
         public int? SmtpPort { get; set; }

@@ -17,5 +17,6 @@ namespace Dentisty.Data.Interfaces
         Task<ContactVm> Update(ContactVm vm);
         Task<ContactVm> Create(ContactVm vm);
         Task<bool> Process(int id);
+        Task<bool> ExistsRecentDuplicate(ContactVm vm, int windowSeconds);
     }
 }
