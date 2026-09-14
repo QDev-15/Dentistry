@@ -140,12 +140,113 @@ $(document).ready(function () {
                 $('#addCategoryModal .modal-content').html(data);
                 $('#addCategoryModal').modal('show');
                 initCategoryTiny("Cat_Item_Description");
+                restoreCategoryDraftIfAny(id);
             },
             error: function (err) {
                 showError('Failed to load data');
             }
         });
     });
+
+    // Modal sửa danh mục có thể bị mở rất lâu (nhập nội dung dài, có ảnh...). Nếu phiên đăng
+    // nhập hết hạn giữa chừng, server sẽ trả 401 -> middleware chuyển hướng /Login, và vì
+    // trình duyệt tự "theo" redirect trên request AJAX, cái quay về lại là nguyên trang HTML
+    // đăng nhập (status 200) chứ không phải JSON như code đang mong đợi - nếu không bắt riêng
+    // trường hợp này, code cũ sẽ đọc nhầm response.isSuccessed/response.data trên 1 chuỗi HTML,
+    // và nội dung người dùng vừa gõ (chưa lưu được) sẽ mất trắng không dấu vết.
+    function isLoginRedirectResponse(response, jqXHR) {
+        if (jqXHR && jqXHR.responseURL && jqXHR.responseURL.indexOf('/Login') !== -1) {
+            return true;
+        }
+        return typeof response === 'string' && response.indexOf('__RequestVerificationToken') !== -1 && response.indexOf('action="/Login"') !== -1;
+    }
+
+    function categoryDraftKey(categoryId) {
+        return 'categoryDraft_' + (categoryId || '0');
+    }
+
+    // Lưu tạm nội dung form (trừ file ảnh - không lưu được vào localStorage) trước khi đưa
+    // người dùng quay lại trang đăng nhập, để họ không mất công gõ lại từ đầu.
+    function saveCategoryDraftAndPromptRelogin(formData, categoryId) {
+        try {
+            var draft = {};
+            for (const pair of formData.entries()) {
+                if (!(pair[1] instanceof File)) {
+                    draft[pair[0]] = pair[1];
+                }
+            }
+            localStorage.setItem(categoryDraftKey(categoryId), JSON.stringify(draft));
+        } catch (e) {
+            // localStorage có thể bị chặn (chế độ ẩn danh, cookie bị tắt...) - bỏ qua, vẫn
+            // phải báo cho người dùng biết phiên đã hết hạn dù không lưu tạm được.
+        }
+
+        showError(
+            'Phiên đăng nhập đã hết hạn nên nội dung chưa được lưu. Nội dung bạn vừa nhập đã được lưu tạm trên trình duyệt này — đăng nhập lại rồi mở lại mục vừa sửa để khôi phục.',
+            'Phiên đăng nhập hết hạn'
+        );
+        setTimeout(function () {
+            window.location.href = '/Login';
+        }, 2500);
+    }
+
+    // Gọi sau khi modal thêm/sửa đã render xong, hỏi khôi phục nếu có nội dung lưu tạm từ
+    // lần trước bị đăng xuất giữa chừng.
+    function restoreCategoryDraftIfAny(categoryId) {
+        var key = categoryDraftKey(categoryId);
+        var raw;
+        try {
+            raw = localStorage.getItem(key);
+        } catch (e) {
+            return;
+        }
+        if (!raw) {
+            return;
+        }
+
+        var draft;
+        try {
+            draft = JSON.parse(raw);
+        } catch (e) {
+            try { localStorage.removeItem(key); } catch (e2) { }
+            return;
+        }
+
+        showConfirm(
+            'Phát hiện nội dung chưa lưu từ lần chỉnh sửa trước (do phiên đăng nhập hết hạn giữa chừng). Khôi phục lại nội dung đó?',
+            'Khôi phục nội dung'
+        ).then(function (resp) {
+            if (resp === true) {
+                Object.keys(draft).forEach(function (name) {
+                    if (name === 'item.Description') {
+                        return; // set riêng bên dưới, vì đây là nội dung của TinyMCE
+                    }
+                    var $field = $('#addEditCategoryForm [name="' + name + '"]');
+                    if ($field.length === 0) {
+                        return;
+                    }
+                    if ($field.is(':checkbox')) {
+                        $field.prop('checked', draft[name] === 'true' || draft[name] === 'on');
+                    } else {
+                        $field.val(draft[name]);
+                    }
+                });
+                if (draft['item.Description'] !== undefined) {
+                    // initCategoryTiny() vừa được gọi ngay trước hàm này - đợi TinyMCE khởi
+                    // tạo xong editor rồi mới set nội dung, nếu không sẽ bị ghi đè mất.
+                    setTimeout(function () {
+                        var ed = tinymce.get('Cat_Item_Description');
+                        if (ed) {
+                            ed.setContent(draft['item.Description']);
+                        }
+                    }, 300);
+                }
+            }
+            try { localStorage.removeItem(key); } catch (e) { }
+        }, function () {
+            try { localStorage.removeItem(key); } catch (e) { }
+        });
+    }
     // submit modal
     $(document).on('submit', '#addEditCategoryForm', function (e) {
         e.preventDefault();
@@ -162,9 +263,14 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: function (response) {
+            success: function (response, textStatus, jqXHR) {
                 hideGlobalSpinner();
+                if (isLoginRedirectResponse(response, jqXHR)) {
+                    saveCategoryDraftAndPromptRelogin(formData, id);
+                    return;
+                }
                 if (response.isSuccessed) {
+                    try { localStorage.removeItem(categoryDraftKey(id)); } catch (e) { }
                     $('#addCategoryModal').modal('hide');
                     var data = response.data;
                     if (update && data) {
@@ -186,14 +292,22 @@ $(document).ready(function () {
                     } 
                 } else {
                     if (response.data) {
-                        $('#addCategoryModal .modal-content').html(html);
+                        // Lỗi phát hiện: trước đây tham chiếu biến "html" chưa từng khai báo ở
+                        // đây (ReferenceError âm thầm trong console) - nên lỗi validate trả về
+                        // từ server (vd trùng tên danh mục) không hề hiển thị lên cho người dùng.
+                        $('#addCategoryModal .modal-content').html(response.data);
+                        initCategoryTiny("Cat_Item_Description");
                     } else {
                         showError(response.message);
                     }
                 }
-                
+
             },
-            error: function () {
+            error: function (jqXHR) {
+                if (isLoginRedirectResponse(jqXHR.responseText, jqXHR)) {
+                    saveCategoryDraftAndPromptRelogin(formData, id);
+                    return;
+                }
                 showError('Failed to save changes');
             }
         });
@@ -210,7 +324,15 @@ $(document).ready(function () {
             data: formData,
             processData: false,
             contentType: false,
-            success: function (response) {
+            success: function (response, textStatus, jqXHR) {
+                if (isLoginRedirectResponse(response, jqXHR)) {
+                    // Nội dung chính (tên, mô tả...) ở bước 1 đã lưu thành công trước đó rồi,
+                    // chỉ riêng ảnh chưa lên được - không cần lưu nháp, chỉ cần báo rõ để đăng
+                    // nhập lại rồi tự chọn ảnh upload lại.
+                    showError('Phiên đăng nhập đã hết hạn nên chưa upload được ảnh (các nội dung khác đã lưu thành công). Đăng nhập lại rồi chọn ảnh để upload lại.', 'Phiên đăng nhập hết hạn');
+                    setTimeout(function () { window.location.href = '/Login'; }, 2500);
+                    return;
+                }
                 if (response.isSuccessed) {
                     var data = response.data;
                     $(".category-avatar-" + data.id).css("opacity", 0).attr("src", data.coverImage).on("load", function () {
