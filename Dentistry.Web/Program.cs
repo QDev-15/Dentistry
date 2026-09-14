@@ -90,6 +90,32 @@ builder.Services.AddWebOptimizer(options =>
 
 
 var app = builder.Build();
+
+// Xử lý HEAD request cho toàn site. Các route dùng attribute routing kiểu [HttpGet("category/{alias}")]
+// (CategoryController, ArticleController, DoctorController) chỉ chấp nhận verb GET - HEAD sẽ bị trả về
+// 405 Method Not Allowed. Nhiều bot lấy preview link (vd trình lấy link preview của Zalo bản PC) gửi
+// HEAD trước để kiểm tra trang trước khi tải nội dung thật; gặp 405 thì bot bỏ cuộc, không hiển thị
+// được title/description/ảnh của link - dù trang vẫn tải bình thường qua GET trên trình duyệt.
+// Middleware này chạy nội bộ HEAD như GET rồi bỏ phần body khi trả về, đúng theo chuẩn HTTP HEAD,
+// đặt trước mọi middleware khác để bọc toàn bộ pipeline phía sau (kể cả MinifyHtmlMiddleware).
+app.Use(async (context, next) =>
+{
+    if (HttpMethods.IsHead(context.Request.Method))
+    {
+        context.Request.Method = HttpMethods.Get;
+        var originalBody = context.Response.Body;
+        using var buffer = new MemoryStream();
+        context.Response.Body = buffer;
+        await next();
+        context.Response.Body = originalBody;
+        context.Response.ContentLength = buffer.Length;
+    }
+    else
+    {
+        await next();
+    }
+});
+
 app.Use(async (context, next) =>
 {
     var path = context.Request.Path.Value.ToLower();
