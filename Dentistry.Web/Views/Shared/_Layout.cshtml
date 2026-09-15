@@ -13,13 +13,21 @@
     // SEO: ảnh hiển thị khi chia sẻ link (og:image / twitter:image)
     var siteOrigin = $"{Context.Request.Scheme}://{Context.Request.Host}";
     var ogImagePath = ViewData["Image"] as string;
-    if (string.IsNullOrEmpty(ogImagePath))
+    var hasCoverImage = !string.IsNullOrEmpty(ogImagePath);
+    if (!hasCoverImage)
     {
         ogImagePath = "/assets/logo/LOGO.png";
     }
-    var ogImageUrl = ogImagePath.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+    var ogImageSourceUrl = ogImagePath!.StartsWith("http", StringComparison.OrdinalIgnoreCase)
         ? ogImagePath
         : $"{siteOrigin}{ogImagePath}";
+    // Ảnh cover upload chỉ giới hạn cạnh dài <=1200px, giữ nguyên tỉ lệ gốc (xem FTPUpload.cs) -
+    // gần như không bao giờ khớp sẵn đúng 1200x630. Đi qua /og-image để cắt về đúng kích thước
+    // khai trong og:image:width/height (giống cách vnexpress.net dùng CDN riêng có ?w=..&h=..&fit=crop),
+    // để kích thước khai báo luôn đúng với ảnh thật. Không áp dụng cho logo mặc định (ảnh vuông).
+    var ogImageUrl = hasCoverImage
+        ? $"{siteOrigin}/og-image?src={Uri.EscapeDataString(ogImageSourceUrl)}&w=1200&h=630"
+        : ogImageSourceUrl;
 
     // og:description/twitter:description phải là text 1 dòng - gộp xuống dòng/khoảng trắng thừa
     var rawDescription = ViewData["Description"] as string ?? "";
@@ -32,7 +40,7 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -46,8 +54,11 @@
     <meta property="og:type" content="article" />
     <meta property="og:url" content="@siteOrigin@Context.Request.Path" />
     <meta property="og:image" content="@ogImageUrl" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    @if (hasCoverImage)
+    {
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+    }
     <meta property="og:site_name" content="@settings.Name" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="@pageTitle" />

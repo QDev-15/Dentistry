@@ -25,7 +25,10 @@ namespace Dentistry.Web.Services
                         var threshold = DateTime.UtcNow.AddMinutes(-5);
 
                         // Xóa trực tiếp trên DB để tăng tốc độ
-                        await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM \"ActiveUsers\" WHERE \"LastActive\" < {0}", stoppingToken, threshold);
+                        // Lưu ý: ExecuteSqlRawAsync không có overload (sql, CancellationToken, params object[]) -
+                        // phải bọc tham số SQL vào 1 mảng/IEnumerable riêng để khớp đúng overload nhận
+                        // CancellationToken, nếu không stoppingToken sẽ bị hiểu nhầm là tham số SQL {0}.
+                        await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM \"ActiveUsers\" WHERE \"LastActive\" < {0}", new object[] { threshold }, stoppingToken);
                     }
                 }
                 catch (Exception ex) when (ex is not OperationCanceledException)
