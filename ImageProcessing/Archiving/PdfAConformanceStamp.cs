@@ -5,34 +5,34 @@ using PdfSharp.Pdf;
 namespace ImageProcessing.Archiving
 {
     /// <summary>
-    /// Turns a built PdfSharp document into a PDF/A-conformant one.
+    /// Biến 1 tài liệu PdfSharp đã tạo sẵn thành tài liệu đạt chuẩn PDF/A.
     ///
-    /// PdfSharp 6.2.x has undocumented PDF/A support via <see cref="PdfDocument.SetPdfA"/>: at
-    /// save it injects an sRGB OutputIntent with an embedded ICC profile and generates an XMP
-    /// packet (from the Info dictionary) that includes a pdfaid identification block - but it
-    /// hardcodes that block to PDF/A-1a (part 1, conformance A). So PdfSharp is left to do the
-    /// heavy lifting (OutputIntent, ICC embed, XMP-from-Info) and the conformance tag on the
-    /// saved bytes is then corrected with a size-preserving patch (part 1-&gt;2/3, A-&gt;B/U):
-    /// pdfaid part/conformance are single characters in an uncompressed XMP metadata stream, so
-    /// no xref surgery is needed.
+    /// PdfSharp 6.2.x có hỗ trợ PDF/A nhưng không tài liệu hoá công khai, qua
+    /// <see cref="PdfDocument.SetPdfA"/>: lúc lưu file nó tự chèn 1 OutputIntent sRGB kèm ICC
+    /// profile nhúng sẵn và tự sinh gói XMP (từ dictionary Info) có kèm khối nhận dạng pdfaid -
+    /// nhưng nó luôn ghi cứng khối đó là PDF/A-1a (phần 1, mức A). Vậy nên để PdfSharp làm phần
+    /// việc nặng (OutputIntent, nhúng ICC, sinh XMP từ Info), rồi sau đó vá lại đúng nhãn mức
+    /// chuẩn trên dữ liệu đã lưu (phần 1->2/3, A->B/U) theo cách giữ nguyên kích thước file:
+    /// pdfaid part/conformance chỉ là vài ký tự đơn trong 1 luồng metadata XMP không nén, nên
+    /// không cần đụng tới cấu trúc xref của file.
     ///
-    /// Pinned to PdfSharp 6.2.4: <see cref="Apply"/> throws if the expected pdfaid block is
-    /// absent, so a PdfSharp upgrade that changes the format fails loudly instead of silently
-    /// shipping a mis-tagged file.
+    /// Ghim ở bản PdfSharp 6.2.4: <see cref="Apply"/> sẽ ném lỗi nếu không tìm thấy đúng khối
+    /// pdfaid mong đợi, để khi nâng cấp PdfSharp mà định dạng bị đổi thì báo lỗi ngay, thay vì âm
+    /// thầm xuất ra file gắn sai nhãn.
     /// </summary>
     internal static class PdfAConformanceStamp
     {
         private const string PartFrom = "<pdfaid:part>1</pdfaid:part>";
         private const string ConformanceFrom = "<pdfaid:conformance>A</pdfaid:conformance>";
 
-        /// <summary>Enables PdfSharp's PDF/A output for the document. Call once, after pages/Info are set, before saving.</summary>
+        /// <summary>Bật chế độ xuất PDF/A của PdfSharp cho tài liệu. Gọi đúng 1 lần, sau khi đã thiết lập xong trang/Info, trước khi lưu.</summary>
         public static void Enable(PdfDocument document)
         {
             if (document == null) throw new ArgumentNullException(nameof(document));
             document.SetPdfA();
         }
 
-        /// <summary>Rewrites the saved PDF's pdfaid identification from PdfSharp's hardcoded PDF/A-1a to <paramref name="target"/>. Size-preserving.</summary>
+        /// <summary>Viết lại khối nhận dạng pdfaid của PDF đã lưu, từ mức PDF/A-1a mà PdfSharp ghi cứng sang <paramref name="target"/>. Giữ nguyên kích thước file.</summary>
         public static byte[] Apply(byte[] pdfBytes, PdfAConformance target)
         {
             if (pdfBytes == null) throw new ArgumentNullException(nameof(pdfBytes));

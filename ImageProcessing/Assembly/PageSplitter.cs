@@ -9,12 +9,13 @@ using OpenCvSharp;
 
 namespace ImageProcessing.Assembly
 {
-    /// <summary>Splits a multi-page TIFF or a PDF into individual page files, optionally dropping blank pages.</summary>
+    /// <summary>Tách 1 file TIFF nhiều trang hoặc 1 PDF thành các file trang riêng lẻ, có thể tuỳ chọn bỏ qua trang trắng.</summary>
     public static class PageSplitter
     {
         /// <summary>
-        /// Splits a multi-page TIFF into single-page files; a single-page TIFF (or any other
-        /// image) is returned unchanged (as its own path) unless it is dropped as blank.
+        /// Tách 1 file TIFF nhiều trang thành các file 1 trang; TIFF chỉ có 1 trang (hoặc bất kỳ
+        /// ảnh nào khác) sẽ được trả về nguyên trạng (giữ nguyên đường dẫn của chính nó) trừ khi
+        /// bị loại vì là trang trắng.
         /// </summary>
         public static List<string> SplitTiff(string sourceFile, bool removeBlankPages, string destFolder = null, BlankPageOptions blankOptions = null)
         {
@@ -43,9 +44,9 @@ namespace ImageProcessing.Assembly
         }
 
         /// <summary>
-        /// Renders a PDF at <paramref name="resolutionDpi"/> and saves each page per
-        /// <paramref name="colorMode"/>, optionally dropping blank pages. Throws
-        /// <see cref="NotSupportedException"/> for a dynamic XFA form (see
+        /// Kết xuất (render) 1 file PDF ở độ phân giải <paramref name="resolutionDpi"/> và lưu
+        /// mỗi trang theo đúng <paramref name="colorMode"/>, có thể tuỳ chọn bỏ qua trang trắng.
+        /// Ném <see cref="NotSupportedException"/> nếu là form XFA động (xem
         /// <see cref="PdfRaster.IsDynamicXfaUnsupported"/>).
         /// </summary>
         public static List<string> SplitPdf(string pdfPath, int resolutionDpi, ScanColorMode colorMode, bool removeBlankPages, string destFolder = null, BlankPageOptions blankOptions = null)
@@ -85,7 +86,7 @@ namespace ImageProcessing.Assembly
 
         private static void TryDelete(string path)
         {
-            try { if (File.Exists(path)) File.Delete(path); } catch { /* best effort */ }
+            try { if (File.Exists(path)) File.Delete(path); } catch { /* cố gắng hết sức, bỏ qua nếu lỗi */ }
         }
     }
 }

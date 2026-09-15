@@ -4,26 +4,26 @@ using OpenCvSharp;
 
 namespace ImageProcessing.Effects
 {
-    /// <summary>Tuning for <see cref="BlankPageDetector"/>.</summary>
+    /// <summary>Tuỳ chỉnh cho <see cref="BlankPageDetector"/>.</summary>
     public sealed class BlankPageOptions
     {
-        /// <summary>How many columns the page is split into for the fine-grained per-cell check.</summary>
+        /// <summary>Chia trang thành bao nhiêu cột để kiểm tra chi tiết theo từng ô.</summary>
         public int GridColumns { get; set; } = 4;
 
-        /// <summary>How many rows the page is split into for the fine-grained per-cell check.</summary>
+        /// <summary>Chia trang thành bao nhiêu hàng để kiểm tra chi tiết theo từng ô.</summary>
         public int GridRows { get; set; } = 4;
 
-        /// <summary>Percentage (0-100) of the page/cell that must be non-ink to count as blank.</summary>
+        /// <summary>Tỉ lệ phần trăm (0-100) của trang/ô phải là vùng không có mực thì mới tính là trang trắng.</summary>
         public float ThresholdPercent { get; set; } = 99f;
 
         public static BlankPageOptions Default { get { return new BlankPageOptions(); } }
     }
 
     /// <summary>
-    /// Two-tier blank-page test: a fast whole-page check, then (only if that already looks
-    /// blank) a per-cell check over a grid, where each cell is first cleaned up (isolated-dot
-    /// removal, dark-margin trim, ruled-line strip) so stray marks or scanner artifacts near
-    /// the edges aren't mistaken for real content.
+    /// Kiểm tra trang trắng qua 2 tầng: kiểm tra nhanh toàn trang trước, rồi (chỉ khi đã có vẻ
+    /// trắng) kiểm tra chi tiết theo lưới từng ô, mỗi ô được làm sạch trước (xoá chấm mực lẻ tẻ,
+    /// cắt viền tối, xoá đường kẻ) để các vết bẩn/lỗi quét gần rìa không bị nhầm thành nội dung
+    /// thật.
     /// </summary>
     public static class BlankPageDetector
     {

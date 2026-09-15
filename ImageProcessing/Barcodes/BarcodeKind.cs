@@ -3,7 +3,7 @@ using ZXing;
 
 namespace ImageProcessing.Barcodes
 {
-    /// <summary>1D barcode symbologies this library can read/write.</summary>
+    /// <summary>Các loại mã vạch 1D mà thư viện này đọc/tạo được.</summary>
     public enum BarcodeKind
     {
         Code128,
@@ -25,12 +25,13 @@ namespace ImageProcessing.Barcodes
         BcdMatrix
     }
 
-    /// <summary>Maps <see cref="BarcodeKind"/> to ZXing's format enum for reading and writing.</summary>
+    /// <summary>Ánh xạ <see cref="BarcodeKind"/> sang enum định dạng của ZXing để đọc và ghi.</summary>
     internal static class BarcodeCodecMap
     {
         /// <summary>
-        /// The ZXing format(s) that can match a given kind when reading. Several 2-of-5 kinds
-        /// have no distinct ZXing reader and all resolve to ITF, its only 2-of-5 implementation.
+        /// (Các) định dạng ZXing có thể khớp với 1 loại mã vạch cho trước khi đọc. Một số loại
+        /// 2-of-5 không có bộ đọc riêng trong ZXing nên đều quy về ITF, cách hiện thực 2-of-5 duy
+        /// nhất mà ZXing có.
         /// </summary>
         public static IEnumerable<BarcodeFormat> ToReadFormats(BarcodeKind kind)
         {
@@ -59,7 +60,7 @@ namespace ImageProcessing.Barcodes
             }
         }
 
-        /// <summary>The single ZXing format used to write a kind. Throws for kinds ZXing cannot write.</summary>
+        /// <summary>Định dạng ZXing duy nhất dùng để tạo 1 loại mã vạch. Ném lỗi với các loại mà ZXing không hỗ trợ tạo.</summary>
         public static BarcodeFormat ToWriteFormat(BarcodeKind kind)
         {
             switch (kind)

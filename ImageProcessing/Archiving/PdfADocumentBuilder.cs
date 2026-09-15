@@ -6,31 +6,32 @@ using ImageProcessing.Ocr;
 
 namespace ImageProcessing.Archiving
 {
-    /// <summary>Tuning for <see cref="PdfADocumentBuilder.Build"/>.</summary>
+    /// <summary>Tuỳ chỉnh cho <see cref="PdfADocumentBuilder.Build"/>.</summary>
     public sealed class PdfADocumentOptions
     {
         public PdfAConformance Conformance { get; set; } = PdfAConformance.Level2B;
 
-        /// <summary>Null/empty = no OCR text layer.</summary>
+        /// <summary>Null/rỗng = không tạo lớp text OCR.</summary>
         public string OcrDataPath { get; set; }
 
-        /// <summary>Tesseract language codes, e.g. "eng+vie". Null = <see cref="OcrWordExtractor"/>'s own default.</summary>
+        /// <summary>Mã ngôn ngữ Tesseract, ví dụ "eng+vie". Null = dùng mặc định của <see cref="OcrWordExtractor"/>.</summary>
         public string OcrLanguages { get; set; }
 
-        /// <summary>Run the content-preserving structural optimizer (qpdf) after archiving. Best-effort: failures keep the un-optimized, still-valid PDF/A.</summary>
+        /// <summary>Chạy bước tối ưu cấu trúc không đổi nội dung (qpdf) sau khi đóng gói. Cố gắng hết sức: nếu lỗi thì vẫn giữ nguyên PDF/A chưa tối ưu (vẫn hợp lệ).</summary>
         public bool Optimize { get; set; }
 
-        /// <summary>Defaults to <see cref="PdfArchiver"/>.</summary>
+        /// <summary>Mặc định là <see cref="PdfArchiver"/>.</summary>
         public IPdfArchiver Archiver { get; set; }
 
-        /// <summary>Defaults to <see cref="QpdfStructuralOptimizer"/>.</summary>
+        /// <summary>Mặc định là <see cref="QpdfStructuralOptimizer"/>.</summary>
         public IPdfOptimizer Optimizer { get; set; }
     }
 
     /// <summary>
-    /// High-level "merge these image files into a PDF/A" entry point: prepares codec-preserving
-    /// pages (<see cref="ArchivePageBuilder"/>), optionally runs OCR (<see cref="OcrWordExtractor"/>),
-    /// archives via <see cref="IPdfArchiver"/>, and optionally structurally optimizes the result.
+    /// Điểm vào cấp cao "gộp các file ảnh này thành 1 PDF/A": chuẩn bị các trang giữ nguyên kiểu
+    /// mã hoá gốc (<see cref="ArchivePageBuilder"/>), tuỳ chọn chạy OCR
+    /// (<see cref="OcrWordExtractor"/>), đóng gói qua <see cref="IPdfArchiver"/>, và tuỳ chọn tối
+    /// ưu cấu trúc kết quả.
     /// </summary>
     public static class PdfADocumentBuilder
     {
@@ -72,9 +73,10 @@ namespace ImageProcessing.Archiving
         }
 
         /// <summary>
-        /// Runs the optimizer over the built PDF/A bytes. Best-effort: on any failure (optimizer
-        /// missing or erroring) the original, already-valid PDF/A bytes are returned unchanged so
-        /// the export never fails because of an optional optimization step.
+        /// Chạy bộ tối ưu trên dữ liệu PDF/A đã tạo. Cố gắng hết sức: nếu có lỗi bất kỳ (thiếu
+        /// công cụ tối ưu hoặc lỗi khi chạy) thì trả về nguyên dữ liệu PDF/A gốc (đã hợp lệ sẵn),
+        /// không đổi gì - để bước tối ưu (vốn chỉ là tuỳ chọn) không bao giờ làm hỏng cả quá trình
+        /// xuất file.
         /// </summary>
         private static byte[] TryOptimize(byte[] pdfBytes, IPdfOptimizer optimizer)
         {
@@ -90,7 +92,7 @@ namespace ImageProcessing.Archiving
             }
             catch
             {
-                // Keep the un-optimized (still valid) PDF/A.
+                // Giữ nguyên PDF/A chưa tối ưu (vẫn hợp lệ).
             }
             return pdfBytes;
         }

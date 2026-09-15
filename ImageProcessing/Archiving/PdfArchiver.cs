@@ -10,10 +10,10 @@ using PdfSharp.Pdf.Advanced;
 namespace ImageProcessing.Archiving
 {
     /// <summary>
-    /// Builds codec-faithful PDF/A image documents with PdfSharp 6.x: each page's already-encoded
-    /// bytes are embedded verbatim as a low-level image XObject (matching PDF filter), so CCITT
-    /// Group 4 / JPEG / JPEG2000 compression survives instead of being re-encoded through
-    /// PdfSharp's high-level DrawImage (which round-trips pixels).
+    /// Đóng gói tài liệu ảnh PDF/A giữ nguyên đúng codec bằng PdfSharp 6.x: dữ liệu đã mã hoá sẵn
+    /// của mỗi trang được nhúng nguyên trạng dưới dạng image XObject cấp thấp (đúng bộ lọc PDF
+    /// tương ứng), để nén CCITT Group 4 / JPEG / JPEG2000 được giữ nguyên thay vì bị mã hoá lại
+    /// qua DrawImage cấp cao của PdfSharp (vốn giải mã rồi vẽ lại từng điểm ảnh).
     /// </summary>
     public sealed class PdfArchiver : IPdfArchiver
     {
@@ -27,8 +27,8 @@ namespace ImageProcessing.Archiving
             int count = 0;
             using (PdfDocument document = new PdfDocument())
             {
-                // PDF 1.7 (what PDF/A-2 is based on), and >= 1.4 so PdfSharp realizes the
-                // transparent (alpha 0) fill the invisible OCR layer relies on.
+                // PDF 1.7 (nền tảng của PDF/A-2), và phải >= 1.4 thì PdfSharp mới xử lý đúng phần
+                // tô trong suốt (alpha 0) mà lớp OCR vô hình cần dùng.
                 document.Version = 17;
                 ApplyInfo(document, meta);
 
@@ -79,8 +79,8 @@ namespace ImageProcessing.Archiving
             pdfPage.Width = PdfSharp.Drawing.XUnit.FromPoint(page.WidthPt);
             pdfPage.Height = PdfSharp.Drawing.XUnit.FromPoint(page.HeightPt);
 
-            // Z-order invisibility: draw searchable text first, opaque image over it. No-op
-            // when the page carries no OCR words.
+            // Ẩn bằng thứ tự vẽ (z-order): vẽ text tìm-kiếm-được trước, sau đó vẽ ảnh không
+            // trong suốt đè lên trên. Không làm gì nếu trang không có từ OCR nào.
             OcrTextOverlay.Draw(pdfPage, page);
 
             PdfDictionary image = BuildImageXObject(document, page);
@@ -107,7 +107,7 @@ namespace ImageProcessing.Archiving
             return xobjects;
         }
 
-        /// <summary>Builds an image XObject whose stream is the page's encoded bytes verbatim, tagged with the matching PDF filter.</summary>
+        /// <summary>Tạo 1 image XObject có luồng dữ liệu chính là bytes đã mã hoá sẵn của trang, giữ nguyên trạng, gắn đúng bộ lọc PDF tương ứng.</summary>
         private static PdfDictionary BuildImageXObject(PdfDocument document, ArchivePage page)
         {
             PdfDictionary image = new PdfDictionary(document);
@@ -137,7 +137,7 @@ namespace ImageProcessing.Archiving
                 case PageCodec.Jpeg2000:
                     e.SetName("/Filter", "/JPXDecode");
                     e.SetInteger("/BitsPerComponent", 8);
-                    // JPXDecode carries its own colour space in the JP2 header.
+                    // JPXDecode tự mang theo thông tin không gian màu ngay trong header JP2.
                     break;
 
                 case PageCodec.Flate:
@@ -156,12 +156,12 @@ namespace ImageProcessing.Archiving
         private static PdfDictionary CcittParms(PdfDocument document, ArchivePage page)
         {
             PdfDictionary dp = new PdfDictionary(document);
-            dp.Elements.SetInteger("/K", -1); // pure Group 4 (2-D)
+            dp.Elements.SetInteger("/K", -1); // Group 4 thuần (2 chiều)
             dp.Elements.SetInteger("/Columns", page.WidthPx);
             dp.Elements.SetInteger("/Rows", page.HeightPx);
-            // Every G4 stream this library produces (ImageProcessing.Documents.TiffCodec) is
-            // written/re-encoded to MinIsWhite (0 = white) regardless of the source's own bit
-            // polarity - see BitonalPolarityDetector - so BlackIs1=false always matches here.
+            // Mọi luồng G4 mà thư viện này tạo ra (ImageProcessing.Documents.TiffCodec) đều được
+            // ghi/mã hoá lại theo chuẩn MinIsWhite (0 = trắng) bất kể ảnh gốc dùng cực tính bit
+            // nào - xem BitonalPolarityDetector - nên BlackIs1=false luôn đúng ở đây.
             dp.Elements.SetBoolean("/BlackIs1", false);
             return dp;
         }

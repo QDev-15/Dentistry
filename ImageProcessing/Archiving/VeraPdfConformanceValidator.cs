@@ -6,21 +6,23 @@ using System.Text;
 namespace ImageProcessing.Archiving
 {
     /// <summary>
-    /// Validates PDFs by shelling out to the veraPDF (PDF Association reference validator)
-    /// command line - invoked as an external process, never linked, so its GPLv3/MPLv2 licence
-    /// stays a build/CI concern and never ships inside a closed-source consumer.
+    /// Kiểm tra PDF bằng cách gọi ra dòng lệnh veraPDF (bộ công cụ kiểm định chuẩn của PDF
+    /// Association) - chạy như 1 tiến trình ngoài, không liên kết tĩnh, nên giấy phép
+    /// GPLv3/MPLv2 của nó chỉ là vấn đề của bước build/CI, không bao giờ bị đóng gói kèm vào ứng
+    /// dụng closed-source dùng thư viện này.
     ///
-    /// Invocation: <c>verapdf --flavour &lt;2b&gt; --format xml &lt;file.pdf&gt;</c>. The exit code is NOT
-    /// used for compliance (veraPDF returns 1 for a non-compliant-but-processed file); compliance
-    /// comes from the report XML, parsed by <see cref="VeraPdfReportReader"/>.
+    /// Cách gọi: <c>verapdf --flavour &lt;2b&gt; --format xml &lt;file.pdf&gt;</c>. Exit code KHÔNG được
+    /// dùng để xác định có đạt chuẩn hay không (veraPDF trả về 1 cho cả trường hợp file xử lý
+    /// được nhưng không đạt chuẩn); kết quả đạt/không đạt lấy từ nội dung report XML, được đọc
+    /// bởi <see cref="VeraPdfReportReader"/>.
     /// </summary>
     public sealed class VeraPdfConformanceValidator : IPdfConformanceValidator
     {
         private readonly string _executablePath;
         private readonly int _timeoutMs;
 
-        /// <param name="executablePath">Path to verapdf/verapdf.bat. When null, discovery tries VERAPDF_PATH, then PATH, then common install dirs.</param>
-        /// <param name="timeoutMs">Kill the process after this long (default 120s).</param>
+        /// <param name="executablePath">Đường dẫn tới verapdf/verapdf.bat. Nếu để null, sẽ tự dò theo thứ tự: biến môi trường VERAPDF_PATH, rồi PATH, rồi các thư mục cài đặt thông dụng.</param>
+        /// <param name="timeoutMs">Sau khoảng thời gian này thì buộc dừng tiến trình (mặc định 120 giây).</param>
         public VeraPdfConformanceValidator(string executablePath = null, int timeoutMs = 120000)
         {
             _executablePath = string.IsNullOrEmpty(executablePath) ? VeraPdfLocator.Find() : executablePath;
@@ -48,11 +50,11 @@ namespace ImageProcessing.Archiving
             }
             finally
             {
-                try { if (File.Exists(tempPdf)) File.Delete(tempPdf); } catch { /* best effort */ }
+                try { if (File.Exists(tempPdf)) File.Delete(tempPdf); } catch { /* cố gắng hết sức, bỏ qua nếu lỗi */ }
             }
         }
 
-        /// <summary>Convenience overload for a file on disk.</summary>
+        /// <summary>Bản tiện dụng cho file PDF đã có sẵn trên đĩa.</summary>
         public ValidationReport Validate(string pdfPath, PdfAConformance conformance)
         {
             using (FileStream fs = File.OpenRead(pdfPath))
@@ -61,8 +63,8 @@ namespace ImageProcessing.Archiving
 
         private string RunVeraPdf(string flavour, string pdfPath)
         {
-            // veraPDF on Windows is a .bat launcher, which cannot be started directly with
-            // UseShellExecute=false, so route it through cmd.exe.
+            // Trên Windows, veraPDF là launcher dạng .bat, không thể chạy trực tiếp với
+            // UseShellExecute=false, nên phải chạy qua cmd.exe.
             bool isBatch = _executablePath.EndsWith(".bat", StringComparison.OrdinalIgnoreCase)
                         || _executablePath.EndsWith(".cmd", StringComparison.OrdinalIgnoreCase);
 
@@ -80,7 +82,8 @@ namespace ImageProcessing.Archiving
             if (isBatch)
             {
                 psi.FileName = Environment.GetEnvironmentVariable("ComSpec") ?? "cmd.exe";
-                // /s + wrapping quotes: cmd strips the outermost pair, preserving inner quoting.
+                // /s + bọc ngoài bằng dấu ngoặc kép: cmd sẽ bóc đúng 1 lớp ngoặc ngoài cùng, giữ
+                // nguyên phần ngoặc bên trong.
                 psi.Arguments = "/s /c \"" + Quote(_executablePath) + " " + innerArgs + "\"";
             }
             else
@@ -101,7 +104,7 @@ namespace ImageProcessing.Archiving
 
                 if (!proc.WaitForExit(_timeoutMs))
                 {
-                    try { proc.Kill(); } catch { /* ignore */ }
+                    try { proc.Kill(); } catch { /* bỏ qua */ }
                     throw new VeraPdfException("veraPDF timed out after " + _timeoutMs + " ms.");
                 }
                 proc.WaitForExit();
@@ -116,7 +119,7 @@ namespace ImageProcessing.Archiving
         private static string Quote(string s) { return "\"" + s + "\""; }
     }
 
-    /// <summary>Locates a veraPDF executable across configuration/PATH/install dirs.</summary>
+    /// <summary>Tìm file thực thi veraPDF qua cấu hình/PATH/thư mục cài đặt.</summary>
     public static class VeraPdfLocator
     {
         private static readonly string[] CandidateNames = { "verapdf.bat", "verapdf.cmd", "verapdf.exe", "verapdf" };
@@ -160,7 +163,7 @@ namespace ImageProcessing.Archiving
                     string full = Path.Combine(dir, name);
                     if (File.Exists(full)) return full;
                 }
-                catch { /* invalid path element */ }
+                catch { /* thành phần đường dẫn không hợp lệ */ }
             }
             return null;
         }

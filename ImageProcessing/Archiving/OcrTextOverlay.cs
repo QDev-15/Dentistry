@@ -7,7 +7,7 @@ using PdfSharp.Pdf;
 
 namespace ImageProcessing.Archiving
 {
-    /// <summary>Serves the single embedded OCR-layer font (DejaVu Sans - covers Vietnamese) for every request.</summary>
+    /// <summary>Phục vụ đúng 1 font OCR nhúng sẵn (DejaVu Sans - hỗ trợ tiếng Việt) cho mọi yêu cầu.</summary>
     internal sealed class OcrFontResolver : IFontResolver
     {
         public const string FamilyName = "ImageProcessing OCR Text";
@@ -51,19 +51,19 @@ namespace ImageProcessing.Archiving
     }
 
     /// <summary>
-    /// Places an invisible, searchable OCR text layer over an archiver page. PdfSharp has no
-    /// text-render-mode (Tr 3) API and its renderer will not emit an alpha-0 fill (it realizes
-    /// alpha 0 as a no-op, leaving the text opaque), so invisibility is achieved by z-order
-    /// instead: the OCR words are drawn FIRST, then the opaque page image is drawn on top,
-    /// hiding them. The text stays in the content stream (selectable, searchable) but never
-    /// renders visibly.
+    /// Đặt lớp text OCR vô hình (nhưng vẫn tìm kiếm/chọn được) đè lên 1 trang trong bộ đóng gói.
+    /// PdfSharp không có API cho text-render-mode (Tr 3), và bộ vẽ của nó cũng không xử lý được
+    /// alpha-0 (nó coi alpha 0 là không làm gì cả, khiến chữ vẫn hiện rõ), nên phải làm ẩn bằng
+    /// cách khác: vẽ CHỮ OCR TRƯỚC, sau đó vẽ ảnh trang (không trong suốt) đè LÊN TRÊN để che đi.
+    /// Chữ vẫn nằm trong nội dung PDF (chọn được, tìm kiếm được) nhưng không bao giờ hiển thị ra
+    /// mắt.
     /// </summary>
     internal static class OcrTextOverlay
     {
         private static readonly object Gate = new object();
         private static bool _resolverReady;
 
-        /// <summary>Draws <paramref name="page"/>'s OCR words onto <paramref name="pdfPage"/>. Call BEFORE the image content is appended.</summary>
+        /// <summary>Vẽ các từ OCR của <paramref name="page"/> lên <paramref name="pdfPage"/>. Phải gọi TRƯỚC khi thêm nội dung ảnh của trang.</summary>
         public static void Draw(PdfPage pdfPage, ArchivePage page)
         {
             if (pdfPage == null) throw new ArgumentNullException(nameof(pdfPage));
@@ -71,7 +71,7 @@ namespace ImageProcessing.Archiving
 
             EnsureFontResolver();
 
-            XBrush brush = XBrushes.Black; // colour is irrelevant - the image paints over it.
+            XBrush brush = XBrushes.Black; // màu không quan trọng - sẽ bị ảnh vẽ đè lên che mất.
             using (XGraphics gfx = XGraphics.FromPdfPage(pdfPage, XGraphicsPdfPageOptions.Append))
             {
                 foreach (OcrWord word in page.OcrWords)
@@ -83,7 +83,7 @@ namespace ImageProcessing.Archiving
                     if (heightPt <= 0)
                         continue;
 
-                    double sizePt = Math.Max(1.0, heightPt * 0.8); // cap height ~= 0.7 em
+                    double sizePt = Math.Max(1.0, heightPt * 0.8); // chiều cao chữ ~= 0.7 em
                     double xPt = word.BoundingBox.Left / page.DpiX * 72.0;
 
                     double baselinePx = word.Baseline ?? (word.BoundingBox.Top + word.BoundingBox.Height);

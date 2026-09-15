@@ -3,38 +3,39 @@ using System.IO;
 namespace ImageProcessing.Archiving
 {
     /// <summary>
-    /// Content-preserving structural + stream optimization of an existing PDF (object/xref
-    /// streams, recompression, linearization). Must not break PDF/A conformance - callers
-    /// re-validate afterward; optimization runs before the final validation gate.
+    /// Tối ưu cấu trúc + luồng dữ liệu của 1 file PDF có sẵn mà không đổi nội dung hiển thị
+    /// (object/xref stream, nén lại, linearize). Không được phép làm hỏng tính đạt-chuẩn PDF/A -
+    /// bên gọi phải kiểm tra lại sau khi tối ưu; bước tối ưu luôn chạy trước bước kiểm tra cuối
+    /// cùng.
     /// </summary>
     public interface IPdfOptimizer
     {
-        /// <param name="input">Source PDF stream.</param>
-        /// <param name="options">Which optimizations to apply.</param>
-        /// <param name="output">Destination stream; not closed by the optimizer.</param>
+        /// <param name="input">Stream PDF nguồn.</param>
+        /// <param name="options">Chọn những phép tối ưu nào sẽ áp dụng.</param>
+        /// <param name="output">Stream đích; bộ tối ưu không tự đóng stream này.</param>
         OptimizeResult Optimize(Stream input, OptimizeOptions options, Stream output);
     }
 
-    /// <summary>Knobs for <see cref="IPdfOptimizer.Optimize"/>.</summary>
+    /// <summary>Các tuỳ chọn cho <see cref="IPdfOptimizer.Optimize"/>.</summary>
     public sealed class OptimizeOptions
     {
-        /// <summary>Rewrite using cross-reference/object streams (smaller structure).</summary>
+        /// <summary>Viết lại theo dạng cross-reference/object stream (cấu trúc nhỏ gọn hơn).</summary>
         public bool UseObjectStreams { get; set; } = true;
 
-        /// <summary>Recompress uncompressed/poorly-compressed streams with Flate.</summary>
+        /// <summary>Nén lại bằng Flate các luồng dữ liệu chưa nén hoặc nén kém.</summary>
         public bool RecompressStreams { get; set; } = true;
 
-        /// <summary>Linearize ("fast web view").</summary>
+        /// <summary>Linearize file ("fast web view" - xem trước khi tải xong).</summary>
         public bool Linearize { get; set; } = false;
 
-        /// <summary>A conservative preset that is safe to run on a PDF/A document.</summary>
+        /// <summary>Bộ tuỳ chọn an toàn, chạy được trên tài liệu PDF/A mà không lo phá vỡ chuẩn.</summary>
         public static OptimizeOptions PdfASafe()
         {
             return new OptimizeOptions { UseObjectStreams = true, RecompressStreams = true, Linearize = false };
         }
     }
 
-    /// <summary>Outcome of <see cref="IPdfOptimizer.Optimize"/>.</summary>
+    /// <summary>Kết quả trả về của <see cref="IPdfOptimizer.Optimize"/>.</summary>
     public sealed class OptimizeResult
     {
         public OptimizeResult(bool success, long inputBytes, long outputBytes, string message = null)
@@ -51,10 +52,10 @@ namespace ImageProcessing.Archiving
 
         public long OutputBytes { get; }
 
-        /// <summary>Bytes saved (may be negative if the rewrite grew the file).</summary>
+        /// <summary>Số byte tiết kiệm được (có thể âm nếu việc viết lại làm file to hơn).</summary>
         public long BytesSaved { get { return InputBytes - OutputBytes; } }
 
-        /// <summary>Size reduction as a fraction 0..1 (0 when input size is unknown).</summary>
+        /// <summary>Tỉ lệ giảm kích thước, 0..1 (bằng 0 khi không biết kích thước đầu vào).</summary>
         public double Ratio { get { return InputBytes > 0 ? (double)BytesSaved / InputBytes : 0.0; } }
 
         public string Message { get; }

@@ -5,9 +5,9 @@ using ImageProcessing.Effects;
 namespace ImageProcessing.Assembly
 {
     /// <summary>
-    /// Turns one freshly captured (raw) scanned page into its final stored form: runs the
-    /// effect pipeline in place, then relocates the result into the destination folder under a
-    /// new name (CCITT G4 TIFF for bitonal pages, JPEG otherwise).
+    /// Biến 1 trang vừa scan xong (dữ liệu thô) thành dạng lưu trữ cuối cùng: chạy pipeline hiệu
+    /// ứng ngay tại chỗ, sau đó chuyển kết quả vào thư mục đích với tên mới (TIFF CCITT G4 cho
+    /// trang đen-trắng, JPEG cho các trường hợp còn lại).
     /// </summary>
     public static class ScannedPageProcessor
     {

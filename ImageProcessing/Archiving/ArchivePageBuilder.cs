@@ -10,12 +10,13 @@ using ImageProcessing.Ocr;
 namespace ImageProcessing.Archiving
 {
     /// <summary>
-    /// Turns scanned image files into <see cref="ArchivePage"/> inputs for the PDF/A archiver,
-    /// preserving the source codec where possible: JPEG embeds verbatim, a single-strip CCITT
-    /// Group 4 TIFF page embeds its raw codestream verbatim, any other bitonal source is
-    /// re-encoded to Group 4 (lossless), and everything else is JPEG-encoded. Multi-page TIFFs
-    /// expand to one <see cref="ArchivePage"/> per frame. When an <see cref="OcrWordExtractor"/>
-    /// is supplied, each page's words are attached for the invisible text layer.
+    /// Chuyển file ảnh đã scan thành các <see cref="ArchivePage"/> để đưa vào bộ đóng gói PDF/A,
+    /// cố gắng giữ nguyên kiểu mã hoá gốc khi có thể: JPEG được nhúng nguyên trạng, TIFF CCITT
+    /// Group 4 dạng single-strip được nhúng nguyên dòng dữ liệu gốc, ảnh đen-trắng nguồn khác sẽ
+    /// được mã hoá lại sang Group 4 (không mất dữ liệu), còn lại đều mã hoá sang JPEG. File TIFF
+    /// nhiều trang sẽ tách thành nhiều <see cref="ArchivePage"/>, mỗi khung hình 1 trang. Khi có
+    /// truyền vào <see cref="OcrWordExtractor"/>, các từ nhận diện được của từng trang sẽ được
+    /// gắn kèm để tạo lớp text vô hình.
     /// </summary>
     public static class ArchivePageBuilder
     {
@@ -86,7 +87,7 @@ namespace ImageProcessing.Archiving
                 return new[] { FromBitmap(bmp, ocr) };
         }
 
-        /// <summary>Bitonal bitmaps become Group 4; everything else becomes JPEG.</summary>
+        /// <summary>Ảnh đen-trắng (bitonal) sẽ chuyển sang Group 4; còn lại chuyển sang JPEG.</summary>
         private static ArchivePage FromBitmap(Bitmap bmp, OcrWordExtractor ocr)
         {
             IReadOnlyList<OcrWord> words = ocr != null ? ocr.Extract(bmp) : null;
@@ -109,7 +110,7 @@ namespace ImageProcessing.Archiving
             if (dpiY == 0) dpiY = ResolveDpi(bmp.VerticalResolution);
 
             byte[] jpeg = EncodeJpegBytes(bmp, 80L);
-            // GDI encodes a 24bpp surface as YCbCr (3 components) -> DeviceRGB.
+            // GDI mã hoá bề mặt 24bpp dưới dạng YCbCr (3 thành phần) -> DeviceRGB.
             return new ArchivePage(jpeg, PageCodec.Jpeg, bmp.Width, bmp.Height, PageColorSpace.Rgb, dpiX, dpiY, words);
         }
 
@@ -118,7 +119,7 @@ namespace ImageProcessing.Archiving
             if (bmp.PixelFormat == PixelFormat.Format24bppRgb)
                 return JpegCodec.EncodeToBytes(bmp, quality);
 
-            // Ensure a 24bpp surface so the JPEG is 3-component DeviceRGB.
+            // Đảm bảo bề mặt ở dạng 24bpp để JPEG ra đúng 3 thành phần DeviceRGB.
             using (Bitmap rgb = new Bitmap(bmp.Width, bmp.Height, PixelFormat.Format24bppRgb))
             {
                 rgb.SetResolution(bmp.HorizontalResolution, bmp.VerticalResolution);
@@ -135,7 +136,7 @@ namespace ImageProcessing.Archiving
         }
     }
 
-    /// <summary>Minimal JPEG header reader: image size, component count and JFIF pixel density - avoids a full decode just to learn geometry.</summary>
+    /// <summary>Đọc header JPEG tối giản: kích thước ảnh, số thành phần màu và mật độ điểm ảnh JFIF - tránh phải giải mã toàn bộ ảnh chỉ để lấy thông số hình học.</summary>
     internal static class JpegHeaderReader
     {
         public static bool TryParse(byte[] data, out int width, out int height, out int components, out int dpiX, out int dpiY)
@@ -150,9 +151,9 @@ namespace ImageProcessing.Archiving
             {
                 if (data[i] != 0xFF) { i++; continue; }
                 byte marker = data[i + 1];
-                if (marker == 0xD9 || marker == 0xDA) break; // EOI / start of scan
+                if (marker == 0xD9 || marker == 0xDA) break; // EOI / bắt đầu scan
                 if (marker == 0xFF) { i++; continue; }
-                if (marker >= 0xD0 && marker <= 0xD7) { i += 2; continue; } // RSTn (no length)
+                if (marker >= 0xD0 && marker <= 0xD7) { i += 2; continue; } // RSTn (không có length)
 
                 int len = (data[i + 2] << 8) | data[i + 3];
                 if (len < 2 || i + 2 + len > data.Length) break;

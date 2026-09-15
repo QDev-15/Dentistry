@@ -6,17 +6,17 @@ using System.Xml.Linq;
 namespace ImageProcessing.Archiving
 {
     /// <summary>
-    /// Parses veraPDF's machine-readable report XML (the default "--format xml" output) into a
-    /// <see cref="ValidationReport"/>. Kept separate from process invocation so it can be
-    /// unit-tested offline against captured sample reports without the veraPDF binary installed.
-    /// Parsing is namespace-agnostic (matches on local element/attribute names) to stay resilient
-    /// across veraPDF versions.
+    /// Đọc report XML của veraPDF (định dạng mặc định "--format xml") thành 1
+    /// <see cref="ValidationReport"/>. Để riêng khỏi phần gọi tiến trình để có thể unit-test độc
+    /// lập ngoại tuyến với các report mẫu đã lưu sẵn, không cần cài veraPDF thật. Việc đọc XML
+    /// không phụ thuộc namespace (chỉ so khớp theo tên element/attribute cục bộ) để không bị vỡ
+    /// khi veraPDF đổi phiên bản.
     /// </summary>
     public static class VeraPdfReportReader
     {
         /// <summary>
-        /// Parses a veraPDF report. Returns a non-compliant report with a synthetic issue if no
-        /// <c>validationReport</c> element is present (e.g. veraPDF hit a processing/parse error).
+        /// Đọc report của veraPDF. Trả về báo cáo "không đạt chuẩn" kèm 1 lỗi tự sinh nếu không
+        /// tìm thấy element <c>validationReport</c> nào (ví dụ veraPDF gặp lỗi xử lý/parse).
         /// </summary>
         public static ValidationReport Parse(string reportXml, PdfAConformance conformance)
         {
@@ -60,7 +60,7 @@ namespace ImageProcessing.Archiving
             }
 
             if (issues.Count > 0)
-                isCompliant = false; // Guard against a "compliant" flag contradicting failed rules.
+                isCompliant = false; // Đề phòng trường hợp cờ "đạt chuẩn" mâu thuẫn với danh sách rule bị lỗi.
 
             return new ValidationReport(isCompliant, conformance, issues);
         }

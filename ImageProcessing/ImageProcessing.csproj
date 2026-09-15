@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Multi-targeted so the SAME project can be referenced from the .NET Framework 4.8 host
-         solutions (UniversalScanClient, ScanClient-FileOptics) and from a modern .NET 8 host
-         (Dentistry.Web / Dentistry.Admin in this solution, both net8.0) - a .NET Framework
-         process cannot load a .NET Core/.NET 8 assembly at all (different CLR), so one single
-         TFM can never cover both worlds; MSBuild instead builds this project twice; each target
-         gets its own ImageProcessing.dll under bin\<Config>\<TFM>\.
-         Was previously net10.0-windows instead of net8.0-windows, but this solution's installed
-         Visual Studio version does not support targeting .NET 10.0 (NETSDK1220) and every other
-         project here targets net8.0 anyway, so net8.0-windows is both the fix and the better
-         match - a net8.0 consumer still cannot reference a net10.0 library even once VS supports
-         it (NuGet enforces consumer-TFM >= library-TFM). -->
+    <!-- Đa target để CÙNG MỘT project này dùng được cho cả ứng dụng chạy .NET Framework 4.8 lẫn
+         ứng dụng .NET 8 hiện đại (Dentistry.Web / Dentistry.Admin trong solution này, đều dùng
+         net8.0) - một tiến trình .NET Framework không thể nạp assembly .NET Core/.NET 8 (khác
+         CLR), nên không có target framework nào dùng chung được cho cả 2; MSBuild sẽ build
+         project này 2 lần; mỗi target có ImageProcessing.dll riêng dưới bin\<Config>\<TFM>\.
+         Trước đây dùng net10.0-windows thay vì net8.0-windows, nhưng phiên bản Visual Studio
+         đang cài không hỗ trợ target .NET 10.0 (NETSDK1220), và mọi project khác trong solution
+         đều dùng net8.0 - nên net8.0-windows vừa sửa được lỗi vừa hợp lý hơn: một ứng dụng net8.0
+         vẫn không thể tham chiếu thư viện net10.0 dù VS có hỗ trợ đi nữa (NuGet luôn yêu cầu
+         target framework của bên dùng phải >= target framework của thư viện). -->
     <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
     <RootNamespace>ImageProcessing</RootNamespace>
     <AssemblyName>ImageProcessing</AssemblyName>
@@ -20,38 +19,38 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
-  <!-- ================= net8.0-windows-only: NuGet-sourced managed dependencies ================= -->
+  <!-- ================= Chỉ riêng net8.0-windows: các gói NuGet quản lý ================= -->
   <ItemGroup Condition="'$(TargetFramework)'=='net8.0-windows'">
-    <!-- Vendored DLLs in lib/ (PdfiumViewer, PdfSharp) were built against .NET Framework's
-         System.Drawing and its 4.0.0.0 assembly identity. .NET's own System.Drawing.Common
-         package type-forwards from that legacy identity, so this reference is required even
-         though our own code would otherwise get Bitmap/etc. from the runtime. -->
+    <!-- Các DLL đóng gói sẵn trong lib/ (PdfiumViewer, PdfSharp) được build dựa theo
+         System.Drawing của .NET Framework và định danh assembly 4.0.0.0 của nó. Gói
+         System.Drawing.Common của .NET tự type-forward từ định danh cũ đó, nên vẫn cần khai báo
+         gói này dù code của chúng ta lấy Bitmap/... trực tiếp từ runtime. -->
     <PackageReference Include="System.Drawing.Common" Version="8.0.31" />
-    <!-- PdfSharp's own runtime dependency closure (nothing in our code calls these APIs
-         directly - discovered by exercising every PdfSharp code path under .NET Framework).
-         Neither ships in the .NET 8 shared framework, so they need a real PackageReference
-         here rather than the net48-vendored copies these used to be under lib/. -->
+    <!-- Các gói phụ thuộc runtime riêng của PdfSharp (không có API nào trong code của chúng ta
+         gọi trực tiếp - phát hiện được nhờ chạy thử từng luồng code của PdfSharp trên .NET
+         Framework). Không gói nào có sẵn trong shared framework của .NET 8, nên phải khai báo
+         PackageReference thật ở đây thay vì dùng bản đóng gói sẵn trong lib/ dành cho net48. -->
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
-    <!-- The vendored lib/OpenCvSharp*.dll (managed, built for .NET Framework) crash under .NET
-         Core/.NET 5+: OpenCvSharp.Internal.WindowsLibraryLoader probes for
-         "System.Web.HttpContext, System.Web" to detect ASP.NET hosting, and .NET's built-in
-         empty System.Web compat-shim assembly makes that Type.GetType throw TypeLoadException
-         instead of returning null - a bug fixed in later OpenCvSharp4 releases. We only need the
-         fix in the MANAGED wrapper, so we take it from NuGet here while still deploying our own
-         vendored x86 OpenCvSharpExtern.dll native binary below (no OpenCvSharp4.runtime.win
-         reference - that package only ships x64 native builds).
-         Pinned to 4.11.0.20250507 rather than the newer 4.13.0.2026xxxx builds: those depend on
-         System.Drawing.Common >= 10.0.9, which only exists for a .NET 10 consumer and downgrades
-         (NU1605, treated as an error) under net8.0. 4.11.0.20250507 depends on
-         System.Drawing.Common >= 8.0.11, which net8.0-windows can satisfy directly. Re-verify the
-         WindowsLibraryLoader fix above is still present in whichever version is pinned here if
-         this ever gets bumped again. -->
+    <!-- Các file lib/OpenCvSharp*.dll đóng gói sẵn (managed, build cho .NET Framework) bị crash
+         trên .NET Core/.NET 5+: OpenCvSharp.Internal.WindowsLibraryLoader dò tìm
+         "System.Web.HttpContext, System.Web" để nhận diện có đang chạy trong ASP.NET hay không,
+         và assembly System.Web giả (rỗng) có sẵn trong .NET khiến Type.GetType đó ném
+         TypeLoadException thay vì trả về null - lỗi này đã được vá ở các bản OpenCvSharp4 mới
+         hơn. Chỉ cần bản vá nằm trong phần MANAGED, nên lấy từ NuGet ở đây, còn file gốc native
+         x86 OpenCvSharpExtern.dll trong lib/ vẫn giữ nguyên để dùng (không khai báo gói
+         OpenCvSharp4.runtime.win vì gói đó chỉ có bản dựng sẵn cho x64).
+         Ghim ở bản 4.11.0.20250507 thay vì các bản 4.13.0.2026xxxx mới hơn: các bản mới đó yêu
+         cầu System.Drawing.Common >= 10.0.9, chỉ tồn tại cho .NET 10, gây lỗi hạ cấp gói
+         (NU1605, bị coi là lỗi build) khi dùng với net8.0. Bản 4.11.0.20250507 chỉ yêu cầu
+         System.Drawing.Common >= 8.0.11, net8.0-windows đáp ứng được ngay. Nếu sau này nâng cấp
+         phiên bản này, nhớ kiểm tra lại xem bản vá WindowsLibraryLoader nói trên có còn tồn tại
+         trong bản mới hay không. -->
     <PackageReference Include="OpenCvSharp4" Version="4.11.0.20250507" />
     <PackageReference Include="OpenCvSharp4.Extensions" Version="4.11.0.20250507" />
   </ItemGroup>
 
-  <!-- ================= net48-only: vendored managed dependencies (original set) ================= -->
+  <!-- ================= Chỉ riêng net48: các gói managed đóng gói sẵn (bộ gốc ban đầu) ================= -->
   <ItemGroup Condition="'$(TargetFramework)'=='net48'">
     <Reference Include="OpenCvSharp">
       <HintPath>.\lib\OpenCvSharp.dll</HintPath>
@@ -78,7 +77,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
 
-  <!-- ================= shared across both targets ================= -->
+  <!-- ================= Dùng chung cho cả 2 target ================= -->
   <ItemGroup>
     <Reference Include="zxing">
       <HintPath>.\lib\zxing.dll</HintPath>
@@ -104,13 +103,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Bundled permissive font (DejaVu Sans, covers Vietnamese) for the invisible OCR text layer. -->
+    <!-- Font đi kèm (DejaVu Sans, hỗ trợ tiếng Việt) dùng cho lớp text OCR vô hình. -->
     <EmbeddedResource Include="Assets\DejaVuSans.ttf" />
 
-    <!-- Native binaries: None+CopyToOutputDirectory (not <Reference>) so they propagate
-         reliably down a ProjectReference chain to a consuming host's own output folder.
-         Shared by both targets - same x86 native binary works whether the managed OpenCvSharp
-         wrapper on top of it is the net48-vendored build or the net8.0-windows NuGet build. -->
+    <!-- File nhị phân native: dùng None+CopyToOutputDirectory (không dùng <Reference>) để đảm
+         bảo được copy đúng xuống thư mục output của ứng dụng sử dụng, kể cả khi tham chiếu qua
+         chuỗi ProjectReference nhiều tầng. Dùng chung cho cả 2 target - cùng 1 file native x86
+         hoạt động được dù bản OpenCvSharp managed phía trên là bản đóng gói sẵn cho net48 hay
+         bản lấy từ NuGet cho net8.0-windows. -->
     <None Include=".\lib\OpenCvSharpExtern.dll">
       <Link>OpenCvSharpExtern.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -123,9 +123,10 @@
       <Link>pdfium.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <!-- PdfSharp's transitive runtime deps: invisible to static reference analysis (nothing in
-         our own code calls their APIs directly), so a plain <Reference> does not propagate them
-         through a ProjectReference chain - only Content-style copy does (same fix as above). -->
+    <!-- Các gói phụ thuộc runtime ẩn của PdfSharp.dll: không thấy được qua việc phân tích tham
+         chiếu tĩnh (không có API nào trong code của chúng ta gọi trực tiếp), nên khai báo
+         <Reference> thường sẽ không tự lan truyền qua chuỗi ProjectReference - chỉ copy kiểu
+         Content mới lan truyền được (giống lý do ở trên). -->
     <None Include=".\lib\PdfSharp.System.dll">
       <Link>PdfSharp.System.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -135,9 +136,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 
-    <!-- Tesseract native runtime (per-bitness). The managed Tesseract.dll above is enough to
-         compile; these must be present under x86/x64 next to the FINAL consuming app's exe for
-         OCR to actually run at runtime. -->
+    <!-- Runtime native của Tesseract (theo từng loại kiến trúc). Riêng Tesseract.dll (managed)
+         ở trên là đủ để compile; các file dưới đây phải có mặt dưới x86/x64 cạnh file .exe của
+         ứng dụng CUỐI CÙNG sử dụng thì tính năng OCR mới thực sự chạy được lúc runtime. -->
     <None Include=".\lib\x86\leptonica-1.80.0.dll">
       <Link>x86\leptonica-1.80.0.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -156,10 +157,11 @@
     </None>
   </ItemGroup>
 
-  <!-- net48-only: these facade assemblies aren't referenced directly by our code (PdfSharp's
-       hidden transitive deps) but must still be deployed next to a net48 consumer's .exe; on
-       net8.0-windows they're built into the runtime and are NOT deployed (see the migration
-       notes in README.md for why some of these caused version-conflict bugs historically). -->
+  <!-- Chỉ riêng net48: các assembly "facade" này không được code của chúng ta tham chiếu trực
+       tiếp (là phụ thuộc ẩn của PdfSharp) nhưng vẫn phải copy ra cạnh file .exe của ứng dụng
+       net48 sử dụng; trên net8.0-windows các assembly này đã có sẵn trong runtime nên KHÔNG cần
+       copy ra nữa (từng có bản build gặp lỗi xung đột phiên bản khi những file này bị copy thừa
+       trên .NET hiện đại). -->
   <ItemGroup Condition="'$(TargetFramework)'=='net48'">
     <None Include=".\lib\Microsoft.Bcl.AsyncInterfaces.dll">
       <Link>Microsoft.Bcl.AsyncInterfaces.dll</Link>

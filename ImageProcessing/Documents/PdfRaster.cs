@@ -11,19 +11,19 @@ using PdfSharpDocument = PdfSharp.Pdf.PdfDocument;
 
 namespace ImageProcessing.Documents
 {
-    /// <summary>PDF page rendering/inspection (Pdfium) and plain (non-archival) PDF assembly (PdfSharp).</summary>
+    /// <summary>Kết xuất/kiểm tra trang PDF (dùng Pdfium) và đóng gói PDF thường - không phải PDF/A (dùng PdfSharp).</summary>
     internal static class PdfRaster
     {
-        // Pdfium (the native engine behind PdfiumViewer) is not safe to call concurrently from
-        // multiple threads, even across independent PdfiumDocument instances - it has been
-        // observed to corrupt state or crash the process outright under concurrent access. A web
-        // host serves requests concurrently by default, so every native Pdfium call in this
-        // library is serialized behind this single lock. Rendering pages is eager (not a lazy
-        // iterator) specifically so the whole "open + render every page" sequence can run under
-        // one lock acquisition instead of re-entering the lock per page.
+        // Pdfium (bộ máy native đứng sau PdfiumViewer) không an toàn khi gọi đồng thời từ nhiều
+        // luồng, kể cả giữa các instance PdfiumDocument độc lập với nhau - đã từng quan sát thấy
+        // hiện tượng hỏng trạng thái hoặc crash hẳn tiến trình khi bị gọi đồng thời. Một ứng dụng
+        // web mặc định xử lý nhiều request cùng lúc, nên mọi lệnh gọi Pdfium native trong thư
+        // viện này đều phải xếp hàng qua đúng 1 lock này. Việc render trang được làm ngay (không
+        // dùng iterator trễ) chính là để cả chuỗi "mở file + render hết mọi trang" chạy trong 1
+        // lần giữ lock, thay vì phải giành lại lock cho từng trang.
         private static readonly object PdfiumLock = new object();
 
-        /// <summary>Renders every page of a PDF to a <see cref="Bitmap"/> at the given DPI, in order.</summary>
+        /// <summary>Render mọi trang của 1 PDF ra <see cref="Bitmap"/> theo đúng DPI cho trước, theo đúng thứ tự.</summary>
         public static List<Bitmap> RenderPages(string pdfPath, int dpi)
         {
             lock (PdfiumLock)
@@ -59,11 +59,12 @@ namespace ImageProcessing.Documents
         }
 
         /// <summary>
-        /// True when the PDF is a dynamic XFA form (Adobe LiveCycle): its real content lives only
-        /// in the XFA template, not the page content stream, so a raster renderer (Pdfium included)
-        /// can only capture the "please upgrade your viewer" placeholder page.
-        /// Detected via the catalog's /NeedsRendering flag, or an /AcroForm carrying /XFA with no
-        /// ordinary /Fields fallback layer.
+        /// True khi PDF là form XFA động (Adobe LiveCycle): nội dung thật của nó chỉ nằm trong
+        /// template XFA, không nằm trong luồng nội dung của trang, nên bất kỳ bộ kết xuất ảnh nào
+        /// (kể cả Pdfium) cũng chỉ chụp được đúng trang giữ chỗ kiểu "vui lòng nâng cấp trình xem
+        /// PDF của bạn".
+        /// Phát hiện qua cờ /NeedsRendering trong catalog, hoặc /AcroForm có /XFA mà không có lớp
+        /// dự phòng /Fields thông thường.
         /// </summary>
         public static bool IsDynamicXfaUnsupported(string pdfPath)
         {
@@ -84,15 +85,15 @@ namespace ImageProcessing.Documents
             }
             catch
             {
-                // Let the normal render path run and surface its own error instead of blocking here.
+                // Để luồng render bình thường tự chạy và tự báo lỗi của nó, thay vì chặn ở đây.
                 return false;
             }
         }
 
         /// <summary>
-        /// Builds a plain (non-PDF/A) PDF with one full-page image per source file/frame. For
-        /// archival-grade PDF/A output (codec-preserving, optional OCR), use
-        /// <c>ImageProcessing.Archiving.PdfADocumentBuilder</c> instead.
+        /// Tạo 1 PDF thường (không phải PDF/A), mỗi file/khung hình nguồn chiếm trọn 1 trang.
+        /// Muốn xuất PDF/A đạt chuẩn lưu trữ (giữ nguyên codec, tuỳ chọn OCR) thì dùng
+        /// <c>ImageProcessing.Archiving.PdfADocumentBuilder</c> thay cho hàm này.
         /// </summary>
         public static void CreateImagePdf(IEnumerable<string> imageFiles, string destFile, DocumentMetadata metadata)
         {
@@ -118,8 +119,8 @@ namespace ImageProcessing.Documents
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                // PdfSharp 6.x (netstandard2.0 build) has no direct GDI+ Image import;
-                // round-trip through a lossless PNG stream instead.
+                // Bản PdfSharp 6.x (build netstandard2.0) không có cách nhập ảnh GDI+ trực tiếp;
+                // phải vòng qua 1 luồng PNG không mất dữ liệu thay thế.
                 frame.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 ms.Position = 0;
                 using (XImage xImage = XImage.FromStream(ms))

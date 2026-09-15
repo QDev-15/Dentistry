@@ -2,26 +2,26 @@ using System;
 
 namespace ImageProcessing.Archiving
 {
-    /// <summary>PDF/A conformance level to build/validate against. Default across the pipeline is PDF/A-2b.</summary>
+    /// <summary>Mức chuẩn PDF/A cần tạo/kiểm tra. Mặc định trong toàn bộ pipeline là PDF/A-2b.</summary>
     public enum PdfAConformance
     {
-        /// <summary>PDF/A-1b (PDF 1.4). No JPEG2000, no transparency, no layers.</summary>
+        /// <summary>PDF/A-1b (PDF 1.4). Không JPEG2000, không trong suốt, không layer.</summary>
         Level1B,
 
-        /// <summary>PDF/A-2b (PDF 1.7). Default. Allows JPEG2000 / JBIG2 / transparency.</summary>
+        /// <summary>PDF/A-2b (PDF 1.7). Mặc định. Cho phép JPEG2000 / JBIG2 / trong suốt.</summary>
         Level2B,
 
-        /// <summary>PDF/A-2u. As 2b, but every glyph must be Unicode-mapped (ToUnicode).</summary>
+        /// <summary>PDF/A-2u. Giống 2b, nhưng mọi glyph đều phải có ánh xạ Unicode (ToUnicode).</summary>
         Level2U,
 
-        /// <summary>PDF/A-3b. As 2b, but permits arbitrary embedded (associated) files.</summary>
+        /// <summary>PDF/A-3b. Giống 2b, nhưng cho phép nhúng kèm file bất kỳ (associated files).</summary>
         Level3B
     }
 
-    /// <summary>Projects a <see cref="PdfAConformance"/> onto the ISO metadata values used by the OutputIntent/XMP pass and the veraPDF CLI.</summary>
+    /// <summary>Quy đổi <see cref="PdfAConformance"/> sang các giá trị metadata chuẩn ISO dùng cho bước OutputIntent/XMP và cho công cụ dòng lệnh veraPDF.</summary>
     public static class PdfAConformanceInfo
     {
-        /// <summary>The PDF/A part number (1, 2 or 3) for <c>pdfaid:part</c>.</summary>
+        /// <summary>Số phần PDF/A (1, 2 hoặc 3) cho <c>pdfaid:part</c>.</summary>
         public static int Part(this PdfAConformance level)
         {
             switch (level)
@@ -34,25 +34,25 @@ namespace ImageProcessing.Archiving
             }
         }
 
-        /// <summary>The conformance letter ("B" or "U") for <c>pdfaid:conformance</c>.</summary>
+        /// <summary>Ký tự mức chuẩn ("B" hoặc "U") cho <c>pdfaid:conformance</c>.</summary>
         public static string ConformanceLetter(this PdfAConformance level)
         {
             return level == PdfAConformance.Level2U ? "U" : "B";
         }
 
-        /// <summary>True when every glyph must carry a ToUnicode mapping.</summary>
+        /// <summary>True khi mọi glyph bắt buộc phải có ánh xạ ToUnicode.</summary>
         public static bool RequiresUnicodeMapping(this PdfAConformance level)
         {
             return level == PdfAConformance.Level2U;
         }
 
-        /// <summary>True when the level forbids JPEG2000 and transparency (PDF/A-1 only).</summary>
+        /// <summary>True khi mức này cấm JPEG2000 và trong suốt (chỉ áp dụng cho PDF/A-1).</summary>
         public static bool ForbidsJpeg2000(this PdfAConformance level)
         {
             return level == PdfAConformance.Level1B;
         }
 
-        /// <summary>Human/veraPDF label, e.g. "2b" (the veraPDF <c>--flavour</c> value) or "PDF/A-2b" via <see cref="DisplayName"/>.</summary>
+        /// <summary>Nhãn hiển thị/dùng cho veraPDF, ví dụ "2b" (giá trị tham số <c>--flavour</c> của veraPDF), hoặc "PDF/A-2b" qua <see cref="DisplayName"/>.</summary>
         public static string Flavour(this PdfAConformance level)
         {
             return level.Part() + level.ConformanceLetter().ToLowerInvariant();

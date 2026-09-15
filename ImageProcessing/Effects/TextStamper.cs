@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace ImageProcessing.Effects
 {
-    /// <summary>Draws a text label with an opaque background swatch onto a copy of an image.</summary>
+    /// <summary>Vẽ 1 nhãn text kèm nền không trong suốt lên 1 bản sao của ảnh.</summary>
     public static class TextStamper
     {
         public static Bitmap Stamp(

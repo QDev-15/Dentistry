@@ -6,7 +6,7 @@ using OpenCvSharp;
 
 namespace ImageProcessing.Assembly
 {
-    /// <summary>The colour depth a scanned/processed page is stored as.</summary>
+    /// <summary>Chế độ màu mà 1 trang scan/đã xử lý được lưu lại.</summary>
     public enum ScanColorMode
     {
         BlackAndWhite,
@@ -15,13 +15,14 @@ namespace ImageProcessing.Assembly
     }
 
     /// <summary>
-    /// Writes a processed page to disk in the format its <see cref="ScanColorMode"/> dictates.
-    /// Internal: works in terms of OpenCvSharp's <see cref="Mat"/>, kept out of the public surface
-    /// so consumers never need an OpenCvSharp reference just to call this library.
+    /// Ghi 1 trang đã xử lý ra đĩa theo đúng định dạng mà <see cref="ScanColorMode"/> của nó quy
+    /// định. Nội bộ: làm việc trực tiếp trên <see cref="Mat"/> của OpenCvSharp, không đưa ra bề
+    /// mặt public để bên dùng thư viện không bao giờ phải tham chiếu OpenCvSharp chỉ để gọi hàm
+    /// này.
     /// </summary>
     internal static class ImagePageWriter
     {
-        /// <summary>Black &amp; white -> single-page CCITT Group 4 TIFF; Gray/Color -> JPEG.</summary>
+        /// <summary>Đen trắng -> TIFF CCITT Group 4 1 trang; Xám/Màu -> JPEG.</summary>
         public static void Save(Mat image, string destPath, ScanColorMode colorMode, long jpegQuality = 75)
         {
             if (image == null) throw new ArgumentNullException(nameof(image));

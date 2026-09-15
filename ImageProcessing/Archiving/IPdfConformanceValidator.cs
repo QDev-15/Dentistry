@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ImageProcessing.Archiving
 {
-    /// <summary>Validates a PDF against a PDF/A conformance level.</summary>
+    /// <summary>Kiểm tra 1 file PDF có đạt đúng mức chuẩn PDF/A hay không.</summary>
     public interface IPdfConformanceValidator
     {
         ValidationReport Validate(Stream pdf, PdfAConformance conformance);
@@ -15,7 +15,7 @@ namespace ImageProcessing.Archiving
         Error
     }
 
-    /// <summary>A single failed check reported by the validator.</summary>
+    /// <summary>Một lỗi/cảnh báo cụ thể do validator phát hiện.</summary>
     public sealed class ValidationIssue
     {
         public ValidationIssue(string ruleId, string clause, string message, ValidationSeverity severity, int occurrences)
@@ -29,7 +29,7 @@ namespace ImageProcessing.Archiving
 
         public string RuleId { get; }
 
-        /// <summary>ISO 19005 clause the rule maps to, when available.</summary>
+        /// <summary>Điều khoản ISO 19005 tương ứng với quy tắc này, nếu có.</summary>
         public string Clause { get; }
 
         public string Message { get; }
@@ -39,7 +39,7 @@ namespace ImageProcessing.Archiving
         public int Occurrences { get; }
     }
 
-    /// <summary>Result of validating a PDF against a PDF/A conformance level.</summary>
+    /// <summary>Kết quả kiểm tra 1 file PDF theo mức chuẩn PDF/A.</summary>
     public sealed class ValidationReport
     {
         public ValidationReport(bool isCompliant, PdfAConformance conformance, IReadOnlyList<ValidationIssue> issues)
@@ -49,7 +49,7 @@ namespace ImageProcessing.Archiving
             Issues = issues ?? new List<ValidationIssue>();
         }
 
-        /// <summary>True when the document conforms to <see cref="Conformance"/> - the CI gate condition.</summary>
+        /// <summary>True khi tài liệu đạt đúng mức <see cref="Conformance"/> - điều kiện để pipeline CI cho qua.</summary>
         public bool IsCompliant { get; }
 
         public PdfAConformance Conformance { get; }

@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace ImageProcessing.Documents
 {
-    /// <summary>Enumerates the frames of a raster file - each page of a multi-page TIFF, or the single frame of anything else.</summary>
+    /// <summary>Liệt kê các khung hình của 1 file raster - mỗi trang của TIFF nhiều trang, hoặc khung hình duy nhất của các loại file khác.</summary>
     internal static class RasterFrameSource
     {
         public static IEnumerable<Bitmap> EnumerateFrames(string imageFile)

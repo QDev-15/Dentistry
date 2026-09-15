@@ -3,11 +3,11 @@ using System;
 namespace ImageProcessing.Assembly
 {
     /// <summary>
-    /// Document metadata shared by both the plain PDF writer (<see cref="Documents.PdfRaster"/>)
-    /// and the PDF/A archiver (<c>ImageProcessing.Archiving.PdfADocumentBuilder</c>). For PDF/A,
-    /// a single source of truth matters: a Title/Author/date mismatch between the Info dictionary
-    /// and the XMP packet is a frequent veraPDF conformance failure, so both consumers set both
-    /// from these same values.
+    /// Metadata tài liệu, dùng chung cho cả bộ tạo PDF thường (<see cref="Documents.PdfRaster"/>)
+    /// lẫn bộ đóng gói PDF/A (<c>ImageProcessing.Archiving.PdfADocumentBuilder</c>). Với PDF/A,
+    /// việc có 1 nguồn dữ liệu duy nhất rất quan trọng: Title/Author/ngày tháng lệch nhau giữa
+    /// dictionary Info và gói XMP là lỗi phổ biến khiến veraPDF báo không đạt chuẩn, nên cả 2 nơi
+    /// dùng đều lấy từ đúng cùng 1 bộ giá trị này.
     /// </summary>
     public sealed class DocumentMetadata
     {
@@ -23,10 +23,10 @@ namespace ImageProcessing.Assembly
 
         public string Producer { get; set; } = "ImageProcessing";
 
-        /// <summary>Null = use "now" at build time.</summary>
+        /// <summary>Null = dùng thời điểm hiện tại lúc tạo tài liệu.</summary>
         public DateTime? CreateDate { get; set; }
 
-        /// <summary>Null = use "now" at build time.</summary>
+        /// <summary>Null = dùng thời điểm hiện tại lúc tạo tài liệu.</summary>
         public DateTime? ModifyDate { get; set; }
 
         public DocumentMetadata WithResolvedDates(DateTime now)

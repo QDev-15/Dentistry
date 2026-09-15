@@ -10,8 +10,8 @@ using OpenCvSharp;
 namespace ImageProcessing.Documents
 {
     /// <summary>
-    /// TIFF page counting, extraction and CCITT Group 4 (fax) encode/decode, built on
-    /// BitMiracle.LibTiff.NET.
+    /// Đếm số trang, tách trang và mã hoá/giải mã CCITT Group 4 (chuẩn fax) cho TIFF, xây dựng
+    /// trên nền BitMiracle.LibTiff.NET.
     /// </summary>
     internal static class TiffCodec
     {
@@ -46,7 +46,7 @@ namespace ImageProcessing.Documents
             }
         }
 
-        /// <summary>Reads a single 0-based frame of a (possibly multi-page) TIFF via GDI+.</summary>
+        /// <summary>Đọc 1 khung hình (đánh số từ 0) của TIFF (có thể nhiều trang) qua GDI+.</summary>
         public static Bitmap ReadPage(string path, int zeroBasedPage)
         {
             using (Image img = Image.FromFile(path))
@@ -59,7 +59,7 @@ namespace ImageProcessing.Documents
             }
         }
 
-        /// <summary>Extracts every page of a (multi-page) TIFF as individual bitmaps.</summary>
+        /// <summary>Tách mọi trang của TIFF (nhiều trang) thành các bitmap riêng lẻ.</summary>
         public static Bitmap[] ReadAllPages(string path)
         {
             using (Image img = Image.FromFile(path))
@@ -76,7 +76,7 @@ namespace ImageProcessing.Documents
             }
         }
 
-        /// <summary>Extracts a single 1-based page from a multi-page TIFF into its own file.</summary>
+        /// <summary>Tách 1 trang (đánh số từ 1) từ TIFF nhiều trang ra thành file riêng.</summary>
         public static void ExtractPageToFile(string sourceTiff, int pageNumber1Based, string destFile)
         {
             using (Bitmap page = ReadPage(sourceTiff, pageNumber1Based - 1))
@@ -89,8 +89,8 @@ namespace ImageProcessing.Documents
         }
 
         /// <summary>
-        /// Writes a bitonal <see cref="Mat"/> (as produced by <see cref="PixelOps.ToOtsuBitonal"/>:
-        /// 0 = ink, 255 = paper) as a single-strip CCITT Group 4, MinIsWhite TIFF.
+        /// Ghi 1 <see cref="Mat"/> đen-trắng (như <see cref="PixelOps.ToOtsuBitonal"/> tạo ra:
+        /// 0 = mực, 255 = giấy) thành TIFF CCITT Group 4 1-strip, kiểu MinIsWhite.
         /// </summary>
         public static void SaveAsGroup4Tiff(Mat bitonal, string destFile, int dpiX = 200, int dpiY = 200)
         {
@@ -102,7 +102,7 @@ namespace ImageProcessing.Documents
             }
         }
 
-        /// <summary>Writes several already-bitonal pages as one multi-page CCITT Group 4 TIFF.</summary>
+        /// <summary>Ghi nhiều trang đã ở dạng đen-trắng sẵn thành 1 file TIFF CCITT Group 4 nhiều trang.</summary>
         public static void SaveMultiPageGroup4Tiff(System.Collections.Generic.IEnumerable<Mat> bitonalPages, string destFile, int dpiX = 200, int dpiY = 200)
         {
             using (Tiff tiff = Tiff.Open(destFile, "w"))
@@ -138,7 +138,7 @@ namespace ImageProcessing.Documents
                 IntPtr rowPtr = IntPtr.Add(data, (int)(y * stride));
                 for (int x = 0; x < width; x++)
                 {
-                    // Mat convention here: 0 = ink. MinIsWhite convention on the wire: 1 = ink.
+                    // Quy ước của Mat ở đây: 0 = mực. Quy ước MinIsWhite khi ghi ra: 1 = mực.
                     if (Marshal.ReadByte(IntPtr.Add(rowPtr, x)) == 0)
                         row[x / 8] |= (byte)(0x80 >> (x % 8));
                 }
@@ -164,9 +164,9 @@ namespace ImageProcessing.Documents
         }
 
         /// <summary>
-        /// If the given 0-based page is already a single-strip CCITT Group 4 image, returns its
-        /// raw codestream verbatim (for embedding via /CCITTFaxDecode) plus geometry/DPI. Returns
-        /// false for any other layout so the caller can re-encode via <see cref="EncodeGroup4"/>.
+        /// Nếu trang (đánh số từ 0) cho trước đã ở dạng CCITT Group 4 1-strip sẵn, trả về nguyên
+        /// dòng dữ liệu gốc (để nhúng qua /CCITTFaxDecode) cùng thông số hình học/DPI. Trả về
+        /// false với mọi cấu trúc khác để bên gọi tự mã hoá lại qua <see cref="EncodeGroup4"/>.
         /// </summary>
         public static bool TryGetRawGroup4(string path, int zeroBasedPage, out byte[] g4, out int width, out int height, out int dpiX, out int dpiY)
         {
@@ -198,9 +198,10 @@ namespace ImageProcessing.Documents
         }
 
         /// <summary>
-        /// Encodes a 1bpp-indexed <see cref="Bitmap"/> (of unknown, per-file bit polarity - see
-        /// <see cref="BitonalPolarityDetector"/>) to a raw single-strip CCITT Group 4 codestream
-        /// (MinIsWhite semantics, ready for /CCITTFaxDecode with /BlackIs1 false).
+        /// Mã hoá 1 <see cref="Bitmap"/> dạng 1bpp-indexed (cực tính bit không rõ trước, tuỳ file
+        /// - xem <see cref="BitonalPolarityDetector"/>) thành 1 dòng dữ liệu CCITT Group 4
+        /// 1-strip thô (theo ngữ nghĩa MinIsWhite, sẵn sàng dùng với /CCITTFaxDecode và
+        /// /BlackIs1 false).
         /// </summary>
         public static byte[] EncodeGroup4(Bitmap bitonal)
         {
@@ -225,7 +226,7 @@ namespace ImageProcessing.Documents
             }
             finally
             {
-                try { if (File.Exists(tempFile)) File.Delete(tempFile); } catch { /* best effort */ }
+                try { if (File.Exists(tempFile)) File.Delete(tempFile); } catch { /* cố gắng hết sức, bỏ qua nếu lỗi */ }
             }
         }
 
@@ -254,7 +255,7 @@ namespace ImageProcessing.Documents
                     {
                         bool bitSet = (source[x / 8] & (0x80 >> (x % 8))) != 0;
                         bool isInk = bitSet ? !zeroIsInk : zeroIsInk;
-                        // MinIsWhite wire format: 1 = ink.
+                        // Định dạng ghi ra kiểu MinIsWhite: 1 = mực.
                         if (isInk)
                             outRow[x / 8] |= (byte)(0x80 >> (x % 8));
                     }

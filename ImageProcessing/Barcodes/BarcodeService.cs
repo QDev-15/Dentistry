@@ -19,7 +19,7 @@ namespace ImageProcessing.Barcodes
         Exact
     }
 
-    /// <summary>One barcode symbology + expected value the caller wants to search for.</summary>
+    /// <summary>Một cặp loại mã vạch + giá trị mong đợi mà bên gọi muốn tìm kiếm.</summary>
     public sealed class BarcodeSearchTarget
     {
         public BarcodeSearchTarget(BarcodeKind kind, BarcodeValueComparison comparison, string compareValue)
@@ -49,7 +49,7 @@ namespace ImageProcessing.Barcodes
         }
     }
 
-    /// <summary>A decoded barcode.</summary>
+    /// <summary>Một mã vạch đã giải mã được.</summary>
     public sealed class BarcodeMatch
     {
         public BarcodeMatch(BarcodeKind kind, string value)
@@ -63,10 +63,10 @@ namespace ImageProcessing.Barcodes
         public string Value { get; }
     }
 
-    /// <summary>Reads 1D barcodes from the first page of an image file (ZXing.Net).</summary>
+    /// <summary>Đọc mã vạch 1D từ trang đầu tiên của 1 file ảnh (dùng ZXing.Net).</summary>
     public static class BarcodeScanner
     {
-        /// <summary>Decodes every barcode on the page whose format matches one of <paramref name="kinds"/>.</summary>
+        /// <summary>Giải mã mọi mã vạch trên trang có định dạng khớp với 1 trong các <paramref name="kinds"/>.</summary>
         public static IReadOnlyList<BarcodeMatch> ReadAll(string imagePath, IEnumerable<BarcodeKind> kinds, bool tryHarder = false)
         {
             List<BarcodeKind> kindList = kinds?.ToList() ?? new List<BarcodeKind>();
@@ -90,8 +90,9 @@ namespace ImageProcessing.Barcodes
         }
 
         /// <summary>
-        /// Scans for the configured <paramref name="targets"/> in order and returns the first
-        /// whose barcode kind AND value comparison both match. Returns null when nothing matches.
+        /// Quét lần lượt các <paramref name="targets"/> đã cấu hình theo đúng thứ tự, trả về mục
+        /// đầu tiên vừa khớp cả loại mã vạch LẪN điều kiện so sánh giá trị. Trả về null nếu không
+        /// có gì khớp.
         /// </summary>
         public static BarcodeMatch FindFirstMatch(string imagePath, IEnumerable<BarcodeSearchTarget> targets, bool tryHarder = false)
         {
@@ -135,8 +136,8 @@ namespace ImageProcessing.Barcodes
         }
 
         /// <summary>
-        /// Builds a ZXing luminance source directly from a Bitmap, without the
-        /// ZXing.Windows.Compatibility package.
+        /// Tạo trực tiếp 1 nguồn luminance của ZXing từ Bitmap, không cần gói
+        /// ZXing.Windows.Compatibility.
         /// </summary>
         private static LuminanceSource ToLuminanceSource(Bitmap bmp)
         {
@@ -158,7 +159,7 @@ namespace ImageProcessing.Barcodes
                         Marshal.Copy(data.Scan0 + y * stride, line, 0, stride);
                         for (int x = 0; x < width; x++)
                         {
-                            int si = x * 3; // BGR in GDI+
+                            int si = x * 3; // GDI+ lưu theo thứ tự BGR
                             int di = (y * width + x) * 3;
                             rgb[di] = line[si + 2];
                             rgb[di + 1] = line[si + 1];
@@ -176,12 +177,12 @@ namespace ImageProcessing.Barcodes
         }
     }
 
-    /// <summary>Renders a 1D barcode and composes it onto a page image.</summary>
+    /// <summary>Vẽ 1 mã vạch 1D và ghép nó vào 1 ảnh trang.</summary>
     public static class BarcodeStamp
     {
         /// <summary>
-        /// Renders <paramref name="value"/> as a <paramref name="kind"/> barcode filling
-        /// <paramref name="zone"/> and draws it onto a copy of <paramref name="page"/>.
+        /// Vẽ <paramref name="value"/> dưới dạng mã vạch <paramref name="kind"/> lấp đầy
+        /// <paramref name="zone"/> rồi vẽ nó lên 1 bản sao của <paramref name="page"/>.
         /// </summary>
         public static Bitmap Compose(Bitmap page, BarcodeKind kind, string value, Rectangle zone)
         {
@@ -227,7 +228,7 @@ namespace ImageProcessing.Barcodes
         }
     }
 
-    /// <summary>Bridges to the internal first-page loader without exposing it publicly.</summary>
+    /// <summary>Cầu nối tới bộ tải trang-đầu-tiên nội bộ mà không đưa nó ra bề mặt public.</summary>
     internal static class ImageEffectFileOpsBridge
     {
         public static Bitmap LoadFirstPageBitmap(string path)

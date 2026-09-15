@@ -4,7 +4,7 @@ using OpenCvSharp;
 
 namespace ImageProcessing.Effects
 {
-    /// <summary>Builds fixed-width, framed thumbnails from an image file or an in-memory bitmap.</summary>
+    /// <summary>Tạo ảnh thumbnail có khung, độ rộng cố định, từ 1 file ảnh hoặc 1 bitmap trong bộ nhớ.</summary>
     public static class ThumbnailGenerator
     {
         public const int DefaultWidth = 184;

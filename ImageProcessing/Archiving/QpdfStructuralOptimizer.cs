@@ -7,20 +7,21 @@ using System.Text;
 namespace ImageProcessing.Archiving
 {
     /// <summary>
-    /// Optimizes PDFs by shelling out to the QPDF (Apache-2.0) command line - never linked in,
-    /// so it stays a runtime/deployment concern rather than a build dependency, and one qpdf.exe
-    /// serves this process regardless of its own bitness.
+    /// Tối ưu PDF bằng cách gọi ra dòng lệnh QPDF (giấy phép Apache-2.0) - không liên kết tĩnh
+    /// vào project, nên đây chỉ là vấn đề triển khai/runtime chứ không phải phụ thuộc lúc build,
+    /// và chỉ cần 1 file qpdf.exe là phục vụ được tiến trình này bất kể kiến trúc của chính nó.
     ///
-    /// Only structural optimization is used (object streams + Flate recompression); image
-    /// XObjects (DCTDecode/CCITTFaxDecode/JPXDecode) are never re-encoded, so codecs and visual
-    /// content are preserved. Object streams are permitted under PDF/A-2; re-validate downstream.
+    /// Chỉ dùng phép tối ưu cấu trúc (object stream + nén lại bằng Flate); các image XObject
+    /// (DCTDecode/CCITTFaxDecode/JPXDecode) không bao giờ bị mã hoá lại, nên codec và nội dung
+    /// hiển thị được giữ nguyên. Object stream được PDF/A-2 cho phép; nhớ kiểm tra lại chuẩn sau
+    /// khi tối ưu.
     /// </summary>
     public sealed class QpdfStructuralOptimizer : IPdfOptimizer
     {
         private readonly string _executablePath;
         private readonly int _timeoutMs;
 
-        /// <param name="executablePath">Path to qpdf(.exe). When null, discovery tries QPDF_PATH, then an app-local "qpdf" folder, then PATH, then common install dirs.</param>
+        /// <param name="executablePath">Đường dẫn tới qpdf(.exe). Nếu để null, sẽ tự dò theo thứ tự: biến môi trường QPDF_PATH, rồi thư mục "qpdf" cạnh ứng dụng, rồi PATH, rồi các thư mục cài đặt thông dụng.</param>
         public QpdfStructuralOptimizer(string executablePath = null, int timeoutMs = 120000)
         {
             _executablePath = string.IsNullOrEmpty(executablePath) ? QpdfLocator.Find() : executablePath;
@@ -66,8 +67,9 @@ namespace ImageProcessing.Archiving
         private static string BuildArguments(OptimizeOptions o, string inFile, string outFile)
         {
             List<string> args = new List<string>();
-            // PDF/A clause 6.1.7.1 requires an EOL before every 'endstream'; qpdf omits it by
-            // default. This flag keeps the optimized output PDF/A-conformant.
+            // Điều khoản PDF/A 6.1.7.1 yêu cầu phải có ký tự xuống dòng (EOL) trước mỗi
+            // 'endstream'; mặc định qpdf không tự thêm. Cờ này giữ cho file sau khi tối ưu vẫn
+            // đạt chuẩn PDF/A.
             args.Add("--newline-before-endstream");
             args.Add(o.UseObjectStreams ? "--object-streams=generate" : "--object-streams=preserve");
             if (o.RecompressStreams)
@@ -105,12 +107,12 @@ namespace ImageProcessing.Archiving
 
                 if (!proc.WaitForExit(_timeoutMs))
                 {
-                    try { proc.Kill(); } catch { /* ignore */ }
+                    try { proc.Kill(); } catch { /* bỏ qua */ }
                     throw new QpdfException("qpdf timed out after " + _timeoutMs + " ms.");
                 }
                 proc.WaitForExit();
 
-                // qpdf: 0 = success, 3 = warnings (output still produced), 2 = errors.
+                // qpdf: 0 = thành công, 3 = có cảnh báo (vẫn tạo ra được file), 2 = lỗi.
                 if (proc.ExitCode != 0 && proc.ExitCode != 3)
                     throw new QpdfException("qpdf failed (exit " + proc.ExitCode + "): " + stderr);
             }
@@ -120,11 +122,11 @@ namespace ImageProcessing.Archiving
 
         private static void TryDelete(string path)
         {
-            try { if (File.Exists(path)) File.Delete(path); } catch { /* best effort */ }
+            try { if (File.Exists(path)) File.Delete(path); } catch { /* cố gắng hết sức, bỏ qua nếu lỗi */ }
         }
     }
 
-    /// <summary>Locates a qpdf executable across configuration/app folder/PATH/install dirs.</summary>
+    /// <summary>Tìm file thực thi qpdf qua cấu hình/thư mục ứng dụng/PATH/thư mục cài đặt.</summary>
     public static class QpdfLocator
     {
         public static string Find()
@@ -148,7 +150,7 @@ namespace ImageProcessing.Archiving
             {
                 if (string.IsNullOrWhiteSpace(dir)) continue;
                 try { string p = Path.Combine(dir.Trim(), "qpdf.exe"); if (File.Exists(p)) return p; }
-                catch { /* invalid path element */ }
+                catch { /* thành phần đường dẫn không hợp lệ */ }
             }
 
             return FindUnder(@"C:\tools\qpdf");
@@ -164,7 +166,7 @@ namespace ImageProcessing.Archiving
                 foreach (string found in Directory.GetFiles(dir, "qpdf.exe", SearchOption.AllDirectories))
                     return found;
             }
-            catch { /* ignore */ }
+            catch { /* bỏ qua */ }
             return null;
         }
     }

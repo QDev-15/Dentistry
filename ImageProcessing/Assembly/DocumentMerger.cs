@@ -9,12 +9,13 @@ using OpenCvSharp;
 
 namespace ImageProcessing.Assembly
 {
-    /// <summary>Combines multiple image files into one plain PDF or one multi-page TIFF.</summary>
+    /// <summary>Gộp nhiều file ảnh thành 1 PDF thường hoặc 1 file TIFF nhiều trang.</summary>
     public static class DocumentMerger
     {
         /// <summary>
-        /// Builds a plain (non-archival) PDF, one full page per source image/frame. For
-        /// PDF/A output use <c>ImageProcessing.Archiving.PdfADocumentBuilder</c> instead.
+        /// Tạo 1 PDF thường (không phải PDF/A), mỗi ảnh/khung hình nguồn chiếm trọn 1 trang. Muốn
+        /// xuất PDF/A thì dùng <c>ImageProcessing.Archiving.PdfADocumentBuilder</c> thay cho hàm
+        /// này.
         /// </summary>
         public static void MergeToPlainPdf(IEnumerable<string> sourceFiles, string destFile, DocumentMetadata metadata = null)
         {
@@ -23,9 +24,9 @@ namespace ImageProcessing.Assembly
         }
 
         /// <summary>
-        /// Builds a multi-page TIFF. When <paramref name="convertTo1Bpp"/> is true every page is
-        /// thresholded (Otsu) and written as CCITT Group 4; otherwise each source's native depth
-        /// is preserved via a plain multi-frame TIFF.
+        /// Tạo 1 file TIFF nhiều trang. Khi <paramref name="convertTo1Bpp"/> là true, mỗi trang sẽ
+        /// được nhị phân hoá (thuật toán Otsu) và ghi ra dưới dạng CCITT Group 4; ngược lại mỗi
+        /// trang giữ nguyên độ sâu màu gốc qua 1 file TIFF nhiều khung hình thông thường.
         /// </summary>
         public static void MergeToTiff(IEnumerable<string> sourceFiles, string destFile, bool convertTo1Bpp)
         {

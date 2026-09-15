@@ -14,13 +14,13 @@ namespace ImageProcessing.Effects
     }
 
     /// <summary>
-    /// Which cleanup passes <see cref="ImageEffectPipeline.ApplyPipeline"/> runs, and in what
-    /// order (isolated-dot removal, then deskew, then despeckle, then black-border crop -
-    /// matching the historical GdPicture/OpenImaging pipeline order).
+    /// Các bước làm sạch mà <see cref="ImageEffectPipeline.ApplyPipeline"/> sẽ chạy, và theo thứ
+    /// tự nào (xoá chấm mực lẻ tẻ, rồi chỉnh nghiêng, rồi khử nhiễu, rồi cắt viền đen - đúng theo
+    /// thứ tự pipeline truyền thống của GdPicture/OpenImaging).
     /// </summary>
     public sealed class EffectPipelineOptions
     {
-        /// <summary>Drops isolated ink specks (2x2 or smaller). Applies only to non-colour pages.</summary>
+        /// <summary>Xoá các chấm mực lẻ tẻ (2x2 điểm ảnh trở xuống). Chỉ áp dụng cho trang không màu.</summary>
         public bool RemoveIsolatedDots { get; set; }
 
         public bool Deskew { get; set; }
@@ -29,16 +29,17 @@ namespace ImageProcessing.Effects
 
         public bool RemoveBlackBorder { get; set; }
 
-        /// <summary>False = page is stored bitonal (CCITT G4 TIFF); true = stored as colour JPEG.</summary>
+        /// <summary>False = trang được lưu ở dạng đen-trắng (TIFF CCITT G4); true = lưu dạng JPEG màu.</summary>
         public bool ColorImage { get; set; }
 
         public static EffectPipelineOptions None { get { return new EffectPipelineOptions(); } }
     }
 
     /// <summary>
-    /// Cleanup/geometry operations on a scanned page. Every method here is pure (Bitmap in,
-    /// Bitmap out, no I/O); see <see cref="ImageEffectFileOps"/> for the file-path convenience
-    /// wrappers used by scan/import pipelines that hand off images as temp files.
+    /// Các thao tác làm sạch/chỉnh hình học trên 1 trang đã scan. Mọi hàm ở đây đều là hàm thuần
+    /// (nhận Bitmap, trả về Bitmap, không đụng tới I/O); xem <see cref="ImageEffectFileOps"/> để
+    /// có các hàm bọc tiện dụng làm việc trực tiếp trên đường dẫn file, dùng cho các pipeline
+    /// scan/nhập liệu vốn trao đổi ảnh qua file tạm.
     /// </summary>
     public static class ImageEffectPipeline
     {
@@ -89,8 +90,8 @@ namespace ImageProcessing.Effects
         }
 
         /// <summary>
-        /// Runs the configured cleanup passes in the fixed order: isolated-dot removal (non-colour
-        /// pages only), deskew, despeckle, black-border crop.
+        /// Chạy các bước làm sạch đã bật theo đúng thứ tự cố định: xoá chấm mực lẻ tẻ (chỉ trang
+        /// không màu), chỉnh nghiêng, khử nhiễu, cắt viền đen.
         /// </summary>
         public static Bitmap ApplyPipeline(Bitmap source, EffectPipelineOptions options)
         {
@@ -157,10 +158,11 @@ namespace ImageProcessing.Effects
     }
 
     /// <summary>
-    /// File-path convenience wrappers over <see cref="ImageEffectPipeline"/>, for callers that
-    /// receive scanned pages as temp files (TWAIN drivers, import folders) rather than in-memory
-    /// bitmaps: each operation loads the file, runs the effect, saves back in the same depth it
-    /// found (bitonal stays bitonal TIFF, everything else becomes JPEG) and returns a thumbnail.
+    /// Các hàm bọc tiện dụng làm việc trực tiếp trên đường dẫn file, đặt trên nền
+    /// <see cref="ImageEffectPipeline"/>, dành cho bên gọi nhận trang scan dưới dạng file tạm
+    /// (driver TWAIN, thư mục nhập liệu) thay vì bitmap trong bộ nhớ: mỗi thao tác tự tải file,
+    /// chạy hiệu ứng, lưu lại đúng độ sâu màu đã đọc được (đen-trắng vẫn giữ TIFF đen-trắng, còn
+    /// lại chuyển thành JPEG) và trả về 1 ảnh thumbnail.
     /// </summary>
     public static class ImageEffectFileOps
     {
@@ -183,7 +185,7 @@ namespace ImageProcessing.Effects
             return TransformInPlace(path, thumbnailWidth, PixelOps.EstimateSkewAndDeskew);
         }
 
-        /// <summary>Runs <see cref="ImageEffectPipeline.ApplyPipeline(Bitmap,EffectPipelineOptions)"/> and saves back in place.</summary>
+        /// <summary>Chạy <see cref="ImageEffectPipeline.ApplyPipeline(Bitmap,EffectPipelineOptions)"/> và lưu lại đúng vị trí cũ.</summary>
         public static void ApplyPipelineInPlace(string path, EffectPipelineOptions options)
         {
             using (Mat src = LoadFirstPage(path))

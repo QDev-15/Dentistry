@@ -4,48 +4,48 @@ using System.Drawing;
 
 namespace ImageProcessing.Archiving
 {
-    /// <summary>The image compression of an <see cref="ArchivePage"/>'s encoded bytes.</summary>
+    /// <summary>Kiểu nén ảnh của phần dữ liệu đã mã hoá trong <see cref="ArchivePage"/>.</summary>
     public enum PageCodec
     {
-        /// <summary>Baseline JPEG, embedded as-is via /DCTDecode.</summary>
+        /// <summary>JPEG chuẩn (baseline), nhúng nguyên trạng qua /DCTDecode.</summary>
         Jpeg,
 
-        /// <summary>CCITT Group 4 (fax) bitonal, embedded via /CCITTFaxDecode.</summary>
+        /// <summary>Nhị phân đen-trắng CCITT Group 4 (chuẩn fax), nhúng qua /CCITTFaxDecode.</summary>
         CcittGroup4,
 
-        /// <summary>JPEG 2000 (JP2/J2K), embedded via /JPXDecode. Requires PDF/A-2 or later.</summary>
+        /// <summary>JPEG 2000 (JP2/J2K), nhúng qua /JPXDecode. Yêu cầu PDF/A-2 trở lên.</summary>
         Jpeg2000,
 
-        /// <summary>Zlib/deflate-compressed raw samples, embedded via /FlateDecode.</summary>
+        /// <summary>Dữ liệu thô nén bằng Zlib/deflate, nhúng qua /FlateDecode.</summary>
         Flate
     }
 
-    /// <summary>The colour interpretation of an <see cref="ArchivePage"/>'s samples.</summary>
+    /// <summary>Cách biểu diễn màu của dữ liệu điểm ảnh trong <see cref="ArchivePage"/>.</summary>
     public enum PageColorSpace
     {
-        /// <summary>1-bit black/white (DeviceGray, 1 bpc).</summary>
+        /// <summary>Đen/trắng 1-bit (DeviceGray, 1 bpc).</summary>
         Bitonal,
 
-        /// <summary>8-bit grayscale (DeviceGray).</summary>
+        /// <summary>Thang xám 8-bit (DeviceGray).</summary>
         Gray,
 
-        /// <summary>24-bit colour (DeviceRGB).</summary>
+        /// <summary>Màu 24-bit (DeviceRGB).</summary>
         Rgb,
 
-        /// <summary>32-bit colour (DeviceCMYK). Needs a CMYK OutputIntent/ICC.</summary>
+        /// <summary>Màu 32-bit (DeviceCMYK). Cần có OutputIntent/ICC dạng CMYK.</summary>
         Cmyk
     }
 
-    /// <summary>One recognized OCR word, to be drawn as invisible text over its printed position.</summary>
+    /// <summary>Một từ được OCR nhận diện, sẽ được vẽ dưới dạng text vô hình đè lên đúng vị trí in trên trang.</summary>
     public sealed class OcrWord
     {
-        /// <param name="text">Recognized word text.</param>
+        /// <param name="text">Nội dung chữ đã nhận diện.</param>
         /// <param name="boundingBox">
-        /// Word box in image pixel coordinates, top-left origin (X right, Y down) - the native
-        /// Tesseract/hOCR frame. The archiver converts to PDF (bottom-left, points) using the
-        /// page DPI.
+        /// Khung chứa từ theo toạ độ pixel của ảnh, gốc toạ độ ở góc trên-trái (X sang phải,
+        /// Y xuống dưới) - đúng hệ toạ độ gốc của Tesseract/hOCR. Bộ đóng gói PDF sẽ tự quy đổi
+        /// sang hệ toạ độ PDF (gốc dưới-trái, đơn vị point) dựa theo DPI của trang.
         /// </param>
-        /// <param name="baseline">Optional baseline Y (image pixels, top-left origin); null = approximate from the box bottom.</param>
+        /// <param name="baseline">Toạ độ Y của đường baseline (pixel ảnh, gốc trên-trái), có thể để trống; null = ước lượng từ đáy khung chứa.</param>
         public OcrWord(string text, RectangleF boundingBox, float? baseline = null)
         {
             Text = text ?? string.Empty;
@@ -61,9 +61,9 @@ namespace ImageProcessing.Archiving
     }
 
     /// <summary>
-    /// One prepared page for <see cref="IPdfArchiver"/>: already-encoded image bytes (kept
-    /// verbatim so the archiver embeds them without re-encoding) plus geometry and, optionally,
-    /// OCR word boxes for the invisible text layer.
+    /// Một trang đã chuẩn bị sẵn để đưa vào <see cref="IPdfArchiver"/>: dữ liệu ảnh đã mã hoá sẵn
+    /// (giữ nguyên trạng để bộ đóng gói nhúng thẳng, không phải mã hoá lại) cùng thông số kích
+    /// thước và (nếu có) các khung từ OCR để tạo lớp text vô hình.
     /// </summary>
     public sealed class ArchivePage
     {

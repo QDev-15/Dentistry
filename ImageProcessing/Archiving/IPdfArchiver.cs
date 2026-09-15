@@ -5,19 +5,20 @@ using ImageProcessing.Assembly;
 namespace ImageProcessing.Archiving
 {
     /// <summary>
-    /// Abstraction boundary for PDF/A generation - the rest of the library depends on this,
-    /// never on a concrete PDF engine, so swapping engines stays a one-adapter change.
+    /// Ranh giới trừu tượng cho việc tạo PDF/A - phần còn lại của thư viện chỉ phụ thuộc vào
+    /// interface này, không bao giờ phụ thuộc trực tiếp vào một bộ máy PDF cụ thể, nên đổi bộ
+    /// máy chỉ cần sửa đúng 1 adapter.
     /// </summary>
     public interface IPdfArchiver
     {
-        /// <param name="pages">Prepared pages, in document order.</param>
-        /// <param name="conformance">Target conformance level.</param>
-        /// <param name="metadata">Document metadata (Info + XMP, set consistently).</param>
-        /// <param name="output">Destination stream; the archiver writes the PDF and does not close it.</param>
+        /// <param name="pages">Các trang đã chuẩn bị sẵn, theo đúng thứ tự trong tài liệu.</param>
+        /// <param name="conformance">Mức chuẩn PDF/A cần đạt.</param>
+        /// <param name="metadata">Metadata của tài liệu (Info + XMP, được thiết lập nhất quán).</param>
+        /// <param name="output">Stream đích; bộ đóng gói chỉ ghi PDF vào đây, không tự đóng stream.</param>
         PdfArchiveResult CreatePdfA(IEnumerable<ArchivePage> pages, PdfAConformance conformance, DocumentMetadata metadata, Stream output);
     }
 
-    /// <summary>Outcome of <see cref="IPdfArchiver.CreatePdfA"/>.</summary>
+    /// <summary>Kết quả trả về của <see cref="IPdfArchiver.CreatePdfA"/>.</summary>
     public sealed class PdfArchiveResult
     {
         public PdfArchiveResult(bool success, int pageCount, PdfAConformance conformance, string message = null)
@@ -28,7 +29,7 @@ namespace ImageProcessing.Archiving
             Message = message ?? string.Empty;
         }
 
-        /// <summary>True when a document was produced. (Conformance is proven separately by a validator.)</summary>
+        /// <summary>True khi đã tạo ra được tài liệu. (Việc có thực sự đạt chuẩn hay không do một validator riêng kiểm chứng.)</summary>
         public bool Success { get; }
 
         public int PageCount { get; }
