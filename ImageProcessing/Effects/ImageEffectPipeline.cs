@@ -15,8 +15,7 @@ namespace ImageProcessing.Effects
 
     /// <summary>
     /// Các bước làm sạch mà <see cref="ImageEffectPipeline.ApplyPipeline"/> sẽ chạy, và theo thứ
-    /// tự nào (xoá chấm mực lẻ tẻ, rồi chỉnh nghiêng, rồi khử nhiễu, rồi cắt viền đen - đúng theo
-    /// thứ tự pipeline truyền thống của GdPicture/OpenImaging).
+    /// tự nào (xoá chấm mực lẻ tẻ, rồi chỉnh nghiêng, rồi khử nhiễu, rồi cắt viền đen).
     /// </summary>
     public sealed class EffectPipelineOptions
     {

@@ -6,15 +6,15 @@ using System.Linq;
 
 namespace ImageProcessing.Imaging
 {
-    /// <summary>Shared GDI+ JPEG encode helper (quality-parameterized), used by both the page
-    /// writer and the PDF/A page builder so there is exactly one place that talks to
+    /// <summary>Hàm hỗ trợ mã hoá JPEG dùng chung qua GDI+ (tham số hoá chất lượng), được cả bộ
+    /// ghi trang lẫn bộ dựng trang PDF/A dùng, để chỉ có duy nhất 1 nơi làm việc trực tiếp với
     /// <see cref="ImageCodecInfo"/>.</summary>
     internal static class JpegCodec
     {
-        // The system's registered codec list never changes during process lifetime; querying it
-        // via GetImageEncoders() walks and allocates a fresh array every call, so for a
-        // high-throughput (web) caller resolving it once per process is a meaningful saving over
-        // doing it on every single page saved.
+        // Danh sách codec đã đăng ký của hệ thống không đổi trong suốt vòng đời tiến trình; gọi
+        // GetImageEncoders() sẽ duyệt và cấp phát 1 mảng mới mỗi lần gọi, nên với bên gọi có
+        // throughput cao (web) việc chỉ resolve 1 lần cho cả tiến trình tiết kiệm đáng kể so với
+        // làm lại mỗi khi lưu 1 trang.
         private static readonly ImageCodecInfo JpegEncoderInfo = ResolveEncoder();
 
         public static void SaveToFile(Bitmap bmp, string destPath, long quality)

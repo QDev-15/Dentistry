@@ -5,11 +5,11 @@ using System.Runtime.Versioning;
 #endif
 
 #if !NETFRAMEWORK
-// GenerateAssemblyInfo is off (this file is hand-maintained), which also disables the SDK's
-// usual auto-injection of this attribute for a "-windows" TargetFramework - added explicitly so
-// the platform-compat analyzer stops flagging every System.Drawing/GDI+ call site with CA1416.
-// System.Runtime.Versioning.SupportedOSPlatformAttribute doesn't exist on .NET Framework, hence
-// the #if - net48 is inherently Windows-only anyway, nothing to annotate there.
+// GenerateAssemblyInfo tắt (file này tự viết tay), nên bộ SDK cũng không tự thêm attribute này
+// cho TargetFramework có hậu tố "-windows" - thêm thủ công ở đây để bộ phân tích tương thích nền
+// tảng ngừng cảnh báo CA1416 ở mọi chỗ gọi System.Drawing/GDI+. Attribute
+// System.Runtime.Versioning.SupportedOSPlatformAttribute không tồn tại trên .NET Framework, nên
+// mới có #if - net48 vốn đã chỉ chạy trên Windows nên không cần đánh dấu.
 [assembly: SupportedOSPlatform("windows")]
 #endif
 

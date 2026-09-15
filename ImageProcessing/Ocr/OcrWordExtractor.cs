@@ -8,19 +8,17 @@ using Tesseract;
 namespace ImageProcessing.Ocr
 {
     /// <summary>
-    /// Runs a Tesseract engine over a page image and returns its recognized words (text + pixel
-    /// bounding box), which <see cref="ImageProcessing.Archiving.PdfArchiver"/> places as an
-    /// invisible searchable text layer via <c>OcrTextOverlay</c>.
+    /// Chạy engine Tesseract trên 1 ảnh trang và trả về các từ nhận dạng được (nội dung chữ +
+    /// khung toạ độ pixel), sau đó được đặt làm lớp text ẩn có thể tìm kiếm thông qua
+    /// <c>OcrTextOverlay</c>.
     ///
-    /// tessdata: the language data (eng, vie, ...) must live directly under
-    /// <paramref name="tessDataPath"/> (the folder that CONTAINS the *.traineddata files) - see
-    /// the constructor.
+    /// tessdata: dữ liệu ngôn ngữ (eng, vie, ...) phải nằm trực tiếp trong
+    /// <paramref name="tessDataPath"/> (thư mục CHỨA các file *.traineddata) - xem constructor.
     ///
-    /// Deployment note: this class only needs the managed Tesseract.dll to compile; at runtime it
-    /// also needs Tesseract's native libraries (leptonica-*.dll / tesseract*.dll) present under an
-    /// "x86"/"x64" subfolder of the consuming application's output directory - see the library's
-    /// README for how to deploy them (they are not embedded in this DLL, matching how the
-    /// original OpenImaging project relied on the host EXE to deploy them).
+    /// Lưu ý khi triển khai: lớp này chỉ cần Tesseract.dll (managed) để build; lúc chạy còn cần
+    /// các thư viện native của Tesseract (leptonica-*.dll / tesseract*.dll) nằm trong thư mục con
+    /// "x86"/"x64" của thư mục output ứng dụng sử dụng - xem README của thư viện để biết cách
+    /// triển khai (các file này không được nhúng sẵn trong DLL này).
     /// </summary>
     public sealed class OcrWordExtractor : IDisposable
     {
@@ -40,7 +38,7 @@ namespace ImageProcessing.Ocr
             _engine = new TesseractEngine(tessDataPath, languages, EngineMode.Default);
         }
 
-        /// <summary>Runs OCR over <paramref name="image"/> and returns its recognized words, in image-pixel/top-left-origin coordinates.</summary>
+        /// <summary>Chạy OCR trên <paramref name="image"/> và trả về các từ nhận dạng được, theo toạ độ pixel ảnh gốc-trên-trái.</summary>
         public IReadOnlyList<OcrWord> Extract(Bitmap image)
         {
             if (image == null) throw new ArgumentNullException(nameof(image));
@@ -73,7 +71,7 @@ namespace ImageProcessing.Ocr
             _engine.Dispose();
         }
 
-        /// <summary>Points Tesseract's native-library probing at this assembly's own directory, so OCR works regardless of the host's working directory.</summary>
+        /// <summary>Trỏ cơ chế tìm thư viện native của Tesseract vào thư mục của chính assembly này, để OCR hoạt động bất kể thư mục làm việc của ứng dụng dùng nó.</summary>
         private static void TryPointNativeLoaderAtAppBase()
         {
             try
@@ -87,7 +85,7 @@ namespace ImageProcessing.Ocr
             }
             catch
             {
-                // Fall back to Tesseract's default native-library probing.
+                // Nếu lỗi, quay về cơ chế tìm thư viện native mặc định của Tesseract.
             }
         }
     }

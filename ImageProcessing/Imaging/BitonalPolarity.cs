@@ -4,28 +4,27 @@ using System.Drawing;
 namespace ImageProcessing.Imaging
 {
     /// <summary>
-    /// Which bit value represents ink in a 1bpp-indexed <see cref="Bitmap"/>. GDI+ does not
-    /// force a fixed convention: it preserves whatever palette the source format implied
-    /// (e.g. a MinIsWhite-tagged TIFF decodes with palette[0]=White, palette[1]=Black), so
-    /// code that inspects raw packed bits must resolve this per-bitmap rather than assume
-    /// a fixed "index 0 is black" layout.
+    /// Giá trị bit nào đại diện cho mực trong 1 <see cref="Bitmap"/> lập chỉ mục 1bpp. GDI+ không
+    /// ép theo 1 quy ước cố định: nó giữ nguyên bảng màu mà định dạng gốc ngụ ý (ví dụ TIFF gắn cờ
+    /// MinIsWhite sẽ giải mã với palette[0]=Trắng, palette[1]=Đen), nên đoạn code đọc trực tiếp bit
+    /// đã đóng gói phải tự xác định điều này theo từng bitmap thay vì giả định cố định "index 0 là
+    /// đen".
     /// </summary>
     internal enum BitonalPolarity
     {
-        /// <summary>Bit value 0 is ink (dark); bit value 1 is paper (light).</summary>
+        /// <summary>Giá trị bit 0 là mực (tối); giá trị bit 1 là giấy (sáng).</summary>
         ZeroIsInk,
 
-        /// <summary>Bit value 1 is ink (dark); bit value 0 is paper (light).</summary>
+        /// <summary>Giá trị bit 1 là mực (tối); giá trị bit 0 là giấy (sáng).</summary>
         OneIsInk
     }
 
     internal static class BitonalPolarityDetector
     {
         /// <summary>
-        /// Inspects the two palette entries of a 1bpp-indexed bitmap and returns which bit
-        /// value is the darker (ink) one. Falls back to <see cref="BitonalPolarity.OneIsInk"/>
-        /// (GDI+'s own default palette for a freshly allocated 1bpp bitmap) when the palette
-        /// is missing or degenerate.
+        /// Kiểm tra 2 mục trong bảng màu của 1 bitmap lập chỉ mục 1bpp và trả về giá trị bit nào
+        /// tối hơn (là mực). Trả về mặc định <see cref="BitonalPolarity.OneIsInk"/> (bảng màu mặc
+        /// định của GDI+ cho 1 bitmap 1bpp vừa cấp phát) khi bảng màu bị thiếu hoặc suy biến.
         /// </summary>
         public static BitonalPolarity Detect(Bitmap bitonal)
         {
@@ -38,7 +37,7 @@ namespace ImageProcessing.Imaging
             double lum0 = Luminance(entries[0]);
             double lum1 = Luminance(entries[1]);
 
-            // Degenerate/identical palette: keep the conventional default rather than guess.
+            // Bảng màu suy biến/giống nhau: giữ mặc định theo quy ước thay vì đoán mò.
             if (Math.Abs(lum0 - lum1) < 1.0)
                 return BitonalPolarity.OneIsInk;
 

@@ -9,21 +9,21 @@ using CvSize = OpenCvSharp.Size;
 namespace ImageProcessing.Imaging
 {
     /// <summary>
-    /// Low-level OpenCV pixel operations shared by the higher-level services. Every method
-    /// that returns a <see cref="Mat"/> transfers ownership to the caller (dispose it); every
-    /// method takes its input(s) by reference and never disposes them.
+    /// Các thao tác pixel OpenCV ở tầng thấp, dùng chung cho các service ở tầng cao hơn. Mọi hàm
+    /// trả về <see cref="Mat"/> đều chuyển quyền sở hữu cho bên gọi (phải tự dispose); mọi hàm
+    /// nhận tham số đầu vào chỉ để đọc và không bao giờ dispose chúng.
     /// </summary>
     internal static class PixelOps
     {
-        /// <summary>Decodes any GDI+-readable raster file (first frame) into a BGR/BGRA <see cref="Mat"/>.</summary>
+        /// <summary>Giải mã 1 file raster mà GDI+ đọc được (khung hình đầu tiên) thành <see cref="Mat"/> dạng BGR/BGRA.</summary>
         public static Mat LoadAsMat(string path)
         {
             using (Bitmap decoded = (Bitmap)Image.FromFile(path))
-            using (Bitmap detached = new Bitmap(decoded)) // detach from the file handle before converting
+            using (Bitmap detached = new Bitmap(decoded)) // tách khỏi handle file trước khi chuyển đổi
                 return BitmapConverter.ToMat(detached);
         }
 
-        /// <summary>True when the file decodes as a 1bpp-indexed (bitonal) raster.</summary>
+        /// <summary>True khi file giải mã ra dạng raster lập chỉ mục 1bpp (đen-trắng thuần).</summary>
         public static bool IsBitonalFile(string path)
         {
             using (Bitmap bmp = (Bitmap)Image.FromFile(path))
@@ -35,7 +35,7 @@ namespace ImageProcessing.Imaging
             return BitmapConverter.ToBitmap(mat);
         }
 
-        /// <summary>Single-channel grayscale view; clones when already grayscale so ownership rules stay uniform.</summary>
+        /// <summary>View ảnh xám 1 kênh; clone nếu đã là ảnh xám sẵn để quy tắc sở hữu luôn nhất quán.</summary>
         public static Mat ToGrayscale(Mat src)
         {
             if (src.Channels() == 1)
@@ -53,8 +53,8 @@ namespace ImageProcessing.Imaging
         }
 
         /// <summary>
-        /// Otsu-thresholds to a 0/255 single-channel mask where 255 = paper (white) and
-        /// 0 = ink, mirroring how a fax-style MinIsWhite scan is normally represented.
+        /// Áp ngưỡng Otsu để tạo mặt nạ 1 kênh giá trị 0/255, trong đó 255 = giấy (trắng) và
+        /// 0 = mực, giống cách 1 bản scan kiểu fax MinIsWhite thường được biểu diễn.
         /// </summary>
         public static Mat ToOtsuBitonal(Mat src)
         {
@@ -66,7 +66,7 @@ namespace ImageProcessing.Imaging
             }
         }
 
-        /// <summary>Otsu-thresholded ink mask (255 = ink, 0 = paper) - the inverse of <see cref="ToOtsuBitonal"/>.</summary>
+        /// <summary>Mặt nạ mực theo ngưỡng Otsu (255 = mực, 0 = giấy) - ngược lại với <see cref="ToOtsuBitonal"/>.</summary>
         private static Mat ToOtsuInkMask(Mat src)
         {
             using (Mat gray = ToGrayscale(src))
@@ -77,7 +77,7 @@ namespace ImageProcessing.Imaging
             }
         }
 
-        /// <summary>Fraction (0..1) of pixels classified as ink by Otsu thresholding.</summary>
+        /// <summary>Tỉ lệ (0..1) số pixel được ngưỡng Otsu xếp loại là mực.</summary>
         public static double ForegroundCoverage(Mat src)
         {
             using (Mat ink = ToOtsuInkMask(src))
@@ -88,14 +88,14 @@ namespace ImageProcessing.Imaging
             }
         }
 
-        /// <summary>True when at least <paramref name="thresholdPercent"/>% of the page is blank (non-ink).</summary>
+        /// <summary>True khi ít nhất <paramref name="thresholdPercent"/>% trang là vùng trắng (không có mực).</summary>
         public static bool LooksBlank(Mat src, float thresholdPercent)
         {
             double blankRatio = 1.0 - ForegroundCoverage(src);
             return blankRatio * 100.0 >= thresholdPercent;
         }
 
-        /// <summary>Median-blur despeckle.</summary>
+        /// <summary>Khử nhiễu bằng median blur.</summary>
         public static Mat MedianDespeckle(Mat src, int kernelSize = 3)
         {
             Mat dst = new Mat();
@@ -104,8 +104,8 @@ namespace ImageProcessing.Imaging
         }
 
         /// <summary>
-        /// Morphological opening (2x2) over the ink mask to drop isolated single/near-single
-        /// pixel specks, then repaints the result as a clean white-paper/black-ink image.
+        /// Phép mở hình thái học (2x2) trên mặt nạ mực để loại bỏ các chấm mực lẻ tẻ (1 điểm ảnh
+        /// hoặc gần như vậy), sau đó tô lại kết quả thành ảnh nền trắng/mực đen sạch sẽ.
         /// </summary>
         public static Mat OpenIsolatedInk(Mat src)
         {
@@ -118,7 +118,7 @@ namespace ImageProcessing.Imaging
             }
         }
 
-        /// <summary>Detects and subtracts long horizontal/vertical ruled lines from the ink mask.</summary>
+        /// <summary>Phát hiện và loại bỏ các đường kẻ ngang/dọc dài khỏi mặt nạ mực.</summary>
         public static Mat StripRuledLines(Mat src)
         {
             using (Mat ink = ToOtsuInkMask(src))
@@ -141,7 +141,7 @@ namespace ImageProcessing.Imaging
             }
         }
 
-        /// <summary>Crops to the bounding box of non-black content (drops surrounding black scan borders).</summary>
+        /// <summary>Cắt về đúng khung bao của nội dung không đen (bỏ viền đen quét thừa xung quanh).</summary>
         public static Mat TrimDarkMargins(Mat src)
         {
             using (Mat gray = ToGrayscale(src))
@@ -169,17 +169,18 @@ namespace ImageProcessing.Imaging
             }
         }
 
-        // Angle estimation cost scales with the number of ink pixels collected (each one is
-        // copied from native memory through a per-element marshaling call), while the resulting
-        // angle is essentially scale-invariant. Estimating on a capped-size copy instead of the
-        // full-resolution page turns an O(page pixel count) step into an O(constant) one - on a
-        // typical A4@200dpi text page this alone cuts Deskew's cost by roughly 10x, without
-        // changing the output: the warp itself still runs on the untouched, full-resolution src.
+        // Chi phí ước lượng góc nghiêng tỉ lệ theo số điểm ảnh mực thu thập được (mỗi điểm phải
+        // copy từ vùng nhớ native qua 1 lệnh gọi marshal riêng lẻ), trong khi góc kết quả gần như
+        // không đổi theo tỉ lệ ảnh. Ước lượng trên 1 bản copy đã giới hạn kích thước thay vì trên
+        // toàn bộ trang gốc biến bước này từ O(số pixel trang) thành O(hằng số) - với 1 trang văn
+        // bản A4@200dpi thông thường, riêng việc này đã giảm chi phí của Deskew khoảng 10 lần, mà
+        // không đổi kết quả: phép warp thực tế vẫn chạy trên src gốc, giữ nguyên độ phân giải.
         private const int SkewEstimationMaxDimension = 800;
 
         /// <summary>
-        /// Estimates the dominant text-line skew from the ink pixels' minimum-area rectangle
-        /// and rotates the page to correct it. Skew under 0.1 degrees is left untouched.
+        /// Ước lượng góc nghiêng chủ đạo của các dòng chữ dựa trên hình chữ nhật diện tích nhỏ
+        /// nhất bao quanh các điểm ảnh mực, rồi xoay trang để chỉnh lại. Độ nghiêng dưới 0.1 độ
+        /// được giữ nguyên không xử lý.
         /// </summary>
         public static Mat EstimateSkewAndDeskew(Mat src)
         {
@@ -249,7 +250,7 @@ namespace ImageProcessing.Imaging
             return dst;
         }
 
-        /// <summary>Fixed-width thumbnail (aspect-ratio preserved) framed with a 2px dark-gray border.</summary>
+        /// <summary>Thumbnail độ rộng cố định (giữ nguyên tỉ lệ khung hình), viền xám đậm 2px.</summary>
         public static Bitmap BuildFramedThumbnail(Mat src, int width)
         {
             int height = (int)((long)width * src.Height / src.Width) + 1;

@@ -2,15 +2,14 @@
 
   <PropertyGroup>
     <!-- Đa target để CÙNG MỘT project này dùng được cho cả ứng dụng chạy .NET Framework 4.8 lẫn
-         ứng dụng .NET 8 hiện đại (Dentistry.Web / Dentistry.Admin trong solution này, đều dùng
-         net8.0) - một tiến trình .NET Framework không thể nạp assembly .NET Core/.NET 8 (khác
-         CLR), nên không có target framework nào dùng chung được cho cả 2; MSBuild sẽ build
-         project này 2 lần; mỗi target có ImageProcessing.dll riêng dưới bin\<Config>\<TFM>\.
-         Trước đây dùng net10.0-windows thay vì net8.0-windows, nhưng phiên bản Visual Studio
-         đang cài không hỗ trợ target .NET 10.0 (NETSDK1220), và mọi project khác trong solution
-         đều dùng net8.0 - nên net8.0-windows vừa sửa được lỗi vừa hợp lý hơn: một ứng dụng net8.0
-         vẫn không thể tham chiếu thư viện net10.0 dù VS có hỗ trợ đi nữa (NuGet luôn yêu cầu
-         target framework của bên dùng phải >= target framework của thư viện). -->
+         ứng dụng .NET 8 hiện đại - một tiến trình .NET Framework không thể nạp assembly .NET
+         Core/.NET 8 (khác CLR), nên không có target framework nào dùng chung được cho cả 2;
+         MSBuild sẽ build project này 2 lần; mỗi target có ImageProcessing.dll riêng dưới
+         bin\<Config>\<TFM>\. Trước đây dùng net10.0-windows thay vì net8.0-windows, nhưng phiên
+         bản Visual Studio đang cài không hỗ trợ target .NET 10.0 (NETSDK1220) - net8.0-windows
+         vừa sửa được lỗi vừa hợp lý hơn: một ứng dụng net8.0 vẫn không thể tham chiếu thư viện
+         net10.0 dù VS có hỗ trợ đi nữa (NuGet luôn yêu cầu target framework của bên dùng phải >=
+         target framework của thư viện). -->
     <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
     <RootNamespace>ImageProcessing</RootNamespace>
     <AssemblyName>ImageProcessing</AssemblyName>

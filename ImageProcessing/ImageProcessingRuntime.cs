@@ -1,29 +1,28 @@
 namespace ImageProcessing
 {
     /// <summary>
-    /// Process-wide tuning knobs for hosts that call into this library under their own
-    /// concurrency (a web app serving concurrent requests, a batch worker with its own task
-    /// pool, ...).
+    /// Các tuỳ chỉnh hiệu năng ở phạm vi tiến trình, dành cho ứng dụng gọi vào thư viện này trong
+    /// môi trường có tính đồng thời riêng (web app phục vụ nhiều request cùng lúc, worker chạy
+    /// batch với pool task riêng, ...).
     /// </summary>
     public static class ImageProcessingRuntime
     {
         /// <summary>
-        /// Sets how many worker threads the underlying OpenCV routines (Resize, MedianBlur,
-        /// morphology, ...) may use internally. Left at OpenCV's own default, each of a host's
-        /// own concurrent worker threads ALSO fans out to OpenCV's internal pool, oversubscribing
-        /// the CPU once the host already runs several of these calls at once (e.g. one per
-        /// concurrent web request) - this was measured to roughly halve throughput under load
-        /// (see the ImageProcessing.Benchmarks concurrency section). Call
-        /// <c>SetWorkerThreads(1)</c> once at host startup when you drive your own concurrency
-        /// (a web app, a Parallel.For batch job); leave the default only for a single-threaded,
-        /// one-image-at-a-time host.
+        /// Đặt số luồng worker mà các hàm OpenCV bên dưới (Resize, MedianBlur, morphology, ...)
+        /// được phép dùng nội bộ. Nếu để mặc định của OpenCV, mỗi luồng worker riêng của ứng dụng
+        /// (ví dụ mỗi request web đang xử lý đồng thời) LẠI tiếp tục phân nhánh sang pool nội bộ
+        /// của OpenCV, dẫn tới quá tải CPU khi ứng dụng đã chạy nhiều lệnh gọi này cùng lúc - đo
+        /// thực tế cho thấy throughput giảm gần một nửa khi tải cao. Gọi
+        /// <c>SetWorkerThreads(1)</c> một lần khi khởi động ứng dụng nếu tự quản lý tính đồng thời
+        /// (web app, batch job dùng Parallel.For); chỉ để mặc định khi ứng dụng xử lý đơn luồng,
+        /// từng ảnh một.
         /// </summary>
         public static void SetWorkerThreads(int threadCount)
         {
             OpenCvSharp.Cv2.SetNumThreads(threadCount);
         }
 
-        /// <summary>The worker-thread count OpenCV routines currently use internally.</summary>
+        /// <summary>Số luồng worker mà các hàm OpenCV hiện đang dùng nội bộ.</summary>
         public static int GetWorkerThreads()
         {
             return OpenCvSharp.Cv2.GetNumThreads();
