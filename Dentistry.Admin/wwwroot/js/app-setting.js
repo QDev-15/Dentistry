@@ -5,6 +5,16 @@
     // submit modal
     $(document).on('submit', '#updateForm', function (e) {
         e.preventDefault();
+
+        // Nút "Cập nhật" nằm ngoài <form> (liên kết qua thuộc tính form="updateForm"), không
+        // nằm lồng bên trong nên phải lấy theo id riêng chứ không lấy qua $(this).find(...).
+        var $btn = $('#btn-setting-update');
+        if ($btn.prop('disabled')) {
+            return; // đang gửi rồi, bấm thêm cũng bỏ qua - tránh lưu/gọi trùng nhiều lần
+        }
+        var originalText = $btn.text();
+        $btn.prop('disabled', true).text('Đang lưu...');
+
         var formData = $('#updateForm').serialize();
         // AJAX request
         $.ajax({
@@ -25,6 +35,9 @@
                 // Hiển thị thông báo lỗi
                 showError(xhr.responseText);
             },
+            complete: function () {
+                $btn.prop('disabled', false).text(originalText);
+            }
         });
     });
 

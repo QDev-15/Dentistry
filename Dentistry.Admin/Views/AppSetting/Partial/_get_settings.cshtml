@@ -676,14 +676,23 @@
                         </div>
                     </div>
 
+                    <div class="col-12" id="smtp-note-hosting">
+                        <div class="form-text">Lấy 4 thông tin bên dưới (Host, Port, Tài khoản, Mật khẩu) trong cPanel/Plesk của hosting → mục Email Accounts → Connect Devices. Nếu không tự tìm được, gửi ảnh chụp màn hình "Connect Devices" cho bên kỹ thuật hosting để hỏi.</div>
+                    </div>
+                    <div class="col-12" id="smtp-note-gmail" style="display:none">
+                        <div class="form-text">Bật Xác minh 2 bước rồi tạo App Password tại <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> — dán mã 16 ký tự vào ô Mật khẩu bên dưới, không dùng mật khẩu Gmail thường.</div>
+                    </div>
+
                     <div id="smtp-manual-fields" class="col-12 row g-3">
                         <div class="col-md-6">
                             <label asp-for="@Model.Setting.SmtpHost" class="form-label">SMTP Host</label>
                             <input type="text" class="form-control" asp-for="@Model.Setting.SmtpHost" placeholder="vd: mail.tenmien.com">
+                            <div class="form-text">Đây là <strong>địa chỉ máy chủ gửi mail</strong> do hosting cấp — <strong>không phải</strong> địa chỉ email của bạn. Dạng như <code>mail.tenmien.com</code>, không có ký hiệu @@.</div>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="@Model.Setting.SmtpPort" class="form-label">Port</label>
                             <input type="number" class="form-control" asp-for="@Model.Setting.SmtpPort" placeholder="vd: 587">
+                            <div class="form-text">Thường là <code>587</code> hoặc <code>465</code> — hosting sẽ ghi rõ số này kèm theo Host ở trên.</div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-check form-switch">
@@ -696,18 +705,12 @@
                     <div class="col-md-6">
                         <label asp-for="@Model.Setting.SmtpUsername" class="form-label">Tài khoản</label>
                         <input type="text" class="form-control" asp-for="@Model.Setting.SmtpUsername" placeholder="vd: noreply@tenmien.com hoặc tenban@gmail.com">
+                        <div class="form-text">Ô này mới là <strong>địa chỉ email</strong> dùng để đăng nhập gửi mail (có ký hiệu @@).</div>
                     </div>
                     <div class="col-md-6">
                         <label asp-for="@Model.Setting.SmtpPassword" class="form-label">Mật khẩu</label>
                         <input type="password" class="form-control" asp-for="@Model.Setting.SmtpPassword" autocomplete="new-password"
                                placeholder="@(Model.Setting.HasSmtpPassword ? "•••••••• (đã lưu — để trống nếu không đổi)" : "Nhập mật khẩu")">
-                    </div>
-
-                    <div class="col-12" id="smtp-note-hosting">
-                        <div class="form-text">Lấy thông tin này trong cPanel/Plesk của hosting → mục Email Accounts → Connect Devices.</div>
-                    </div>
-                    <div class="col-12" id="smtp-note-gmail" style="display:none">
-                        <div class="form-text">Bật Xác minh 2 bước rồi tạo App Password tại <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener">myaccount.google.com/apppasswords</a> — dán mã 16 ký tự vào đây, không dùng mật khẩu Gmail thường.</div>
                     </div>
 
                     <div class="col-md-6">
