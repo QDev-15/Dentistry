@@ -1,0 +1,190 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Multi-targeted so the SAME project can be referenced from the .NET Framework 4.8 host
+         solutions (UniversalScanClient, ScanClient-FileOptics) and from a modern .NET 8 host
+         (Dentistry.Web / Dentistry.Admin in this solution, both net8.0) - a .NET Framework
+         process cannot load a .NET Core/.NET 8 assembly at all (different CLR), so one single
+         TFM can never cover both worlds; MSBuild instead builds this project twice; each target
+         gets its own ImageProcessing.dll under bin\<Config>\<TFM>\.
+         Was previously net10.0-windows instead of net8.0-windows, but this solution's installed
+         Visual Studio version does not support targeting .NET 10.0 (NETSDK1220) and every other
+         project here targets net8.0 anyway, so net8.0-windows is both the fix and the better
+         match - a net8.0 consumer still cannot reference a net10.0 library even once VS supports
+         it (NuGet enforces consumer-TFM >= library-TFM). -->
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
+    <RootNamespace>ImageProcessing</RootNamespace>
+    <AssemblyName>ImageProcessing</AssemblyName>
+    <PlatformTarget>x86</PlatformTarget>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <!-- ================= net8.0-windows-only: NuGet-sourced managed dependencies ================= -->
+  <ItemGroup Condition="'$(TargetFramework)'=='net8.0-windows'">
+    <!-- Vendored DLLs in lib/ (PdfiumViewer, PdfSharp) were built against .NET Framework's
+         System.Drawing and its 4.0.0.0 assembly identity. .NET's own System.Drawing.Common
+         package type-forwards from that legacy identity, so this reference is required even
+         though our own code would otherwise get Bitmap/etc. from the runtime. -->
+    <PackageReference Include="System.Drawing.Common" Version="8.0.31" />
+    <!-- PdfSharp's own runtime dependency closure (nothing in our code calls these APIs
+         directly - discovered by exercising every PdfSharp code path under .NET Framework).
+         Neither ships in the .NET 8 shared framework, so they need a real PackageReference
+         here rather than the net48-vendored copies these used to be under lib/. -->
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
+    <!-- The vendored lib/OpenCvSharp*.dll (managed, built for .NET Framework) crash under .NET
+         Core/.NET 5+: OpenCvSharp.Internal.WindowsLibraryLoader probes for
+         "System.Web.HttpContext, System.Web" to detect ASP.NET hosting, and .NET's built-in
+         empty System.Web compat-shim assembly makes that Type.GetType throw TypeLoadException
+         instead of returning null - a bug fixed in later OpenCvSharp4 releases. We only need the
+         fix in the MANAGED wrapper, so we take it from NuGet here while still deploying our own
+         vendored x86 OpenCvSharpExtern.dll native binary below (no OpenCvSharp4.runtime.win
+         reference - that package only ships x64 native builds).
+         Pinned to 4.11.0.20250507 rather than the newer 4.13.0.2026xxxx builds: those depend on
+         System.Drawing.Common >= 10.0.9, which only exists for a .NET 10 consumer and downgrades
+         (NU1605, treated as an error) under net8.0. 4.11.0.20250507 depends on
+         System.Drawing.Common >= 8.0.11, which net8.0-windows can satisfy directly. Re-verify the
+         WindowsLibraryLoader fix above is still present in whichever version is pinned here if
+         this ever gets bumped again. -->
+    <PackageReference Include="OpenCvSharp4" Version="4.11.0.20250507" />
+    <PackageReference Include="OpenCvSharp4.Extensions" Version="4.11.0.20250507" />
+  </ItemGroup>
+
+  <!-- ================= net48-only: vendored managed dependencies (original set) ================= -->
+  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
+    <Reference Include="OpenCvSharp">
+      <HintPath>.\lib\OpenCvSharp.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions">
+      <HintPath>.\lib\OpenCvSharp.Extensions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>.\lib\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Pkcs">
+      <HintPath>.\lib\System.Security.Cryptography.Pkcs.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+
+  <!-- ================= shared across both targets ================= -->
+  <ItemGroup>
+    <Reference Include="zxing">
+      <HintPath>.\lib\zxing.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="BitMiracle.LibTiff.NET">
+      <HintPath>.\lib\BitMiracle.LibTiff.NET.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="PdfiumViewer">
+      <HintPath>.\lib\PdfiumViewer.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="PdfSharp">
+      <HintPath>.\lib\PdfSharp.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Tesseract">
+      <HintPath>.\lib\Tesseract.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Bundled permissive font (DejaVu Sans, covers Vietnamese) for the invisible OCR text layer. -->
+    <EmbeddedResource Include="Assets\DejaVuSans.ttf" />
+
+    <!-- Native binaries: None+CopyToOutputDirectory (not <Reference>) so they propagate
+         reliably down a ProjectReference chain to a consuming host's own output folder.
+         Shared by both targets - same x86 native binary works whether the managed OpenCvSharp
+         wrapper on top of it is the net48-vendored build or the net8.0-windows NuGet build. -->
+    <None Include=".\lib\OpenCvSharpExtern.dll">
+      <Link>OpenCvSharpExtern.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\opencv_videoio_ffmpeg4130.dll">
+      <Link>opencv_videoio_ffmpeg4130.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\pdfium.dll">
+      <Link>pdfium.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <!-- PdfSharp's transitive runtime deps: invisible to static reference analysis (nothing in
+         our own code calls their APIs directly), so a plain <Reference> does not propagate them
+         through a ProjectReference chain - only Content-style copy does (same fix as above). -->
+    <None Include=".\lib\PdfSharp.System.dll">
+      <Link>PdfSharp.System.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\PdfSharp.Shared.dll">
+      <Link>PdfSharp.Shared.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
+    <!-- Tesseract native runtime (per-bitness). The managed Tesseract.dll above is enough to
+         compile; these must be present under x86/x64 next to the FINAL consuming app's exe for
+         OCR to actually run at runtime. -->
+    <None Include=".\lib\x86\leptonica-1.80.0.dll">
+      <Link>x86\leptonica-1.80.0.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\x86\tesseract41.dll">
+      <Link>x86\tesseract41.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\x64\leptonica-1.80.0.dll">
+      <Link>x64\leptonica-1.80.0.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\x64\tesseract41.dll">
+      <Link>x64\tesseract41.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- net48-only: these facade assemblies aren't referenced directly by our code (PdfSharp's
+       hidden transitive deps) but must still be deployed next to a net48 consumer's .exe; on
+       net8.0-windows they're built into the runtime and are NOT deployed (see the migration
+       notes in README.md for why some of these caused version-conflict bugs historically). -->
+  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
+    <None Include=".\lib\Microsoft.Bcl.AsyncInterfaces.dll">
+      <Link>Microsoft.Bcl.AsyncInterfaces.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\Microsoft.Extensions.Logging.Abstractions.dll">
+      <Link>Microsoft.Extensions.Logging.Abstractions.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\System.Security.Cryptography.Pkcs.dll">
+      <Link>System.Security.Cryptography.Pkcs.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\System.Memory.dll">
+      <Link>System.Memory.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\System.Buffers.dll">
+      <Link>System.Buffers.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include=".\lib\System.Numerics.Vectors.dll">
+      <Link>System.Numerics.Vectors.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
